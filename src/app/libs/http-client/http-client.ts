@@ -12,7 +12,7 @@ export const httpClient = (() => {
     config.headers["Content-Type"] = "application/json; charset=utf-8";
     config.headers["X-Requested-With"] = "XMLHttpRequest";
     config.headers.Accept = "*/*";
-    config.headers.Authorization = getToken();
+    config.headers.Authorization = `Bearer ${getToken()}`;
     return config;
   });
   return {

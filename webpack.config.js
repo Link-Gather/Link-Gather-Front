@@ -2,7 +2,6 @@ const path = require("path");
 const resolve = require("./webpack.config.resolve");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 require("dotenv").config({ silent: true });
 
 module.exports = () => {
@@ -30,7 +29,6 @@ module.exports = () => {
       ],
     },
     plugins: [
-      new ForkTsCheckerWebpackPlugin({ async: false }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: "src/index.html",

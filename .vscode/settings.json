@@ -1,0 +1,11 @@
+{
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.localesPaths": "src/app/libs/language",
+  "i18n-ally.readonly": true,
+  "i18n-ally.keystyle": "nested",
+}

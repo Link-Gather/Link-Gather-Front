@@ -7,7 +7,9 @@
     "start": "webpack serve --mode development --host 0.0.0.0",
     "build": "webpack",
     "test": "NODE_ENV=test jest --config jest.config.js",
-    "lint": "eslint ./src/app/** --ext .ts,.tsx"
+    "lint": "eslint ./src/app/** --ext .ts,.tsx",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -27,12 +29,22 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
     "@types/lodash": "^4.14.185",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
+    "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "dotenv": "^16.0.2",
     "eslint": "^8.23.1",
@@ -45,6 +57,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.6",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",

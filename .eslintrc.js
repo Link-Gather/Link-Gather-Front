@@ -3,6 +3,7 @@ module.exports = {
     "react-app",
     "plugin:import/typescript",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
   ],
   plugins: ["prettier"],
   settings: {

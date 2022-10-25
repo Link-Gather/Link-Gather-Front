@@ -1,4 +1,4 @@
-name: Raidiho deploy
+name: deploy
 
 on:
   pull_request:
@@ -38,4 +38,4 @@ jobs:
         run: aws s3 cp --recursive --region ap-northeast-2 build s3://${{ secrets.AWS_BUCKET_NAME }}/
 
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_DISTRIBUTION_ID}} --paths "/*"

@@ -24,10 +24,10 @@
       "@routes": ["app/routes"],
       "@models": ["app/models"],
       "@configs": ["app/configs"],
-      "@repositories": ["app/repositories"],
+      "@repositories": ["app/repositories"]
     },
     "outDir": "./dist"
   },
   "include": ["./"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

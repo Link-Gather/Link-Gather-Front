@@ -13,11 +13,6 @@ module.exports = {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: (config) => {
-    config.module.rules.push({
-      test: /\.s[ac]ss$/i,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-    });
-
     return {
       ...config,
       resolve: {

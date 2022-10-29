@@ -1,0 +1,23 @@
+{
+	"Generate Story template": {
+		"scope": "typescriptreact",
+		"prefix": "story",
+		"body": [
+			"import { ComponentProps } from 'react';",
+			"import { Meta, StoryObj } from '@storybook/react';",
+			"import { ${TM_FILENAME/(\\.stories\\.tsx)//} } from './${TM_FILENAME/(\\.stories\\.tsx)//}';",
+			"",
+			"type ArgTypes = ComponentProps<typeof ${TM_FILENAME/(\\.stories\\.tsx)//}>;",
+			"",
+			"export default {",
+			"  title: '${1:components}/${TM_FILENAME/(\\.stories\\.tsx)//}',",
+			"  component: ${TM_FILENAME/(\\.stories\\.tsx)//},",
+			"  args: {},",
+			"} as Meta<ArgTypes>;",
+			"",
+			"export const Default: StoryObj<ArgTypes> = {};",
+			""
+		],
+		"description": "Generate Story template"
+	}
+}

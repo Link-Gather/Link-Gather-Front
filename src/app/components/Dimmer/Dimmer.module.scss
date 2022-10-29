@@ -1,0 +1,34 @@
+.dimmer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    
+    & .spinner {
+        @keyframes spin {
+            0% {
+                stroke-dashoffset: 628px;
+            }
+            100% {
+                stroke-dashoffset: 0px;
+            }
+        }
+        width: 250px;
+        height: 250px;
+
+        transform: rotate(-90deg);
+
+        animation: spin 1000ms ease 0ms;
+        animation-direction: normal;
+        animation-iteration-count: infinite;
+
+        stroke: #6887e3;
+        stroke-width: 20;
+        stroke-dasharray: 628px;
+        fill: none;
+    }
+}

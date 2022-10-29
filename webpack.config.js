@@ -1,27 +1,27 @@
-const path = require("path");
-const resolve = require("./webpack.config.resolve");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-require("dotenv").config({ silent: true });
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const resolve = require('./webpack.config.resolve');
+require('dotenv').config({ silent: true });
 
 module.exports = () => {
   const mode =
     process.env.NODE_ENV === "production" ? "production" : "development";
 
   return {
-    entry: ["./src/index.tsx"],
-    mode: "development",
+    entry: ['./src/index.tsx'],
+    mode: 'development',
     resolve,
     output: {
-      path: path.join(__dirname, "/dist"),
-      filename: "[name].js",
+      path: path.join(__dirname, '/dist'),
+      filename: '[name].js',
     },
     module: {
       rules: [
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,
-          loader: "ts-loader",
+          loader: 'ts-loader',
           options: {
             transpileOnly: true,
           },
@@ -31,8 +31,8 @@ module.exports = () => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: "src/index.html",
-        favicon: "src/aseets/favicon/favicon3.ico",
+        template: 'src/index.html',
+        favicon: 'src/aseets/favicon/favicon3.ico',
       }),
     ],
     devServer: {

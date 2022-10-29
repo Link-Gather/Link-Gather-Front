@@ -5,12 +5,9 @@ const resolve = require('./webpack.config.resolve');
 require('dotenv').config({ silent: true });
 
 module.exports = () => {
-  const mode =
-    process.env.NODE_ENV === "production" ? "production" : "development";
-
   return {
     entry: ['./src/index.tsx'],
-    mode: 'development',
+    mode: process.env.NODE_ENV || 'development',
     resolve,
     output: {
       path: path.join(__dirname, '/dist'),
@@ -22,9 +19,11 @@ module.exports = () => {
           test: /\.tsx?$/,
           exclude: /node_modules/,
           loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-          },
+          options: { transpileOnly: true },
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
       ],
     },

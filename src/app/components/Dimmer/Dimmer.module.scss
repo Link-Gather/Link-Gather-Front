@@ -2,10 +2,12 @@
 
 @keyframes spin {
     0% {
-        stroke-dashoffset: 628px;
+        stroke-dashoffset: 600px;
+        transform: rotate(-90deg);
     }
     100% {
         stroke-dashoffset: 0px;
+        transform: rotate(270deg);
     }
 }
 
@@ -24,9 +26,8 @@
         width: 250px;
         height: 250px;
 
-        transform: rotate(-90deg);
 
-        animation: spin 1000ms ease 0ms;
+        animation: spin 1500ms ease 0ms;
         animation-direction: normal;
         animation-iteration-count: infinite;
         stroke-width: 20;

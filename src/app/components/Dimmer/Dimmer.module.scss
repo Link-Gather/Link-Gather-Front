@@ -35,6 +35,9 @@
         transition: stroke ease 200ms;
         @include themed() {
             stroke: get('primary-main');
+            &:hover {
+                stroke: get('primary-light');
+            }
         }
     }
 }

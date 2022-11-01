@@ -1,17 +1,17 @@
-import Axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { getToken } from "../util/getToken";
+import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getToken } from '../util/getToken';
 
 export const httpClient = (() => {
-  const axios = Axios.create({ baseURL: "http://localhost:3000" });
+  const axios = Axios.create({ baseURL: 'http://localhost:3000' });
   axios.interceptors.request.use((config) => {
     if (!config?.headers) {
       throw new Error(
         `Expected 'config' and 'config.headers' not to be undefined`
       );
     }
-    config.headers["Content-Type"] = "application/json; charset=utf-8";
-    config.headers["X-Requested-With"] = "XMLHttpRequest";
-    config.headers.Accept = "*/*";
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    config.headers.Accept = '*/*';
     config.headers.Authorization = `Bearer ${getToken()}`;
     return config;
   });

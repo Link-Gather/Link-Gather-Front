@@ -1,7 +1,6 @@
 import styles from './Dimmer.module.scss';
 
-export function Dimmer(props: {}) {
-  console.log(styles);
+export function Dimmer() {
   return (
     <div className={styles.dimmer}>
       <svg className={styles.spinner}>

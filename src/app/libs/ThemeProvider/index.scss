@@ -1,18 +1,22 @@
 $themes: (
-    default: (
-        primary-light: #adc2ff,
-        primary-main:  #6887e3,
-        primary-dark: #4a62a8,
-        paper: #ffffff,
-        text: #000000,
+  default: (
+    primary: (
+      light: #adc2ff,
+      main:  #6887e3,
+      dark: #4a62a8,
     ),
-    dark: (
-        primary-light: #ffe4ad,
-        primary-main:  #e8be68,
-        primary-dark: #ab8a48,
-        paper: #404258,
-        text: #ffffff,
+    paper: #ffffff,
+    text: #000000,
+  ),
+  dark: (
+    primary: (
+      light: #ffe4ad,
+      main:  #e8be68,
+      dark: #ab8a48,
     ),
+    paper: #404258,
+    text: #ffffff,
+  ),
 );
 
 @mixin themed() {
@@ -29,6 +33,6 @@ $themes: (
   }
 }
 
-@function get($key) {
-  @return map-get($theme-map, $key);
+@function get($key...) {
+  @return map-get($theme-map, $key...);
 }

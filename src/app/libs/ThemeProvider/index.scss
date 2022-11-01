@@ -1,0 +1,34 @@
+$themes: (
+    default: (
+        primary-light: #adc2ff,
+        primary-main:  #6887e3,
+        primary-dark: #4a62a8,
+        paper: #ffffff,
+        text: #000000,
+    ),
+    dark: (
+        primary-light: #ffe4ad,
+        primary-main:  #e8be68,
+        primary-dark: #ab8a48,
+        paper: #404258,
+        text: #ffffff,
+    ),
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    :global(.theme-#{$theme}) & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function get($key) {
+  @return map-get($theme-map, $key);
+}

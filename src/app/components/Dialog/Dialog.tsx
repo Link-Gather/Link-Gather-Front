@@ -14,15 +14,15 @@ function Dialog(props: {
         <p className={styles.dialogText}>{props.children}</p>
 
         {props.statusDialog === 'confirm' && (
-          <p className={styles.dialogButtons}>
+          <div className={styles.dialogButtons}>
             <Button onClick={props.onClose}>닫기</Button>
             <Button onClick={props.onClose}>확인</Button>
-          </p>
+          </div>
         )}
         {props.statusDialog === 'warning' && (
-          <p className={styles.dialogButtons}>
+          <div className={styles.dialogButtons}>
             <Button onClick={props.onClose}>닫기</Button>
-          </p>
+          </div>
         )}
       </div>
     </Portal>

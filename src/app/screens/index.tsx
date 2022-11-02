@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../components/Button';
 import { Dimmer } from '../components/Dimmer';
-import { Dialog, Portal } from '../components/Dialog';
+import { Dialog } from '../components/Dialog';
 
 function HomeScreen() {
   const [loading, setLoading] = useState(true);
@@ -22,13 +22,11 @@ function HomeScreen() {
       <span>홈페이지</span>
       {loading && <Dimmer />}
       <Button onClick={() => handleDialog()}>Dialog Test</Button>
-      <Portal>
-        {dialogOn && (
-          <Dialog statusDialog={'confirm'} onClose={() => handleDialog()}>
-            dialog test 중 입니다.
-          </Dialog>
-        )}
-      </Portal>
+      {dialogOn && (
+        <Dialog statusDialog={'confirm'} onClose={() => handleDialog()}>
+          dialog test 중 입니다.
+        </Dialog>
+      )}
     </div>
   );
 }

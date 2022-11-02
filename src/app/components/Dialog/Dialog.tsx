@@ -1,4 +1,5 @@
 import { Button } from '../Button';
+import { Portal } from './Portal';
 import styles from './Dialog.module.scss';
 
 function Dialog(props: {
@@ -6,12 +7,12 @@ function Dialog(props: {
   statusDialog?: 'confirm' | 'warning';
   onClose: () => void;
 }) {
-  console.log(props.statusDialog);
   return (
-    <>
+    <Portal>
       <div className={styles.background} />
       <div className={styles.contents}>
         <p className={styles.dialogText}>{props.children}</p>
+
         {props.statusDialog === 'confirm' && (
           <p className={styles.dialogButtons}>
             <Button onClick={props.onClose}>닫기</Button>
@@ -24,7 +25,7 @@ function Dialog(props: {
           </p>
         )}
       </div>
-    </>
+    </Portal>
   );
 }
 

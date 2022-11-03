@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Dimmer } from '../components';
+import { Carousel, Dimmer } from '../components';
+import imageData from 'app/components/Carousel/data.mock';
 
 function HomeScreen() {
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,11 @@ function HomeScreen() {
   return (
     <div>
       <span>홈페이지</span>
-      {loading && <Dimmer />}
+      {loading ? (
+        <Dimmer />
+      ) : (
+        <Carousel imageData={imageData} width='600px' height='350px' />
+      )}
     </div>
   );
 }

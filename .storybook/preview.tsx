@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DecoratorFn } from '@storybook/react';
+import { DecoratorFn, StoryContext } from '@storybook/react';
 import { ThemeProvider, useTheme } from '../src/app/libs/ThemeProvider';
 
 export const parameters = {
@@ -15,16 +15,27 @@ export const parameters = {
 export const decorators: DecoratorFn[] = [
   (storyFn, context) => (
     <ThemeProvider>
-      <ThemeSetter theme={context.parameters.backgrounds?.default === 'dark' ? 'dark' : 'default'} />
+      <ThemeSetter context={context} />
       {storyFn()}
     </ThemeProvider>
   )
 ]
 
-function ThemeSetter(props: { theme: 'default' | 'dark' }) {
+const colorToTheme = {
+  '#F8F8F8': 'default',
+  '#333333': 'dark',
+}
+
+function ThemeSetter({ context }: { context: StoryContext<any> }) {
   const { setTheme } = useTheme();
   useEffect(() => {
-    setTheme(props.theme);
-  }, [props.theme]);
+    if (context.globals.backgrounds?.value) {
+      setTheme(colorToTheme[context.globals.backgrounds.value] || 'default');
+    } else if (context.parameters.backgrounds.default) {
+      setTheme(context.parameters.backgrounds.default === 'dark' ? 'dark' : 'default');
+    } else {
+      setTheme('default');
+    }
+  }, [context]);
   return null;
 }

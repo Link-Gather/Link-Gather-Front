@@ -1,0 +1,31 @@
+@import "@libs/ThemeProvider";
+
+.chip {
+    padding: 4px 8px;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    
+    border-radius: 16px;
+    
+    &>:not(:first-of-type) {
+        margin-left: 4px;
+    }
+
+    @include themed() {
+
+        &.outlined {
+            border: 1px solid get('primary', 'main');
+            color: get('text');
+        }
+        &.filled {
+            background-color: get('primary', 'main');
+            color: get('contrast-text');
+        }
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}

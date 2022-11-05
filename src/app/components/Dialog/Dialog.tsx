@@ -4,7 +4,7 @@ import styles from './Dialog.module.scss';
 
 function Dialog(props: {
   children: React.ReactNode;
-  statusDialog?: 'confirm' | 'warning';
+  dialogStatus: 'confirm' | 'warning';
   onClose: () => void;
 }) {
   return (
@@ -13,13 +13,13 @@ function Dialog(props: {
       <div className={styles.contents}>
         <p className={styles.dialogText}>{props.children}</p>
 
-        {props.statusDialog === 'confirm' && (
+        {props.dialogStatus === 'confirm' && (
           <div className={styles.dialogButtons}>
             <Button onClick={props.onClose}>닫기</Button>
             <Button onClick={props.onClose}>확인</Button>
           </div>
         )}
-        {props.statusDialog === 'warning' && (
+        {props.dialogStatus === 'warning' && (
           <div className={styles.dialogButtons}>
             <Button onClick={props.onClose}>닫기</Button>
           </div>

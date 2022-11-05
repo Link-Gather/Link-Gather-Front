@@ -1,14 +1,30 @@
+import { useState } from 'react';
 import { Button } from '../Button';
-import styles from './Dialog.module.scss';
+import { Dialog } from './Dialog';
 
 function DialogButton(props: {
   children: React.ReactNode;
-  onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
+  dialogStatus: 'confirm' | 'warning';
+  dialogContents: React.ReactNode;
 }) {
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const handlerOpenDialog = () => {
+    setOpenDialog(!openDialog);
+  };
+
   return (
-    <Button className={styles.dialogOpenButton} onClick={props.onClick}>
-      {props.children}
-    </Button>
+    <>
+      <Button onClick={() => handlerOpenDialog()}>{props.children}</Button>
+      {openDialog && (
+        <Dialog
+          dialogStatus={props.dialogStatus}
+          onClose={() => handlerOpenDialog()}
+        >
+          {props.dialogContents}
+        </Dialog>
+      )}
+    </>
   );
 }
 

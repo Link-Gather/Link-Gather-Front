@@ -1,5 +1,5 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getToken } from '../../util/getToken';
+import { getToken } from '../util/getToken';
 
 export const httpClient = (() => {
   const axios = Axios.create({ baseURL: 'http://localhost:3000' });

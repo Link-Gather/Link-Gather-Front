@@ -5,7 +5,7 @@ function Chip(props: {
   label: React.ReactNode;
   variant?: 'filled' | 'outlined';
   selected?: boolean;
-  onClick?: () => void;
+  onClick: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }) {
@@ -23,7 +23,7 @@ function Chip(props: {
   return (
     <div className={`${styles.chip} ${styles[variant]} ${selected ? styles.selected : ''}`}>
       {startIcon}
-      <span className={onClick ? styles.clickable : ''} onClick={onClick}>
+      <span css={{ cursor: 'pointer' }} onClick={onClick}>
         {label}
       </span>
       {endIcon}

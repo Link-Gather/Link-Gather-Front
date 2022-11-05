@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { Chip } from './Chip';
 
@@ -54,72 +54,57 @@ export const Filled: StoryObj<ArgTypes> = {
 
 export const VariableComponents: StoryObj<ArgTypes> = {
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [selected, setSelected] = useState(true);
+    const handleClick = () => {
+      args.onClick();
+      setSelected((selected) => !selected);
+    };
+
     return (
       <div css={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <Chip label='outlined / non-clickable / no start icon / no end icon' variant='outlined' />
+        <Chip label='outlined ' variant='outlined' onClick={args.onClick} />
         <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip label='outlined / clickable / no start icon / no end icon' variant='outlined' onClick={args.onClick} />
+        <Chip label='outlined / start icon' variant='outlined' onClick={args.onClick} startIcon={startIcon} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='outlined / end icon' variant='outlined' onClick={args.onClick} endIcon={endIcon} />
         <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          label='outlined / clickable / start icon / no end icon'
+          label='outlined / start icon / end icon'
           variant='outlined'
           onClick={args.onClick}
           startIcon={startIcon}
+          endIcon={endIcon}
         />
         <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          label='outlined / clickable / no start icon / end icon'
+          label='outlined / start icon / end icon / selected(controlled)'
           variant='outlined'
-          onClick={args.onClick}
-          endIcon={endIcon}
-        />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip
-          label='outlined / non-clickable / start icon / end icon'
-          variant='outlined'
+          selected={selected}
+          onClick={handleClick}
           startIcon={startIcon}
           endIcon={endIcon}
         />
         <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='filled' variant='filled' onClick={args.onClick} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='filled / start icon' variant='filled' onClick={args.onClick} startIcon={startIcon} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='filled / end icon' variant='filled' onClick={args.onClick} endIcon={endIcon} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          label='outlined / clickable / start icon / end icon / selected'
-          variant='outlined'
-          selected
+          label='filled / start icon / end icon'
+          variant='filled'
           onClick={args.onClick}
           startIcon={startIcon}
           endIcon={endIcon}
         />
         <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip label='filled / non-clickable / no start icon / no end icon' variant='filled' />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip label='filled / clickable / no start icon / no end icon' variant='filled' onClick={args.onClick} />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          label='filled / clickable / start icon / no end icon'
+          label='filled / start icon / end icon / selected'
           variant='filled'
-          onClick={args.onClick}
-          startIcon={startIcon}
-        />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip
-          label='filled / clickable / no start icon / end icon'
-          variant='filled'
-          onClick={args.onClick}
-          endIcon={endIcon}
-        />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip
-          label='filled / non-clickable / start icon / end icon'
-          variant='filled'
-          startIcon={startIcon}
-          endIcon={endIcon}
-        />
-        <hr css={{ width: '100%', margin: '8px 0' }} />
-        <Chip
-          label='filled / clickable / start icon / end icon / selected'
-          variant='filled'
-          selected
-          onClick={args.onClick}
+          selected={selected}
+          onClick={handleClick}
           startIcon={startIcon}
           endIcon={endIcon}
         />

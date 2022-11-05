@@ -26,12 +26,10 @@ const startIcon = (
 );
 
 const endIcon = (
-  <button
+  <span
     css={{
       width: '16px',
       height: '16px',
-      margin: '0 4px',
-      padding: 0,
       border: 'none',
       borderRadius: '50%',
       backgroundColor: '#015dee',
@@ -43,7 +41,7 @@ const endIcon = (
     onClick={() => console.log('End Icon Clicked!')}
   >
     X
-  </button>
+  </span>
 );
 
 export const Outlined: StoryObj<ArgTypes> = {
@@ -83,6 +81,15 @@ export const VariableComponents: StoryObj<ArgTypes> = {
           endIcon={endIcon}
         />
         <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='outlined / clickable / start icon / end icon / selected'
+          variant='outlined'
+          selected
+          onClick={args.onClick}
+          startIcon={startIcon}
+          endIcon={endIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip label='filled / non-clickable / no start icon / no end icon' variant='filled' />
         <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip label='filled / clickable / no start icon / no end icon' variant='filled' onClick={args.onClick} />
@@ -104,6 +111,15 @@ export const VariableComponents: StoryObj<ArgTypes> = {
         <Chip
           label='filled / non-clickable / start icon / end icon'
           variant='filled'
+          startIcon={startIcon}
+          endIcon={endIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='filled / clickable / start icon / end icon / selected'
+          variant='filled'
+          selected
+          onClick={args.onClick}
           startIcon={startIcon}
           endIcon={endIcon}
         />

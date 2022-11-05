@@ -1,27 +1,48 @@
 @import "@libs/ThemeProvider";
 
 .chip {
+    height: 32px;
     padding: 4px 8px;
-
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     border-radius: 16px;
 
-    &>:not(:first-of-type) {
-        margin-left: 4px;
+    &.selected {
+        font-weight: 700;
     }
 
     @include themed() {
-
         &.outlined {
             border: 1px solid get('primary', 'main');
             color: get('text');
+            &:hover {
+                background-color: get('secondary', 'light');
+            }
+            &:active {
+                background-color: get('secondary', 'dark');
+            }
+            &.selected {
+                border: 2px solid get('primary', 'dark');
+            }
         }
         &.filled {
             background-color: get('primary', 'main');
             color: get('contrast-text');
+            &:hover {
+                background-color: get('primary', 'light');
+            }
+            &:active {
+                background-color: get('primary', 'dark');
+            }
+            &.selected {
+                border: 2px solid get('text');
+            }
         }
+    }
+
+    :not(:first-of-type) {
+        margin-left: 4px;
     }
 }
 

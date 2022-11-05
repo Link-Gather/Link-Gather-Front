@@ -5,7 +5,7 @@ function App() {
   return (
     <BrowserRouter>
       <AppRouter />
-      <div id='dialog-root'></div>
+      <div id='portal-root'></div>
     </BrowserRouter>
   );
 }

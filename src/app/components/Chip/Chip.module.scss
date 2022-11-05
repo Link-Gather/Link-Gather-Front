@@ -1,5 +1,36 @@
 @import "@libs/ThemeProvider";
 
+@mixin palette($palette) {
+    @include themed() {
+        &.outlined {
+            border: 1px solid get($palette, 'main');
+            color: get('text');
+            &:hover {
+                border: 1px solid get($palette, 'light');
+            }
+            &:active {
+                border: 1px solid get($palette, 'dark');
+            }
+            &.selected {
+                border-width: 2px;
+            }
+        }
+        &.filled {
+            background-color: get($palette, 'main');
+            color: get('contrast-text');
+            &:hover {
+                background-color: get($palette, 'light');
+            }
+            &:active {
+                background-color: get($palette, 'dark');
+            }
+            &.selected {
+                border-width: 2px;
+            }
+        }
+    }
+}
+
 .chip {
     height: 32px;
     padding: 4px 8px;
@@ -12,33 +43,14 @@
         font-weight: 700;
     }
 
-    @include themed() {
-        &.outlined {
-            border: 1px solid get('primary', 'main');
-            color: get('text');
-            &:hover {
-                background-color: get('secondary', 'light');
-            }
-            &:active {
-                background-color: get('secondary', 'dark');
-            }
-            &.selected {
-                border: 2px solid get('primary', 'dark');
-            }
-        }
-        &.filled {
-            background-color: get('primary', 'main');
-            color: get('contrast-text');
-            &:hover {
-                background-color: get('primary', 'light');
-            }
-            &:active {
-                background-color: get('primary', 'dark');
-            }
-            &.selected {
-                border: 2px solid get('text');
-            }
-        }
+    &.primary {
+        @include palette('primary');
+    }
+    &.secondary {
+        @include palette('secondary');
+    }
+    &.error {
+        @include palette('error');
     }
 
     :not(:first-of-type) {

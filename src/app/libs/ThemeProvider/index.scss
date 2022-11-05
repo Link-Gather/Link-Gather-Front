@@ -22,6 +22,11 @@ $themes: (
       main:  #aaaaaa,
       dark: #888888,
     ),
+    error: (
+      light: rgba(211, 47, 47, 0.6),
+      main:  rgba(211, 47, 47, 0.9),
+      dark: rgba(211, 47, 47, 1),
+    ),
     paper: #ffffff,
     text: #000000,
     contrast-text: #FFFFFF,
@@ -36,6 +41,11 @@ $themes: (
       light: #888888,
       main:  #aaaaaa,
       dark: #dddddd,
+    ),
+    error: (
+      light: rgba(244, 67, 54, 0.6),
+      main:  rgba(244, 67, 54, 0.9),
+      dark: rgba(244, 67, 54, 1),
     ),
     paper: #404258,
     text: #ffffff,

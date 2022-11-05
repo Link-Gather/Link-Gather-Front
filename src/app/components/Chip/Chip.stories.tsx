@@ -17,7 +17,7 @@ export const Default: StoryObj<ArgTypes> = {
   render: (args) => {
     return (
       <div
-        style={{
+        css={{
           height: '150px',
           display: 'inline-flex',
           flexDirection: 'column',
@@ -26,19 +26,13 @@ export const Default: StoryObj<ArgTypes> = {
         }}
       >
         <Chip {...args} />
-        <Chip
-          {...args}
-          label='simply dummy text'
-          onClick={undefined}
-          onStartIconClick={undefined}
-          onEndIconClick={undefined}
-        />
+        <Chip {...args} label='simply dummy text' onClick={undefined} />
         <Chip
           {...args}
           label='the printing and typesetting industry'
           startIcon={
             <span
-              style={{
+              css={{
                 width: '15px',
                 height: '15px',
                 display: 'block',
@@ -47,14 +41,13 @@ export const Default: StoryObj<ArgTypes> = {
               }}
             />
           }
-          onClick={undefined}
         />
         <Chip
           {...args}
           label={`Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}
           endIcon={
             <span
-              style={{
+              css={{
                 width: '20px',
                 height: '20px',
                 display: 'block',
@@ -70,7 +63,6 @@ export const Default: StoryObj<ArgTypes> = {
               X
             </span>
           }
-          onClick={undefined}
         />
       </div>
     );

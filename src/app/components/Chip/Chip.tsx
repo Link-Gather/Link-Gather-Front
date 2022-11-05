@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { clsx } from '../../util/classname';
 import styles from './Chip.module.scss';
 
 function Chip(props: {
@@ -8,12 +7,10 @@ function Chip(props: {
   variant?: 'filled' | 'outlined';
   onClick?: (data?: any) => void;
   startIcon?: React.ReactNode;
-  onStartIconClick?: (data?: any) => void;
   endIcon?: React.ReactNode;
-  onEndIconClick?: (data?: any) => void;
 }) {
   // prop destruction
-  const { label, data, variant = 'outlined', onClick, startIcon, onStartIconClick, endIcon, onEndIconClick } = props;
+  const { label, data, variant = 'outlined', onClick, startIcon, endIcon } = props;
 
   // lib hooks
   // state, ref, querystring hooks
@@ -23,24 +20,14 @@ function Chip(props: {
   // effects
   // handlers
   const handleClick = useCallback(() => onClick?.(data), [data, onClick]);
-  const handleStartIconClick = useCallback(() => onStartIconClick?.(data), [data, onStartIconClick]);
-  const handleEndIconClick = useCallback(() => onEndIconClick?.(data), [data, onEndIconClick]);
 
   return (
-    <div className={clsx({ [styles.chip]: true, [styles[variant]]: true })}>
-      {startIcon && (
-        <span className={clsx({ [styles.clickable]: !!onStartIconClick })} onClick={handleStartIconClick}>
-          {startIcon}
-        </span>
-      )}
-      <span className={clsx({ [styles.clickable]: !!onClick })} onClick={handleClick}>
+    <div className={`${styles.chip} ${styles[variant]}`}>
+      {startIcon}
+      <span className={onClick ? styles.clickable : ''} onClick={handleClick}>
         {label}
       </span>
-      {endIcon && (
-        <span className={clsx({ [styles.clickable]: !!onEndIconClick })} onClick={handleEndIconClick}>
-          {endIcon}
-        </span>
-      )}
+      {endIcon}
     </div>
   );
 }

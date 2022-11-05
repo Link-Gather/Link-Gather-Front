@@ -7,6 +7,7 @@ function DialogButton(props: {
   dialogStatus: 'confirm' | 'warning';
   dialogContents: React.ReactNode;
 }) {
+  const { children, dialogStatus, dialogContents } = props;
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const handlerOpenDialog = () => {
@@ -15,13 +16,10 @@ function DialogButton(props: {
 
   return (
     <>
-      <Button onClick={() => handlerOpenDialog()}>{props.children}</Button>
+      <Button onClick={() => handlerOpenDialog()}>{children}</Button>
       {openDialog && (
-        <Dialog
-          dialogStatus={props.dialogStatus}
-          onClose={() => handlerOpenDialog()}
-        >
-          {props.dialogContents}
+        <Dialog dialogStatus={dialogStatus} onClose={() => handlerOpenDialog()}>
+          {dialogContents}
         </Dialog>
       )}
     </>

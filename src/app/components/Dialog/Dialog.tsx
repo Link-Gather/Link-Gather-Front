@@ -7,21 +7,23 @@ function Dialog(props: {
   dialogStatus: 'confirm' | 'warning';
   onClose: () => void;
 }) {
+  const { children, dialogStatus, onClose } = props;
+
   return (
     <Portal>
       <div className={styles.background} />
       <div className={styles.contents}>
-        <p className={styles.dialogText}>{props.children}</p>
+        <p className={styles.dialogText}>{children}</p>
 
-        {props.dialogStatus === 'confirm' && (
+        {dialogStatus === 'confirm' && (
           <div className={styles.dialogButtons}>
-            <Button onClick={props.onClose}>닫기</Button>
-            <Button onClick={props.onClose}>확인</Button>
+            <Button onClick={onClose}>닫기</Button>
+            <Button onClick={onClose}>확인</Button>
           </div>
         )}
-        {props.dialogStatus === 'warning' && (
+        {dialogStatus === 'warning' && (
           <div className={styles.dialogButtons}>
-            <Button onClick={props.onClose}>닫기</Button>
+            <Button onClick={onClose}>닫기</Button>
           </div>
         )}
       </div>

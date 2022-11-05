@@ -13,56 +13,99 @@ export default {
   },
 } as Meta<ArgTypes>;
 
-export const Default: StoryObj<ArgTypes> = {
+const startIcon = (
+  <span
+    css={{
+      width: '20px',
+      height: '20px',
+      display: 'block',
+      borderRadius: '50%',
+      backgroundColor: '#000',
+    }}
+  />
+);
+
+const endIcon = (
+  <button
+    css={{
+      width: '16px',
+      height: '16px',
+      margin: '0 4px',
+      padding: 0,
+      border: 'none',
+      borderRadius: '50%',
+      backgroundColor: '#015dee',
+      color: '#FFF',
+      textAlign: 'center',
+      fontWeight: 700,
+      cursor: 'pointer',
+    }}
+    onClick={() => console.log('End Icon Clicked!')}
+  >
+    X
+  </button>
+);
+
+export const Outlined: StoryObj<ArgTypes> = {
+  args: { variant: 'outlined' },
+};
+
+export const Filled: StoryObj<ArgTypes> = {
+  args: { variant: 'filled' },
+};
+
+export const VariableComponents: StoryObj<ArgTypes> = {
   render: (args) => {
     return (
-      <div
-        css={{
-          height: '150px',
-          display: 'inline-flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'space-around',
-        }}
-      >
-        <Chip {...args} />
-        <Chip {...args} label='simply dummy text' onClick={undefined} />
+      <div css={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Chip label='outlined / non-clickable / no start icon / no end icon' variant='outlined' />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='outlined / clickable / no start icon / no end icon' variant='outlined' onClick={args.onClick} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          {...args}
-          label='the printing and typesetting industry'
-          startIcon={
-            <span
-              css={{
-                width: '15px',
-                height: '15px',
-                display: 'block',
-                borderRadius: '50%',
-                border: '1px solid #000',
-              }}
-            />
-          }
+          label='outlined / clickable / start icon / no end icon'
+          variant='outlined'
+          onClick={args.onClick}
+          startIcon={startIcon}
         />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
         <Chip
-          {...args}
-          label={`Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}
-          endIcon={
-            <span
-              css={{
-                width: '20px',
-                height: '20px',
-                display: 'block',
-                borderRadius: '50%',
-                backgroundColor: '#015dee',
-                color: '#FFF',
-                fontSize: '16px',
-                lineHeight: '20px',
-                fontWeight: 700,
-                textAlign: 'center',
-              }}
-            >
-              X
-            </span>
-          }
+          label='outlined / clickable / no start icon / end icon'
+          variant='outlined'
+          onClick={args.onClick}
+          endIcon={endIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='outlined / non-clickable / start icon / end icon'
+          variant='outlined'
+          startIcon={startIcon}
+          endIcon={endIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='filled / non-clickable / no start icon / no end icon' variant='filled' />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip label='filled / clickable / no start icon / no end icon' variant='filled' onClick={args.onClick} />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='filled / clickable / start icon / no end icon'
+          variant='filled'
+          onClick={args.onClick}
+          startIcon={startIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='filled / clickable / no start icon / end icon'
+          variant='filled'
+          onClick={args.onClick}
+          endIcon={endIcon}
+        />
+        <hr css={{ width: '100%', margin: '8px 0' }} />
+        <Chip
+          label='filled / non-clickable / start icon / end icon'
+          variant='filled'
+          startIcon={startIcon}
+          endIcon={endIcon}
         />
       </div>
     );

@@ -1,16 +1,15 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styles from './Chip.module.scss';
 
 function Chip(props: {
   label: React.ReactNode;
-  data?: any;
   variant?: 'filled' | 'outlined';
-  onClick?: (data?: any) => void;
+  onClick?: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
 }) {
   // prop destruction
-  const { label, data, variant = 'outlined', onClick, startIcon, endIcon } = props;
+  const { label, variant = 'outlined', onClick, startIcon, endIcon } = props;
 
   // lib hooks
   // state, ref, querystring hooks
@@ -19,12 +18,11 @@ function Chip(props: {
   // calculated values
   // effects
   // handlers
-  const handleClick = useCallback(() => onClick?.(data), [data, onClick]);
 
   return (
     <div className={`${styles.chip} ${styles[variant]}`}>
       {startIcon}
-      <span className={onClick ? styles.clickable : ''} onClick={handleClick}>
+      <span className={onClick ? styles.clickable : ''} onClick={onClick}>
         {label}
       </span>
       {endIcon}

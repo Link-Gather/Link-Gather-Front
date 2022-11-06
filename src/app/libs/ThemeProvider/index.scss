@@ -1,3 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 $themes: (
   default: (
     primary: (
@@ -5,8 +17,19 @@ $themes: (
       main:  #6887e3,
       dark: #4a62a8,
     ),
+    secondary: (
+      light: #dddddd,
+      main:  #aaaaaa,
+      dark: #888888,
+    ),
+    error: (
+      light: rgba(211, 47, 47, 0.6),
+      main:  rgba(211, 47, 47, 0.9),
+      dark: rgba(211, 47, 47, 1),
+    ),
     paper: #ffffff,
     text: #000000,
+    contrast-text: #FFFFFF,
   ),
   dark: (
     primary: (
@@ -14,8 +37,19 @@ $themes: (
       main:  #e8be68,
       dark: #ab8a48,
     ),
+    secondary: (
+      light: #888888,
+      main:  #aaaaaa,
+      dark: #dddddd,
+    ),
+    error: (
+      light: rgba(244, 67, 54, 0.6),
+      main:  rgba(244, 67, 54, 0.9),
+      dark: rgba(244, 67, 54, 1),
+    ),
     paper: #404258,
     text: #ffffff,
+    contrast-text: #000000,
   ),
 );
 

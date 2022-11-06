@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.contents {
+.dialogWrap {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -17,15 +17,25 @@
   background-color: #ffffff;
   padding: 1rem;
 
-  & .dialogText {
+  & .title {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bolder;
+    border-bottom: 1px solid #666666;
+    margin: 0;
+  }
+
+  & .contents {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80%;
+    height: calc(100% - 60px);
   }
-  & .dialogButtons {
+  & .buttons {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    height: 30px;
     button {
       margin: 0 0.25rem;
     }

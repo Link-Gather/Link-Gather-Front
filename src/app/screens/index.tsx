@@ -19,7 +19,7 @@ function HomeScreen() {
 
       <DialogButton
         render={({ onClose }) => (
-          <Dialog dialogStatus={'confirm'} onClose={onClose}>
+          <Dialog dialogStatus={'confirm'} onClose={onClose} title={'제목'}>
             Render Prop!
           </Dialog>
         )}

@@ -4,27 +4,28 @@ import styles from './Dialog.module.scss';
 
 function Dialog(props: {
   children: React.ReactNode;
+  title?: string;
   dialogStatus: 'confirm' | 'warning';
   onClose: () => void;
 }) {
-  const { children, dialogStatus, onClose } = props;
+  const { children, title, dialogStatus, onClose } = props;
 
   return (
     <Portal>
       <div className={styles.background} />
-      <div className={styles.contents}>
-        <p className={styles.dialogText}>{children}</p>
-
+      <div className={styles.dialogWrap}>
+        {title && <h3 className={styles.title}>{title}</h3>}
+        <section className={styles.contents}>{children}</section>
         {dialogStatus === 'confirm' && (
-          <div className={styles.dialogButtons}>
+          <section className={styles.buttons}>
             <Button onClick={onClose}>닫기</Button>
             <Button onClick={onClose}>확인</Button>
-          </div>
+          </section>
         )}
         {dialogStatus === 'warning' && (
-          <div className={styles.dialogButtons}>
+          <section className={styles.buttons}>
             <Button onClick={onClose}>닫기</Button>
-          </div>
+          </section>
         )}
       </div>
     </Portal>

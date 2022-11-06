@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Dimmer } from '../components/Dimmer';
+import { Dialog } from 'app/components/Dialog';
 import { DialogButton } from '../components/Dialog/DialogButton';
 
 function HomeScreen() {
@@ -17,16 +18,13 @@ function HomeScreen() {
       {loading && <Dimmer />}
 
       <DialogButton
-        dialogStatus={'confirm'}
-        dialogContents={'Dialog Confirm Test 내용'}
+        render={({ onClose }) => (
+          <Dialog dialogStatus={'confirm'} onClose={onClose}>
+            Render Prop!
+          </Dialog>
+        )}
       >
-        Dialog Confirm Test
-      </DialogButton>
-      <DialogButton
-        dialogStatus={'warning'}
-        dialogContents={'Dialog Warning Test 내용'}
-      >
-        Dialog Warning Test
+        Dialog Open
       </DialogButton>
     </div>
   );

@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../Button';
 
-function DialogButton(props: {
-  children: React.ReactNode;
-  render: React.FC<{ onClose: () => void }>;
-}) {
+function DialogButton(props: { children: React.ReactNode; render: React.FC<{ onClose: () => void }> }) {
   const { children, render } = props;
+
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   return (

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from '../Button';
 import { Portal } from './Portal';
 import styles from './Dialog.module.scss';

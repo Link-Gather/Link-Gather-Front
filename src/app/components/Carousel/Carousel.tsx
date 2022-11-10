@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import imageData from './data.mock';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.scss';
 
 export default function Carousel(props: {
@@ -9,14 +8,18 @@ export default function Carousel(props: {
 }) {
   const imageBox = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState<number>(0);
+  const imagesLength = props.imageData.length;
+
   useEffect(() => {
     if (imageBox.current != null) {
       imageBox.current.style.transform = `translateX(-${num}00%)`;
     }
   }, [num]);
+
   useEffect(() => {
     const timer = setInterval(() => {
-      num < imageData.length - 1 ? setNum((num) => num + 1) : setNum(0);
+      // num < props.imageData.length - 1 ? setNum((num) => num + 1) : setNum(0);
+      setNum((num) => (num + 1) % imagesLength);
     }, 2500);
 
     return () => {
@@ -25,10 +28,10 @@ export default function Carousel(props: {
   });
 
   function onMoveNextImage() {
-    num < imageData.length - 1 ? setNum((num) => num + 1) : setNum(0);
+    num < imagesLength - 1 ? setNum((num) => num + 1) : setNum(0);
   }
   function onMovePrevImage() {
-    num === 0 ? setNum(imageData.length - 1) : setNum((num) => num - 1);
+    num === 0 ? setNum(imagesLength - 1) : setNum((num) => num - 1);
   }
   function onMoveDotImage(dotNum: number) {
     setNum(dotNum);
@@ -37,7 +40,7 @@ export default function Carousel(props: {
   return (
     <div
       className={styles.container}
-      style={{ width: props.width, height: props.height }}
+      css={{ width: props.width, height: props.height }}
     >
       <div className={styles.flexbox} ref={imageBox}>
         {props.imageData.map((image, idx) => {

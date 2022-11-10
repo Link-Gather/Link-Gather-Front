@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-interactions": "^6.5.12",
@@ -65,7 +66,7 @@
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "sass": "^1.55.0",
-    "sass-loader": "^13.1.0",
+    "sass-loader": "^10.3.1",
     "style-loader": "^3.3.1",
     "ts-jest": "^29.0.1",
     "ts-loader": "^9.3.1",

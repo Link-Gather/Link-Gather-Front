@@ -1,0 +1,59 @@
+@import "@libs/ThemeProvider";
+
+@mixin palette($palette) {
+    @include themed() {
+        &.outlined {
+            border: 1px solid get($palette, 'main');
+            color: get('text');
+            &:hover {
+                border: 1px solid get($palette, 'light');
+            }
+            &:active {
+                border: 1px solid get($palette, 'dark');
+            }
+            &.selected {
+                border-width: 2px;
+            }
+        }
+        &.filled {
+            background-color: get($palette, 'main');
+            color: get('contrast-text');
+            &:hover {
+                background-color: get($palette, 'light');
+            }
+            &:active {
+                background-color: get($palette, 'dark');
+            }
+            &.selected {
+                border-width: 2px;
+            }
+        }
+    }
+}
+
+.chip {
+    height: 32px;
+    padding: 4px 8px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 16px;
+
+    &.selected {
+        font-weight: 700;
+    }
+
+    &.primary {
+        @include palette('primary');
+    }
+    &.secondary {
+        @include palette('secondary');
+    }
+    &.error {
+        @include palette('error');
+    }
+
+    :not(:first-of-type) {
+        margin-left: 4px;
+    }
+}

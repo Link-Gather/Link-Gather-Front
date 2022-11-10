@@ -11,3 +11,9 @@ export default {
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};
+
+export const DarkTheme: StoryObj<ArgTypes> = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+};

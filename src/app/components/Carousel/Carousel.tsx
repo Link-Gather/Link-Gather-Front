@@ -18,7 +18,6 @@ export default function Carousel(props: {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      // num < props.imageData.length - 1 ? setNum((num) => num + 1) : setNum(0);
       setNum((num) => (num + 1) % imagesLength);
     }, 2500);
 

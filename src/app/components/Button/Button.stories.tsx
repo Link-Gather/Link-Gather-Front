@@ -7,8 +7,12 @@ type ArgTypes = ComponentProps<typeof Button>;
 export default {
   title: 'components/Button',
   component: Button,
-  args: { children: 'aaaaa' },
+  args: { children: 'Lorem Ipsum' },
   argTypes: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};
+
+export const Test: StoryObj<ArgTypes> = {
+  args: { children: 'Some new story' },
+};

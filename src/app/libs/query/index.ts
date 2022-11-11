@@ -49,7 +49,10 @@ export const useQuery = <Variables, Result>(
 };
 
 export const useMutation = <Variables, Result>(
-  mutateFn: (variables: Variables) => Promise<Result>
+  mutateFn: (variables: Variables) => Promise<Result>,
+  options?: {
+    disableRefetch?: boolean;
+  }
 ) => {
   const queryClient = useQueryClient();
   const queryKey = useMemo(() => {
@@ -62,7 +65,8 @@ export const useMutation = <Variables, Result>(
 
   return reactUseMutation(queryKey, mutateFn, {
     onSuccess: () => {
-      queryClient.refetchQueries(queryKey, { exact: false });
+      !options?.disableRefetch &&
+        queryClient.refetchQueries(queryKey, { exact: false });
     },
   });
 };

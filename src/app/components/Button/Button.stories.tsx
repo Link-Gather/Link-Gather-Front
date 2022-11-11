@@ -12,7 +12,3 @@ export default {
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};
-
-export const Test: StoryObj<ArgTypes> = {
-  args: { children: 'Some new story' },
-};

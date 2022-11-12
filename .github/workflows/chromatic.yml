@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0\
       - name: Install dependencies
-        run: yarn
+        run: npm ci
       - name: Publish to Chromatic
         if: github.ref != 'refs/heads/main'
         uses: chromaui/action@v1

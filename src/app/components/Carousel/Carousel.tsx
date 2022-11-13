@@ -2,13 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.scss';
 
 export default function Carousel(props: {
-  imageData: { id: number; src: string; alt?: string }[];
+  images: { id: number; src: string; alt?: string }[];
   width: string;
   height: string;
 }) {
   const imageBox = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState<number>(0);
-  const imagesLength = props.imageData.length;
 
   useEffect(() => {
     if (imageBox.current != null) {
@@ -18,7 +17,7 @@ export default function Carousel(props: {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setNum((num) => (num + 1) % imagesLength);
+      setNum((num) => (num + 1) % props.images.length);
     }, 2500);
 
     return () => {
@@ -26,52 +25,39 @@ export default function Carousel(props: {
     };
   });
 
-  function onMoveNextImage() {
-    num < imagesLength - 1 ? setNum((num) => num + 1) : setNum(0);
+  function handleSlideNext() {
+    num < props.images.length - 1 ? setNum((num) => num + 1) : setNum(0);
   }
-  function onMovePrevImage() {
-    num === 0 ? setNum(imagesLength - 1) : setNum((num) => num - 1);
+  function handleSlidePrev() {
+    num === 0 ? setNum(props.images.length - 1) : setNum((num) => num - 1);
   }
-  function onMoveDotImage(dotNum: number) {
+  function handleSlideDot(dotNum: number) {
     setNum(dotNum);
   }
 
   return (
-    <div
-      className={styles.container}
-      css={{ width: props.width, height: props.height }}
-    >
+    <div className={styles.container} css={{ width: props.width, height: props.height }}>
       <div className={styles.flexbox} ref={imageBox}>
-        {props.imageData.map((image, idx) => {
-          return (
-            <div
-              key={image.src}
-              className={styles.img}
-              css={{ backgroundImage: `url(${image.src})` }}
-            ></div>
-          );
+        {props.images.map((image) => {
+          return <div key={image.src} className={styles.img} css={{ backgroundImage: `url(${image.src})` }}></div>;
         })}
       </div>
       <div className={styles.dotBox}>
-        {props?.imageData.map((dot) => {
+        {props.images.map((dot) => {
           return (
             <div
               key={dot.src}
-              className={
-                dot.id !== num
-                  ? `${styles.dot}`
-                  : `${styles.dot}  ${styles.blackDot}`
-              }
+              className={dot.id !== num ? `${styles.dot}` : `${styles.dot}  ${styles.blackDot}`}
               onClick={() => {
-                onMoveDotImage(dot.id);
+                handleSlideDot(dot.id);
               }}
             ></div>
           );
         })}
       </div>
       <div className={styles.arrowbox} style={{ width: props.width }}>
-        <div className={styles.arrowLeft} onClick={onMovePrevImage}></div>
-        <div className={styles.arrowRight} onClick={onMoveNextImage}></div>
+        <button className={styles.arrowLeft} onClick={handleSlidePrev} />
+        <button className={styles.arrowRight} onClick={handleSlideNext} />
       </div>
     </div>
   );

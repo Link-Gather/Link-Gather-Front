@@ -1,4 +1,4 @@
-export const imageData = [
+export const images = [
   {
     id: 0,
     src: 'https://www.hotelscombined.co.kr/rimg/himg/16/58/ac/leonardo-2013827-OR_twilight_-_sakis_new_O-220265.jpg?width=1366&height=768&crop=true',
@@ -16,4 +16,4 @@ export const imageData = [
   },
 ];
 
-export default imageData;
+export default images;

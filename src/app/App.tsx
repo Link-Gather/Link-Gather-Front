@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@libs/query';
-import { ThemeProvider } from '@libs/ThemeProvider';
+import { ThemeProvider } from '@libs/theme';
 import { AppRouter } from './routes/routes';
 
 const queryClient = new QueryClient({

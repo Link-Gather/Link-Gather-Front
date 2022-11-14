@@ -18,7 +18,7 @@ function HomeScreen() {
     <div>
       <span>홈페이지</span>
 
-      {loading ? <Dimmer /> : <Carousel images={images} width='600px' height='350px' />}
+      {loading ? <Dimmer /> : <Carousel images={images} css={{ width: '500px', height: '350px' }} />}
 
       <DialogButton
         render={({ onClose }) => (

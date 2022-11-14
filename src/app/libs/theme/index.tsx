@@ -1,15 +1,13 @@
 import React, { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { Theme, ThemeProvider as EmotionThemeProvider, useTheme as useEmotionTheme } from '@emotion/react';
 import * as palettes from './palettes';
+import './index.css';
 
 type Palette = keyof typeof palettes;
 
-const PaletteContext = createContext<{
-  setPalette: (theme: Palette) => void;
-}>({
+const PaletteContext = createContext<{ setPalette: (theme: Palette) => void }>({
   setPalette: () => {},
 });
-
 const spacing = (...args: number[]) => args.map((space) => `${space * 4}px`).join(' ');
 
 function ThemeProvider(props: { children: ReactNode }) {

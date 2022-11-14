@@ -30,7 +30,7 @@ function Chip(props: {
           display: 'inline-flex',
           flexDirection: 'row',
           alignItems: 'center',
-          borderRadius: '32px',
+          borderRadius: '16px',
           '&>:not(:first-of-type)': {
             marginLeft: '4px',
           },

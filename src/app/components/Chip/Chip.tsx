@@ -58,7 +58,7 @@ function Chip(props: {
                 backgroundColor: theme.palette[color].dark,
               },
             },
-        selected && { borderWidth: '2px' },
+        selected && { borderWidth: '2px', fontWeight: 700 },
       ]}
     >
       {startIcon}

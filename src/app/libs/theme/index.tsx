@@ -44,4 +44,4 @@ export const useTheme = (): [Theme, (palette: Palette) => void] => {
   return [useEmotionTheme(), setPalette];
 };
 
-export { ThemeProvider };
+export { ThemeProvider, Theme };

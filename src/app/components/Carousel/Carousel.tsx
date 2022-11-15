@@ -1,5 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './Carousel.module.scss';
+import styled from '@emotion/styled';
+
+const ArrowButton = styled('button')({
+  height: '50px',
+  width: '30px',
+  backgroundColor: 'white',
+  margin: '0px 10px',
+  cursor: 'pointer',
+  opacity: '0.9',
+  borderRadius: '12px',
+  '&:hover': {
+    backgroundColor: 'rgb(148, 148, 148)',
+  },
+});
 
 export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className: string }) {
   const imageBox = useRef<HTMLDivElement>(null);
@@ -33,18 +46,74 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
   }
 
   return (
-    <div className={`${styles.container} ${className}`}>
-      <div className={styles.flexbox} ref={imageBox}>
+    <div
+      css={{
+        backgroundColor: 'rgb(205, 205, 205)',
+        margin: '0 auto',
+        overflow: 'hidden',
+        position: 'relative',
+      }}
+      className={className}
+    >
+      <div
+        css={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          transition: 'all 0.5s linear',
+        }}
+        ref={imageBox}
+      >
         {images.map((image) => {
-          return <img key={image.src} className={styles.img} css={{ backgroundImage: `url(${image.src})` }} alt={''} />;
+          return (
+            <img
+              key={image.src}
+              src={image.src}
+              css={{
+                width: '100%',
+                height: '100%',
+                flex: 'none',
+              }}
+              alt={image.alt}
+            />
+          );
         })}
       </div>
-      <div className={styles.dotBox}>
+      <div
+        css={{
+          position: 'absolute',
+          width: '150px',
+          marginLeft: '-75px',
+          height: '25px',
+          bottom: '5px',
+          left: '50%',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+        }}
+      >
         {images.map((dot) => {
           return (
             <div
               key={dot.src}
-              className={dot.id !== num ? `${styles.dot}` : `${styles.dot}  ${styles.blackDot}`}
+              css={[
+                {
+                  backgroundColor: 'rgb(255, 255, 255)',
+                  opacity: '0.9',
+                  height: '20px',
+                  width: '20px',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    backgroundColor: 'rgb(182, 182, 182)',
+                  },
+                },
+                dot.id !== num && {
+                  backgroundColor: 'rgb(182, 182, 182)',
+                  border: '2px solid white',
+                },
+              ]}
               onClick={() => {
                 handleSlideDot(dot.id);
               }}
@@ -52,9 +121,20 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
           );
         })}
       </div>
-      <div className={styles.arrowBox}>
-        <button className={styles.arrowLeft} onClick={handleSlidePrev} />
-        <button className={styles.arrowRight} onClick={handleSlideNext} />
+      <div
+        css={{
+          height: '100px',
+          position: 'absolute',
+          marginTop: '-50px',
+          top: '50%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
+        <ArrowButton onClick={handleSlidePrev} />
+        <ArrowButton onClick={handleSlideNext} />
       </div>
     </div>
   );

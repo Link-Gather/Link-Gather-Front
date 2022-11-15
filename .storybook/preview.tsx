@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { DecoratorFn, StoryContext } from '@storybook/react';
-import { ThemeProvider, useTheme } from '../src/app/libs/ThemeProvider';
+import { ThemeProvider, useTheme } from '../src/app/libs/theme';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -27,14 +27,14 @@ const colorToTheme = {
 }
 
 function ThemeSetter({ context }: { context: StoryContext<any> }) {
-  const { setTheme } = useTheme();
+  const [, setPalette] = useTheme();
   useEffect(() => {
     if (context.globals.backgrounds?.value) {
-      setTheme(colorToTheme[context.globals.backgrounds.value] || 'default');
+      setPalette(colorToTheme[context.globals.backgrounds.value] || 'default');
     } else if (context.parameters.backgrounds.default) {
-      setTheme(context.parameters.backgrounds.default === 'dark' ? 'dark' : 'default');
+      setPalette(context.parameters.backgrounds.default === 'dark' ? 'dark' : 'default');
     } else {
-      setTheme('default');
+      setPalette('default');
     }
   }, [context]);
   return null;

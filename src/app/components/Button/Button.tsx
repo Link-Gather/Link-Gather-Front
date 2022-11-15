@@ -4,10 +4,7 @@ function Button(props: {
   className?: string;
 }) {
   return (
-    <button
-      style={{ backgroundColor: '#000', color: '#FFF' }}
-      onClick={props.onClick}
-    >
+    <button css={{ backgroundColor: '#000', color: '#FFF' }} onClick={props.onClick}>
       {props.children}
     </button>
   );

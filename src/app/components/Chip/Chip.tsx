@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Chip.module.scss';
+import { Theme } from '@libs/theme';
 
 function Chip(props: {
   label: React.ReactNode;
@@ -15,14 +15,52 @@ function Chip(props: {
 
   // lib hooks
   // state, ref, querystring hooks
-  // form hooks
+  // form hook
   // query hooks
   // calculated values
   // effects
   // handlers
 
   return (
-    <div className={`${styles.chip} ${styles[variant]} ${styles[color]} ${selected ? styles.selected : ''}`}>
+    <div
+      css={(theme: Theme) => [
+        {
+          height: '32px',
+          padding: theme.spacing(1, 2),
+          display: 'inline-flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          borderRadius: '16px',
+          '&>:not(:first-of-type)': {
+            marginLeft: '4px',
+          },
+        },
+        variant === 'outlined'
+          ? {
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: theme.palette[color].main,
+              color: theme.palette.text,
+              '&:hover': {
+                borderColor: theme.palette[color].light,
+              },
+              '&:active': {
+                borderColor: theme.palette[color].dark,
+              },
+            }
+          : {
+              backgroundColor: theme.palette[color].main,
+              color: theme.palette.contrastText,
+              '&:hover': {
+                backgroundColor: theme.palette[color].light,
+              },
+              '&:active': {
+                backgroundColor: theme.palette[color].dark,
+              },
+            },
+        selected && { borderWidth: '2px', fontWeight: 700 },
+      ]}
+    >
       {startIcon}
       <span css={{ cursor: 'pointer' }} onClick={onClick}>
         {label}

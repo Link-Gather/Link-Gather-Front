@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.scss';
 
-export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className?: string }) {
+export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className: string }) {
   const imageBox = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState<number>(0);
   const { images, className } = props;
@@ -36,9 +36,7 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
     <div className={`${styles.container} ${className}`}>
       <div className={styles.flexbox} ref={imageBox}>
         {images.map((image) => {
-          return (
-            <img key={image.src} className={styles.img} css={{ backgroundImage: `url(${image.src})` }} alt={''}></img>
-          );
+          return <img key={image.src} className={styles.img} css={{ backgroundImage: `url(${image.src})` }} alt={''} />;
         })}
       </div>
       <div className={styles.dotBox}>
@@ -50,7 +48,7 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
               onClick={() => {
                 handleSlideDot(dot.id);
               }}
-            ></div>
+            />
           );
         })}
       </div>

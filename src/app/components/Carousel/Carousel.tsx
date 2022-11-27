@@ -16,33 +16,34 @@ const ArrowButton = styled('button')({
 
 export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className: string }) {
   const imageBox = useRef<HTMLDivElement>(null);
-  const [num, setNum] = useState<number>(0);
+  const [num, setNum] = useState<number>(1);
   const { images, className } = props;
-
-  useEffect(() => {
-    if (imageBox.current != null) {
-      imageBox.current.style.transform = `translateX(-${num}00%)`;
-    }
-  }, [num]);
+  const cloneImages = [images[images.length - 1], ...images, images[0]];
+  const lastImage = cloneImages.length - 1;
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setNum((num) => (num + 1) % images.length);
-    }, 2500);
-
+      num === cloneImages.length ? setNum(1) : setNum((num) => num + (1 % cloneImages.length));
+    }, 5000);
     return () => {
       clearInterval(timer);
     };
-  });
+  }, [cloneImages.length, num]);
+
+  useEffect(() => {
+    if (num === lastImage) handleOriginSlide(1);
+  }, [cloneImages.length, lastImage, num]);
 
   function handleSlideNext() {
-    num < images.length - 1 ? setNum((num) => num + 1) : setNum(0);
+    if (num < lastImage) setNum((num) => num + 1);
   }
   function handleSlidePrev() {
-    num === 0 ? setNum(images.length - 1) : setNum((num) => num - 1);
+    num === 1 ? handleOriginSlide(lastImage) : setNum((num) => num - 1);
   }
-  function handleSlideDot(dotNum: number) {
-    setNum(dotNum);
+  function handleOriginSlide(index: number): void {
+    setTimeout(() => {
+      if (imageBox.current !== null) setNum(index);
+    }, 1);
   }
 
   return (
@@ -61,14 +62,15 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
           width: '100%',
           height: '100%',
           alignItems: 'center',
-          transition: 'all 0.5s linear',
+          transition: num !== lastImage ? 'all 0.5s linear' : null,
+          transform: num !== lastImage ? `translateX(-${num}00%)` : null,
         }}
         ref={imageBox}
       >
-        {images.map((image) => {
+        {cloneImages.map((image, i) => {
           return (
             <img
-              key={image.src}
+              key={i}
               src={image.src}
               css={{
                 width: '100%',
@@ -109,13 +111,13 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
                     backgroundColor: 'rgb(182, 182, 182)',
                   },
                 },
-                dot.id !== num && {
+                dot.id + 1 !== num && {
                   backgroundColor: 'rgb(182, 182, 182)',
                   border: '2px solid white',
                 },
               ]}
               onClick={() => {
-                handleSlideDot(dot.id);
+                setNum(dot.id + 1);
               }}
             />
           );

@@ -17,14 +17,16 @@ const ArrowButton = styled('button')({
 export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className: string }) {
   const imageBox = useRef<HTMLDivElement>(null);
   const [num, setNum] = useState<number>(1);
+  const [carouselTransition, setCarouselTransition] = useState('');
   const { images, className } = props;
   const cloneImages = [images[images.length - 1], ...images, images[0]];
   const lastImage = cloneImages.length - 1;
 
   useEffect(() => {
     const timer = setInterval(() => {
-      num === cloneImages.length ? setNum(1) : setNum((num) => num + (1 % cloneImages.length));
-    }, 5000);
+      setNum((num) => num + 1);
+      setCarouselTransition('transform 500ms ease-in-out');
+    }, 2500);
     return () => {
       clearInterval(timer);
     };
@@ -32,18 +34,22 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
 
   useEffect(() => {
     if (num === lastImage) handleOriginSlide(1);
+    else if (num === 0) handleOriginSlide(lastImage - 1);
   }, [cloneImages.length, lastImage, num]);
 
   function handleSlideNext() {
     if (num < lastImage) setNum((num) => num + 1);
+    setCarouselTransition('transform 500ms ease-in-out');
   }
   function handleSlidePrev() {
-    num === 1 ? handleOriginSlide(lastImage) : setNum((num) => num - 1);
+    if (num > 0) setNum((num) => num - 1);
+    setCarouselTransition('transform 500ms ease-in-out');
   }
   function handleOriginSlide(index: number): void {
     setTimeout(() => {
-      if (imageBox.current !== null) setNum(index);
-    }, 1);
+      setNum(index);
+      setCarouselTransition('');
+    }, 500);
   }
 
   return (
@@ -62,8 +68,8 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
           width: '100%',
           height: '100%',
           alignItems: 'center',
-          transition: num !== lastImage ? 'all 0.5s linear' : null,
-          transform: num !== lastImage ? `translateX(-${num}00%)` : null,
+          transition: `${carouselTransition}`,
+          transform: `translateX(-${num}00%)`,
         }}
         ref={imageBox}
       >

@@ -2,7 +2,16 @@ import React from 'react';
 import { Portal } from './Portal';
 
 function Dialog(props: { children: React.ReactNode }) {
+  // prop destruction
   const { children } = props;
+
+  // lib hooks
+  // state, ref hooks
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
 
   return (
     <Portal>

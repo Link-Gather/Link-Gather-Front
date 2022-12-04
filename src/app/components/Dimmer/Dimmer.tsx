@@ -13,6 +13,15 @@ const spin = keyframes({
 });
 
 export function Dimmer() {
+  // prop destruction
+  // lib hooks
+  // state, ref hooks
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
+
   return (
     <div
       css={{

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../Button';
+import { Button } from '../../elements/Button';
 
 function DialogButton(props: { children: React.ReactNode; render: React.FC<{ onClose: () => void }> }) {
   const { children, render } = props;

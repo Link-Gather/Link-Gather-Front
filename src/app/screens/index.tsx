@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Dimmer } from 'app/components/Dimmer';
+import { Dimmer } from 'app/elements/Dimmer';
 import { Dialog, DialogTitle, DialogContent, DialogAction, DialogButton } from 'app/components/Dialog';
-import { Button } from 'app/components/Button';
+import { Button } from 'app/elements/Button';
 import images from 'app/screens/data.mock';
 
 import { Carousel } from '../components';

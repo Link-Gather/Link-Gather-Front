@@ -1,14 +1,8 @@
 import React from 'react';
-import { Button } from '../Button';
 import { Portal } from './Portal';
 
-function Dialog(props: {
-  children: React.ReactNode;
-  title?: string;
-  dialogStatus: 'confirm' | 'warning';
-  onClose: () => void;
-}) {
-  const { children, title, dialogStatus, onClose } = props;
+function Dialog(props: { children: React.ReactNode }) {
+  const { children } = props;
 
   return (
     <Portal>
@@ -27,65 +21,15 @@ function Dialog(props: {
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: '500px',
-          height: '300px',
-          margin: '-150px 0 0 -250px',
+          width: '30rem',
+          height: '20rem',
+          borderRadius: '0.8rem',
+          margin: '-10rem 0 0 -15rem',
           backgroundColor: '#ffffff',
           padding: '1rem',
         }}
       >
-        {title && (
-          <h3
-            css={{
-              width: '100%',
-              height: '30px',
-              lineHeight: '30px',
-              fontWeight: 'bolder',
-              borderBottom: '1px solid #666666',
-            }}
-          >
-            {title}
-          </h3>
-        )}
-        <section
-          css={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 'calc(100% - 60px)',
-          }}
-        >
-          {children}
-        </section>
-        {dialogStatus === 'confirm' && (
-          <section
-            css={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              height: '30px',
-              '&>button': {
-                margin: '0 0.25rem',
-              },
-            }}
-          >
-            <Button onClick={onClose}>닫기</Button>
-            <Button onClick={onClose}>확인</Button>
-          </section>
-        )}
-        {dialogStatus === 'warning' && (
-          <section
-            css={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              height: '30px',
-              '&>button': {
-                margin: '0 0.25rem',
-              },
-            }}
-          >
-            <Button onClick={onClose}>닫기</Button>
-          </section>
-        )}
+        {children}
       </div>
     </Portal>
   );

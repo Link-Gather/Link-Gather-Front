@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Carousel } from '../components';
+
+import { Dimmer } from 'app/components/Dimmer';
+import { Dialog, DialogTitle, DialogContent, DialogAction, DialogButton } from 'app/components/Dialog';
+import { Button } from 'app/components/Button';
 import images from 'app/screens/data.mock';
-import { Dimmer } from '../components/Dimmer';
-import { Dialog } from 'app/components/Dialog';
-import { DialogButton } from '../components/Dialog/DialogButton';
+
+import { Carousel } from '../components';
 
 function HomeScreen() {
   const [loading, setLoading] = useState(true);
@@ -22,12 +24,17 @@ function HomeScreen() {
 
       <DialogButton
         render={({ onClose }) => (
-          <Dialog dialogStatus={'confirm'} onClose={onClose} title={'제목'}>
-            Render Prop!
+          <Dialog>
+            <DialogTitle>제목</DialogTitle>
+            <DialogContent>컨텐츠</DialogContent>
+            <DialogAction>
+              <Button onClick={onClose}>닫기</Button>
+              <Button onClick={() => console.log('확인 버튼을 눌렀습니다.')}>확인</Button>
+            </DialogAction>
           </Dialog>
         )}
       >
-        Dialog Open
+        Dialog
       </DialogButton>
     </div>
   );

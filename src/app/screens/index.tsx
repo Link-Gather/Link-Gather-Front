@@ -8,13 +8,22 @@ import images from 'app/screens/data.mock';
 import { Carousel } from '../components';
 
 function HomeScreen() {
+  // prop destruction
+  // lib hooks
+  // state, ref hooks
   const [loading, setLoading] = useState(true);
 
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2500);
   }, []);
+
+  // handlers
 
   return (
     <div>
@@ -23,7 +32,7 @@ function HomeScreen() {
       {loading ? <Dimmer /> : <Carousel images={images} css={{ width: '500px', height: '350px' }} />}
 
       <DialogButton
-        render={({ onClose }) => (
+        dialogRender={({ onClose }) => (
           <Dialog>
             <DialogTitle>제목</DialogTitle>
             <DialogContent>컨텐츠</DialogContent>

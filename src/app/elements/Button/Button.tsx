@@ -3,6 +3,17 @@ function Button(props: {
   onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
   className?: string;
 }) {
+  // prop destruction
+  const { children, onClick, className } = props;
+
+  // lib hooks
+  // state, ref hooks
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
+
   return (
     <button
       css={{
@@ -16,9 +27,10 @@ function Button(props: {
         padding: '0 1.2rem',
         cursor: 'pointer',
       }}
-      onClick={props.onClick}
+      className={className}
+      onClick={onClick}
     >
-      {props.children}
+      {children}
     </button>
   );
 }

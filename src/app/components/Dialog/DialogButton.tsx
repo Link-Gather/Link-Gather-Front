@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { Button } from '../../elements/Button';
 
-function DialogButton(props: { children: React.ReactNode; render: React.FC<{ onClose: () => void }> }) {
-  const { children, render } = props;
+function DialogButton(props: { children: React.ReactNode; dialogRender: React.FC<{ onClose: () => void }> }) {
+  // prop destruction
+  const { children, dialogRender } = props;
 
+  // lib hooks
+  // state, ref hooks
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
 
   return (
     <>
       <Button onClick={() => setOpenDialog(true)}>{children}</Button>
-      {openDialog && render({ onClose: () => setOpenDialog(false) })}
+      {openDialog && dialogRender({ onClose: () => setOpenDialog(false) })}
     </>
   );
 }

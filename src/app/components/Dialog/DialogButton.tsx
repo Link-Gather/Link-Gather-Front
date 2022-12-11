@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from '../../elements/Button';
 
-function DialogButton(props: { children: React.ReactNode; dialogRender: React.FC<{ onClose: () => void }> }) {
+function DialogButton(props: { children: React.ReactNode; DialogComponent: React.FC<{ onClose: () => void }> }) {
   // prop destruction
-  const { children, dialogRender } = props;
+  const { children, DialogComponent } = props;
 
   // lib hooks
   // state, ref hooks
@@ -18,7 +18,7 @@ function DialogButton(props: { children: React.ReactNode; dialogRender: React.FC
   return (
     <>
       <Button onClick={() => setOpenDialog(true)}>{children}</Button>
-      {openDialog && dialogRender({ onClose: () => setOpenDialog(false) })}
+      {openDialog && DialogComponent({ onClose: () => setOpenDialog(false) })}
     </>
   );
 }

@@ -32,8 +32,8 @@ function HomeScreen() {
       {loading ? <Dimmer /> : <Carousel images={images} css={{ width: '500px', height: '350px' }} />}
 
       <DialogButton
-        dialogRender={({ onClose }) => (
-          <Dialog>
+        DialogComponent={({ onClose }) => (
+          <Dialog width='300px' height='200px'>
             <DialogTitle>제목</DialogTitle>
             <DialogContent>컨텐츠</DialogContent>
             <DialogAction>

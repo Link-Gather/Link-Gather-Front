@@ -1,9 +1,9 @@
 import React from 'react';
 import { Portal } from 'app/libs/portal';
 
-function Dialog(props: { children: React.ReactNode }) {
+function Dialog(props: { children: React.ReactNode; width: string; height: string }) {
   // prop destruction
-  const { children } = props;
+  const { children, width, height } = props;
 
   // lib hooks
   // state, ref hooks
@@ -30,10 +30,12 @@ function Dialog(props: { children: React.ReactNode }) {
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: '30rem',
-          height: '20rem',
+          display: 'flex',
+          flexDirection: 'column',
+          width: width,
+          height: height,
           borderRadius: '0.8rem',
-          margin: '-10rem 0 0 -15rem',
+          transform: 'translate(-50%, -50%)',
           backgroundColor: '#ffffff',
           padding: '1rem',
         }}

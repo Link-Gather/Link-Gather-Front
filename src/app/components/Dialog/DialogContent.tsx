@@ -14,9 +14,7 @@ function DialogContent(props: { children: React.ReactNode }) {
   return (
     <p
       css={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
         width: '100%',
         minHeight: '30px',
         lineHeight: '30px',

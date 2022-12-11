@@ -15,14 +15,11 @@ function DialogAction(props: { children: React.ReactNode }) {
   return (
     <div
       css={{
-        position: 'absolute',
-        bottom: '1rem',
-        left: '0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '4rem',
+        height: '30px',
         gap: '0.8rem',
       }}
     >

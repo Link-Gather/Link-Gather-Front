@@ -7,7 +7,7 @@ type ArgTypes = ComponentProps<typeof Button>;
 export default {
   title: 'components/Button',
   component: Button,
-  args: { children: 'Lorem Ipsum' },
+  args: { children: 'Lorem Ipsum is' },
   argTypes: {},
 } as Meta<ArgTypes>;
 

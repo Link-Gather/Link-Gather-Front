@@ -1,31 +1,47 @@
-import { Button } from '../Button';
-import { Portal } from './Portal';
-import styles from './Dialog.module.scss';
+import React from 'react';
 
-function Dialog(props: {
-  children: React.ReactNode;
-  dialogStatus: 'confirm' | 'warning';
-  onClose: () => void;
-}) {
-  const { children, dialogStatus, onClose } = props;
+import { Portal } from '@libs/portal';
+
+function Dialog(props: { children: React.ReactNode; width: string; height: string }) {
+  // prop destruction
+  const { children, width, height } = props;
+
+  // lib hooks
+  // state, ref hooks
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
 
   return (
     <Portal>
-      <div className={styles.background} />
-      <div className={styles.contents}>
-        <p className={styles.dialogText}>{children}</p>
-
-        {dialogStatus === 'confirm' && (
-          <div className={styles.dialogButtons}>
-            <Button onClick={onClose}>닫기</Button>
-            <Button onClick={onClose}>확인</Button>
-          </div>
-        )}
-        {dialogStatus === 'warning' && (
-          <div className={styles.dialogButtons}>
-            <Button onClick={onClose}>닫기</Button>
-          </div>
-        )}
+      <div
+        css={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }}
+      >
+        <div
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: width,
+            height: height,
+            borderRadius: '8px',
+            backgroundColor: '#ffffff',
+            padding: '10px',
+          }}
+        >
+          {children}
+        </div>
       </div>
     </Portal>
   );

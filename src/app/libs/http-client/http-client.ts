@@ -5,9 +5,7 @@ export const httpClient = (() => {
   const axios = Axios.create({ baseURL: 'http://localhost:3000' });
   axios.interceptors.request.use((config) => {
     if (!config?.headers) {
-      throw new Error(
-        `Expected 'config' and 'config.headers' not to be undefined`
-      );
+      throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
     }
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -16,10 +14,7 @@ export const httpClient = (() => {
     return config;
   });
   return {
-    async get<T>(
-      url: string,
-      config?: { params?: Record<string, any> }
-    ): Promise<T> {
+    async get<T>(url: string, config?: { params?: Record<string, any> }): Promise<T> {
       const res = await axios.get(url, config);
       return res?.data;
     },
@@ -31,10 +26,7 @@ export const httpClient = (() => {
       const res = await axios.patch(url, data);
       return res?.data;
     },
-    async delete<T>(
-      url: string,
-      config?: AxiosRequestConfig
-    ): Promise<AxiosResponse<T>> {
+    async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
       return axios.delete(url, config);
     },
   };

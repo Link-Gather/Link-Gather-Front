@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from 'app/elements';
 import { Carousel, Dialog } from 'app/components';
-import images from 'app/screens/data.mock';
 import { useDialog } from 'app/hooks/useDialog';
+import images from 'app/screens/data.mock';
 
 function HomeScreen() {
   // prop destruction
   // lib hooks
   const { isOpenDialog, openDialog, closeDialog } = useDialog();
+
   // state, ref hooks
   const [loading, setLoading] = useState(true);
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Portal } from 'app/libs/portal';
+
+import { Portal } from '../../libs/portal';
 
 function Dialog(props: { children: React.ReactNode; width: string; height: string }) {
   // prop destruction

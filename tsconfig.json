@@ -20,6 +20,7 @@
       "@assets/*": ["assets/*"],
       "@libs/*": ["app/libs/*"],
       "@components": ["app/components"],
+      "@elements": ["app/elements"],
       "@screens": ["app/screens"],
       "@routes": ["app/routes"],
       "@models": ["app/models"],

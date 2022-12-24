@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from 'app/elements';
-import { Carousel, Dialog } from 'app/components';
-import { useDialog } from 'app/hooks/useDialog';
+import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from '@elements';
+import { Carousel, Dialog } from '@components';
+import { useDialog } from '@hooks';
 import images from 'app/screens/data.mock';
 
 function HomeScreen() {

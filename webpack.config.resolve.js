@@ -8,6 +8,7 @@ module.exports = {
     '@libs': path.resolve(__dirname, 'src', 'app', 'libs'),
     '@components': path.resolve(__dirname, 'src', 'app', 'components'),
     '@elements': path.resolve(__dirname, 'src', 'app', 'elements'),
+    '@hooks': path.resolve(__dirname, 'src', 'app', 'hooks'),
     '@screens': path.resolve(__dirname, 'src', 'app', 'screens'),
     '@routes': path.resolve(__dirname, 'src', 'app', 'routes'),
     '@models': path.resolve(__dirname, 'src', 'app', 'models'),

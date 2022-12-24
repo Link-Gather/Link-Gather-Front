@@ -21,6 +21,7 @@
       "@libs/*": ["app/libs/*"],
       "@components": ["app/components"],
       "@elements": ["app/elements"],
+      "@hooks": ["app/hooks"],
       "@screens": ["app/screens"],
       "@routes": ["app/routes"],
       "@models": ["app/models"],

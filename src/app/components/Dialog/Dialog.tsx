@@ -20,27 +20,27 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
           position: 'fixed',
           top: 0,
           left: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           width: '100%',
           height: '100vh',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
-      />
-      <div
-        css={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          width: width,
-          height: height,
-          borderRadius: '0.8rem',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#ffffff',
-          padding: '1rem',
-        }}
       >
-        {children}
+        <div
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: width,
+            height: height,
+            borderRadius: '8px',
+            backgroundColor: '#ffffff',
+            padding: '10px',
+          }}
+        >
+          {children}
+        </div>
       </div>
     </Portal>
   );

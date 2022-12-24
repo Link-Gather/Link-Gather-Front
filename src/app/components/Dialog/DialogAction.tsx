@@ -20,7 +20,7 @@ function DialogAction(props: { children: React.ReactNode }) {
         justifyContent: 'center',
         width: '100%',
         height: '30px',
-        gap: '0.8rem',
+        gap: '8px',
       }}
     >
       {children}

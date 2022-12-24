@@ -25,7 +25,7 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
-          height: '100vh',
+          height: '100%',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
       >

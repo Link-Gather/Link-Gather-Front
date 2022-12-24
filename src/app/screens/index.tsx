@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Dimmer } from 'app/elements/Dimmer';
-import { Dialog, DialogTitle, DialogContent, DialogAction, DialogButton } from 'app/components/Dialog';
-import { Button } from 'app/elements/Button';
+import { Button, DialogAction, DialogButton, DialogContent, DialogTitle, Dimmer } from 'app/elements';
+import { Carousel, Dialog } from 'app/components';
 import images from 'app/screens/data.mock';
-
-import { Carousel } from '../components';
 
 function HomeScreen() {
   // prop destruction

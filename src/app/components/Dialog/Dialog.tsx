@@ -1,9 +1,10 @@
 import React from 'react';
-import { Portal } from './Portal';
 
-function Dialog(props: { children: React.ReactNode }) {
+import { Portal } from '@libs/portal';
+
+function Dialog(props: { children: React.ReactNode; width: string; height: string }) {
   // prop destruction
-  const { children } = props;
+  const { children, width, height } = props;
 
   // lib hooks
   // state, ref hooks
@@ -20,25 +21,27 @@ function Dialog(props: { children: React.ReactNode }) {
           position: 'fixed',
           top: 0,
           left: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           width: '100%',
-          height: '100vh',
+          height: '100%',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
-      />
-      <div
-        css={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          width: '30rem',
-          height: '20rem',
-          borderRadius: '0.8rem',
-          margin: '-10rem 0 0 -15rem',
-          backgroundColor: '#ffffff',
-          padding: '1rem',
-        }}
       >
-        {children}
+        <div
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: width,
+            height: height,
+            borderRadius: '8px',
+            backgroundColor: '#ffffff',
+            padding: '10px',
+          }}
+        >
+          {children}
+        </div>
       </div>
     </Portal>
   );

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { Dimmer } from 'app/components/Dimmer';
-import { Dialog, DialogTitle, DialogContent, DialogAction, DialogButton } from 'app/components/Dialog';
-import { Button } from 'app/components/Button';
+import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from '@elements';
+import { Carousel, Dialog } from '@components';
+import { useDialog } from '@hooks';
 import images from 'app/screens/data.mock';
-
-import { Carousel } from '../components';
 
 function HomeScreen() {
   // prop destruction
   // lib hooks
+  const { isOpenDialog, openDialog, closeDialog } = useDialog();
+
   // state, ref hooks
   const [loading, setLoading] = useState(true);
 
@@ -31,20 +31,17 @@ function HomeScreen() {
 
       {loading ? <Dimmer /> : <Carousel images={images} css={{ width: '500px', height: '350px' }} />}
 
-      <DialogButton
-        dialogRender={({ onClose }) => (
-          <Dialog>
-            <DialogTitle>제목</DialogTitle>
-            <DialogContent>컨텐츠</DialogContent>
-            <DialogAction>
-              <Button onClick={onClose}>닫기</Button>
-              <Button onClick={() => console.log('확인 버튼을 눌렀습니다.')}>확인</Button>
-            </DialogAction>
-          </Dialog>
-        )}
-      >
-        Dialog
-      </DialogButton>
+      <Button onClick={openDialog}>Dialog</Button>
+      {isOpenDialog && (
+        <Dialog width='300px' height='200px'>
+          <DialogTitle>제목</DialogTitle>
+          <DialogContent>컨텐츠</DialogContent>
+          <DialogAction>
+            <Button onClick={closeDialog}>닫기</Button>
+            <Button onClick={closeDialog}>확인</Button>
+          </DialogAction>
+        </Dialog>
+      )}
     </div>
   );
 }

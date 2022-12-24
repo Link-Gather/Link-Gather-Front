@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DialogContent(props: { children: React.ReactNode }) {
+function DialogAction(props: { children: React.ReactNode }) {
   // prop destruction
   const { children } = props;
 
@@ -11,20 +11,21 @@ function DialogContent(props: { children: React.ReactNode }) {
   // calculated values
   // effects
   // handlers
+
   return (
-    <p
+    <div
       css={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        minHeight: '30px',
-        lineHeight: '30px',
+        height: '30px',
+        gap: '8px',
       }}
     >
       {children}
-    </p>
+    </div>
   );
 }
 
-export { DialogContent };
+export { DialogAction };

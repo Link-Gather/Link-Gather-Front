@@ -1,12 +1,12 @@
 import { ComponentProps } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { DialogButton } from './DialogButton';
+import { Dialog } from './Dialog';
 
-type ArgTypes = ComponentProps<typeof DialogButton>;
+type ArgTypes = ComponentProps<typeof Dialog>;
 
 export default {
   title: 'components/Dialog',
-  component: DialogButton,
+  component: Dialog,
   args: {},
 } as Meta<ArgTypes>;
 

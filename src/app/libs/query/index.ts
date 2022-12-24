@@ -9,10 +9,7 @@ import {
 
 export { QueryClient, QueryClientProvider, useQueryClient };
 
-export const queryKeyMap = new Map<
-  (...args: any[]) => Promise<any>,
-  [string]
->();
+export const queryKeyMap = new Map<(...args: any[]) => Promise<any>, [string]>();
 
 /**
  * Apollo 와 동일한 signature 로 React Query 를 사용하기 위한 wrapper
@@ -65,8 +62,7 @@ export const useMutation = <Variables, Result>(
 
   return reactUseMutation(queryKey, mutateFn, {
     onSuccess: () => {
-      !options?.disableRefetch &&
-        queryClient.refetchQueries(queryKey, { exact: false });
+      !options?.disableRefetch && queryClient.refetchQueries(queryKey, { exact: false });
     },
   });
 };

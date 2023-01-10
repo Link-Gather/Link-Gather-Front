@@ -5,7 +5,7 @@ import { Chip } from './Chip';
 type ArgTypes = ComponentProps<typeof Chip>;
 
 export default {
-  title: 'components/Chip',
+  title: 'elements/Chip',
   component: Chip,
   args: {
     label: 'Lorem Ipsum',

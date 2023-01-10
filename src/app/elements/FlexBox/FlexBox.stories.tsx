@@ -8,6 +8,8 @@ export default {
   title: 'elements/FlexBox',
   component: FlexBox,
   args: {
+    width: '100%',
+    height: '100%',
     children: (
       <>
         <div css={{ border: '1px solid #aaaaaa' }}>First Child</div>

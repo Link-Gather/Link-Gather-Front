@@ -15,13 +15,15 @@ function FlexBox(props: {
   children?: ReactNode;
   direction?: CSSProperties['flexDirection'];
   spacing?: number;
+  width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
   justifyContent?: CSSProperties['justifyContent'];
   justifyItems?: CSSProperties['justifyItems'];
   alignContent?: CSSProperties['alignContent'];
   alignItems?: CSSProperties['alignItems'];
 }) {
   // prop destruction
-  const { children, className, direction = 'row', spacing, ...flexProperties } = props;
+  const { children, className, direction = 'row', width, height, spacing, ...flexProperties } = props;
 
   // lib hooks
   // state, ref, querystring hooks
@@ -37,8 +39,8 @@ function FlexBox(props: {
       css={(theme: Theme) => {
         return [
           {
-            width: '100%',
-            height: '100%',
+            width,
+            height,
             display: 'flex',
             flexDirection: direction,
             ...flexProperties,

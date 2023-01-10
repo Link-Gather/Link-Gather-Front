@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from '@elements';
 import { Carousel, Dialog } from '@components';
 import { useDialog } from '@hooks';

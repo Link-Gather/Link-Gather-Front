@@ -1,11 +1,12 @@
-import { HomeScreen } from '@screens';
+import { HomeScreen, LoginScreen } from '@screens';
 import { Route, Routes } from 'react-router-dom';
-import { ROUTE_ROOT } from './const';
+import { ROUTE_LOGIN } from './const';
 
 function AppRouter() {
   return (
     <Routes>
-      <Route path={ROUTE_ROOT} element={<HomeScreen />} />
+      <Route index element={<HomeScreen />} />
+      <Route path={ROUTE_LOGIN} element={<LoginScreen />} />
     </Routes>
   );
 }

@@ -1,10 +1,5 @@
 import React from 'react';
-
-// TODO: 임시로 발급받은 것들. 서비스용으로 카카오앱 생성하면 대채할 것!!
-const REST_API_KEY = '305bb38aacda45d3d802e563c3cd167f';
-const SECRET_SECRET = 'aU4MmvqXsb38tXeGMKBZnp12EzUMvjVO';
-
-const REDIRECT_URI = 'http://localhost:3030/oauth/kakao';
+import { KAKAO_CLIENT_ID, REDIRECT_URI } from '@configs';
 
 /**
  * 출처: https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:KakaoTalk_logo.svg
@@ -23,6 +18,8 @@ const kakaoIcon = (
   </svg>
 );
 
+const href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/kakao&response_type=code`;
+
 function KakaoLoginButton() {
   // prop destruction
   // lib hooks
@@ -33,13 +30,7 @@ function KakaoLoginButton() {
   // effects
   // handlers
 
-  return (
-    <a
-      href={`https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`}
-    >
-      {kakaoIcon}
-    </a>
-  );
+  return <a href={href}>{kakaoIcon}</a>;
 }
 
 export { KakaoLoginButton };

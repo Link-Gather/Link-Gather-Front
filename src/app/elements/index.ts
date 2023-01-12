@@ -5,3 +5,4 @@ export * from './DialogContent';
 export * from './DialogTitle';
 export * from './Dimmer';
 export * from './FlexBox';
+export * from './KakaoLoginButton';

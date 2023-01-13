@@ -1,9 +1,5 @@
 export const getToken = () => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    return `${token}`;
-  }
-  return '';
+  return localStorage.getItem('token') || '';
 };
 
 export const isToken = () => {

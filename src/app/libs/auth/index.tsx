@@ -3,6 +3,11 @@ import { User } from '@models';
 import { getToken } from '../util';
 import { httpClient } from '../http-client';
 
+const loadToken = (token: string) => {
+  httpClient.setAuthorization(token);
+  localStorage.setItem('token', token);
+};
+
 const selfRepository = {
   async getSelf() {
     return httpClient.get<User>('/users/self');
@@ -51,7 +56,8 @@ function AuthProvider(props: { children?: ReactNode }) {
       return;
     }
 
-    httpClient.setAuthorization(token);
+    loadToken(token);
+
     selfRepository
       .getSelf()
       .then((user) => {
@@ -100,7 +106,7 @@ export const useOauth = (): [
     provider: 'google' | 'kakao' | 'github'
   ) => Promise<{ email: string; nickname: string; profileImage: string } | undefined>
 ] => {
-  const [, setUser] = useUser();
+  const { setUser } = useContext(AuthContext);
 
   const handleOauth = useCallback(
     async (code: string, provider: 'google' | 'kakao' | 'github') => {
@@ -109,7 +115,7 @@ export const useOauth = (): [
       >(`/auth/oauth/${provider}`, { code });
 
       if ('accessToken' in result) {
-        httpClient.setAuthorization(result.accessToken);
+        loadToken(result.accessToken);
         setUser(await selfRepository.getSelf());
         return;
       } else {

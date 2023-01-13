@@ -24,7 +24,11 @@ function OauthCallbackScreen() {
     }
 
     handleOauth(code, provider as 'google' | 'kakao' | 'github').then((result) => {
-      navigate(result ? '/' : '/sign-up');
+      if (result) {
+        navigate('/sign-up', { state: result });
+      } else {
+        navigate('/');
+      }
     });
   }, [handleOauth, navigate, params, querystring]);
 

@@ -95,7 +95,10 @@ export const useOauth = (): [
   /**
    * @returns {boolean} true: 이미 가입되어있는 유저 / false: 가입해야하는 유저
    */
-  (code: string, provider: 'google' | 'kakao' | 'github') => Promise<boolean>
+  (
+    code: string,
+    provider: 'google' | 'kakao' | 'github'
+  ) => Promise<{ email: string; nickname: string; profileImage: string } | undefined>
 ] => {
   const [, setUser] = useUser();
 
@@ -108,9 +111,9 @@ export const useOauth = (): [
       if ('accessToken' in result) {
         httpClient.setAuthorization(result.accessToken);
         setUser(await selfRepository.getSelf());
-        return true;
+        return;
       } else {
-        return false;
+        return result;
       }
     },
     [setUser]

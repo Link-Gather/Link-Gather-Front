@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { User } from '@models';
 import { getToken } from '../util';
 import { httpClient } from '../http-client';
@@ -89,6 +89,34 @@ export const useUser = <T extends boolean = false>(options?: {
   }
 
   return [user!, setUser];
+};
+
+export const useOauth = (): [
+  /**
+   * @returns {boolean} true: 이미 가입되어있는 유저 / false: 가입해야하는 유저
+   */
+  (code: string, provider: 'google' | 'kakao' | 'github') => Promise<boolean>
+] => {
+  const [, setUser] = useUser();
+
+  const handleOauth = useCallback(
+    async (code: string, provider: 'google' | 'kakao' | 'github') => {
+      const result = await httpClient.post<
+        { accessToken: string } | { email: string; nickname: string; profileImage: string }
+      >(`/auth/oauth/${provider}`, { code });
+
+      if ('accessToken' in result) {
+        httpClient.setAuthorization(result.accessToken);
+        setUser(await selfRepository.getSelf());
+        return true;
+      } else {
+        return false;
+      }
+    },
+    [setUser]
+  );
+
+  return [handleOauth];
 };
 
 export { AuthProvider };

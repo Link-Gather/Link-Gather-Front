@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useOauth } from '@libs/auth';
 
 function OauthCallbackScreen() {
   // prop destruction
@@ -8,6 +8,7 @@ function OauthCallbackScreen() {
   const params = useParams();
   const [querystring] = useSearchParams();
   const navigate = useNavigate();
+  const [handleOauth] = useOauth();
 
   // state, ref, querystring hooks
   // form hooks
@@ -18,23 +19,14 @@ function OauthCallbackScreen() {
     const { provider } = params;
     const code = querystring.get('code');
 
-    console.log(provider);
-    console.log(code);
+    if (!code || !provider) {
+      return;
+    }
 
-    axios
-      .post<{ accessToken: string } | { email: string; nickname: string; profileImage: string }>(
-        `http://localhost:3000/auth/oauth/${provider}`,
-        { code }
-      )
-      .then(({ data }) => {
-        console.log(data);
-        if ('accessToken' in data) {
-          navigate('/');
-        } else {
-          navigate('/sign-up', { state: data });
-        }
-      });
-  }, [navigate, params, querystring]);
+    handleOauth(code, provider as 'google' | 'kakao' | 'github').then((result) => {
+      navigate(result ? '/' : '/sign-up');
+    });
+  }, [handleOauth, navigate, params, querystring]);
 
   // handlers
 

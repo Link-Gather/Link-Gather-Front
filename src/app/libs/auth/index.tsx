@@ -4,6 +4,7 @@ import { getToken } from '../util';
 import { httpClient } from '../http-client';
 
 const loadToken = (token: string) => {
+  // TODO: 쿠키에 저장하도록 수정
   httpClient.setAuthorization(token);
   localStorage.setItem('token', token);
 };
@@ -67,7 +68,7 @@ function AuthProvider(props: { children?: ReactNode }) {
         /**
          * TODO: token은 있는데 getSelf에 실패했을 때 ex) 만료된 토큰. 서버에 장애가 있음. 등등
          */
-        console.log(err);
+        console.error(err);
       })
       .finally(() => {
         setInitialized(true);

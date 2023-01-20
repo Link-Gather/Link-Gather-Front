@@ -5,7 +5,7 @@ import { DialogTitle } from './DialogTitle';
 type ArgTypes = ComponentProps<typeof DialogTitle>;
 
 export default {
-  title: 'components/DialogTitle',
+  title: 'elements/DialogTitle',
   component: DialogTitle,
   args: { children: 'Lorem Ipsum is' },
   argTypes: {},

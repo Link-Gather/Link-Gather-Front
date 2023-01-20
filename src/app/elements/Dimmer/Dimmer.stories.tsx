@@ -5,7 +5,7 @@ import { Dimmer } from './Dimmer';
 type ArgTypes = ComponentProps<typeof Dimmer>;
 
 export default {
-  title: 'components/Dimmer',
+  title: 'elements/Dimmer',
   component: Dimmer,
   args: {},
 } as Meta<ArgTypes>;

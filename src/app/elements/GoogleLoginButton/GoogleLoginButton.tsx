@@ -1,8 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import qs from 'qs';
 import { GOOGLE_CLIENT_ID } from '@configs';
 
-console.log(GOOGLE_CLIENT_ID);
+const AUTHORIZE_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+const queryStr = qs.stringify({
+  client_id: GOOGLE_CLIENT_ID,
+  // TODO: redirect_uri (승인 uri) "http://localhost:3030/oauth/google" 변경 요청...
+  redirect_uri: 'http://localhost:3030',
+  response_type: 'token',
+  // TODO: scope 결정 필요 (** 참고 : https://developers.google.com/identity/protocols/oauth2/scopes **)
+  scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'].join(
+    ' '
+  ),
+});
+
+const href = AUTHORIZE_URI + '?' + queryStr;
+
 const googleIcon = (
   <svg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
@@ -28,7 +42,6 @@ function GoogleLoginButton() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-
   // form hooks
   // query hooks
   // calculated values
@@ -36,7 +49,7 @@ function GoogleLoginButton() {
   // handlers
 
   return (
-    <Link to='www.naver.com'>
+    <a href={href}>
       <button
         css={{
           width: '60px',
@@ -59,7 +72,7 @@ function GoogleLoginButton() {
       >
         구글
       </p>
-    </Link>
+    </a>
   );
 }
 

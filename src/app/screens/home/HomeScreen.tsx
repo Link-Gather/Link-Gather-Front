@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from '@elements';
 import { Carousel, Dialog } from '@components';
 import { useDialog } from '@hooks';
@@ -8,7 +8,6 @@ import images from 'app/screens/data.mock';
 function HomeScreen() {
   // prop destruction
   // lib hooks
-  const navigate = useNavigate();
   const { isOpenDialog, openDialog, closeDialog } = useDialog();
 
   // state, ref hooks
@@ -25,9 +24,6 @@ function HomeScreen() {
   }, []);
 
   // handlers
-  const moveLoginScreen = (): void => {
-    navigate('/login');
-  };
 
   return (
     <div>
@@ -46,7 +42,9 @@ function HomeScreen() {
           </DialogAction>
         </Dialog>
       )}
-      <Button onClick={moveLoginScreen}>로그인화면으로 이동</Button>
+      <button>
+        <Link to='/login'>로그인화면으로 이동</Link>
+      </button>
     </div>
   );
 }

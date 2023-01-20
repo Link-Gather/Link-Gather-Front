@@ -8,7 +8,7 @@ const queryStr = qs.stringify({
   client_id: GOOGLE_CLIENT_ID,
   // TODO: redirect_uri (승인 uri) "http://localhost:3030/oauth/google" 변경 요청...
   redirect_uri: 'http://localhost:3030',
-  response_type: 'token',
+  response_type: 'code',
   // TODO: scope 결정 필요 (** 참고 : https://developers.google.com/identity/protocols/oauth2/scopes **)
   scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'].join(
     ' '

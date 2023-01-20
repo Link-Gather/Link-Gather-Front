@@ -35,7 +35,6 @@ module.exports = () => {
         API_ENDPOINT: process.env.API_ENDPOINT,
         API_REDIRECT_URI: process.env.API_REDIRECT_URI,
         GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-        GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
       }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',

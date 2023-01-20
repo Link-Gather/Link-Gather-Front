@@ -1,19 +1,16 @@
 import React from 'react';
-import qs from 'qs';
 import { GOOGLE_CLIENT_ID } from '@configs';
 
 const AUTHORIZE_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
+// TODO: change to config > REDIRECT_URI
+const REDIRECT_URI = 'http://localhost:3030';
+const RESPONSE_TYPE = 'code';
+const SCOPE = [
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email',
+].join(' ');
 
-const queryStr = qs.stringify({
-  client_id: GOOGLE_CLIENT_ID,
-  redirect_uri: 'http://localhost:3030',
-  response_type: 'code',
-  scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'].join(
-    ' '
-  ),
-});
-
-const href = AUTHORIZE_URI + '?' + queryStr;
+const href = `${AUTHORIZE_URI}?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
 const googleIcon = (
   <svg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>

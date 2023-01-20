@@ -1,6 +1,7 @@
 import React from 'react';
-// import { REDIRECT_URI } from '@configs';
+import { useLocation, Link } from 'react-router-dom';
 import { FlexBox } from '@elements';
+import { getGoogleUrl } from '@libs/util';
 
 const googleIcon = (
   <svg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -23,12 +24,13 @@ const googleIcon = (
   </svg>
 );
 
-// const href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/kakao&response_type=code`;
-
 function GoogleLoginButton() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
+  const location = useLocation();
+  let from = ((location.state as any)?.from?.pathname as string) || '/';
+
   // form hooks
   // query hooks
   // calculated values
@@ -37,8 +39,8 @@ function GoogleLoginButton() {
 
   return (
     <FlexBox width='60px' direction='column' alignItems='center'>
-      <button
-        type='button'
+      <Link
+        to={getGoogleUrl(from)}
         css={{
           width: '60px',
           height: '60px',
@@ -49,7 +51,7 @@ function GoogleLoginButton() {
         }}
       >
         {googleIcon}
-      </button>
+      </Link>
       <span
         css={{
           fontSize: '12px',

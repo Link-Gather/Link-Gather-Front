@@ -5,7 +5,6 @@ import { httpClient } from '../http-client';
 
 const loadToken = (token: string) => {
   // TODO: 쿠키에 저장하도록 수정
-  httpClient.setAuthorization(token);
   localStorage.setItem('token', token);
 };
 
@@ -52,7 +51,6 @@ function AuthProvider(props: { children?: ReactNode }) {
     const token = getToken();
 
     if (!token) {
-      httpClient.removeAuthorization();
       setInitialized(true);
       return;
     }

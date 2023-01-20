@@ -13,7 +13,7 @@ class HttpClient {
   }
 
   setAuthorization(authorization: string) {
-    this.axios.defaults.headers.common.Authorization = authorization;
+    this.axios.defaults.headers.common.Authorization = `Bearer ${authorization}`;
   }
 
   removeAuthorization() {

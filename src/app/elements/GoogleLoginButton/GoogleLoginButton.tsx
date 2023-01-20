@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { FlexBox } from '@elements';
-import { getGoogleUrl } from '@libs/util';
+import { Link } from 'react-router-dom';
+import { GOOGLE_CLIENT_ID } from '@configs';
 
+console.log(GOOGLE_CLIENT_ID);
 const googleIcon = (
   <svg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
@@ -28,8 +28,6 @@ function GoogleLoginButton() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const location = useLocation();
-  let from = ((location.state as any)?.from?.pathname as string) || '/';
 
   // form hooks
   // query hooks
@@ -38,30 +36,30 @@ function GoogleLoginButton() {
   // handlers
 
   return (
-    <FlexBox width='60px' direction='column' alignItems='center'>
-      <Link
-        to={getGoogleUrl(from)}
+    <Link to='www.naver.com'>
+      <button
         css={{
           width: '60px',
           height: '60px',
-          borderRadius: '50%',
           border: '2px solid #000000',
+          borderRadius: '50%',
           backgroundColor: '#ffffff',
-          cursor: 'pointer',
         }}
       >
         {googleIcon}
-      </Link>
-      <span
+      </button>
+      <p
         css={{
+          width: '60px',
           fontSize: '12px',
           fontWeight: '600',
+          textAlign: 'center',
           marginTop: '8px',
         }}
       >
         구글
-      </span>
-    </FlexBox>
+      </p>
+    </Link>
   );
 }
 

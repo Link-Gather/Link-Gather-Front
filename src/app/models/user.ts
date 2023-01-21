@@ -3,7 +3,7 @@ export type User = {
   email: string;
   nickname: string;
   profileImage: string;
-  provider: 'kakao' | 'github' | 'google' | 'link-gather';
+  provider: Provider;
   introduction: string;
   stacks: string[];
   career: any; // TODO:

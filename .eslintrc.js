@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    'react-app',
-    'plugin:import/typescript',
-    'plugin:prettier/recommended',
-    'plugin:storybook/recommended',
-  ],
+  extends: ['react-app', 'plugin:import/typescript', 'plugin:prettier/recommended', 'plugin:storybook/recommended'],
   plugins: ['prettier'],
   settings: {
     'import/resolver': {

@@ -33,7 +33,6 @@ module.exports = () => {
       new CleanWebpackPlugin(),
       new EnvironmentPlugin({
         API_ENDPOINT: process.env.API_ENDPOINT,
-        API_REDIRECT_URI: process.env.API_REDIRECT_URI,
         GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
       }),
       new HtmlWebpackPlugin({

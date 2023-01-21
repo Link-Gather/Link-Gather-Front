@@ -1,4 +1,5 @@
 const path = require('path');
+const { EnvironmentPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const resolve = require('./webpack.config.resolve');
@@ -12,6 +13,7 @@ module.exports = () => {
     output: {
       path: path.join(__dirname, '/dist'),
       filename: '[name].js',
+      publicPath: '/',
     },
     module: {
       rules: [
@@ -29,6 +31,9 @@ module.exports = () => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new EnvironmentPlugin({
+        API_ENDPOINT: process.env.API_ENDPOINT,
+      }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',
         favicon: 'src/aseets/favicon/favicon3.ico',
@@ -37,6 +42,7 @@ module.exports = () => {
     devServer: {
       compress: true,
       port: 3030,
+      historyApiFallback: true,
     },
   };
 };

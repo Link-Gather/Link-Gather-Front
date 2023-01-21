@@ -48,7 +48,7 @@ export function Dimmer() {
           transition: 'stroke ease 200ms',
           stroke: theme.palette.primary.main,
           '&:hover': {
-            stroke: theme.palette.primary.light,
+            stroke: theme.palette.primary.p20,
           },
         })}
       >

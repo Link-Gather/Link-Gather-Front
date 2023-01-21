@@ -4,7 +4,7 @@ import { Theme } from '@libs/theme';
 function Chip(props: {
   label: React.ReactNode;
   variant?: 'filled' | 'outlined';
-  color?: 'primary' | 'secondary' | 'error';
+  color?: 'primary' | 'black';
   selected?: boolean;
   onClick: () => void;
   startIcon?: React.ReactNode;
@@ -12,7 +12,6 @@ function Chip(props: {
 }) {
   // prop destruction
   const { label, variant = 'outlined', color = 'primary', selected, onClick, startIcon, endIcon } = props;
-
   // lib hooks
   // state, ref, querystring hooks
   // form hook

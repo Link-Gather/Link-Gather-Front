@@ -4,7 +4,7 @@ import { getToken } from '../util';
 import { httpClient } from '../http-client';
 
 const loadToken = (token: string) => {
-  httpClient.setAuthorization(token);
+  // TODO: 쿠키에 저장하도록 수정
   localStorage.setItem('token', token);
 };
 
@@ -51,7 +51,6 @@ function AuthProvider(props: { children?: ReactNode }) {
     const token = getToken();
 
     if (!token) {
-      httpClient.removeAuthorization();
       setInitialized(true);
       return;
     }
@@ -67,7 +66,7 @@ function AuthProvider(props: { children?: ReactNode }) {
         /**
          * TODO: token은 있는데 getSelf에 실패했을 때 ex) 만료된 토큰. 서버에 장애가 있음. 등등
          */
-        console.log(err);
+        console.error(err);
       })
       .finally(() => {
         setInitialized(true);
@@ -103,16 +102,16 @@ export const useOauth = (): [
    */
   (
     code: string,
-    provider: 'google' | 'kakao' | 'github'
+    provider: OauthProvider
   ) => Promise<{ email: string; nickname: string; profileImage: string } | undefined>
 ] => {
   const { setUser } = useContext(AuthContext);
 
   const handleOauth = useCallback(
-    async (code: string, provider: 'google' | 'kakao' | 'github') => {
+    async (code: string, provider: OauthProvider) => {
       const result = await httpClient.post<
         { accessToken: string } | { email: string; nickname: string; profileImage: string }
-      >(`/auth/oauth/${provider}`, { code });
+      >(`/auth/${provider}`, { code });
 
       if ('accessToken' in result) {
         loadToken(result.accessToken);

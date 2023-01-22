@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlexBox, GoogleLoginButton, KakaoLoginButton } from '@elements';
+import { Theme } from '@libs/theme';
 
 // TODO: SW-56에서 구현 예정. 현재는 oauth 연결을 위해 만들어 놓음
 function LoginScreen() {
@@ -13,7 +14,17 @@ function LoginScreen() {
   // handlers
 
   return (
-    <FlexBox width='100%' height='100%' justifyContent='center' alignItems='center'>
+    <FlexBox
+      width='100%'
+      height='100%'
+      justifyContent='center'
+      alignItems='center'
+      css={(theme: Theme) => [
+        {
+          backgroundColor: theme.palette.secondary.n20,
+        },
+      ]}
+    >
       <FlexBox width={500} height={720} direction='column'>
         <FlexBox justifyContent='space-around'>
           <GoogleLoginButton />

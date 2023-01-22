@@ -37,7 +37,7 @@ module.exports = () => {
       }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',
-        favicon: 'src/aseets/favicon/favicon3.ico',
+        favicon: 'src/assets/favicon/favicon3.ico',
       }),
     ],
     devServer: {

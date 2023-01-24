@@ -3,6 +3,7 @@ import { FlexBox, GoogleLoginButton, KakaoLoginButton } from '@elements';
 import { Theme } from '@libs/theme';
 import BackgroundLoginOne from '@assets/images/backgroundLogin1.svg';
 import { ShadowBox } from '@components';
+import { UnderlineTitle } from 'app/elements/UnderlineTitle/UnderlineTitle';
 
 // TODO: SW-56에서 구현 예정. 현재는 oauth 연결을 위해 만들어 놓음
 function LoginScreen() {
@@ -32,6 +33,7 @@ function LoginScreen() {
     >
       <ShadowBox padding='40px' margin='0 0 0 304px'>
         <FlexBox width={320} direction='column'>
+          <UnderlineTitle title='로그인' />
           <FlexBox justifyContent='space-around' css={{ padding: '0 26px' }}>
             <KakaoLoginButton />
             <GoogleLoginButton />

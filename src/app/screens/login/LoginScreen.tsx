@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlexBox, GoogleLoginButton, KakaoLoginButton } from '@elements';
 import { Theme } from '@libs/theme';
+import BackgroundLoginOne from '@assets/images/backgroundLogin1.svg';
 
 // TODO: SW-56에서 구현 예정. 현재는 oauth 연결을 위해 만들어 놓음
 function LoginScreen() {
@@ -22,11 +23,14 @@ function LoginScreen() {
       css={(theme: Theme) => [
         {
           backgroundColor: theme.palette.secondary.n20,
+          backgroundImage: `url(${BackgroundLoginOne})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: '165px center',
         },
       ]}
     >
-      <FlexBox width={500} height={720} direction='column'>
-        <FlexBox justifyContent='space-around'>
+      <FlexBox width={320} height='100vh' direction='column'>
+        <FlexBox justifyContent='space-around' css={{ padding: '0 26px', backgroundColor: 'yellow' }}>
           <GoogleLoginButton />
           <KakaoLoginButton />
           <button>Github</button>

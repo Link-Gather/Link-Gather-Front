@@ -1,5 +1,6 @@
 import React from 'react';
 import { GOOGLE_CLIENT_ID, REDIRECT_URI } from '@configs';
+import type { Theme } from '@libs/theme';
 
 const AUTHORIZE_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
 const RESPONSE_TYPE = 'code';
@@ -44,13 +45,15 @@ function GoogleLoginButton() {
   return (
     <a href={href}>
       <button
-        css={{
-          width: '60px',
-          height: '60px',
-          border: '2px solid #000000',
-          borderRadius: '50%',
-          backgroundColor: '#ffffff',
-        }}
+        css={(theme: Theme) => [
+          {
+            width: '60px',
+            height: '60px',
+            border: `2px solid ${theme.palette.black.main}`,
+            borderRadius: '50%',
+            backgroundColor: theme.palette.paper,
+          },
+        ]}
       >
         {googleIcon}
       </button>

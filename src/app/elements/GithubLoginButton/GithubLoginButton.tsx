@@ -12,7 +12,7 @@ const githubIcon = (
   </svg>
 );
 
-const href = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+const href = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/github`;
 
 function GithubLoginButton() {
   // prop destruction

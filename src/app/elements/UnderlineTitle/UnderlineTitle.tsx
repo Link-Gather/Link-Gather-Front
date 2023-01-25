@@ -31,7 +31,7 @@ function UnderlineTitle(props: { title: string }) {
           {
             display: 'inline-block',
             width: '16px',
-            height: '3px',
+            height: '4px',
             backgroundColor: theme.palette.primary.main,
           },
         ]}

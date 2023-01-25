@@ -5,6 +5,8 @@ export * from './DialogContent';
 export * from './DialogTitle';
 export * from './Dimmer';
 export * from './FlexBox';
+export * from './GitHubLoginButton';
 export * from './GoogleLoginButton';
+export * from './Input';
 export * from './KakaoLoginButton';
 export * from './UnderlineTitle';

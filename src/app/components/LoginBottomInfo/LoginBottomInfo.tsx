@@ -25,9 +25,9 @@ function LoginBottomInfo() {
             marginBottom: 8,
           },
         ]}
-        className='notosans'
+        className='notoSans'
       >
-        계정이 없으신가요?{' '}
+        계정이 없으신가요?
         <Link
           to={''}
           css={(theme: Theme) => [
@@ -37,7 +37,7 @@ function LoginBottomInfo() {
               color: theme.palette.primary.main,
             },
           ]}
-          className='notosans'
+          className='notoSans'
         >
           회원가입
         </Link>
@@ -52,7 +52,7 @@ function LoginBottomInfo() {
             lineHeight: '24px',
           },
         ]}
-        className='notosans'
+        className='notoSans'
       >
         비밀번호 찾기
       </Link>

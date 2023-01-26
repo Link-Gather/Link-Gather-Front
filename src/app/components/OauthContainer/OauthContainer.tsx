@@ -1,0 +1,23 @@
+import React from 'react';
+import { FlexBox, KakaoLoginButton, GoogleLoginButton, GitHubLoginButton } from '@elements';
+
+function OauthContainer() {
+  // prop destruction
+  // lib hooks
+  // state, ref hooks
+  // form hooks
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
+
+  return (
+    <FlexBox justifyContent='space-around' css={{ padding: '0 26px' }}>
+      <KakaoLoginButton />
+      <GoogleLoginButton />
+      <GitHubLoginButton />
+    </FlexBox>
+  );
+}
+
+export { OauthContainer };

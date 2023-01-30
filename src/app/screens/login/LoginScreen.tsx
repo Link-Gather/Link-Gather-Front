@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlexBox, UnderlineTitle } from '@elements';
 import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
-import BackgroundLoginOne from '@assets/images/backgroundLogin1.svg';
+import BackgroundLoginOne from '@assets/images/backgrounds/backgroundLogin1.svg';
 import type { Theme } from '@libs/theme';
 
 function LoginScreen() {

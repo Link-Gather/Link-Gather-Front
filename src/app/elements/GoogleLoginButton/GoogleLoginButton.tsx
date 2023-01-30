@@ -1,5 +1,6 @@
 import React from 'react';
 import { GOOGLE_CLIENT_ID, REDIRECT_URI } from '@configs';
+import { FlexBox } from '../FlexBox';
 
 const AUTHORIZE_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
 const RESPONSE_TYPE = 'code';
@@ -43,7 +44,12 @@ function GoogleLoginButton() {
 
   return (
     <a href={href}>
-      <button
+      <FlexBox
+        direction='column'
+        alignItems='center'
+        justifyContent='center'
+        width='60px'
+        height='60px'
         css={{
           width: '60px',
           height: '60px',
@@ -53,9 +59,10 @@ function GoogleLoginButton() {
         }}
       >
         {googleIcon}
-      </button>
-      <p
+      </FlexBox>
+      <span
         css={{
+          display: 'inline-block',
           width: '60px',
           fontSize: '12px',
           fontWeight: '600',
@@ -64,7 +71,7 @@ function GoogleLoginButton() {
         }}
       >
         구글
-      </p>
+      </span>
     </a>
   );
 }

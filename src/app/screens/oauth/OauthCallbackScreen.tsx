@@ -23,7 +23,7 @@ function OauthCallbackScreen() {
       return;
     }
 
-    handleOauth(code, provider as 'google' | 'kakao' | 'github').then((result) => {
+    handleOauth(code, provider as OauthProvider).then((result) => {
       if (result) {
         navigate('/sign-up', { state: result });
       } else {

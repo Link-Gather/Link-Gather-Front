@@ -102,16 +102,16 @@ export const useOauth = (): [
    */
   (
     code: string,
-    provider: 'google' | 'kakao' | 'github'
+    provider: OauthProvider
   ) => Promise<{ email: string; nickname: string; profileImage: string } | undefined>
 ] => {
   const { setUser } = useContext(AuthContext);
 
   const handleOauth = useCallback(
-    async (code: string, provider: 'google' | 'kakao' | 'github') => {
+    async (code: string, provider: OauthProvider) => {
       const result = await httpClient.post<
         { accessToken: string } | { email: string; nickname: string; profileImage: string }
-      >(`/auth/oauth/${provider}`, { code });
+      >(`/auth/${provider}`, { code });
 
       if ('accessToken' in result) {
         loadToken(result.accessToken);

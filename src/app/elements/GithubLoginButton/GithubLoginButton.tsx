@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Theme } from '@libs/theme';
 import { REDIRECT_URI } from '@configs';
+import { FlexBox } from '../FlexBox';
 
 const githubIcon = (
   <svg width='25' height='30' viewBox='0 0 25 27' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -26,25 +27,25 @@ function GithubLoginButton() {
 
   return (
     <a href={href}>
-      <button
-        css={(theme: Theme) => [
-          {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '60px',
-            height: '60px',
-            border: `2px solid #000000`,
-            borderRadius: '50%',
-            backgroundColor: theme.palette.paper,
-            cursor: 'pointer',
-          },
-        ]}
+      <FlexBox
+        direction='column'
+        alignItems='center'
+        justifyContent='center'
+        width='60px'
+        height='60px'
+        css={{
+          width: '60px',
+          height: '60px',
+          border: '2px solid #000000',
+          borderRadius: '50%',
+          backgroundColor: '#ffffff',
+        }}
       >
         {githubIcon}
-      </button>
-      <p
+      </FlexBox>
+      <span
         css={{
+          display: 'inline-block',
           width: '60px',
           fontSize: '12px',
           fontWeight: '600',
@@ -53,7 +54,7 @@ function GithubLoginButton() {
         }}
       >
         깃허브
-      </p>
+      </span>
     </a>
   );
 }

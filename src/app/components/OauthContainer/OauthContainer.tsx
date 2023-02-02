@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlexBox, KakaoLoginButton, GoogleLoginButton, GitHubLoginButton } from '@elements';
+import { FlexBox, KakaoLoginButton, GoogleLoginButton, GithubLoginButton } from '@elements';
 
 function OauthContainer() {
   // prop destruction
@@ -15,7 +15,7 @@ function OauthContainer() {
     <FlexBox justifyContent='space-around' css={{ padding: '0 26px' }}>
       <KakaoLoginButton />
       <GoogleLoginButton />
-      <GitHubLoginButton />
+      <GithubLoginButton />
     </FlexBox>
   );
 }

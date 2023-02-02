@@ -1,1 +1,1 @@
-export * from './GitHubLoginButton';
+export * from './GithubLoginButton';

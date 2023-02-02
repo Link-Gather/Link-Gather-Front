@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Theme } from '@libs/theme';
+import { Theme } from '@libs/theme';
 import { REDIRECT_URI } from '@configs';
 import { FlexBox } from '../FlexBox';
 
@@ -27,12 +27,7 @@ function GithubLoginButton() {
 
   return (
     <a href={href}>
-      <FlexBox
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-        width='60px'
-        height='60px'
+      <button
         css={{
           width: '60px',
           height: '60px',
@@ -42,10 +37,10 @@ function GithubLoginButton() {
         }}
       >
         {githubIcon}
-      </FlexBox>
+      </button>
       <span
         css={{
-          display: 'inline-block',
+          display: 'block',
           width: '60px',
           fontSize: '12px',
           fontWeight: '600',

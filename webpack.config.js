@@ -33,6 +33,7 @@ module.exports = () => {
       new CleanWebpackPlugin(),
       new EnvironmentPlugin({
         API_ENDPOINT: process.env.API_ENDPOINT,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
       }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',

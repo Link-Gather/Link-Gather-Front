@@ -34,6 +34,7 @@ module.exports = () => {
       new EnvironmentPlugin({
         API_ENDPOINT: process.env.API_ENDPOINT,
         GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
       }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',

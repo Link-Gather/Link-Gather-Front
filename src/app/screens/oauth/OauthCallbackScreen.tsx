@@ -24,6 +24,7 @@ function OauthCallbackScreen() {
     }
 
     handleOauth(code, provider as OauthProvider).then((result) => {
+      console.log(result);
       if (result) {
         navigate('/sign-up', { state: result });
       } else {

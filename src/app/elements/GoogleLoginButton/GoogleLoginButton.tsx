@@ -32,12 +32,14 @@ function GoogleLoginButton() {
               height: '60px',
               border: `2px solid ${theme.palette.black.main}`,
               borderRadius: '50%',
-              background: `no-repeat center url(${IconGoogle}) ${theme.palette.paper}`,
+              backgroundColor: `${theme.palette.paper}`,
               cursor: 'pointer',
             },
           ];
         }}
-      />
+      >
+        <img src={IconGoogle} alt='login' />
+      </button>
       <span
         css={{
           display: 'block',

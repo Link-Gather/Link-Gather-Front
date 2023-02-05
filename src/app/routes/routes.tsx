@@ -1,14 +1,21 @@
-import { HomeScreen, LoginScreen, OauthCallbackScreen, SignUpScreen } from '@screens';
 import { Route, Routes } from 'react-router-dom';
-import { ROUTE_LOGIN, ROUTE_OAUTH, ROUTE_SIGN_UP } from './const';
+import { Layout } from '@elements';
+import { PAGE_LIST } from './page-list';
 
 function AppRouter() {
   return (
     <Routes>
-      <Route index element={<HomeScreen />} />
-      <Route path={ROUTE_LOGIN} element={<LoginScreen />} />
-      <Route path={ROUTE_OAUTH} element={<OauthCallbackScreen />} />
-      <Route path={ROUTE_SIGN_UP} element={<SignUpScreen />} />
+      {PAGE_LIST.map(({ path, component: Component, componentStyle }) => (
+        <Route
+          key={path}
+          path={path}
+          element={
+            <Layout componentStyle={componentStyle}>
+              <Component />
+            </Layout>
+          }
+        />
+      ))}
     </Routes>
   );
 }

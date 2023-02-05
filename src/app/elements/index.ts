@@ -9,4 +9,5 @@ export * from './GithubLoginButton';
 export * from './GoogleLoginButton';
 export * from './Input';
 export * from './KakaoLoginButton';
+export * from './Layout';
 export * from './UnderlineTitle';

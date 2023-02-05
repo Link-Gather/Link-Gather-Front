@@ -7,8 +7,11 @@ type ArgTypes = ComponentProps<typeof Input>;
 export default {
   title: 'elements/Input',
   component: Input,
-  args: { children: 'Lorem Ipsum is' },
-  argTypes: {},
+  args: {
+    inputType: 'default',
+    width: '50px',
+    height: '30px',
+  },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

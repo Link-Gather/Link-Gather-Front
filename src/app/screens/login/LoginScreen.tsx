@@ -3,6 +3,7 @@ import { FlexBox, UnderlineTitle } from '@elements';
 import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
 import BackgroundLoginOne from '@assets/images/backgrounds/backgroundLogin1.svg';
 import type { Theme } from '@libs/theme';
+import { mq } from '@libs/theme/media-query';
 
 function LoginScreen() {
   // prop destruction
@@ -26,6 +27,19 @@ function LoginScreen() {
           backgroundImage: `url(${BackgroundLoginOne})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'calc(50% - 320px) 165px',
+
+          [mq[0]]: {
+            backgroundColor: 'red',
+          },
+          [mq[1]]: {
+            backgroundColor: 'blue',
+          },
+          [mq[2]]: {
+            backgroundColor: 'green',
+          },
+          [mq[3]]: {
+            backgroundColor: 'yellow',
+          },
         },
       ]}
     >

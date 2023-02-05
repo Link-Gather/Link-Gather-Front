@@ -1,5 +1,4 @@
 import { CSSProperties, useId } from 'react';
-// import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -27,7 +26,6 @@ function Input(props: Props) {
   // calculated values
   // effects
   // handlers
-  console.log(props.type);
   return (
     <label htmlFor={inputId}>
       <input

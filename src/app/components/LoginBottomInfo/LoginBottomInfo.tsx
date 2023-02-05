@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FlexBox } from '@elements';
 import type { Theme } from '@libs/theme';

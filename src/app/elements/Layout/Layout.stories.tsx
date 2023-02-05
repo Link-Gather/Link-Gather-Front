@@ -7,7 +7,7 @@ type ArgTypes = ComponentProps<typeof Layout>;
 export default {
   title: 'elements/Layout',
   component: Layout,
-  args: { children: 'Lorem Ipsum is' },
+  args: {},
   argTypes: {},
 } as Meta<ArgTypes>;
 

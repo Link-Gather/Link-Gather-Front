@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FlexBox } from '@elements';
+import { ROUTE_PATHS } from '@routes';
 import type { Theme } from '@libs/theme';
 
 function LoginBottomInfo() {
@@ -28,7 +29,7 @@ function LoginBottomInfo() {
       >
         계정이 없으신가요?
         <Link
-          to={''}
+          to={ROUTE_PATHS.signUp}
           css={(theme: Theme) => [
             {
               fontSize: 16,
@@ -42,7 +43,7 @@ function LoginBottomInfo() {
         </Link>
       </p>
       <Link
-        to={''}
+        to={ROUTE_PATHS.forgotPassword}
         css={(theme: Theme) => [
           {
             fontSize: 14,

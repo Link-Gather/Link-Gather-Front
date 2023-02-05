@@ -3,4 +3,5 @@ export const ROUTE_PATHS = {
   logIn: '/login',
   oauth: '/oauth/:provider',
   signUp: '/sign-up',
+  forgotPassword: '/forgot-password',
 } as const;

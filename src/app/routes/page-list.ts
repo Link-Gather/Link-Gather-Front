@@ -1,5 +1,5 @@
 import { ROUTE_PATHS } from './const';
-import { HomeScreen, LoginScreen, SignUpScreen, OauthCallbackScreen } from '@screens';
+import { HomeScreen, LoginScreen, SignUpScreen, OauthCallbackScreen, ForgotPasswordScreen } from '@screens';
 
 export type ComponentStyle = 'full' | 'contents';
 interface PageList {
@@ -27,6 +27,11 @@ export const PAGE_LIST: PageList[] = [
   {
     path: ROUTE_PATHS.oauth,
     component: OauthCallbackScreen,
+    componentStyle: 'full',
+  },
+  {
+    path: ROUTE_PATHS.forgotPassword,
+    component: ForgotPasswordScreen,
     componentStyle: 'full',
   },
 ];

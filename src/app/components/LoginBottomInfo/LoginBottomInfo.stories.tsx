@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof LoginBottomInfo>;
 export default {
   title: 'components/LoginBottomInfo',
   component: LoginBottomInfo,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

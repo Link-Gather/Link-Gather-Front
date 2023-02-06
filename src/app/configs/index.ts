@@ -4,5 +4,6 @@ export const API_ENDPOINT = process.env.API_ENDPOINT;
 export const KAKAO_CLIENT_ID = '305bb38aacda45d3d802e563c3cd167f';
 
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 
 export const REDIRECT_URI = 'http://localhost:3030/oauth';

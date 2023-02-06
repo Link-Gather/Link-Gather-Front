@@ -1,7 +1,5 @@
 import React from 'react';
-import { Theme } from '@libs/theme';
-import { REDIRECT_URI } from '@configs';
-import { FlexBox } from '../FlexBox';
+import { REDIRECT_URI, GITHUB_CLIENT_ID } from '@configs';
 
 const githubIcon = (
   <svg width='25' height='30' viewBox='0 0 25 27' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -13,7 +11,7 @@ const githubIcon = (
   </svg>
 );
 
-const href = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/github`;
+const href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/github`;
 
 function GithubLoginButton() {
   // prop destruction
@@ -34,6 +32,7 @@ function GithubLoginButton() {
           border: '2px solid #000000',
           borderRadius: '50%',
           backgroundColor: '#ffffff',
+          cursor: 'pointer',
         }}
       >
         {githubIcon}

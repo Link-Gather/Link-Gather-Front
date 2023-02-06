@@ -25,6 +25,7 @@ jobs:
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
         run: npm run build
 
       - name: Configure AWS Credentials

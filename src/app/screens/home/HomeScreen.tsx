@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, DialogAction, DialogContent, DialogTitle, Dimmer } from '@elements';
 import { Carousel, Dialog } from '@components';
 import { useDialog } from '@hooks';
@@ -41,6 +42,9 @@ function HomeScreen() {
           </DialogAction>
         </Dialog>
       )}
+      <button>
+        <Link to='/login'>로그인화면으로 이동</Link>
+      </button>
     </div>
   );
 }

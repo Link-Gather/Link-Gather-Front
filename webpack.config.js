@@ -35,6 +35,8 @@ module.exports = () => {
         API_ENDPOINT: process.env.API_ENDPOINT,
         GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+        REDIRECT_URI: process.env.REDIRECT_URI,
       }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',

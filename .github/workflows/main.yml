@@ -24,7 +24,6 @@ jobs:
       - name: Build
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          API_BASE_URL: ${{ secrets.API_BASE_URL }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
           GITHUB_CLIENT_ID: ${{ secrets.GIT_HUB_CLIENT_ID }}

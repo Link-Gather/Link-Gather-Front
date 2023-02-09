@@ -1,7 +1,5 @@
 export const API_ENDPOINT = process.env.API_ENDPOINT;
 
-export const API_BASE_URL = process.env.API_BASE_URL;
-
 export const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;

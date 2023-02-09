@@ -1,8 +1,9 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { API_BASE_URL } from '../../configs';
 import { getToken } from '../util/getToken';
 
 export const httpClient = (() => {
-  const axios = Axios.create({ baseURL: 'http://localhost:3000' });
+  const axios = Axios.create({ baseURL: API_BASE_URL });
   axios.interceptors.request.use((config) => {
     if (!config?.headers) {
       throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);

@@ -4,11 +4,13 @@ import { Theme } from '@libs/theme';
 
 function ShadowBox(props: {
   padding?: CSSProperties['padding'];
-  margin?: CSSProperties['margin'];
   children: React.ReactNode;
+  css?: {
+    [x: string]: string | { marginLeft?: CSSProperties['marginLeft']; marginRight?: CSSProperties['marginRight'] };
+  };
 }) {
   // prop destruction
-  const { padding, margin, children } = props;
+  const { padding, children, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -19,23 +21,28 @@ function ShadowBox(props: {
   // handlers
 
   return (
-    <FlexBox
-      alignItems='center'
-      direction='column'
-      css={(theme: Theme) => [
-        {
-          border: `2px solid ${theme.palette.black.main}`,
-          borderRadius: '16px',
-          boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
-          backgroundColor: theme.palette.paper,
-          padding,
-          margin,
-          overflow: 'hidden',
-        },
-      ]}
-    >
-      {children}
-    </FlexBox>
+    <div {...rest}>
+      <FlexBox
+        alignItems='center'
+        direction='column'
+        css={(theme: Theme) => {
+          return [
+            {
+              position: 'relative',
+              border: `2px solid ${theme.palette.black.main}`,
+              borderRadius: '16px',
+              boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
+              backgroundColor: theme.palette.paper,
+              padding,
+              overflow: 'hidden',
+              zIndex: 10,
+            },
+          ];
+        }}
+      >
+        {children}
+      </FlexBox>
+    </div>
   );
 }
 

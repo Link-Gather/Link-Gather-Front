@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FlexBox, UnderlineTitle } from '@elements';
 import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
-import BackgroundLoginOne from '@assets/images/backgrounds/backgroundLogin1.svg';
+import BackgroundLoginOne from '@assets/images/backgrounds/background-login-1.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { type Theme, mq } from '@libs/theme';
 
 function LoginScreen() {
@@ -64,6 +66,16 @@ function LoginScreen() {
         }}
       >
         <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
+          <Link
+            to='/'
+            css={{
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+            }}
+          >
+            <img src={IconArrowLeft} alt='go back' />
+          </Link>
           <UnderlineTitle title='로그인' />
           <LoginForm />
           <OauthContainer />

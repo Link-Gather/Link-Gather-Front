@@ -1,8 +1,7 @@
 export const API_ENDPOINT = process.env.API_ENDPOINT;
 
-// TODO: 임시로 발급받은 것. 서비스용으로 카카오앱 생성하면 대채할 것!!
-export const KAKAO_CLIENT_ID = '305bb38aacda45d3d802e563c3cd167f';
-
+export const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 
-export const REDIRECT_URI = 'http://localhost:3030/oauth';
+export const REDIRECT_URI = process.env.REDIRECT_URI;

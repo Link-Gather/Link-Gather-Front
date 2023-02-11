@@ -1,8 +1,10 @@
+import { cookies } from '..';
+
 export const getToken = () => {
-  return localStorage.getItem('token') || '';
+  return cookies.get('token') || '';
 };
 
 export const isToken = () => {
-  const token = localStorage.getItem('token');
+  const token = cookies.get('token');
   return !!token;
 };

@@ -1,11 +1,13 @@
 import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { User } from '@models';
 import { getToken } from '../util';
+import { Cookies } from 'react-cookie';
 import { httpClient } from '../http-client';
 
+export const cookies = new Cookies();
+
 const loadToken = (token: string) => {
-  // TODO: 쿠키에 저장하도록 수정
-  localStorage.setItem('token', token);
+  cookies.set('token', token);
 };
 
 const selfRepository = {

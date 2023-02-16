@@ -19,7 +19,7 @@ function UnderlineTitle(props: { title: string }) {
         alignItems: 'end',
         justifyContent: 'center',
         height: '32px',
-        fontWeight: 800,
+        fontWeight: 700,
         fontSize: '32px',
         textAlign: 'center',
         lineHeight: '32px',

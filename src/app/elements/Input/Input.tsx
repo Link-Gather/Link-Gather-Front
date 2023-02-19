@@ -1,4 +1,7 @@
-import { CSSProperties, useId } from 'react';
+import { CSSProperties, useId, useState, useRef } from 'react';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -16,20 +19,33 @@ function Input(props: Props) {
   // prop destruction
   const { inputType, type, width, height, fontSize, color, backgroundColor, onChange, className, ...rest } = props;
 
-  // TODO: input type에 따라서 다른 스타일을 적용해야 함
-
   // lib hooks
   const inputId = useId();
+
   // state, ref hooks
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   // form hook
   // query hooks
   // calculated values
   // effects
   // handlers
+  const handlePasswordShow = () => {
+    setIsShowPassword(!isShowPassword);
+    if (inputRef.current) {
+      inputRef.current.type = isShowPassword ? 'password' : 'text';
+    }
+  };
   return (
-    <label htmlFor={inputId}>
+    <label
+      htmlFor={inputId}
+      css={{
+        position: 'relative',
+      }}
+    >
       <input
         id={inputId}
+        type={type}
         css={(theme: Theme) => {
           return [
             {
@@ -58,8 +74,26 @@ function Input(props: Props) {
         }}
         className={className}
         onChange={onChange}
+        ref={inputRef}
         {...rest}
       />
+      <button
+        css={{
+          position: 'absolute',
+          top: '0',
+          right: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          height,
+          border: 'none',
+          background: 'none',
+          cursor: 'pointer',
+        }}
+        onClick={type === 'password' ? handlePasswordShow : () => {}}
+      >
+        {type === 'email' && <img src={IconCheckGreen} alt='check' />}
+        {type === 'password' && <img src={isShowPassword ? IconPasswordShow : IconPasswordHide} alt='password' />}
+      </button>
     </label>
   );
 }

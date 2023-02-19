@@ -12,12 +12,27 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
   className?: string;
+  marginTop?: CSSProperties['marginTop'];
+  marginLeft?: CSSProperties['marginLeft'];
   onChange?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 }
 
 function Input(props: Props) {
   // prop destruction
-  const { inputType, type, width, height, fontSize, color, backgroundColor, onChange, className, ...rest } = props;
+  const {
+    inputType,
+    type,
+    width,
+    marginTop,
+    marginLeft,
+    height,
+    fontSize,
+    color,
+    backgroundColor,
+    onChange,
+    className,
+    ...rest
+  } = props;
 
   // lib hooks
   const inputId = useId();
@@ -51,14 +66,15 @@ function Input(props: Props) {
             {
               width,
               height,
+              marginTop,
+              marginLeft,
               fontSize: fontSize || 20,
               fontWeight: 500,
               color,
               border: `2px solid ${theme.palette.secondary.n60}`,
               borderRadius: 8,
               backgroundColor,
-              padding: '11px 50px 11px 16px',
-              cursor: 'pointer',
+              padding: '11px 16px 11px 16px',
               outline: 'none',
               '&::placeholder': {
                 color: theme.palette.secondary.n60,

@@ -10,11 +10,13 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fontSize?: CSSProperties['fontSize'];
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
+  borderRadius?: CSSProperties['borderRadius'];
 }
 
 function Button(props: Props) {
   // prop destruction
-  const { width, height, fontSize, color, backgroundColor, children, onClick, className, ...rest } = props;
+  const { width, height, fontSize, color, backgroundColor, borderRadius, children, onClick, className, ...rest } =
+    props;
 
   // lib hooks
   // state, ref hooks

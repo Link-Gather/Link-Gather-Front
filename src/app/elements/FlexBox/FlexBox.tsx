@@ -21,6 +21,7 @@ function FlexBox(props: {
   justifyItems?: CSSProperties['justifyItems'];
   alignContent?: CSSProperties['alignContent'];
   alignItems?: CSSProperties['alignItems'];
+  marginTop?: CSSProperties['marginTop'];
 }) {
   // prop destruction
   const { children, className, direction = 'row', width, height, spacing, ...flexProperties } = props;

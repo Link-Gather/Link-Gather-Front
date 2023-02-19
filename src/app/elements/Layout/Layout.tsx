@@ -1,4 +1,3 @@
-import { mq } from '@libs/theme';
 import { type ComponentStyle } from '@routes';
 
 function Layout(props: { children: React.ReactNode; componentStyle: ComponentStyle }) {
@@ -19,18 +18,6 @@ function Layout(props: { children: React.ReactNode; componentStyle: ComponentSty
           css={{
             width: '100%',
             minHeight: '100vh',
-            [mq[0]]: {
-              backgroundColor: 'red',
-            },
-            [mq[1]]: {
-              backgroundColor: 'blue',
-            },
-            [mq[2]]: {
-              backgroundColor: 'green',
-            },
-            [mq[3]]: {
-              backgroundColor: 'yellow',
-            },
           }}
         >
           {children}

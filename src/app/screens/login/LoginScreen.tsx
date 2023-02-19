@@ -51,7 +51,7 @@ function LoginScreen() {
             [mq[0]]: {
               backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
             },
-            [mq[3]]: {
+            [mq[2]]: {
               width: '80vw',
               marginLeft: '10vw',
             },
@@ -67,13 +67,13 @@ function LoginScreen() {
               backgroundImage: `url(${BackgroundAstronautPrimary})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '100% auto',
-              backgroundPosition: 'left 0 bottom 450px',
+              backgroundPosition: 'left 10px bottom 420px',
 
               [mq[0]]: {
-                backgroundPosition: 'left 0 bottom calc(58vw / 2 - 80px)',
+                backgroundPosition: 'left 10px bottom calc(58vw / 2 - 150px)',
               },
-              [mq[3]]: {
-                backgroundPosition: 'left 0 bottom 40vw',
+              [mq[2]]: {
+                backgroundPosition: 'left 10px bottom 40vw',
               },
             },
           ]}
@@ -82,11 +82,11 @@ function LoginScreen() {
       <ShadowBox
         padding='40px'
         css={{
-          marginLeft: '58vw',
+          marginLeft: 'calc(50% + 166px)',
           [mq[1]]: {
-            marginLeft: '50vw',
+            marginLeft: '50%',
           },
-          [mq[3]]: {
+          [mq[2]]: {
             marginLeft: 'auto',
             marginRight: 'auto',
           },

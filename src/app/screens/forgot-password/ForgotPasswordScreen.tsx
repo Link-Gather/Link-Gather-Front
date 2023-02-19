@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
-import { LoginBottomInfo, ShadowBox } from '@components';
+import { ShadowBox } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
@@ -57,7 +57,7 @@ function ForgotPasswordScreen() {
             [mq[0]]: {
               backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
             },
-            [mq[3]]: {
+            [mq[2]]: {
               width: '80vw',
               marginLeft: '10vw',
             },
@@ -73,13 +73,13 @@ function ForgotPasswordScreen() {
               backgroundImage: `url(${BackgroundAstronautYellow})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '100% auto',
-              backgroundPosition: 'left 0 bottom 450px',
+              backgroundPosition: 'left 10px bottom 420px',
 
               [mq[0]]: {
-                backgroundPosition: 'left 0 bottom calc(58vw / 2 - 80px)',
+                backgroundPosition: 'left 10px bottom calc(58vw / 2 - 150px)',
               },
-              [mq[3]]: {
-                backgroundPosition: 'left 0 bottom 40vw',
+              [mq[2]]: {
+                backgroundPosition: 'left 10px bottom 40vw',
               },
             },
           ]}
@@ -88,11 +88,11 @@ function ForgotPasswordScreen() {
       <ShadowBox
         padding='40px'
         css={{
-          marginLeft: '58vw',
+          marginLeft: 'calc(50% + 166px)',
           [mq[1]]: {
-            marginLeft: '50vw',
+            marginLeft: '50%',
           },
-          [mq[3]]: {
+          [mq[2]]: {
             marginLeft: 'auto',
             marginRight: 'auto',
           },
@@ -152,7 +152,6 @@ function ForgotPasswordScreen() {
               )}
             </FlexBox>
           </form>
-          <LoginBottomInfo />
         </FlexBox>
       </ShadowBox>
     </FlexBox>

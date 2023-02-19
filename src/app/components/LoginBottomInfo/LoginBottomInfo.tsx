@@ -43,7 +43,7 @@ function LoginBottomInfo() {
         </Link>
       </p>
       <Link
-        to={ROUTE_PATHS.forgotPassword}
+        to={`${ROUTE_PATHS.forgotPassword}?step=1`}
         css={(theme: Theme) => [
           {
             fontSize: 14,

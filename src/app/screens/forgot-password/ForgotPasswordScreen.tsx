@@ -1,19 +1,162 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
+import { LoginBottomInfo, ShadowBox } from '@components';
+import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
+import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
+import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { type Theme, mq } from '@libs/theme';
+import palette from '@libs/theme/palettes';
+import { ROUTE_PATHS } from '@routes';
 
-function ForgotPasswordScreen(props: {}) {
+function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
-  const { pathname } = useLocation();
-
   // state, ref, querystring hooks
+  const { search } = useLocation();
+  const step = Number(new URLSearchParams(search).get('step'));
+
   // form hooks
   // query hooks
   // calculated values
   // effects
   // handlers
 
-  return <div>{JSON.stringify(pathname)}</div>;
+  return (
+    <FlexBox
+      width='100%'
+      height='100vh'
+      justifyContent='left'
+      alignItems='center'
+      css={(theme: Theme) => [
+        {
+          [mq[2]]: {
+            alignItems: 'flex-start',
+            paddingTop: '40px',
+          },
+        },
+      ]}
+    >
+      <div
+        css={() => [
+          {
+            position: 'absolute',
+            left: '0',
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            width: '58%',
+            height: '100%',
+            backgroundImage: `url(${BackgroundPlanetPrimary})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% auto',
+            backgroundPosition: 'left 0 bottom -520px',
+            zIndex: 0,
+
+            [mq[0]]: {
+              backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
+            },
+            [mq[3]]: {
+              width: '80vw',
+              marginLeft: '10vw',
+            },
+          },
+        ]}
+      >
+        <div
+          css={() => [
+            {
+              position: 'absolute',
+              width: '34%',
+              height: '100%',
+              backgroundImage: `url(${BackgroundAstronautYellow})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100% auto',
+              backgroundPosition: 'left 0 bottom 450px',
+
+              [mq[0]]: {
+                backgroundPosition: 'left 0 bottom calc(58vw / 2 - 80px)',
+              },
+              [mq[3]]: {
+                backgroundPosition: 'left 0 bottom 40vw',
+              },
+            },
+          ]}
+        />
+      </div>
+      <ShadowBox
+        padding='40px'
+        css={{
+          marginLeft: '58vw',
+          [mq[1]]: {
+            marginLeft: '50vw',
+          },
+          [mq[3]]: {
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          },
+        }}
+      >
+        <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
+          <Link
+            to={step < 2 ? ROUTE_PATHS.logIn : `${ROUTE_PATHS.forgotPassword}?step=1`}
+            css={{
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+            }}
+          >
+            <img src={IconArrowLeft} alt='go back' />
+          </Link>
+          <UnderlineTitle title={step < 2 ? '비밀번호 찾기' : '비밀번호 재설정'} />
+          <form>
+            <FlexBox direction='column' spacing={4}>
+              {step < 2 && <Input type='email' width='100%' height={50} placeholder='이메일' />}
+              {step === 2 && (
+                <>
+                  <Input type='password' width='100%' height={50} placeholder='비밀번호' />
+                  <Input type='password' width='100%' height={50} placeholder='비밀번호 확인' />
+                </>
+              )}
+              {step < 2 ? (
+                <Button
+                  width='100%'
+                  height={48}
+                  fontSize={20}
+                  color={palette.contrastText}
+                  backgroundColor={palette.primary.main}
+                  onClick={() => console.log('forgot password')}
+                  css={{
+                    marginTop: 24,
+                  }}
+                  disabled
+                >
+                  인증하기 <img src={IconArrowRight} alt='go next' />
+                </Button>
+              ) : (
+                <Button
+                  width='100%'
+                  height={48}
+                  fontSize={20}
+                  color={palette.contrastText}
+                  backgroundColor={palette.primary.main}
+                  onClick={() => console.log('forgot password')}
+                  css={{
+                    marginTop: 24,
+                  }}
+                  disabled
+                >
+                  비밀번호 변경하기
+                </Button>
+              )}
+            </FlexBox>
+          </form>
+          <LoginBottomInfo />
+        </FlexBox>
+      </ShadowBox>
+    </FlexBox>
+  );
 }
 
 export { ForgotPasswordScreen };

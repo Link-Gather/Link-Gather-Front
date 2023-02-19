@@ -22,11 +22,12 @@ function LoginForm() {
           height={48}
           fontSize={20}
           color={palette.contrastText}
-          backgroundColor={palette.secondary.n40}
+          backgroundColor={palette.primary.main}
           onClick={() => console.log('login')}
           css={{
             marginTop: 24,
           }}
+          disabled
         >
           로그인
         </Button>

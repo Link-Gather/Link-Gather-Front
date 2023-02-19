@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { Theme } from '@libs/theme';
 
-function Button(props: {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
   className?: string;
@@ -10,7 +10,9 @@ function Button(props: {
   fontSize?: CSSProperties['fontSize'];
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
-}) {
+}
+
+function Button(props: Props) {
   // prop destruction
   const { width, height, fontSize, color, backgroundColor, children, onClick, className, ...rest } = props;
 
@@ -27,6 +29,9 @@ function Button(props: {
       css={(theme: Theme) => {
         return [
           {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             width,
             height,
             fontSize,
@@ -37,6 +42,9 @@ function Button(props: {
             borderRadius: height ? `${Number(height) / 2}px` : '0px',
             backgroundColor,
             cursor: 'pointer',
+            ':disabled': {
+              backgroundColor: theme.palette.secondary.n40,
+            },
           },
         ];
       }}

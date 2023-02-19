@@ -1,5 +1,12 @@
 import { ROUTE_PATHS } from './const';
-import { HomeScreen, LoginScreen, SignUpScreen, OauthCallbackScreen, ForgotPasswordScreen } from '@screens';
+import {
+  HomeScreen,
+  LoginScreen,
+  SignUpScreen,
+  OauthCallbackScreen,
+  ForgotPasswordScreen,
+  ProjectList,
+} from '@screens';
 
 export type ComponentStyle = 'full' | 'contents';
 interface PageList {
@@ -32,6 +39,11 @@ export const PAGE_LIST: PageList[] = [
   {
     path: ROUTE_PATHS.forgotPassword,
     component: ForgotPasswordScreen,
+    componentStyle: 'full',
+  },
+  {
+    path: ROUTE_PATHS.projectList,
+    component: ProjectList,
     componentStyle: 'full',
   },
 ];

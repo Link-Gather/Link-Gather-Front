@@ -4,14 +4,15 @@ import { Theme } from '@libs/theme';
 function ImageBox(props: {
   className?: string;
   width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
   position?: CSSProperties['position'];
   left?: CSSProperties['left'];
   top?: CSSProperties['top'];
   backgroundImage: string;
-  zIndex: number;
+  zIndex?: string;
 }) {
   // prop destruction
-  const { width, position, left, top, backgroundImage, zIndex } = props;
+  const { className, width, height, position, left, top, backgroundImage, zIndex } = props;
 
   // lib hooks
   // state, ref hooks
@@ -29,16 +30,16 @@ function ImageBox(props: {
             width,
             top,
             left,
-            position,
+            position: 'fixed',
             zIndex,
-            height: '100%',
+            height,
             backgroundImage: `url(${backgroundImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100% auto',
           },
         ];
       }}
-      // className={className}
+      className={className}
     ></div>
   );
 }

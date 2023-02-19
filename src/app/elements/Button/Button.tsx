@@ -10,9 +10,11 @@ function Button(props: {
   fontSize?: CSSProperties['fontSize'];
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
+  borderRadius?: CSSProperties['borderRadius'];
 }) {
   // prop destruction
-  const { width, height, fontSize, color, backgroundColor, children, onClick, className, ...rest } = props;
+  const { width, height, fontSize, color, backgroundColor, borderRadius, children, onClick, className, ...rest } =
+    props;
 
   // lib hooks
   // state, ref hooks

@@ -41,9 +41,19 @@ function Layout(props: { children: React.ReactNode; componentStyle: ComponentSty
           css={{
             width: '100%',
             minHeight: '100vh',
+            backgroundColor: '#2E558E',
           }}
         >
-          {children}
+          <div
+            css={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '1920px',
+              margin: '0 auto',
+            }}
+          >
+            {children}
+          </div>
         </div>
       )}
     </>

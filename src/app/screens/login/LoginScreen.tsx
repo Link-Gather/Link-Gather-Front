@@ -25,7 +25,6 @@ function LoginScreen() {
       alignItems='center'
       css={(theme: Theme) => [
         {
-          backgroundColor: theme.palette.secondary.n20,
           [mq[2]]: {
             alignItems: 'flex-start',
             paddingTop: '40px',
@@ -36,29 +35,25 @@ function LoginScreen() {
       <div
         css={() => [
           {
-            position: 'fixed',
+            position: 'absolute',
             left: '0',
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'center',
-            width: '58vw',
+            width: '58%',
             height: '100%',
             backgroundImage: `url(${BackgroundPlanetPrimary})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100% auto',
-            backgroundPosition: 'left -5vw bottom -40vh',
+            backgroundPosition: 'left 0 bottom -520px',
             zIndex: 0,
 
             [mq[0]]: {
-              backgroundPosition: 'left 0 bottom -30vh',
+              backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
             },
-            [mq[1]]: {
-              backgroundPosition: 'left 0 bottom -20vh',
-            },
-            [mq[2]]: {
+            [mq[3]]: {
               width: '80vw',
               marginLeft: '10vw',
-              backgroundPosition: 'left 0 bottom -15vh',
             },
           },
         ]}
@@ -72,18 +67,13 @@ function LoginScreen() {
               backgroundImage: `url(${BackgroundAstronautPrimary})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '100% auto',
-              backgroundPosition: 'left 0 bottom 50vh',
-              marginLeft: '-5vw',
+              backgroundPosition: 'left 0 bottom 450px',
 
               [mq[0]]: {
-                backgroundPosition: 'left 0 bottom 30vh',
-                marginLeft: '0',
+                backgroundPosition: 'left 0 bottom calc(58vw / 2 - 80px)',
               },
-              [mq[1]]: {
-                backgroundPosition: 'left 0 bottom 24vh',
-              },
-              [mq[2]]: {
-                backgroundPosition: 'left 0 bottom 22vh',
+              [mq[3]]: {
+                backgroundPosition: 'left 0 bottom 40vw',
               },
             },
           ]}
@@ -96,7 +86,7 @@ function LoginScreen() {
           [mq[1]]: {
             marginLeft: '50vw',
           },
-          [mq[2]]: {
+          [mq[3]]: {
             marginLeft: 'auto',
             marginRight: 'auto',
           },

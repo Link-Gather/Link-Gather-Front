@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
 import { ShadowBox } from '@components';
@@ -12,8 +11,6 @@ import { type Theme, mq } from '@libs/theme';
 function SignUpScreen(props: {}) {
   // prop destruction
   // lib hooks
-  const { state } = useLocation();
-
   // state, ref, querystring hooks
   // form hooks
   // query hooks
@@ -25,46 +22,59 @@ function SignUpScreen(props: {}) {
     <FlexBox
       width='100%'
       height='100vh'
-      alignItems='center'
+      justifyContent='center'
       css={(theme: Theme) => [
         {
-          backgroundColor: '#2E558E',
-          [mq[2]]: {
-            alignItems: 'flex-start',
-            paddingTop: '40px',
-          },
+          position: 'relative',
+          overflow: 'hidden',
         },
       ]}
     >
       <ImageBox
-        top='28%'
-        left='27%'
-        width='100px'
-        height='10rem'
+        position='absolute'
+        top='270px'
+        left='50%'
+        width='128px'
+        height='210px'
         backgroundImage={BackgroundAstronaut1}
         zIndex='1'
+        css={{
+          marginLeft: '-466px',
+        }}
       ></ImageBox>
       <ImageBox
-        top='40%'
-        left='10%'
-        width='700px'
-        height='40rem'
+        position='absolute'
+        top='388px'
+        left='50%'
+        width='850px'
+        height='850px'
         backgroundImage={BackgroundPlanet1}
         zIndex='0'
+        css={{
+          marginLeft: '-884px',
+        }}
       ></ImageBox>
       <ImageBox
-        left='70%'
-        top='-1.9%'
-        width='300px'
-        height='500px'
+        position='absolute'
+        top='-56px'
+        width='418px'
+        height='418px'
         backgroundImage={BackgroundPlanet2}
         zIndex='0'
+        css={{
+          left: 'calc(387px + 50%)',
+          minWidth: '250px',
+          transform: 'rotate(245deg)',
+          [mq[0]]: {
+            left: 'calc(283px + 55.2%)',
+          },
+        }}
       ></ImageBox>
       <ShadowBox
         padding='40px'
         css={{
           width: '566px',
-          margin: '0 auto',
+          marginTop: '170px',
         }}
       >
         <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '40px' }}>

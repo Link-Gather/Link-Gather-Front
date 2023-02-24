@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useSignUp } from './useSignUp';
+import { Link } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
 import { ShadowBox } from '@components';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -11,34 +11,15 @@ import { type Theme, mq } from '@libs/theme';
 
 function SignUpScreen() {
   // prop destruction
+  const { label, inputs, onChange, checkNull, sendCode } = useSignUp();
+  const { email, code, password, confirmPassword } = inputs;
   // lib hooks
   // state, ref, querystring hooks
-  const [inputs, setInputs] = useState({
-    email: '',
-    code: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const { email, code, password, confirmPassword } = inputs;
   // form hooks
   // query hooks
   // calculated values
   // effects
   // handlers
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      setInputs({
-        ...inputs,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [inputs]
-  );
-
-  const checkNull = useCallback(() => {
-    if (email !== '' && code !== '' && password !== '' && confirmPassword !== '') return true;
-    return false;
-  }, [email, code, password, confirmPassword]);
 
   return (
     <FlexBox
@@ -99,14 +80,40 @@ function SignUpScreen() {
           </Link>
           <UnderlineTitle title='회원가입' />
           <FlexBox width='100%' marginTop='20px'>
-            <Input name='email' value={email} placeholder='이메일' width='100%' height={50} onChange={onChange} />
-            <RequestButton onClick={() => console.log('request')} value={email}>
+            <Input
+              name='email'
+              value={email}
+              placeholder='이메일'
+              width='100%'
+              height={50}
+              onChange={onChange}
+              label={label.firstLabel}
+            />
+            <RequestButton
+              onClick={() => {
+                sendCode('firstLabel');
+              }}
+              value={email}
+            >
               인증요청
             </RequestButton>
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input name='code' value={code} placeholder='코드입력' width='100%' height={50} onChange={onChange} />
-            <RequestButton onClick={() => console.log('request')} value={code}>
+            <Input
+              name='code'
+              value={code}
+              placeholder='코드입력'
+              width='100%'
+              height={50}
+              onChange={onChange}
+              label={label.secondLabel}
+            />
+            <RequestButton
+              onClick={() => {
+                sendCode('secondLabel');
+              }}
+              value={code}
+            >
               확인
             </RequestButton>
           </FlexBox>

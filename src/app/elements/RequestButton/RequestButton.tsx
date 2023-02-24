@@ -28,15 +28,16 @@ function RequestButton(props: {
             fontWeight: '600',
             border: `2px solid ${value ? theme.palette.black.main : theme.palette.secondary.n60}`,
             borderRadius: '8px',
-            color: props.value ? theme.palette.black.main : theme.palette.secondary.n60,
+            color: value ? theme.palette.black.main : theme.palette.secondary.n60,
             backgroundColor: theme.palette.contrastText,
-            cursor: 'pointer',
+            cursor: value && 'pointer',
             marginLeft: '10px',
           },
         ];
       }}
       className={className}
       onClick={onClick}
+      disabled={value ? false : true}
     >
       {children}
     </button>

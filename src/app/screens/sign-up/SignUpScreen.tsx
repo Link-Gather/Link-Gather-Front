@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
 import { ShadowBox } from '@components';
@@ -9,15 +9,36 @@ import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-plan
 import { FlexBox, UnderlineTitle, RequestButton, ImageBox, Input, Button } from '@elements';
 import { type Theme, mq } from '@libs/theme';
 
-function SignUpScreen(props: {}) {
+function SignUpScreen() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
+  const [inputs, setInputs] = useState({
+    email: '',
+    code: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const { email, code, password, confirmPassword } = inputs;
   // form hooks
   // query hooks
   // calculated values
   // effects
   // handlers
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setInputs({
+        ...inputs,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputs]
+  );
+
+  const checkNull = useCallback(() => {
+    if (email !== '' && code !== '' && password !== '' && confirmPassword !== '') return true;
+    return false;
+  }, [email, code, password, confirmPassword]);
 
   return (
     <FlexBox
@@ -78,25 +99,46 @@ function SignUpScreen(props: {}) {
           </Link>
           <UnderlineTitle title='회원가입' />
           <FlexBox width='100%' marginTop='20px'>
-            <Input placeholder='이메일' width='100%' height={50} />
-            <RequestButton onClick={() => console.log('request')}>인증요청</RequestButton>
+            <Input name='email' value={email} placeholder='이메일' width='100%' height={50} onChange={onChange} />
+            <RequestButton onClick={() => console.log('request')} value={email}>
+              인증요청
+            </RequestButton>
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input placeholder='코드입력' width='100%' height={50} />
-            <RequestButton onClick={() => console.log('request')}>확인</RequestButton>
+            <Input name='code' value={code} placeholder='코드입력' width='100%' height={50} onChange={onChange} />
+            <RequestButton onClick={() => console.log('request')} value={code}>
+              확인
+            </RequestButton>
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input type='password' placeholder='비밀번호 입력' height={50} width='369px' />
+            <Input
+              name='password'
+              value={password}
+              type='password'
+              placeholder='비밀번호 입력'
+              height={50}
+              width='369px'
+              label='8~16자리, 영문과 숫자로 입력해주세요'
+              onChange={onChange}
+            />
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input type='password' placeholder='비밀번호 확인' height={50} width='369px' />
+            <Input
+              name='confirmPassword'
+              value={confirmPassword}
+              type='password'
+              placeholder='비밀번호 확인'
+              height={50}
+              width='369px'
+              onChange={onChange}
+            />
           </FlexBox>
           <Button
             onClick={() => {
               console.log('d');
             }}
             color={palette.contrastText}
-            backgroundColor={palette.secondary.n40}
+            backgroundColor={checkNull() ? palette.primary.main : palette.secondary.n40}
             width={320}
             height={48}
             fontSize={20}

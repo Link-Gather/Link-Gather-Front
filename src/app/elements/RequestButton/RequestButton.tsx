@@ -4,9 +4,10 @@ function RequestButton(props: {
   onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
   className?: string;
   children: React.ReactNode;
+  value?: string;
 }) {
   // prop destruction
-  const { onClick, className, children } = props;
+  const { onClick, className, children, value } = props;
   // lib hooks
   // state, ref hooks
   // form hook
@@ -25,9 +26,9 @@ function RequestButton(props: {
             fontSize: '16px',
             textAlign: 'center',
             fontWeight: '600',
-            border: `2px solid ${theme.palette.secondary.n60}`,
+            border: `2px solid ${value ? theme.palette.black.main : theme.palette.secondary.n60}`,
             borderRadius: '8px',
-            color: theme.palette.secondary.n60,
+            color: props.value ? theme.palette.black.main : theme.palette.secondary.n60,
             backgroundColor: theme.palette.contrastText,
             cursor: 'pointer',
             marginLeft: '10px',

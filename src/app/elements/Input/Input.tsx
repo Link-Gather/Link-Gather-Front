@@ -14,7 +14,9 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  onChange?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  value?: string;
 }
 
 function Input(props: Props) {
@@ -31,6 +33,8 @@ function Input(props: Props) {
     backgroundColor,
     onChange,
     className,
+    label,
+    value,
     ...rest
   } = props;
 
@@ -71,7 +75,7 @@ function Input(props: Props) {
               fontSize: fontSize || 20,
               fontWeight: 500,
               color,
-              border: `2px solid ${theme.palette.secondary.n60}`,
+              border: `2px solid ${value ? theme.palette.black : theme.palette.secondary.n60}`,
               borderRadius: 8,
               backgroundColor,
               padding: '11px 16px 11px 16px',
@@ -93,6 +97,25 @@ function Input(props: Props) {
         ref={inputRef}
         {...rest}
       />
+      {label && (
+        <span
+          css={(theme: Theme) => {
+            return [
+              {
+                position: 'absolute',
+                fontSize: '12px',
+                lineHeight: '20px',
+                left: '0',
+                top: '100%',
+                weight: '400',
+                color: theme.palette.secondary.n300,
+              },
+            ];
+          }}
+        >
+          {label}
+        </span>
+      )}
       <button
         css={{
           position: 'absolute',

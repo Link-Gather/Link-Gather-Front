@@ -20,7 +20,7 @@ function HomeScreen() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 500);
   }, []);
 
   // handlers

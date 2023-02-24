@@ -12,8 +12,6 @@ import { type Theme, mq } from '@libs/theme';
 function SignUpScreen(props: {}) {
   // prop destruction
   // lib hooks
-  const { state } = useLocation();
-
   // state, ref, querystring hooks
   // form hooks
   // query hooks
@@ -32,6 +30,7 @@ function SignUpScreen(props: {}) {
           [mq[2]]: {
             alignItems: 'flex-start',
             paddingTop: '40px',
+            maxWidth: '1000px',
           },
         },
       ]}
@@ -88,10 +87,10 @@ function SignUpScreen(props: {}) {
             <RequestButton onClick={() => console.log('request')}>확인</RequestButton>
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input placeholder='비밀번호 입력' height={50} width='369px' />
+            <Input type='password' placeholder='비밀번호 입력' height={50} width='369px' />
           </FlexBox>
           <FlexBox width='100%' marginTop='-20px'>
-            <Input placeholder='비밀번호 확인' height={50} width='369px' />
+            <Input type='password' placeholder='비밀번호 확인' height={50} width='369px' />
           </FlexBox>
           <Button
             onClick={() => {

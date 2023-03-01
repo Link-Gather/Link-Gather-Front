@@ -11,8 +11,9 @@ import { type Theme, mq } from '@libs/theme';
 
 function SignUpScreen() {
   // prop destruction
-  const { label, inputs, onChange, checkNull, sendCode } = useSignUp();
+  const { label, inputs, onChange, checkNull, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
   const { email, code, password, confirmPassword } = inputs;
+
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
@@ -20,6 +21,16 @@ function SignUpScreen() {
   // calculated values
   // effects
   // handlers
+
+  const submitHandler = () => {
+    const signUpData = {
+      email,
+      code,
+      password,
+      confirmPassword,
+    };
+    console.log(signUpData);
+  };
 
   return (
     <FlexBox
@@ -67,7 +78,7 @@ function SignUpScreen() {
           margin: '0 auto',
         }}
       >
-        <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '40px' }}>
+        <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '25px' }}>
           <Link
             to='/'
             css={{
@@ -98,7 +109,7 @@ function SignUpScreen() {
               인증요청
             </RequestButton>
           </FlexBox>
-          <FlexBox width='100%' marginTop='-20px'>
+          <FlexBox width='100%'>
             <Input
               name='code'
               value={code}
@@ -117,7 +128,7 @@ function SignUpScreen() {
               확인
             </RequestButton>
           </FlexBox>
-          <FlexBox width='100%' marginTop='-20px'>
+          <FlexBox width='100%'>
             <Input
               name='password'
               value={password}
@@ -127,9 +138,10 @@ function SignUpScreen() {
               width='369px'
               label='8~16자리, 영문과 숫자로 입력해주세요'
               onChange={onChange}
+              inputType={passwordValidation(password)}
             />
           </FlexBox>
-          <FlexBox width='100%' marginTop='-20px'>
+          <FlexBox width='100%'>
             <Input
               name='confirmPassword'
               value={confirmPassword}
@@ -138,18 +150,18 @@ function SignUpScreen() {
               height={50}
               width='369px'
               onChange={onChange}
+              inputType={confirmErrorCheck()}
             />
           </FlexBox>
           <Button
-            onClick={() => {
-              console.log('d');
-            }}
+            onClick={submitHandler}
             color={palette.contrastText}
             backgroundColor={checkNull() ? palette.primary.main : palette.secondary.n40}
             width={320}
             height={48}
             fontSize={20}
             css={{ margin: '0 auto', marginTop: '60px' }}
+            disabled={passwordValidation(password) === 'error' ? true : false}
           >
             다음
           </Button>

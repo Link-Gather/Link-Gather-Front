@@ -11,12 +11,24 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
   borderRadius?: CSSProperties['borderRadius'];
+  disabled?: boolean;
 }
 
 function Button(props: Props) {
   // prop destruction
-  const { width, height, fontSize, color, backgroundColor, borderRadius, children, onClick, className, ...rest } =
-    props;
+  const {
+    width,
+    height,
+    fontSize,
+    color,
+    backgroundColor,
+    borderRadius,
+    children,
+    onClick,
+    className,
+    disabled,
+    ...rest
+  } = props;
 
   // lib hooks
   // state, ref hooks
@@ -52,6 +64,7 @@ function Button(props: Props) {
       }}
       className={className}
       onClick={onClick}
+      disabled={disabled}
       {...rest}
     >
       {children}

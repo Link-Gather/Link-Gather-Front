@@ -5,7 +5,7 @@ import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  inputType?: 'default' | 'focus' | 'error';
+  inputType?: 'default' | 'focus' | 'error' | null;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
   fontSize?: CSSProperties['fontSize'];
@@ -75,7 +75,13 @@ function Input(props: Props) {
               fontSize: fontSize || 20,
               fontWeight: 500,
               color,
-              border: `2px solid ${value ? theme.palette.black : theme.palette.secondary.n60}`,
+              border: `2px solid ${
+                value
+                  ? inputType === 'error'
+                    ? theme.palette.secondary.red
+                    : theme.palette.black.main
+                  : theme.palette.secondary.n60
+              }`,
               borderRadius: 8,
               backgroundColor,
               padding: '11px 16px 11px 16px',
@@ -84,7 +90,7 @@ function Input(props: Props) {
                 color: theme.palette.secondary.n60,
               },
               '&:focus': {
-                border: `2px solid ${theme.palette.primary.main}`,
+                border: `2px solid ${inputType === 'error' ? theme.palette.secondary.red : theme.palette.primary.main}`,
               },
               '&[inputType="error"]': {
                 border: `2px solid ${theme.palette.secondary.red}`,
@@ -108,7 +114,7 @@ function Input(props: Props) {
                 left: '0',
                 top: '100%',
                 weight: '400',
-                color: theme.palette.secondary.n300,
+                color: inputType === 'error' ? theme.palette.secondary.red : theme.palette.secondary.n300,
               },
             ];
           }}

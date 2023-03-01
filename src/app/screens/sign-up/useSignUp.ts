@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 
 export function useSignUp() {
   const [label, setLabel] = useState({
@@ -11,14 +11,18 @@ export function useSignUp() {
     password: '',
     confirmPassword: '',
   });
+
   const { email, code, password, confirmPassword } = inputs;
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setInputs({
+        ...inputs,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputs]
+  );
 
   const checkNull = () => {
     if (email !== '' && code !== '' && password !== '' && confirmPassword !== '') {
@@ -33,6 +37,20 @@ export function useSignUp() {
       setLabel({ ...label, secondLabel: '인증이 완료되었습니다' });
     }
   };
+  const passwordValidation = (password: string) => {
+    let reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/);
+    if (
+      (password.length > 0 && !reg.test(password)) ||
+      (password.length > 0 && (password.length < 8 || password.length > 16))
+    ) {
+      return 'error';
+    }
+  };
+
+  const confirmErrorCheck = () => {
+    if (password !== confirmPassword) return 'error';
+    return;
+  };
 
   return {
     label,
@@ -40,5 +58,7 @@ export function useSignUp() {
     onChange,
     checkNull,
     sendCode,
+    passwordValidation,
+    confirmErrorCheck,
   };
 }

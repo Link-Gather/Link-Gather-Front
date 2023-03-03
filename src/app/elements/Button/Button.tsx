@@ -55,6 +55,7 @@ function Button(props: Props) {
             border: 0,
             borderRadius: height ? `${Number(height) / 2}px` : '0px',
             backgroundColor,
+            zIndex: '20',
             cursor: 'pointer',
             ':disabled': {
               backgroundColor: theme.palette.secondary.n40,

@@ -1,21 +1,22 @@
-import { useSignUp } from './useSignUp';
 import { Link } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
 import { ShadowBox } from '@components';
+import FirstStep from './step/FirstStep';
+import SecondStep from './step/SecondStep';
+import ThirdStep from './step/ThirdStep';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox, UnderlineTitle, RequestButton, ImageBox, Input, Button } from '@elements';
+import { FlexBox, UnderlineTitle, ImageBox, Button } from '@elements';
 import { type Theme, mq } from '@libs/theme';
+import { useState } from 'react';
 
 function SignUpScreen() {
   // prop destruction
-  const { label, inputs, onChange, checkNull, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
-  const { email, code, password, confirmPassword } = inputs;
-
   // lib hooks
   // state, ref, querystring hooks
+  const [step, setStep] = useState<number>(0);
   // form hooks
   // query hooks
   // calculated values
@@ -23,13 +24,8 @@ function SignUpScreen() {
   // handlers
 
   const submitHandler = () => {
-    const signUpData = {
-      email,
-      code,
-      password,
-      confirmPassword,
-    };
-    console.log(signUpData);
+    setStep((prevState) => prevState + 1);
+    console.log(step);
   };
 
   return (
@@ -78,7 +74,7 @@ function SignUpScreen() {
           margin: '0 auto',
         }}
       >
-        <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '25px' }}>
+        <FlexBox width='100%' direction='column' css={{ minWidth: '320px', height: '500px', gap: '25px' }}>
           <Link
             to='/'
             css={{
@@ -90,78 +86,26 @@ function SignUpScreen() {
             <img src={IconArrowLeft} alt='go back' />
           </Link>
           <UnderlineTitle title='회원가입' />
-          <FlexBox width='100%' marginTop='20px'>
-            <Input
-              name='email'
-              value={email}
-              placeholder='이메일'
-              width='100%'
-              height={50}
-              onChange={onChange}
-              label={label.firstLabel}
-            />
-            <RequestButton
-              onClick={() => {
-                sendCode('firstLabel');
-              }}
-              value={email}
+          <FlexBox width='369px' height='100%' css={{ margin: '0 auto', overflow: 'hidden' }}>
+            <FlexBox
+              height='100%'
+              alignItems='center'
+              justifyContent='center'
+              css={{ transition: 'transform 500ms ease-in-out', transform: `translateX(${step * -369}px)` }}
             >
-              인증요청
-            </RequestButton>
-          </FlexBox>
-          <FlexBox width='100%'>
-            <Input
-              name='code'
-              value={code}
-              placeholder='코드입력'
-              width='100%'
-              height={50}
-              onChange={onChange}
-              label={label.secondLabel}
-            />
-            <RequestButton
-              onClick={() => {
-                sendCode('secondLabel');
-              }}
-              value={code}
-            >
-              확인
-            </RequestButton>
-          </FlexBox>
-          <FlexBox width='100%'>
-            <Input
-              name='password'
-              value={password}
-              type='password'
-              placeholder='비밀번호 입력'
-              height={50}
-              width='369px'
-              label='8~16자리, 영문과 숫자로 입력해주세요'
-              onChange={onChange}
-              inputType={passwordValidation(password)}
-            />
-          </FlexBox>
-          <FlexBox width='100%'>
-            <Input
-              name='confirmPassword'
-              value={confirmPassword}
-              type='password'
-              placeholder='비밀번호 확인'
-              height={50}
-              width='369px'
-              onChange={onChange}
-              inputType={confirmErrorCheck()}
-            />
+              <FirstStep />
+              <SecondStep />
+              <ThirdStep />
+            </FlexBox>
           </FlexBox>
           <Button
             onClick={submitHandler}
             color={palette.contrastText}
-            backgroundColor={checkNull() ? palette.primary.main : palette.secondary.n40}
+            backgroundColor={palette.primary.main}
             width={320}
             height={48}
             fontSize={20}
-            css={{ margin: '0 auto', marginTop: '60px' }}
-            disabled={passwordValidation(password) === 'error' ? true : false}
+            css={{ margin: '0 auto', marginTop: '-130px' }}
           >
             다음
           </Button>

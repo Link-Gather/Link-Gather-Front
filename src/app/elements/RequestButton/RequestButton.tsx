@@ -32,12 +32,14 @@ function RequestButton(props: {
             backgroundColor: theme.palette.contrastText,
             cursor: value && 'pointer',
             marginLeft: '10px',
+            zIndex: '2',
           },
         ];
       }}
       className={className}
       onClick={onClick}
       disabled={value ? false : true}
+      type='button'
     >
       {children}
     </button>

@@ -134,6 +134,7 @@ function Input(props: Props) {
           background: 'none',
           cursor: 'pointer',
         }}
+        type='button'
         onClick={type === 'password' ? handlePasswordShow : () => {}}
       >
         {type === 'email' && <img src={IconCheckGreen} alt='check' />}

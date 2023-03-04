@@ -24,8 +24,9 @@ function SignUpScreen() {
   // handlers
 
   const submitHandler = () => {
-    setStep((prevState) => prevState + 1);
-    console.log(step);
+    if (step < 2) {
+      setStep((prevState) => prevState + 1);
+    }
   };
 
   return (
@@ -50,6 +51,7 @@ function SignUpScreen() {
         height='10rem'
         backgroundImage={BackgroundAstronaut1}
         zIndex='1'
+        position='fixed'
       ></ImageBox>
       <ImageBox
         top='40%'
@@ -58,6 +60,7 @@ function SignUpScreen() {
         height='40rem'
         backgroundImage={BackgroundPlanet1}
         zIndex='0'
+        position='fixed'
       ></ImageBox>
       <ImageBox
         left='70%'
@@ -66,6 +69,7 @@ function SignUpScreen() {
         height='500px'
         backgroundImage={BackgroundPlanet2}
         zIndex='0'
+        position='fixed'
       ></ImageBox>
       <ShadowBox
         padding='40px'
@@ -75,23 +79,33 @@ function SignUpScreen() {
         }}
       >
         <FlexBox width='100%' direction='column' css={{ minWidth: '320px', height: '500px', gap: '25px' }}>
-          <Link
-            to='/'
+          <FlexBox
             css={{
               position: 'absolute',
               top: '40px',
               left: '40px',
+              cursor: 'pointer',
             }}
           >
-            <img src={IconArrowLeft} alt='go back' />
-          </Link>
+            <img
+              src={IconArrowLeft}
+              alt='go back'
+              onClick={() => {
+                return setStep((prevState) => prevState - 1);
+              }}
+            />
+          </FlexBox>
           <UnderlineTitle title='회원가입' />
           <FlexBox width='369px' height='100%' css={{ margin: '0 auto', overflow: 'hidden' }}>
             <FlexBox
               height='100%'
               alignItems='center'
               justifyContent='center'
-              css={{ transition: 'transform 500ms ease-in-out', transform: `translateX(${step * -369}px)` }}
+              css={{
+                transition: 'transform 500ms ease-in-out',
+                // transform: `translateX(${step * -369}px)`,
+                transform: `translateX(-369px)`,
+              }}
             >
               <FirstStep />
               <SecondStep />

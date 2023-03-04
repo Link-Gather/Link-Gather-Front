@@ -30,7 +30,7 @@ function ImageBox(props: {
             width,
             top,
             left,
-            position: 'fixed',
+            position,
             zIndex,
             height,
             backgroundImage: `url(${backgroundImage})`,

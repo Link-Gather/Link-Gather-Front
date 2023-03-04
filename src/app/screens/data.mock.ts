@@ -1,3 +1,12 @@
+import character1 from '@assets/images/icons/character/character1.svg';
+import character2 from '@assets/images/icons/character/character2.svg';
+import character3 from '@assets/images/icons/character/character3.svg';
+import character4 from '@assets/images/icons/character/character4.svg';
+import character5 from '@assets/images/icons/character/character5.svg';
+import character6 from '@assets/images/icons/character/character6.svg';
+import character7 from '@assets/images/icons/character/character7.svg';
+import character8 from '@assets/images/icons/character/character8.svg';
+
 export const images = [
   {
     id: 0,
@@ -17,3 +26,70 @@ export const images = [
 ];
 
 export default images;
+
+export const characters = [
+  {
+    id: 1,
+    src: character1,
+    backgroundColor: '#F4F75F',
+    width: '50%',
+    height: '100%',
+    marginTop: 0,
+  },
+  {
+    id: 2,
+    src: character2,
+    backgroundColor: '#F75F5F',
+    width: '60%',
+    height: '120%',
+    marginTop: 0,
+  },
+  {
+    id: 3,
+    src: character3,
+    backgroundColor: '#74F75F',
+    width: '80%',
+    height: '100%',
+    marginTop: '30px',
+  },
+  {
+    id: 4,
+    src: character4,
+    backgroundColor: '#F7D65F',
+    width: '80%',
+    height: '100%',
+    marginTop: '10px',
+  },
+  {
+    id: 5,
+    src: character5,
+    backgroundColor: '#5FA5F7',
+    width: '90%',
+    height: '100%',
+    marginTop: '30px',
+  },
+  {
+    id: 6,
+    src: character6,
+    backgroundColor: '#BD5FF7',
+    width: '50%',
+    height: '100%',
+    marginTop: '10px',
+  },
+  {
+    id: 7,
+    src: character7,
+    backgroundColor: '#F75FA8',
+    width: '50%',
+    height: '100%',
+    marginTop: '10px',
+  },
+  {
+    id: 8,
+    src: character8,
+    backgroundColor: '#5555FF',
+    width: '50%',
+    height: '100%',
+    marginTop: '10px',
+  },
+];

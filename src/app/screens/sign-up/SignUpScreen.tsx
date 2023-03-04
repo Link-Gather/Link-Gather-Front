@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
 import { ShadowBox } from '@components';
 import FirstStep from './step/FirstStep';
@@ -103,8 +102,8 @@ function SignUpScreen() {
               justifyContent='center'
               css={{
                 transition: 'transform 500ms ease-in-out',
-                // transform: `translateX(${step * -369}px)`,
-                transform: `translateX(-369px)`,
+                transform: `translateX(${step * -369}px)`,
+                // transform: `translateX(-369px)`,
               }}
             >
               <FirstStep />

@@ -34,7 +34,7 @@ export const characters = [
     backgroundColor: '#F4F75F',
     width: '50%',
     height: '100%',
-    marginTop: 0,
+    marginTop: '0',
   },
   {
     id: 2,
@@ -42,7 +42,7 @@ export const characters = [
     backgroundColor: '#F75F5F',
     width: '60%',
     height: '120%',
-    marginTop: 0,
+    marginTop: '0',
   },
   {
     id: 3,
@@ -50,15 +50,15 @@ export const characters = [
     backgroundColor: '#74F75F',
     width: '80%',
     height: '100%',
-    marginTop: '30px',
+    marginTop: '26px',
   },
   {
     id: 4,
     src: character4,
     backgroundColor: '#F7D65F',
-    width: '80%',
+    width: '75%',
     height: '100%',
-    marginTop: '10px',
+    marginTop: '15px',
   },
   {
     id: 5,
@@ -90,6 +90,6 @@ export const characters = [
     backgroundColor: '#5555FF',
     width: '50%',
     height: '100%',
-    marginTop: '10px',
+    marginTop: '13px',
   },
 ];

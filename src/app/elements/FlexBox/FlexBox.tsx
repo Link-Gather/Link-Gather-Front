@@ -22,9 +22,10 @@ function FlexBox(props: {
   alignContent?: CSSProperties['alignContent'];
   alignItems?: CSSProperties['alignItems'];
   marginTop?: CSSProperties['marginTop'];
+  onClick?: () => void;
 }) {
   // prop destruction
-  const { children, className, direction = 'row', width, height, spacing, ...flexProperties } = props;
+  const { children, className, direction = 'row', width, height, spacing, onClick, ...flexProperties } = props;
 
   // lib hooks
   // state, ref, querystring hooks
@@ -37,6 +38,7 @@ function FlexBox(props: {
   return (
     <div
       className={className}
+      onClick={onClick}
       css={(theme: Theme) => {
         return [
           {

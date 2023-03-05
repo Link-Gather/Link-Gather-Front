@@ -100,7 +100,7 @@ function ForgotPasswordScreen() {
       >
         <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
           <Link
-            to={step < 2 ? ROUTE_PATHS.logIn : `${ROUTE_PATHS.forgotPassword}?step=1`}
+            to={ROUTE_PATHS.logIn}
             css={{
               position: 'absolute',
               top: '40px',

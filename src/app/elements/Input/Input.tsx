@@ -14,7 +14,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  onChange?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Input(props: Props) {
@@ -38,12 +38,15 @@ function Input(props: Props) {
   const inputId = useId();
 
   // state, ref hooks
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [isValue, setIsValue] = useState<boolean>(false);
   // form hook
   // query hooks
   // calculated values
   // effects
+
   // handlers
   const handlePasswordShow = () => {
     setIsShowPassword(!isShowPassword);
@@ -51,6 +54,19 @@ function Input(props: Props) {
       inputRef.current.type = isShowPassword ? 'password' : 'text';
     }
   };
+
+  const validateEmail = (email: string) => {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  };
+  const checkEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEmail(validateEmail(event.currentTarget.value));
+  };
+
+  const checkPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsValue(event.currentTarget.value.length > 0);
+  };
+
   return (
     <label
       htmlFor={inputId}
@@ -81,6 +97,9 @@ function Input(props: Props) {
               },
               '&:focus': {
                 border: `2px solid ${theme.palette.primary.main}`,
+                '& + button': {
+                  display: 'flex',
+                },
               },
               '&[inputType="error"]': {
                 border: `2px solid ${theme.palette.secondary.red}`,
@@ -89,16 +108,17 @@ function Input(props: Props) {
           ];
         }}
         className={className}
-        onChange={onChange}
+        onChange={type === 'email' ? checkEmail : type === 'password' ? checkPassword : onChange}
         ref={inputRef}
         {...rest}
       />
+
       <button
         css={{
           position: 'absolute',
           top: '0',
           right: '8px',
-          display: 'flex',
+          display: 'none',
           alignItems: 'center',
           height,
           border: 'none',
@@ -107,8 +127,10 @@ function Input(props: Props) {
         }}
         onClick={type === 'password' ? handlePasswordShow : () => {}}
       >
-        {type === 'email' && <img src={IconCheckGreen} alt='check' />}
-        {type === 'password' && <img src={isShowPassword ? IconPasswordShow : IconPasswordHide} alt='password' />}
+        {type === 'email' && isEmail && <img src={IconCheckGreen} alt='check' />}
+        {type === 'password' && isValue && (
+          <img src={isShowPassword ? IconPasswordShow : IconPasswordHide} alt='password' />
+        )}
       </button>
     </label>
   );

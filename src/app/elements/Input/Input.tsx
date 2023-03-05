@@ -98,7 +98,7 @@ function Input(props: Props) {
               '&:focus': {
                 border: `2px solid ${theme.palette.primary.main}`,
                 '& + button': {
-                  display: 'flex',
+                  opacity: '1',
                 },
               },
               '&[inputType="error"]': {
@@ -118,12 +118,13 @@ function Input(props: Props) {
           position: 'absolute',
           top: '0',
           right: '8px',
-          display: 'none',
+          display: 'flex',
           alignItems: 'center',
           height,
           border: 'none',
           background: 'none',
           cursor: 'pointer',
+          opacity: '0',
         }}
         onClick={type === 'password' ? handlePasswordShow : () => {}}
       >

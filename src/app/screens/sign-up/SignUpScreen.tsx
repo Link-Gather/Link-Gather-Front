@@ -77,7 +77,11 @@ function SignUpScreen() {
           margin: '0 auto',
         }}
       >
-        <FlexBox width='100%' direction='column' css={{ minWidth: '320px', height: '500px', gap: '25px' }}>
+        <FlexBox
+          width='100%'
+          direction='column'
+          css={{ minWidth: '320px', height: step === 0 ? '600px' : '500px', gap: '25px' }}
+        >
           <FlexBox
             css={{
               position: 'absolute',
@@ -90,24 +94,14 @@ function SignUpScreen() {
               src={IconArrowLeft}
               alt='go back'
               onClick={() => {
-                return setStep((prevState) => prevState - 1);
+                setStep((prevState) => (prevState !== 0 ? prevState - 1 : 0));
               }}
             />
           </FlexBox>
           <UnderlineTitle title='회원가입' />
-          <FlexBox width='369px' height='100%' css={{ margin: '0 auto', overflow: 'hidden' }}>
-            <FlexBox
-              height='100%'
-              alignItems='center'
-              justifyContent='center'
-              css={{
-                transition: 'transform 500ms ease-in-out',
-                transform: `translateX(${step * -369}px)`,
-                // transform: `translateX(-369px)`,
-              }}
-            >
-              <FirstStep />
-              <SecondStep />
+          <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
+            <FlexBox height='100%' alignItems='center' justifyContent='center'>
+              {/* {step === 0 ? <FirstStep /> : step === 1 ? <SecondStep /> : <ThirdStep />} */}
               <ThirdStep />
             </FlexBox>
           </FlexBox>

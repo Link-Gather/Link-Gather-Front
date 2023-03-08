@@ -31,7 +31,7 @@ const SecondStep = () => {
     if (nickname.length > 0 && !reg.test(nickname)) return 'error';
   };
   return (
-    <FlexBox width='369px' height='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
+    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
       <FlexBox width='369px' alignItems='center' marginTop='20px'>
         <FlexBox
           width='150px'
@@ -66,7 +66,7 @@ const SecondStep = () => {
                 alignItems='center'
                 onClick={() => setCharacterState(character)}
                 css={{
-                  border: '1px solid black',
+                  border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
                   borderRadius: '50%',
                   overflow: 'hidden',
                   backgroundColor: character.backgroundColor,
@@ -89,9 +89,9 @@ const SecondStep = () => {
           })}
         </FlexBox>
       </FlexBox>
-      <FlexBox width='80%' marginTop='20px' justifyContent='center' alignItems='center'>
+      <FlexBox width='100%' marginTop='20px' justifyContent='space-between'>
         <Input
-          width='105%'
+          width='103%'
           label='8자이내, 한글, 영문 숫자 혼용 가능'
           placeholder='닉네임 입력'
           name='nickname'
@@ -99,7 +99,7 @@ const SecondStep = () => {
           onChange={onChangeNickname}
           inputType={nicknameValidation(nickname)}
         ></Input>
-        <RequestButton onClick={() => {}} value={nickname} css={{ width: '45%' }}>
+        <RequestButton onClick={() => {}} value={nickname} css={{ width: '30%' }}>
           중복확인
         </RequestButton>
       </FlexBox>

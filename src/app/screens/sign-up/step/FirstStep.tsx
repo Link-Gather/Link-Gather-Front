@@ -1,5 +1,7 @@
 import { useSignUp } from '../useSignUp';
-import { FlexBox, RequestButton, Input } from '@elements';
+import { FlexBox, RequestButton, Input, Button } from '@elements';
+import { Palette } from '@mui/material';
+import palette from '@libs/theme/palettes';
 
 const FirstStep = () => {
   // prop destruction

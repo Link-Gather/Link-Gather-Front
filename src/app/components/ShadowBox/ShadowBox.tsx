@@ -34,7 +34,6 @@ function ShadowBox(props: {
               boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
               backgroundColor: theme.palette.paper,
               padding,
-              overflow: 'hidden',
               zIndex: 10,
             },
           ];

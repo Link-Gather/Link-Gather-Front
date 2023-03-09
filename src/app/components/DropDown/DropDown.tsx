@@ -3,6 +3,7 @@ import { useDialog } from '@hooks';
 import { FlexBox } from '@elements';
 import { type Theme } from '@libs/theme';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { ShadowBox } from '@components';
 
 interface Props {
   width?: CSSProperties['width'];
@@ -15,17 +16,30 @@ interface Props {
   marginLeft?: CSSProperties['marginLeft'];
   label?: string;
   value?: string;
+  data: string[];
 }
 
 function DropDown(props: Props) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const { width, marginTop, marginLeft, height, fontSize, color, backgroundColor, className, label, value, ...rest } =
-    props;
+  const {
+    width,
+    marginTop,
+    marginLeft,
+    height,
+    fontSize,
+    color,
+    backgroundColor,
+    className,
+    label,
+    value,
+    data,
+    ...rest
+  } = props;
 
   // lib hooks
   // state, ref hooks
-  const [menu, setMenu] = useState<string | null>(null);
+  const [selectItem, setSelectItem] = useState<string | null>(null);
   // form hook
   // query hooks
   // calculated values
@@ -42,10 +56,10 @@ function DropDown(props: Props) {
               marginLeft,
               fontSize: fontSize || 20,
               fontWeight: 500,
-              color,
-              border: `2px solid ${theme.palette.secondary.n60}`,
+              border: `2px solid ${
+                isOpenDialog || selectItem ? theme.palette.black.main : theme.palette.secondary.n60
+              }`,
               borderRadius: 8,
-              backgroundColor,
               padding: '11px 16px 11px 16px',
               outline: 'none',
               position: 'relative',
@@ -59,12 +73,12 @@ function DropDown(props: Props) {
           css={(theme: Theme) => {
             return [
               {
-                color: `${theme.palette.secondary.n60}`,
+                color: `${selectItem ? theme.palette.black.main : theme.palette.secondary.n60}`,
               },
             ];
           }}
         >
-          {value}
+          {selectItem ? selectItem : value}
         </span>
         <button
           css={{
@@ -78,9 +92,56 @@ function DropDown(props: Props) {
             cursor: 'pointer',
           }}
           type='button'
+          onClick={toggleDialog}
         >
-          <img src={IconArrowLeft} alt='go back' css={{ transform: 'rotate(270deg)' }} />
+          <img src={IconArrowLeft} alt='go back' css={{ transform: 'rotate(270deg)', width: '25px' }} />
         </button>
+        {isOpenDialog && (
+          <div
+            css={(theme: Theme) => {
+              return [
+                {
+                  width: '100%',
+                  border: `2px solid ${theme.palette.black.main}`,
+                  position: 'absolute',
+                  top: '105%',
+                  left: '0',
+                  backgroundColor: theme.palette.paper,
+                  borderRadius: '8px',
+                  boxShadow: `3px 5px 0px ${theme.palette.black.main}`,
+                  zIndex: '2',
+                },
+              ];
+            }}
+          >
+            <ul css={{ padding: '10px 0px' }}>
+              {data.map((data) => {
+                return (
+                  <li
+                    css={(theme: Theme) => {
+                      return [
+                        {
+                          fontSize: '16px',
+                          margin: '10px 15px',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            color: theme.palette.primary.main,
+                          },
+                        },
+                      ];
+                    }}
+                    onClick={() => {
+                      setSelectItem(data);
+                      closeDialog();
+                    }}
+                  >
+                    {data}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </FlexBox>
     </FlexBox>
   );

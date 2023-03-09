@@ -1,4 +1,4 @@
-import { CSSProperties, useId, useRef } from 'react';
+import { CSSProperties, useId } from 'react';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -19,7 +19,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 function Input(props: Props) {
   // prop destruction
   const {
-    inputType,
+    inputType = 'default',
     type,
     width,
     marginTop,
@@ -39,7 +39,6 @@ function Input(props: Props) {
   const inputId = useId();
 
   // state, ref hooks
-  const inputRef = useRef<HTMLInputElement>(null);
 
   // form hook
   // query hooks
@@ -68,7 +67,6 @@ function Input(props: Props) {
               fontSize: fontSize || 20,
               fontWeight: 500,
               color,
-              border: `2px solid ${theme.palette.secondary.n60}`,
               borderRadius: 8,
               backgroundColor,
               padding: '11px 16px 11px 16px',
@@ -79,15 +77,20 @@ function Input(props: Props) {
               '&:focus': {
                 border: `2px solid ${theme.palette.primary.main}`,
               },
-              '&[inputType="error"]': {
-                border: `2px solid ${theme.palette.secondary.red}`,
-              },
+            },
+            inputType === 'default' && {
+              border: `2px solid ${theme.palette.secondary.n60}`,
+            },
+            inputType === 'error' && {
+              border: `2px solid ${theme.palette.secondary.red}`,
+            },
+            inputType === 'focus' && {
+              border: `2px solid ${theme.palette.primary.main}`,
             },
           ];
         }}
         className={className}
         onChange={onChange}
-        ref={inputRef}
         {...rest}
       />
 

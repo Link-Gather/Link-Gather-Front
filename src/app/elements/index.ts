@@ -13,3 +13,4 @@ export * from './Layout';
 export * from './UnderlineTitle';
 export * from './RequestButton';
 export * from './ImageBox';
+export * from './CategoryTitle';

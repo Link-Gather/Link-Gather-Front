@@ -100,10 +100,8 @@ function SignUpScreen() {
           </FlexBox>
           <UnderlineTitle title='회원가입' />
           <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
-            <FlexBox height='100%' alignItems='center' justifyContent='center'>
-              {/* {step === 0 ? <FirstStep /> : step === 1 ? <SecondStep /> : <ThirdStep />} */}
-              <ThirdStep />
-            </FlexBox>
+            {/* {step === 0 ? <FirstStep /> : step === 1 ? <SecondStep /> : <ThirdStep />} */}
+            <ThirdStep />
           </FlexBox>
           <Button
             onClick={submitHandler}

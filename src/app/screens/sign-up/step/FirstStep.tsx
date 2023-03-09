@@ -13,7 +13,7 @@ const FirstStep = () => {
   // effects
   // handlers
   return (
-    <FlexBox width='100%' height='100%' direction='column' css={{ gap: '25px' }}>
+    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
       <form css={{ height: '100%' }}>
         <FlexBox width='100%' marginTop='25px'>
           <Input

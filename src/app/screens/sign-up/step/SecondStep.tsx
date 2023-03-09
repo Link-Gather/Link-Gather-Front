@@ -31,8 +31,8 @@ const SecondStep = () => {
     if (nickname.length > 0 && !reg.test(nickname)) return 'error';
   };
   return (
-    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
-      <FlexBox width='369px' alignItems='center' marginTop='20px'>
+    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px', margin: '0 auto' }}>
+      <FlexBox width='100%' marginTop='20px'>
         <FlexBox
           width='150px'
           height='110px'
@@ -89,7 +89,7 @@ const SecondStep = () => {
           })}
         </FlexBox>
       </FlexBox>
-      <FlexBox width='100%' marginTop='20px' justifyContent='space-between'>
+      <FlexBox width='90%' marginTop='20px' justifyContent='space-between'>
         <Input
           width='103%'
           label='8자이내, 한글, 영문 숫자 혼용 가능'
@@ -99,7 +99,7 @@ const SecondStep = () => {
           onChange={onChangeNickname}
           inputType={nicknameValidation(nickname)}
         ></Input>
-        <RequestButton onClick={() => {}} value={nickname} css={{ width: '30%' }}>
+        <RequestButton onClick={() => {}} value={nickname} css={{ width: '40%' }}>
           중복확인
         </RequestButton>
       </FlexBox>

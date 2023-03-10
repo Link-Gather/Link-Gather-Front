@@ -73,7 +73,7 @@ function DropDown(props: Props) {
           css={(theme: Theme) => {
             return [
               {
-                color: `${selectItem ? theme.palette.black.main : theme.palette.secondary.n60}`,
+                color: selectItem ? theme.palette.black.main : theme.palette.secondary.n60,
               },
             ];
           }}

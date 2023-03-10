@@ -1,9 +1,7 @@
-import { useSignUp } from '../useSignUp';
-import { FlexBox, RequestButton, Input, Button } from '@elements';
-import { Palette } from '@mui/material';
-import palette from '@libs/theme/palettes';
+import { useSignUp } from '../../useSignUp';
+import { FlexBox, RequestButton, Input } from '@elements';
 
-const FirstStep = () => {
+const Step1 = () => {
   // prop destruction
   const { label, inputs, onChange, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
   const { email, code, password, confirmPassword } = inputs;
@@ -25,7 +23,7 @@ const FirstStep = () => {
             width='100%'
             height={50}
             onChange={onChange}
-            label={label.firstLabel}
+            message={label.firstLabel}
           />
           <RequestButton
             onClick={() => {
@@ -44,7 +42,7 @@ const FirstStep = () => {
             width='100%'
             height={50}
             onChange={onChange}
-            label={label.secondLabel}
+            message={label.secondLabel}
           />
           <RequestButton
             onClick={() => {
@@ -63,7 +61,7 @@ const FirstStep = () => {
             placeholder='비밀번호 입력'
             height={50}
             width='369px'
-            label='8~16자리, 영문과 숫자로 입력해주세요'
+            message='8~16자리, 영문과 숫자로 입력해주세요'
             onChange={onChange}
             inputType={passwordValidation(password)}
             autoComplete='off'
@@ -87,4 +85,4 @@ const FirstStep = () => {
   );
 };
 
-export default FirstStep;
+export { Step1 };

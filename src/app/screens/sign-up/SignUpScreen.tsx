@@ -1,32 +1,20 @@
-import palette from '@libs/theme/palettes/default';
-import { ShadowBox } from '@components';
-import FirstStep from './step/FirstStep';
-import SecondStep from './step/SecondStep';
-import ThirdStep from './step/ThirdStep';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox, UnderlineTitle, ImageBox, Button } from '@elements';
+import { SignupBox } from './step/signupbox/SignupBox';
+import { FlexBox, ImageBox } from '@elements';
 import { type Theme, mq } from '@libs/theme';
-import { useState } from 'react';
 
 function SignUpScreen() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState<number>(0);
+
   // form hooks
   // query hooks
   // calculated values
   // effects
   // handlers
-
-  const submitHandler = () => {
-    if (step < 2) {
-      setStep((prevState) => prevState + 1);
-    }
-  };
 
   return (
     <FlexBox
@@ -70,52 +58,7 @@ function SignUpScreen() {
         zIndex='0'
         position='fixed'
       ></ImageBox>
-      <ShadowBox
-        padding='40px'
-        css={{
-          width: '566px',
-          margin: '0 auto',
-        }}
-      >
-        <FlexBox
-          width='100%'
-          direction='column'
-          css={{ minWidth: '320px', height: step === 0 ? '600px' : '500px', gap: '25px' }}
-        >
-          <FlexBox
-            css={{
-              position: 'absolute',
-              top: '40px',
-              left: '40px',
-              cursor: 'pointer',
-            }}
-          >
-            <img
-              src={IconArrowLeft}
-              alt='go back'
-              onClick={() => {
-                setStep((prevState) => (prevState !== 0 ? prevState - 1 : 0));
-              }}
-            />
-          </FlexBox>
-          <UnderlineTitle title='회원가입' />
-          <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
-            {step === 0 ? <FirstStep /> : step === 1 ? <SecondStep /> : <ThirdStep />}
-            {/* <ThirdStep /> */}
-          </FlexBox>
-          <Button
-            onClick={submitHandler}
-            color={palette.contrastText}
-            backgroundColor={palette.primary.main}
-            width={320}
-            height={48}
-            fontSize={20}
-            css={{ margin: '0 auto', marginTop: '-130px' }}
-          >
-            다음
-          </Button>
-        </FlexBox>
-      </ShadowBox>
+      <SignupBox />
     </FlexBox>
   );
 }

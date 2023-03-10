@@ -1,18 +1,17 @@
-import React from 'react';
 import { FlexBox, CategoryTitle } from '@elements';
 import { DropDown } from '@components';
 
-const ThirdStep = () => {
+const Step3 = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
   // query hooks
   // calculated values
-  // effects
-  // handlers
   const firstData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
   const secondData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
+  // effects
+  // handlers
 
   return (
     <FlexBox width='100%' height='100%' direction='column' css={{ gap: '25px' }}>
@@ -33,4 +32,4 @@ const ThirdStep = () => {
   );
 };
 
-export default ThirdStep;
+export { Step3 };

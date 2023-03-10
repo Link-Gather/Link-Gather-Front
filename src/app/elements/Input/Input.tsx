@@ -1,7 +1,4 @@
-import { CSSProperties, useId, useState, useRef } from 'react';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { CSSProperties, useId } from 'react';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -16,13 +13,16 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   marginLeft?: CSSProperties['marginLeft'];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
+  onClick?: () => void;
+  message?: string;
   value?: string;
+  children?: React.ReactNode;
 }
 
 function Input(props: Props) {
   // prop destruction
   const {
-    inputType,
+    inputType = 'default',
     type,
     width,
     marginTop,
@@ -32,9 +32,11 @@ function Input(props: Props) {
     color,
     backgroundColor,
     onChange,
+    onClick,
     className,
-    label,
+    message,
     value,
+    children,
     ...rest
   } = props;
 
@@ -42,19 +44,14 @@ function Input(props: Props) {
   const inputId = useId();
 
   // state, ref hooks
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+
   // form hook
   // query hooks
   // calculated values
   // effects
+
   // handlers
-  const handlePasswordShow = () => {
-    setIsShowPassword(!isShowPassword);
-    if (inputRef.current) {
-      inputRef.current.type = isShowPassword ? 'password' : 'text';
-    }
-  };
+
   return (
     <label
       htmlFor={inputId}
@@ -75,35 +72,42 @@ function Input(props: Props) {
               fontSize: fontSize || 20,
               fontWeight: 500,
               color,
-              border: `2px solid ${
-                value
-                  ? inputType === 'error'
-                    ? theme.palette.secondary.red
-                    : theme.palette.black.main
-                  : theme.palette.secondary.n60
-              }`,
               borderRadius: 8,
               backgroundColor,
               padding: '11px 16px 11px 16px',
               outline: 'none',
+              border: value
+                ? inputType === 'error'
+                  ? `2px solid ${theme.palette.secondary.red}`
+                  : `2px solid ${theme.palette.black.main}`
+                : `2px solid ${theme.palette.secondary.n60}`, //초기 기본 색
               '&::placeholder': {
                 color: theme.palette.secondary.n60,
               },
               '&:focus': {
-                border: `2px solid ${inputType === 'error' ? theme.palette.secondary.red : theme.palette.primary.main}`,
-              },
-              '&[inputType="error"]': {
-                border: `2px solid ${theme.palette.secondary.red}`,
+                // focus일 때 보라색, focus이고 에러일 때 빨간색, focus가 아니고 에러일 때도 빨간색, focus가 아니고 에러가 아닐 때 검정색
+                border:
+                  inputType === 'error'
+                    ? `2px solid ${theme.palette.secondary.red}`
+                    : `2px solid ${theme.palette.primary.main}`,
               },
             },
+            // inputType === 'error' && {
+            //   border: `2px solid ${theme.palette.secondary.red}`,
+            // },
+            // inputType === 'default' && {
+            //   border: `2px solid ${theme.palette.secondary.n60}`,
+            // },
+            // inputType === 'default' && {
+            //   border: `2px solid ${theme.palette.secondary.n60}`,
+            // },
           ];
         }}
         className={className}
         onChange={onChange}
-        ref={inputRef}
         {...rest}
       />
-      {label && (
+      {message && (
         <span
           css={(theme: Theme) => {
             return [
@@ -119,7 +123,7 @@ function Input(props: Props) {
             ];
           }}
         >
-          {label}
+          {message}
         </span>
       )}
       <button
@@ -135,10 +139,9 @@ function Input(props: Props) {
           cursor: 'pointer',
         }}
         type='button'
-        onClick={type === 'password' ? handlePasswordShow : () => {}}
+        onClick={onClick}
       >
-        {type === 'email' && <img src={IconCheckGreen} alt='check' />}
-        {type === 'password' && <img src={isShowPassword ? IconPasswordShow : IconPasswordHide} alt='password' />}
+        {children}
       </button>
     </label>
   );

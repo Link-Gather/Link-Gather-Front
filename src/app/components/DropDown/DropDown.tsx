@@ -118,6 +118,7 @@ function DropDown(props: Props) {
               {data.map((data) => {
                 return (
                   <li
+                    key={data}
                     css={(theme: Theme) => {
                       return [
                         {

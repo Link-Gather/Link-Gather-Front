@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import { characters } from 'app/screens/data.mock';
-import character1 from '@assets/images/icons/character/character1.svg';
 import { FlexBox, Input, RequestButton, ImageBox } from '@elements';
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
   marginTop: string;
 }
 
-const SecondStep = () => {
+const Step2 = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -107,4 +106,4 @@ const SecondStep = () => {
   );
 };
 
-export default SecondStep;
+export { Step2 };

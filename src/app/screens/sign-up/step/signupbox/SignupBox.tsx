@@ -1,0 +1,67 @@
+import { useState } from 'react';
+import { Step1, Step2, Step3 } from '@screens';
+import { Button, FlexBox, UnderlineTitle } from '@elements';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { ShadowBox } from '@components';
+import palette from '@libs/theme/palettes';
+
+const SignupBox = () => {
+  const [step, setStep] = useState<number>(0);
+
+  const submitHandler = () => {
+    if (step < 2) {
+      setStep((prevState) => prevState + 1);
+    }
+  };
+  return (
+    <ShadowBox
+      padding='40px'
+      css={{
+        width: '566px',
+        margin: '0 auto',
+      }}
+    >
+      <FlexBox
+        width='100%'
+        direction='column'
+        css={{ minWidth: '320px', height: step === 2 ? '600px' : '500px', gap: '25px' }}
+      >
+        <FlexBox
+          css={{
+            position: 'absolute',
+            top: '40px',
+            left: '40px',
+            cursor: 'pointer',
+          }}
+        >
+          <img
+            src={IconArrowLeft}
+            alt='go back'
+            onClick={() => {
+              setStep((prevState) => (prevState !== 0 ? prevState - 1 : 0));
+            }}
+          />
+        </FlexBox>
+        <UnderlineTitle title='회원가입' />
+        <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
+          {step === 0 ? <Step1 /> : step === 1 ? <Step2 /> : <Step3 />}
+          {/* <ThirdStep /> */}
+        </FlexBox>
+
+        <Button
+          onClick={submitHandler}
+          color={palette.contrastText}
+          backgroundColor={palette.primary.main}
+          width={320}
+          height={48}
+          fontSize={20}
+          css={{ margin: '0 auto', marginTop: '-130px' }}
+        >
+          다음
+        </Button>
+      </FlexBox>
+    </ShadowBox>
+  );
+};
+
+export { SignupBox };

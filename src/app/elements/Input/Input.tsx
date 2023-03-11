@@ -1,8 +1,10 @@
 import { CSSProperties, useId } from 'react';
 import type { Theme } from '@libs/theme';
 
+export type InputStatus = 'inActive' | 'active' | 'error';
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  inputType?: 'default' | 'focus' | 'error';
+  inputStatus?: InputStatus;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
   fontSize?: CSSProperties['fontSize'];
@@ -11,7 +13,6 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -19,7 +20,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 function Input(props: Props) {
   // prop destruction
   const {
-    inputType = 'default',
+    inputStatus = 'default',
     type,
     width,
     marginTop,
@@ -28,7 +29,6 @@ function Input(props: Props) {
     fontSize,
     color,
     backgroundColor,
-    onChange,
     onClick,
     className,
     children,
@@ -37,6 +37,10 @@ function Input(props: Props) {
 
   // lib hooks
   const inputId = useId();
+
+  const { value } = rest;
+  console.log(type, value);
+  console.log(rest);
 
   // state, ref hooks
 
@@ -74,23 +78,28 @@ function Input(props: Props) {
               '&::placeholder': {
                 color: theme.palette.secondary.n60,
               },
+            },
+            inputStatus === 'error' && {
+              border: `2px solid ${theme.palette.secondary.red}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.secondary.red}`,
+              },
+            },
+            inputStatus === 'active' && {
+              border: `2px solid ${theme.palette.secondary.n500}`,
               '&:focus': {
                 border: `2px solid ${theme.palette.primary.main}`,
               },
             },
-            inputType === 'default' && {
+            inputStatus === 'inActive' && {
               border: `2px solid ${theme.palette.secondary.n60}`,
-            },
-            inputType === 'error' && {
-              border: `2px solid ${theme.palette.secondary.red}`,
-            },
-            inputType === 'focus' && {
-              border: `2px solid ${theme.palette.primary.main}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.primary.main}`,
+              },
             },
           ];
         }}
         className={className}
-        onChange={onChange}
         {...rest}
       />
 

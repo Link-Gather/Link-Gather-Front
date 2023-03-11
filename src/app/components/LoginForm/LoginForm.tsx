@@ -78,7 +78,7 @@ function LoginForm() {
           height={50}
           placeholder={info.name}
           onChange={(event) => checkInputInfo(event, info.type)}
-          inputType={info.isValidated ? 'focus' : info.length > 0 ? 'error' : 'default'}
+          inputStatus={info.isValidated ? 'active' : info.length > 0 ? 'error' : 'inActive'}
           onClick={info.clickEvent ?? (() => {})}
         >
           {info.isValidated ? <img src={info.icon} alt={`checked ${info.name}`} /> : null}

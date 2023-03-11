@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FlexBox, UnderlineTitle, Input, Button, InputStatus } from '@elements';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';

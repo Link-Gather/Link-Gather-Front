@@ -47,8 +47,6 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
   // effects
   // handlers
 
-  console.log(inputStatus);
-
   return (
     <label
       htmlFor={inputId}

@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { characters } from 'app/screens/data.mock';
-import { FlexBox, Input, RequestButton, ImageBox } from '@elements';
+import { FlexBox, Input, RequestButton, ImageBox, Button } from '@elements';
+import palette from '@libs/theme/palettes';
 
 interface Props {
   id: number;
@@ -11,7 +12,7 @@ interface Props {
   marginTop: string;
 }
 
-const SignupStep2 = () => {
+const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -30,7 +31,14 @@ const SignupStep2 = () => {
     if (nickname.length > 0 && !reg.test(nickname)) return 'error';
   };
   return (
-    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px', margin: '0 auto' }}>
+    <FlexBox
+      width='100%'
+      height='100%'
+      direction='column'
+      alignItems='center'
+      position='relative'
+      css={{ gap: '25px', margin: '0 auto' }}
+    >
       <FlexBox width='100%' marginTop='20px'>
         <FlexBox
           width='150px'
@@ -102,6 +110,17 @@ const SignupStep2 = () => {
           중복확인
         </RequestButton>
       </FlexBox>
+      <Button
+        onClick={moveNextStep}
+        color={palette.contrastText}
+        backgroundColor={palette.primary.main}
+        width={320}
+        height={48}
+        fontSize={20}
+        css={{ position: 'absolute', top: '90%' }}
+      >
+        다음
+      </Button>
     </FlexBox>
   );
 };

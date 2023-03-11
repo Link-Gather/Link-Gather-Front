@@ -3,12 +3,18 @@ import { SignupStep1, SignupStep2, SignupStep3 } from '@screens';
 import { Button, FlexBox, UnderlineTitle } from '@elements';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { ShadowBox } from '@components';
-import palette from '@libs/theme/palettes';
 
 const SignupBox = () => {
+  // prop destruction
+  // lib hooks
+  // state, ref, querystring hooks
   const [step, setStep] = useState<number>(0);
-
-  const submitHandler = () => {
+  // form hooks
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
+  const moveNextStep = (): void => {
     if (step < 2) {
       setStep((prevState) => prevState + 1);
     }
@@ -44,21 +50,15 @@ const SignupBox = () => {
         </FlexBox>
         <UnderlineTitle title='회원가입' />
         <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
-          {step === 0 ? <SignupStep1 /> : step === 1 ? <SignupStep2 /> : <SignupStep3 />}
+          {step === 0 ? (
+            <SignupStep1 moveNextStep={moveNextStep} />
+          ) : step === 1 ? (
+            <SignupStep2 moveNextStep={moveNextStep} />
+          ) : (
+            <SignupStep3 />
+          )}
           {/* <ThirdStep /> */}
         </FlexBox>
-
-        <Button
-          onClick={submitHandler}
-          color={palette.contrastText}
-          backgroundColor={palette.primary.main}
-          width={320}
-          height={48}
-          fontSize={20}
-          css={{ margin: '0 auto', marginTop: '-130px' }}
-        >
-          다음
-        </Button>
       </FlexBox>
     </ShadowBox>
   );

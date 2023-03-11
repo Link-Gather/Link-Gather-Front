@@ -1,7 +1,8 @@
 import { useSignUp } from '../../useSignUp';
-import { FlexBox, RequestButton, Input } from '@elements';
+import { FlexBox, RequestButton, Input, Button } from '@elements';
+import palette from '@libs/theme/palettes';
 
-const SignupStep1 = () => {
+const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
   const { label, inputs, onChange, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
   const { email, code, password, confirmPassword } = inputs;
@@ -13,7 +14,14 @@ const SignupStep1 = () => {
   // effects
   // handlers
   return (
-    <FlexBox width='100%' height='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
+    <FlexBox
+      width='100%'
+      height='100%'
+      direction='column'
+      alignItems='center'
+      position='relative'
+      css={{ gap: '25px' }}
+    >
       <form css={{ height: '100%' }}>
         <FlexBox width='100%' marginTop='25px'>
           <Input
@@ -81,6 +89,17 @@ const SignupStep1 = () => {
           />
         </FlexBox>
       </form>
+      <Button
+        onClick={moveNextStep}
+        color={palette.contrastText}
+        backgroundColor={palette.primary.main}
+        width={320}
+        height={48}
+        fontSize={20}
+        css={{ position: 'absolute', top: '90%' }}
+      >
+        다음
+      </Button>
     </FlexBox>
   );
 };

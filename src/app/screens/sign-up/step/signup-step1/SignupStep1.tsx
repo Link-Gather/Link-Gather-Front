@@ -1,7 +1,7 @@
 import { useSignUp } from '../../useSignUp';
 import { FlexBox, RequestButton, Input } from '@elements';
 
-const Step1 = () => {
+const SignupStep1 = () => {
   // prop destruction
   const { label, inputs, onChange, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
   const { email, code, password, confirmPassword } = inputs;
@@ -85,4 +85,4 @@ const Step1 = () => {
   );
 };
 
-export { Step1 };
+export { SignupStep1 };

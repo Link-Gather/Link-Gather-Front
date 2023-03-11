@@ -1,7 +1,7 @@
 import { FlexBox, CategoryTitle } from '@elements';
 import { DropDown } from '@components';
 
-const Step3 = () => {
+const SignupStep3 = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -32,4 +32,4 @@ const Step3 = () => {
   );
 };
 
-export { Step3 };
+export { SignupStep3 };

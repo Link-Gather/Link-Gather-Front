@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { characters } from 'app/screens/data.mock';
 import { FlexBox, Input, RequestButton, ImageBox } from '@elements';
 
@@ -11,7 +11,7 @@ interface Props {
   marginTop: string;
 }
 
-const Step2 = () => {
+const SignupStep2 = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -106,4 +106,4 @@ const Step2 = () => {
   );
 };
 
-export { Step2 };
+export { SignupStep2 };

@@ -14,7 +14,6 @@ interface Props {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  label?: string;
   value?: string;
   data: string[];
 }
@@ -22,20 +21,8 @@ interface Props {
 function DropDown(props: Props) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const {
-    width,
-    marginTop,
-    marginLeft,
-    height,
-    fontSize,
-    color,
-    backgroundColor,
-    className,
-    label,
-    value,
-    data,
-    ...rest
-  } = props;
+  const { width, marginTop, marginLeft, height, fontSize, color, backgroundColor, className, value, data, ...rest } =
+    props;
 
   // lib hooks
   // state, ref hooks

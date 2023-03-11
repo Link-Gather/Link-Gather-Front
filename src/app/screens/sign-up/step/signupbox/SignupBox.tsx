@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Step1, Step2, Step3 } from '@screens';
+import { SignupStep1, SignupStep2, SignupStep3 } from '@screens';
 import { Button, FlexBox, UnderlineTitle } from '@elements';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { ShadowBox } from '@components';
@@ -44,7 +44,7 @@ const SignupBox = () => {
         </FlexBox>
         <UnderlineTitle title='회원가입' />
         <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
-          {step === 0 ? <Step1 /> : step === 1 ? <Step2 /> : <Step3 />}
+          {step === 0 ? <SignupStep1 /> : step === 1 ? <SignupStep2 /> : <SignupStep3 />}
           {/* <ThirdStep /> */}
         </FlexBox>
 

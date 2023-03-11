@@ -79,7 +79,7 @@ function Input(props: Props) {
               border: value
                 ? inputType === 'error'
                   ? `2px solid ${theme.palette.secondary.red}`
-                  : `2px solid ${theme.palette.black.main}`
+                  : `2px solid ${theme.palette.secondary.n500}`
                 : `2px solid ${theme.palette.secondary.n60}`, //초기 기본 색
               '&::placeholder': {
                 color: theme.palette.secondary.n60,

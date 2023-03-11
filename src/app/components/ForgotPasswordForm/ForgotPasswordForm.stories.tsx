@@ -7,7 +7,7 @@ type ArgTypes = ComponentProps<typeof ForgotPasswordForm>;
 export default {
   title: 'components/ForgotPasswordForm',
   component: ForgotPasswordForm,
-  args: {},
+  args: { step: 1 },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

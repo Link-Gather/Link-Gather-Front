@@ -119,10 +119,10 @@ function ForgotPasswordForm(props: Props) {
     );
   };
 
-  const handlePasswordVisible = () => {
+  const handlePasswordVisible = (inputName: string) => {
     setForgotPasswordInfo(
       forgotPasswordInfo.map((info) =>
-        ['password', 'confirmPassword'].includes(info.name)
+        info.name === inputName
           ? {
               ...info,
               type: info.type === 'password' ? 'text' : 'password',
@@ -156,7 +156,9 @@ function ForgotPasswordForm(props: Props) {
               placeholder={info.placeholder}
               onChange={(event) => checkInputInfo(event, info.name)}
               inputStatus={info.status}
-              onClick={['password', 'confirmPassword'].includes(info.name) ? handlePasswordVisible : () => {}}
+              onClick={
+                ['password', 'confirmPassword'].includes(info.name) ? () => handlePasswordVisible(info.name) : () => {}
+              }
               message={info[`${info.status}Message`]}
               ref={inputRef}
             >

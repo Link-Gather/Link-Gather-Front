@@ -15,5 +15,3 @@ export const images = [
     alt: '세번째 슬라이드',
   },
 ];
-
-export default images;

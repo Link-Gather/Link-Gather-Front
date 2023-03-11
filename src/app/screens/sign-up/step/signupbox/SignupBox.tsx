@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SignupStep1, SignupStep2, SignupStep3 } from '@screens';
 import { Button, FlexBox, UnderlineTitle } from '@elements';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -9,6 +9,12 @@ const SignupBox = () => {
   // lib hooks
   // state, ref, querystring hooks
   const [step, setStep] = useState<number>(0);
+  const [inputs, setInputs] = useState({
+    email: '',
+    code: '',
+    password: '',
+    confirmPassword: '',
+  });
   // form hooks
   // query hooks
   // calculated values
@@ -51,11 +57,11 @@ const SignupBox = () => {
         <UnderlineTitle title='회원가입' />
         <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
           {step === 0 ? (
-            <SignupStep1 moveNextStep={moveNextStep} />
+            <SignupStep1 moveNextStep={moveNextStep} inputs={inputs} setInputs={setInputs} />
           ) : step === 1 ? (
             <SignupStep2 moveNextStep={moveNextStep} />
           ) : (
-            <SignupStep3 />
+            <SignupStep3 moveNextStep={moveNextStep} />
           )}
           {/* <ThirdStep /> */}
         </FlexBox>

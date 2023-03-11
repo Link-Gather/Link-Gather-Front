@@ -21,15 +21,16 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // form hooks
   // query hooks
   // calculated values
+  const nicknameValidation = (nickname: string) => {
+    let reg = new RegExp(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/);
+    if (nickname.length > 0 && !reg.test(nickname)) return 'error';
+  };
   // effects
   // handlers
   const onChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
-  const nicknameValidation = (nickname: string) => {
-    let reg = new RegExp(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/);
-    if (nickname.length > 0 && !reg.test(nickname)) return 'error';
-  };
+
   return (
     <FlexBox
       width='100%'
@@ -99,7 +100,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       <FlexBox width='90%' marginTop='20px' justifyContent='space-between'>
         <Input
           width='103%'
-          label='8자이내, 한글, 영문 숫자 혼용 가능'
+          message='8자이내, 한글, 영문 숫자 혼용 가능'
           placeholder='닉네임 입력'
           name='nickname'
           value={nickname}
@@ -117,6 +118,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         width={320}
         height={48}
         fontSize={20}
+        disabled={nickname === '' ? true : false}
         css={{ position: 'absolute', top: '90%' }}
       >
         다음

@@ -1,18 +1,90 @@
-import { useSignUp } from '../../useSignUp';
+import { useState, useCallback, ChangeEvent, useEffect, useRef } from 'react';
 import { FlexBox, RequestButton, Input, Button } from '@elements';
 import palette from '@libs/theme/palettes';
 
-const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
+interface Props {
+  email: string;
+  code: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const SignupStep1 = ({
+  moveNextStep,
+  inputs,
+  setInputs,
+}: {
+  moveNextStep: () => void;
+  inputs: Props;
+  setInputs: React.Dispatch<React.SetStateAction<Props>>;
+}) => {
   // prop destruction
-  const { label, inputs, onChange, sendCode, passwordValidation, confirmErrorCheck } = useSignUp();
-  const { email, code, password, confirmPassword } = inputs;
   // lib hooks
   // state, ref, querystring hooks
+  const [label, setLabel] = useState({
+    firstLabel: '',
+    secondLabel: '',
+  });
+
+  // const inputRef1 = useRef<HTMLInputElement>(null);
+  // const inputRef2 = useRef<HTMLInputElement>(null);
+  // const inputRef3 = useRef<HTMLInputElement>(null);
+  // const inputRef4 = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef2 = useRef<HTMLInputElement>(null);
+  // const inputRef3 = useRef<HTMLInputElement>(null);
+  // const inputRef4 = useRef<HTMLInputElement>(null);
+  const { email, code, password, confirmPassword } = inputs;
   // form hooks
   // query hooks
   // calculated values
+  const checkNull = () => {
+    if (email !== '' && code !== '' && password !== '' && confirmPassword !== '') {
+      if (password === confirmPassword) return true;
+    }
+  };
+  const sendCode = (labelNumber: string) => {
+    if (labelNumber === 'firstLabel') {
+      setLabel({ ...label, firstLabel: `${label.firstLabel ? '코드를 재전송했습니다.' : '코드를 전송했습니다.'}` });
+    } else {
+      setLabel({ ...label, secondLabel: '인증이 완료되었습니다' });
+    }
+  };
+  const passwordValidation = (password: string) => {
+    let reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/);
+    if (
+      (password.length > 0 && !reg.test(password)) ||
+      (password.length > 0 && (password.length < 8 || password.length > 16))
+    ) {
+      return 'error';
+    }
+  };
+
+  const confirmErrorCheck = () => {
+    if (password !== confirmPassword) return 'error';
+    return;
+  };
   // effects
+  useEffect(() => {
+    // for (let i = 0; i < inputRef.current.length; i++) {
+    if (inputRef.current !== null) {
+      inputRef.current.value = email;
+      // inputRef.current[i].value = email;
+    }
+    // }
+    // }
+  }, [code, confirmPassword, email, password]);
   // handlers
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setInputs({
+        ...inputs,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [inputs, setInputs]
+  );
+
   return (
     <FlexBox
       width='100%'
@@ -32,6 +104,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             height={50}
             onChange={onChange}
             message={label.firstLabel}
+            ref={inputRef}
           />
           <RequestButton
             onClick={() => {
@@ -51,6 +124,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             height={50}
             onChange={onChange}
             message={label.secondLabel}
+            // ref={inputRef2}
           />
           <RequestButton
             onClick={() => {
@@ -73,6 +147,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             onChange={onChange}
             inputType={passwordValidation(password)}
             autoComplete='off'
+            // ref={inputRef3}
           />
         </FlexBox>
         <FlexBox width='100%' marginTop='25px'>
@@ -86,6 +161,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             onChange={onChange}
             inputType={confirmErrorCheck()}
             autoComplete='off'
+            // ref={inputRef4}
           />
         </FlexBox>
       </form>
@@ -97,6 +173,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         height={48}
         fontSize={20}
         css={{ position: 'absolute', top: '90%' }}
+        disabled={checkNull() ? false : true}
       >
         다음
       </Button>

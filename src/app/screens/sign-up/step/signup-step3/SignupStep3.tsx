@@ -1,7 +1,8 @@
-import { FlexBox, CategoryTitle } from '@elements';
+import { FlexBox, CategoryTitle, Button } from '@elements';
 import { DropDown } from '@components';
+import palette from '@libs/theme/palettes';
 
-const SignupStep3 = () => {
+const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -14,7 +15,14 @@ const SignupStep3 = () => {
   // handlers
 
   return (
-    <FlexBox width='100%' height='100%' direction='column' css={{ gap: '25px' }}>
+    <FlexBox
+      width='100%'
+      height='100%'
+      direction='column'
+      alignItems='center'
+      position='relative'
+      css={{ gap: '25px' }}
+    >
       <FlexBox width='100%' marginTop='25px' justifyContent='space-between'>
         <FlexBox width='54%' direction='column'>
           <CategoryTitle label='직무*' />
@@ -28,6 +36,17 @@ const SignupStep3 = () => {
       <FlexBox>
         <CategoryTitle label='보유기술*' />
       </FlexBox>
+      <Button
+        onClick={moveNextStep}
+        color={palette.contrastText}
+        backgroundColor={palette.primary.main}
+        width={320}
+        height={48}
+        fontSize={20}
+        css={{ position: 'absolute', top: '90%' }}
+      >
+        회원가입
+      </Button>
     </FlexBox>
   );
 };

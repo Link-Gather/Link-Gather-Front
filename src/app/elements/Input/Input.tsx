@@ -1,4 +1,4 @@
-import { CSSProperties, useId } from 'react';
+import React, { CSSProperties, useId, forwardRef } from 'react';
 import type { Theme } from '@libs/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -19,7 +19,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
 }
 
-function Input(props: Props) {
+const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
   // prop destruction
   const {
     inputType = 'default',
@@ -105,6 +105,7 @@ function Input(props: Props) {
         }}
         className={className}
         onChange={onChange}
+        ref={ref}
         {...rest}
       />
       {message && (
@@ -145,6 +146,6 @@ function Input(props: Props) {
       </button>
     </label>
   );
-}
+});
 
 export { Input };

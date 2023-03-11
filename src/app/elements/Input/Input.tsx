@@ -13,7 +13,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  onClick?: () => void;
+  message?: string;
+  onClick?: () => void | null;
   children?: React.ReactNode;
 }
 
@@ -29,6 +30,7 @@ function Input(props: Props) {
     fontSize,
     color,
     backgroundColor,
+    message,
     onClick,
     className,
     children,
@@ -37,10 +39,6 @@ function Input(props: Props) {
 
   // lib hooks
   const inputId = useId();
-
-  const { value } = rest;
-  console.log(type, value);
-  console.log(rest);
 
   // state, ref hooks
 
@@ -78,6 +76,11 @@ function Input(props: Props) {
               '&::placeholder': {
                 color: theme.palette.secondary.n60,
               },
+              '&:focus': {
+                '& + button': {
+                  opacity: 1,
+                },
+              },
             },
             inputStatus === 'error' && {
               border: `2px solid ${theme.palette.secondary.red}`,
@@ -104,6 +107,8 @@ function Input(props: Props) {
       />
 
       <button
+        type='button'
+        tabIndex={-1}
         css={{
           position: 'absolute',
           top: '0',
@@ -114,11 +119,34 @@ function Input(props: Props) {
           border: 'none',
           background: 'none',
           cursor: 'pointer',
+          outline: 'none',
+          opacity: 0,
+          '&:focus': {
+            opacity: 1,
+          },
         }}
         onClick={onClick}
       >
         {children}
       </button>
+      {inputStatus === 'error' && (
+        <span
+          css={(theme: Theme) => {
+            return [
+              {
+                display: 'inline-block',
+                height: '20px',
+                fontSize: '12px',
+                fontWeight: '400',
+                lineHeight: '20px',
+                color: theme.palette.secondary.red,
+              },
+            ];
+          }}
+        >
+          {message}
+        </span>
+      )}
     </label>
   );
 }

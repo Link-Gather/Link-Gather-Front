@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
-import { Button, Input, FlexBox } from '@elements';
+import { Button, Input, FlexBox, InputStatus } from '@elements';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-// import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import palette from '@libs/theme/palettes';
 
 interface ILoginInfo {
   name: string;
   type: 'email' | 'password' | 'text';
+  status: InputStatus;
   isValidated: boolean;
+  isFocus: boolean;
   value: string;
-  length: number;
-  icon?: string;
-  clickEvent?: () => void;
+  icon: string[];
+  errorMessage: string;
 }
 
 const LOGIN_INFO: ILoginInfo[] = [
   {
     name: 'email',
     type: 'email',
+    status: 'inActive',
     isValidated: false,
+    isFocus: false,
     value: '',
-    length: 0,
-    icon: IconCheckGreen,
+    icon: [IconCheckGreen],
+    errorMessage: '올바른 이메일 형식을 입력해주세요.',
   },
   {
     name: 'password',
     type: 'password',
+    status: 'inActive',
     isValidated: false,
+    isFocus: false,
     value: '',
-    length: 0,
-    icon: IconPasswordShow,
-    clickEvent: () => {},
+    icon: [IconPasswordHide, IconPasswordShow],
+    errorMessage: '비밀번호를 다시 확인해주세요.',
   },
 ];
 
@@ -48,21 +52,40 @@ function LoginForm() {
   // effects
   // handlers
 
-  const checkValidation = (type: 'password' | 'email' | 'text', value: string) => {
-    const pattern: Record<'password' | 'email' | 'text', RegExp> = {
+  const checkValidation = (type: string, value: string) => {
+    const pattern: Record<string, RegExp> = {
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       password: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/,
-      text: /^[a-zA-Z0-9]{8,16}$/,
     };
 
     return pattern[type].test(value);
   };
-  const checkInputInfo = (event: React.ChangeEvent<HTMLInputElement>, inputName: 'email' | 'password' | 'text') => {
-    const isValidated = checkValidation(inputName, event.currentTarget.value);
+  const checkInputInfo = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
+    const targetValue = event.currentTarget.value;
+    const isValidated = checkValidation(inputName, targetValue);
+
     setLoginInfo(
       loginInfo.map((info) =>
         info.name === inputName
-          ? { ...info, isValidated, value: event.currentTarget.value, length: event.currentTarget.value.length }
+          ? {
+              ...info,
+              status: isValidated ? 'active' : targetValue.length > 0 ? 'error' : 'inActive',
+              isValidated,
+              value: targetValue,
+            }
+          : info
+      )
+    );
+  };
+
+  const handlePasswordVisible = () => {
+    setLoginInfo(
+      loginInfo.map((info) =>
+        info.name === 'password'
+          ? {
+              ...info,
+              type: info.type === 'password' ? 'text' : 'password',
+            }
           : info
       )
     );
@@ -77,11 +100,15 @@ function LoginForm() {
           width='100%'
           height={50}
           placeholder={info.name}
-          onChange={(event) => checkInputInfo(event, info.type)}
-          inputStatus={info.isValidated ? 'active' : info.length > 0 ? 'error' : 'inActive'}
-          onClick={info.clickEvent ?? (() => {})}
+          onChange={(event) => checkInputInfo(event, info.name)}
+          inputStatus={info.status}
+          onClick={info.name === 'password' ? handlePasswordVisible : () => {}}
+          message={info.errorMessage}
         >
-          {info.isValidated ? <img src={info.icon} alt={`checked ${info.name}`} /> : null}
+          {info.isValidated && info.type === 'email' ? <img src={info.icon[0]} alt={`checked ${info.name}`} /> : null}
+          {info.value.length > 0 && info.name === 'password' ? (
+            <img src={info.type === 'password' ? info.icon[0] : info.icon[1]} alt={`checked ${info.name}`} />
+          ) : null}
         </Input>
       ))}
       <Button
@@ -94,7 +121,7 @@ function LoginForm() {
         css={{
           marginTop: 24,
         }}
-        disabled
+        disabled={!(loginInfo.length === loginInfo.filter((info) => !!info.isValidated).length)}
       >
         로그인
       </Button>

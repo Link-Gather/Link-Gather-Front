@@ -1,4 +1,4 @@
-import { CSSProperties, useId } from 'react';
+import { CSSProperties, useId, forwardRef } from 'react';
 import type { Theme } from '@libs/theme';
 
 export type InputStatus = 'inActive' | 'active' | 'error';
@@ -18,10 +18,10 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
 }
 
-function Input(props: Props) {
+const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
   // prop destruction
   const {
-    inputStatus = 'default',
+    inputStatus = 'active',
     type,
     width,
     marginTop,
@@ -41,13 +41,13 @@ function Input(props: Props) {
   const inputId = useId();
 
   // state, ref hooks
-
   // form hook
   // query hooks
   // calculated values
   // effects
-
   // handlers
+
+  console.log(inputStatus);
 
   return (
     <label
@@ -104,6 +104,7 @@ function Input(props: Props) {
         }}
         className={className}
         {...rest}
+        ref={ref}
       />
 
       <button
@@ -129,26 +130,37 @@ function Input(props: Props) {
       >
         {children}
       </button>
-      {inputStatus === 'error' && (
-        <span
-          css={(theme: Theme) => {
-            return [
-              {
-                display: 'inline-block',
-                height: '20px',
-                fontSize: '12px',
-                fontWeight: '400',
-                lineHeight: '20px',
-                color: theme.palette.secondary.red,
-              },
-            ];
-          }}
-        >
-          {message}
-        </span>
-      )}
+
+      <span
+        css={(theme: Theme) => {
+          return [
+            {
+              display: 'inline-block',
+              width: '100%',
+              height: '20px',
+              fontSize: '12px',
+              fontWeight: '400',
+              lineHeight: '20px',
+            },
+            inputStatus === 'inActive' && {
+              color: theme.palette.secondary.n60,
+            },
+            inputStatus === 'error' && {
+              color: theme.palette.secondary.red,
+            },
+            inputStatus === 'active' && {
+              color: theme.palette.secondary.green,
+            },
+            message === undefined && {
+              display: 'none',
+            },
+          ];
+        }}
+      >
+        {message}
+      </span>
     </label>
   );
-}
+});
 
 export { Input };

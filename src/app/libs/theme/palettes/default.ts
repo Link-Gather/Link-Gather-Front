@@ -11,7 +11,7 @@ const palette = {
   },
   secondary: {
     red: '#FF2626',
-    green: '#FF2626',
+    green: '#00CA20',
     beige: '#F7D35F',
     dahong: '#FF7E66',
     n800: '#172B4D',

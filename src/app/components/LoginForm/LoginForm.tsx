@@ -10,10 +10,12 @@ interface ILoginInfo {
   type: 'email' | 'password' | 'text';
   status: InputStatus;
   isValidated: boolean;
-  isFocus: boolean;
   value: string;
+  placeholder: string;
   icon: string[];
   errorMessage: string;
+  activeMessage?: string;
+  inActiveMessage?: string;
 }
 
 const LOGIN_INFO: ILoginInfo[] = [
@@ -22,8 +24,8 @@ const LOGIN_INFO: ILoginInfo[] = [
     type: 'email',
     status: 'inActive',
     isValidated: false,
-    isFocus: false,
     value: '',
+    placeholder: '이메일',
     icon: [IconCheckGreen],
     errorMessage: '올바른 이메일 형식을 입력해주세요.',
   },
@@ -32,8 +34,8 @@ const LOGIN_INFO: ILoginInfo[] = [
     type: 'password',
     status: 'inActive',
     isValidated: false,
-    isFocus: false,
     value: '',
+    placeholder: '비밀번호',
     icon: [IconPasswordHide, IconPasswordShow],
     errorMessage: '비밀번호를 다시 확인해주세요.',
   },
@@ -60,6 +62,7 @@ function LoginForm() {
 
     return pattern[type].test(value);
   };
+
   const checkInputInfo = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
     const targetValue = event.currentTarget.value;
     const isValidated = checkValidation(inputName, targetValue);
@@ -99,11 +102,11 @@ function LoginForm() {
           type={info.type}
           width='100%'
           height={50}
-          placeholder={info.name}
+          placeholder={info.placeholder}
           onChange={(event) => checkInputInfo(event, info.name)}
           inputStatus={info.status}
           onClick={info.name === 'password' ? handlePasswordVisible : () => {}}
-          message={info.errorMessage}
+          message={info[`${info.status}Message`]}
         >
           {info.isValidated && info.type === 'email' ? <img src={info.icon[0]} alt={`checked ${info.name}`} /> : null}
           {info.value.length > 0 && info.name === 'password' ? (

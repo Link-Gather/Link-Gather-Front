@@ -156,14 +156,14 @@ function ForgotPasswordForm(props: Props) {
               placeholder={info.placeholder}
               onChange={(event) => checkInputInfo(event, info.name)}
               inputStatus={info.status}
-              onClick={info.name === 'password' ? handlePasswordVisible : () => {}}
+              onClick={['password', 'confirmPassword'].includes(info.name) ? handlePasswordVisible : () => {}}
               message={info[`${info.status}Message`]}
               ref={inputRef}
             >
               {info.isValidated && info.type === 'email' ? (
                 <img src={info.icon[0]} alt={`checked ${info.name}`} />
               ) : null}
-              {info.value.length > 0 && info.name === 'password' ? (
+              {info.value.length > 0 && ['password', 'confirmPassword'].includes(info.name) ? (
                 <img src={info.type === 'password' ? info.icon[0] : info.icon[1]} alt={`checked ${info.name}`} />
               ) : null}
             </Input>

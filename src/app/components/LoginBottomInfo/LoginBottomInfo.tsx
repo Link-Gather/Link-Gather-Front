@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { FlexBox } from '@elements';
 import { ROUTE_PATHS } from '@routes';
 import type { Theme } from '@libs/theme';
@@ -28,8 +27,8 @@ function LoginBottomInfo() {
         className='notoSans'
       >
         계정이 없으신가요?
-        <Link
-          to={ROUTE_PATHS.signUp}
+        <a
+          href={ROUTE_PATHS.signUp}
           css={(theme: Theme) => [
             {
               fontSize: 16,
@@ -40,10 +39,10 @@ function LoginBottomInfo() {
           className='notoSans'
         >
           회원가입
-        </Link>
+        </a>
       </p>
-      <Link
-        to={`${ROUTE_PATHS.forgotPassword}?step=1`}
+      <a
+        href={`${ROUTE_PATHS.forgotPassword}?step=1`}
         css={(theme: Theme) => [
           {
             fontSize: 14,
@@ -55,7 +54,7 @@ function LoginBottomInfo() {
         className='notoSans'
       >
         비밀번호 찾기
-      </Link>
+      </a>
     </FlexBox>
   );
 }

@@ -109,6 +109,7 @@ function ForgotPasswordForm(props: { step: number }) {
           fontSize={20}
           color={palette.contrastText}
           backgroundColor={palette.primary.main}
+          borderRadius='32px'
           onClick={() => console.log('forgot password')}
           css={{
             marginTop: '24px',

@@ -75,11 +75,11 @@ function LoginForm() {
         width='100%'
         height='48px'
         fontSize='20px'
+        borderRadius='32px'
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
         onClick={() => console.log('login')}
         css={{
-          borderRadius: '32px',
           marginTop: '24px',
         }}
         disabled={!isPassAllValidated}

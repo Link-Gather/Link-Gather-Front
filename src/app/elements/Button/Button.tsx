@@ -41,7 +41,7 @@ function Button(props: Props) {
             fontWeight: '800',
             color,
             border: 0,
-            borderRadius: height ? `${Number(height) / 2}px` : '0px',
+            borderRadius,
             backgroundColor,
             cursor: 'pointer',
             ':disabled': {

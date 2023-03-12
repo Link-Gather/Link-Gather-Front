@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router-dom';
 import { FlexBox } from '@elements';
 import { ShadowBox, ForgotPasswordForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
@@ -9,8 +8,8 @@ function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const { search } = useLocation();
-  const step = Number(new URLSearchParams(search).get('step'));
+
+  const step = Number(new URLSearchParams(window.location.search).get('step'));
 
   // form hooks
   // query hooks

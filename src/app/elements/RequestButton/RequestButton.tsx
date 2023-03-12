@@ -5,9 +5,13 @@ function RequestButton(props: {
   className?: string;
   children: React.ReactNode;
   value?: string;
+  marginLeft?: string;
+  width?: string;
+  height?: string;
+  fontSize?: string;
 }) {
   // prop destruction
-  const { onClick, className, children, value } = props;
+  const { onClick, className, children, value, marginLeft, width, height, fontSize } = props;
   // lib hooks
   // state, ref hooks
   // form hook
@@ -21,17 +25,17 @@ function RequestButton(props: {
       css={(theme: Theme) => {
         return [
           {
-            width: '94px',
-            height: '50px',
-            fontSize: '16px',
+            width,
+            height,
+            fontSize,
             textAlign: 'center',
+            marginLeft,
             fontWeight: '600',
             border: `2px solid ${value ? theme.palette.black.main : theme.palette.secondary.n60}`,
             borderRadius: '8px',
             color: value ? theme.palette.black.main : theme.palette.secondary.n60,
             backgroundColor: theme.palette.contrastText,
             cursor: value && 'pointer',
-            marginLeft: '10px',
             zIndex: '2',
           },
         ];

@@ -57,7 +57,7 @@ const SignupBox = () => {
           ) : (
             <SignupStep3 moveNextStep={moveNextStep} />
           )}
-          {/* <ThirdStep /> */}
+          {/* <SignupStep2 moveNextStep={moveNextStep} /> */}
         </FlexBox>
       </FlexBox>
     </ShadowBox>

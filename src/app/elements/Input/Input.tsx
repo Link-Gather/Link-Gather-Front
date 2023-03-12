@@ -105,25 +105,6 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         {...rest}
         ref={ref}
       />
-      {message && (
-        <span
-          css={(theme: Theme) => {
-            return [
-              {
-                position: 'absolute',
-                fontSize: '12px',
-                lineHeight: '20px',
-                left: '0',
-                top: '100%',
-                weight: '400',
-                color: inputStatus === 'error' ? theme.palette.secondary.red : theme.palette.secondary.n300,
-              },
-            ];
-          }}
-        >
-          {message}
-        </span>
-      )}
       <button
         type='button'
         tabIndex={-1}
@@ -148,11 +129,11 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         {children}
       </button>
 
-      {/* <span
+      <span
         css={(theme: Theme) => {
           return [
             {
-              display: 'inline-block',
+              display: 'block',
               width: '100%',
               height: '20px',
               fontSize: '12px',
@@ -166,7 +147,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
               color: theme.palette.secondary.red,
             },
             inputStatus === 'active' && {
-              color: theme.palette.secondary.green,
+              color: theme.palette.secondary.n500,
             },
             message === undefined && {
               display: 'none',
@@ -175,7 +156,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         }}
       >
         {message}
-      </span> */}
+      </span>
     </label>
   );
 });

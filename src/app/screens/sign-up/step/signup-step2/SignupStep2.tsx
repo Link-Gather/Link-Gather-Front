@@ -23,7 +23,9 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // calculated values
   const nicknameValidation = (nickname: string) => {
     let reg = new RegExp(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/);
-    if (nickname.length > 0 && !reg.test(nickname)) return 'error';
+    if (nickname === '') return 'inActive';
+    if (nickname.length > 0 && reg.test(nickname)) return 'active';
+    if (!reg.test(nickname)) return 'error';
   };
   // effects
   // handlers
@@ -33,23 +35,22 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
 
   return (
     <FlexBox
-      width='100%'
-      height='100%'
+      width='320px'
       direction='column'
       alignItems='center'
       position='relative'
-      css={{ gap: '25px', margin: '0 auto' }}
+      spacing={12}
+      css={{ margin: '0 auto' }}
     >
-      <FlexBox width='100%' marginTop='20px'>
+      <FlexBox width='100%' marginTop='20px' height='100px'>
         <FlexBox
-          width='150px'
-          height='110px'
+          width='100px'
+          height='100px'
           css={{
             backgroundColor: characterState.backgroundColor,
             borderRadius: '50%',
             border: '2px solid black',
             overflow: 'hidden',
-            marginTop: '5px',
             justifyContent: 'center',
           }}
         >
@@ -63,13 +64,18 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             }}
           ></ImageBox>
         </FlexBox>
-        <FlexBox width='369px' justifyContent='end' css={{ flexWrap: 'wrap' }}>
+        <FlexBox
+          width='204px'
+          alignContent='space-between'
+          justifyContent='space-between'
+          css={{ flexWrap: 'wrap', marginLeft: '16px' }}
+        >
           {characters.map((character) => {
             return (
               <FlexBox
                 key={character.id}
-                width='60px'
-                height='60px'
+                width='48px'
+                height='48px'
                 justifyContent='center'
                 alignItems='center'
                 onClick={() => setCharacterState(character)}
@@ -78,8 +84,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
                   borderRadius: '50%',
                   overflow: 'hidden',
                   backgroundColor: character.backgroundColor,
-                  marginLeft: '5px',
-                  marginTop: '5px',
+                  // marginLeft: '5px',
                   cursor: 'pointer',
                   '&:hover': {
                     border: '2px solid #00CA20',
@@ -97,9 +102,9 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           })}
         </FlexBox>
       </FlexBox>
-      <FlexBox width='90%' marginTop='20px' justifyContent='space-between'>
+      <FlexBox width='324px' justifyContent='center'>
         <Input
-          width='103%'
+          width='227px'
           message='8자이내, 한글, 영문 숫자 혼용 가능'
           placeholder='닉네임 입력'
           name='nickname'
@@ -107,7 +112,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           onChange={onChangeNickname}
           inputStatus={nicknameValidation(nickname)}
         ></Input>
-        <RequestButton onClick={() => {}} value={nickname} css={{ width: '40%' }}>
+        <RequestButton onClick={() => {}} fontSize='14px' value={nickname} marginLeft='4px' height='50px' width='93px'>
           중복확인
         </RequestButton>
       </FlexBox>
@@ -115,7 +120,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         onClick={moveNextStep}
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        width={320}
+        width='100%'
         height={48}
         fontSize={20}
         disabled={nickname === '' ? true : false}

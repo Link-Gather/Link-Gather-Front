@@ -14,6 +14,9 @@ function LoginForm() {
   // form hooks
   // query hooks
   // calculated values
+
+  const isPassAllValidated = loginInfo.filter((info) => info.isValidated).length === loginInfo.length;
+
   // effects
   // handlers
 
@@ -55,7 +58,7 @@ function LoginForm() {
           key={info.name}
           type={info.type}
           width='100%'
-          height={50}
+          height='50px'
           placeholder={info.placeholder}
           onChange={(event) => checkInputInfo(event, info.name)}
           inputStatus={info.status}
@@ -70,15 +73,16 @@ function LoginForm() {
       ))}
       <Button
         width='100%'
-        height={48}
-        fontSize={20}
+        height='48px'
+        fontSize='20px'
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
         onClick={() => console.log('login')}
         css={{
-          marginTop: 24,
+          borderRadius: '32px',
+          marginTop: '24px',
         }}
-        disabled={!(loginInfo.length === loginInfo.filter((info) => !!info.isValidated).length)}
+        disabled={!isPassAllValidated}
       >
         로그인
       </Button>

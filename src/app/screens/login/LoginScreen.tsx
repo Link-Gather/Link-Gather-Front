@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FlexBox, UnderlineTitle } from '@elements';
 import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import { type Theme, mq } from '@libs/theme';
+import { mq } from '@libs/theme';
 
 function LoginScreen() {
   // prop destruction
@@ -23,7 +22,7 @@ function LoginScreen() {
       height='100vh'
       justifyContent='left'
       alignItems='center'
-      css={(theme: Theme) => [
+      css={() => [
         {
           [mq[2]]: {
             alignItems: 'flex-start',
@@ -93,8 +92,8 @@ function LoginScreen() {
         }}
       >
         <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
-          <Link
-            to='/'
+          <a
+            href='/'
             css={{
               position: 'absolute',
               top: '40px',
@@ -102,7 +101,7 @@ function LoginScreen() {
             }}
           >
             <img src={IconArrowLeft} alt='go back' />
-          </Link>
+          </a>
           <UnderlineTitle title='로그인' />
           <LoginForm />
           <OauthContainer />

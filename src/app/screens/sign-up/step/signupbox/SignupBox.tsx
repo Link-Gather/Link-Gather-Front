@@ -9,12 +9,6 @@ const SignupBox = () => {
   // lib hooks
   // state, ref, querystring hooks
   const [step, setStep] = useState<number>(0);
-  const [inputs, setInputs] = useState({
-    email: '',
-    code: '',
-    password: '',
-    confirmPassword: '',
-  });
   // form hooks
   // query hooks
   // calculated values
@@ -57,7 +51,7 @@ const SignupBox = () => {
         <UnderlineTitle title='회원가입' />
         <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
           {step === 0 ? (
-            <SignupStep1 moveNextStep={moveNextStep} inputs={inputs} setInputs={setInputs} />
+            <SignupStep1 moveNextStep={moveNextStep} />
           ) : step === 1 ? (
             <SignupStep2 moveNextStep={moveNextStep} />
           ) : (

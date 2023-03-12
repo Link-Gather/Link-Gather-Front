@@ -1,8 +1,10 @@
-import React, { CSSProperties, useId, forwardRef } from 'react';
+import { CSSProperties, useId, forwardRef } from 'react';
 import type { Theme } from '@libs/theme';
 
+export type InputStatus = 'inActive' | 'active' | 'error';
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  inputType?: 'default' | 'focus' | 'error' | null;
+  inputStatus?: InputStatus;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
   fontSize?: CSSProperties['fontSize'];
@@ -11,18 +13,15 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   marginTop?: CSSProperties['marginTop'];
   marginLeft?: CSSProperties['marginLeft'];
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label?: string;
-  onClick?: () => void;
   message?: string;
-  value?: string;
+  onClick?: () => void | null;
   children?: React.ReactNode;
 }
 
 const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
   // prop destruction
   const {
-    inputType = 'default',
+    inputStatus = 'active',
     type,
     width,
     marginTop,
@@ -31,7 +30,6 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
     fontSize,
     color,
     backgroundColor,
-    onChange,
     onClick,
     className,
     message,
@@ -44,12 +42,10 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
   const inputId = useId();
 
   // state, ref hooks
-
   // form hook
   // query hooks
   // calculated values
   // effects
-
   // handlers
 
   return (
@@ -76,37 +72,38 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
               backgroundColor,
               padding: '11px 16px 11px 16px',
               outline: 'none',
-              border: value
-                ? inputType === 'error'
-                  ? `2px solid ${theme.palette.secondary.red}`
-                  : `2px solid ${theme.palette.secondary.n500}`
-                : `2px solid ${theme.palette.secondary.n60}`, //초기 기본 색
               '&::placeholder': {
                 color: theme.palette.secondary.n60,
               },
               '&:focus': {
-                // focus일 때 보라색, focus이고 에러일 때 빨간색, focus가 아니고 에러일 때도 빨간색, focus가 아니고 에러가 아닐 때 검정색
-                border:
-                  inputType === 'error'
-                    ? `2px solid ${theme.palette.secondary.red}`
-                    : `2px solid ${theme.palette.primary.main}`,
+                '& + button': {
+                  opacity: 1,
+                },
               },
             },
-            // inputType === 'error' && {
-            //   border: `2px solid ${theme.palette.secondary.red}`,
-            // },
-            // inputType === 'default' && {
-            //   border: `2px solid ${theme.palette.secondary.n60}`,
-            // },
-            // inputType === 'default' && {
-            //   border: `2px solid ${theme.palette.secondary.n60}`,
-            // },
+            inputStatus === 'error' && {
+              border: `2px solid ${theme.palette.secondary.red}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.secondary.red}`,
+              },
+            },
+            inputStatus === 'active' && {
+              border: `2px solid ${theme.palette.secondary.n500}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.primary.main}`,
+              },
+            },
+            inputStatus === 'inActive' && {
+              border: `2px solid ${theme.palette.secondary.n60}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.primary.main}`,
+              },
+            },
           ];
         }}
         className={className}
-        onChange={onChange}
-        ref={ref}
         {...rest}
+        ref={ref}
       />
       {message && (
         <span
@@ -119,7 +116,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
                 left: '0',
                 top: '100%',
                 weight: '400',
-                color: inputType === 'error' ? theme.palette.secondary.red : theme.palette.secondary.n300,
+                color: inputStatus === 'error' ? theme.palette.secondary.red : theme.palette.secondary.n300,
               },
             ];
           }}
@@ -128,6 +125,8 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         </span>
       )}
       <button
+        type='button'
+        tabIndex={-1}
         css={{
           position: 'absolute',
           top: '0',
@@ -138,12 +137,45 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
           border: 'none',
           background: 'none',
           cursor: 'pointer',
+          outline: 'none',
+          opacity: 0,
+          '&:focus': {
+            opacity: 1,
+          },
         }}
-        type='button'
         onClick={onClick}
       >
         {children}
       </button>
+
+      {/* <span
+        css={(theme: Theme) => {
+          return [
+            {
+              display: 'inline-block',
+              width: '100%',
+              height: '20px',
+              fontSize: '12px',
+              fontWeight: '400',
+              lineHeight: '20px',
+            },
+            inputStatus === 'inActive' && {
+              color: theme.palette.secondary.n60,
+            },
+            inputStatus === 'error' && {
+              color: theme.palette.secondary.red,
+            },
+            inputStatus === 'active' && {
+              color: theme.palette.secondary.green,
+            },
+            message === undefined && {
+              display: 'none',
+            },
+          ];
+        }}
+      >
+        {message}
+      </span> */}
     </label>
   );
 });

@@ -105,7 +105,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           name='nickname'
           value={nickname}
           onChange={onChangeNickname}
-          inputType={nicknameValidation(nickname)}
+          inputStatus={nicknameValidation(nickname)}
         ></Input>
         <RequestButton onClick={() => {}} value={nickname} css={{ width: '40%' }}>
           중복확인

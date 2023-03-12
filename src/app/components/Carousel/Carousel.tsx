@@ -14,14 +14,9 @@ const ArrowButton = styled('button')({
   },
 });
 
-export function Carousel(props: {
-  images: { id: number; src: string; alt?: string }[];
-  className?: string;
-  width?: string;
-  height?: string;
-}) {
+export function Carousel(props: { images: { id: number; src: string; alt?: string }[]; className?: string }) {
   // prop destruction
-  const { images, className, width, height } = props;
+  const { images, className } = props;
 
   //lib hooks
   // state hooks, ref hooks
@@ -59,8 +54,6 @@ export function Carousel(props: {
   return (
     <div
       css={{
-        width,
-        height,
         backgroundColor: 'rgb(205, 205, 205)',
         margin: '0 auto',
         overflow: 'hidden',

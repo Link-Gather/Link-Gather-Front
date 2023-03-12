@@ -25,8 +25,6 @@ export const images = [
   },
 ];
 
-export default images;
-
 export const characters = [
   {
     id: 1,

@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { Button, DialogAction, DialogContent, DialogTitle } from '@elements';
 import { Carousel, Dialog } from '@components';
 import { useDialog } from '@hooks';
-import images from 'app/screens/data.mock';
+
+import { images } from '../data.mock';
 
 function HomeScreen() {
   // prop destruction

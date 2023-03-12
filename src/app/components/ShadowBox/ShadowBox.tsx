@@ -2,15 +2,9 @@ import React, { CSSProperties } from 'react';
 import { FlexBox } from '@elements';
 import { Theme } from '@libs/theme';
 
-function ShadowBox(props: {
-  padding?: CSSProperties['padding'];
-  children: React.ReactNode;
-  css?: {
-    [x: string]: string | { marginLeft?: CSSProperties['marginLeft']; marginRight?: CSSProperties['marginRight'] };
-  };
-}) {
+function ShadowBox(props: { padding?: CSSProperties['padding']; children: React.ReactNode; className?: string }) {
   // prop destruction
-  const { padding, children, ...rest } = props;
+  const { padding, children, className } = props;
 
   // lib hooks
   // state, ref hooks
@@ -21,7 +15,7 @@ function ShadowBox(props: {
   // handlers
 
   return (
-    <div {...rest}>
+    <div className={className}>
       <FlexBox
         alignItems='center'
         direction='column'

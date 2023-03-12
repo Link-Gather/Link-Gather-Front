@@ -133,7 +133,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         css={(theme: Theme) => {
           return [
             {
-              display: 'inline-block',
+              display: 'block',
               width: '100%',
               height: '20px',
               fontSize: '12px',

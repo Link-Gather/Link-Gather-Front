@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { FlexBox, UnderlineTitle, Input, Button, InputStatus } from '@elements';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -134,8 +133,8 @@ function ForgotPasswordForm(props: Props) {
 
   return (
     <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
-      <Link
-        to={ROUTE_PATHS.logIn}
+      <a
+        href={ROUTE_PATHS.logIn}
         css={{
           position: 'absolute',
           top: '40px',
@@ -143,7 +142,7 @@ function ForgotPasswordForm(props: Props) {
         }}
       >
         <img src={IconArrowLeft} alt='go back' />
-      </Link>
+      </a>
       <UnderlineTitle title={step === 1 ? '비밀번호 찾기' : '비밀번호 재설정'} />
       <FlexBox direction='column' spacing={4}>
         {forgotPasswordInfo.map((info) =>

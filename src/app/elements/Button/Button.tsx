@@ -3,7 +3,7 @@ import { Theme } from '@libs/theme';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
   className?: string;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];

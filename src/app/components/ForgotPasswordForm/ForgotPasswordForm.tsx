@@ -105,12 +105,12 @@ function ForgotPasswordForm(props: { step: number }) {
 
         <Button
           width='100%'
-          height={48}
-          fontSize={20}
+          height='48px'
+          fontSize='20px'
           color={palette.contrastText}
           backgroundColor={palette.primary.main}
           borderRadius='32px'
-          onClick={() => console.log('forgot password')}
+          // TODO: 버튼 클릭 시 비밀번호 찾기, 비밀번호 재설정 API 호출
           css={{
             marginTop: '24px',
           }}

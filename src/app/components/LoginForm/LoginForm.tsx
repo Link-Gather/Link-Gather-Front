@@ -78,7 +78,7 @@ function LoginForm() {
         borderRadius='32px'
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        onClick={() => console.log('login')}
+        // TODO: 로그인 API 연동
         css={{
           marginTop: '24px',
         }}

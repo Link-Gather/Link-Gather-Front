@@ -7,11 +7,7 @@ import { ROUTE_PATHS } from '@routes';
 import { FORGOT_PASSWORD_INFO, type IForgotPasswordInfo } from './forgotPasswordForm.data';
 import { checkValidation } from '@libs/util';
 
-interface Props {
-  step: number;
-}
-
-function ForgotPasswordForm(props: Props) {
+function ForgotPasswordForm(props: { step: number }) {
   // prop destruction
   const { step } = props;
   // lib hooks
@@ -21,10 +17,13 @@ function ForgotPasswordForm(props: Props) {
   // form hooks
   // query hooks
   // calculated values
+  const isPassAllValidated =
+    forgotPasswordInfo.filter((info) => info.step === step && info.isValidated).length ===
+    forgotPasswordInfo.filter((info) => info.step === step).length;
   // effects
   // handlers
 
-  const checkInputInfo = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
+  const handleInputCheck = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
     const targetValue = event.currentTarget.value;
     const isValidated = checkValidation(inputName, targetValue);
     const isPasswordSame = forgotPasswordInfo.filter((item) => item.name === 'password')[0].value === targetValue;
@@ -65,7 +64,7 @@ function ForgotPasswordForm(props: Props) {
   };
 
   return (
-    <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
+    <FlexBox width='320px' direction='column' css={{ minWidth: '320px', gap: '40px' }}>
       <a
         href={ROUTE_PATHS.logIn}
         css={{
@@ -86,7 +85,7 @@ function ForgotPasswordForm(props: Props) {
               width='100%'
               height={50}
               placeholder={info.placeholder}
-              onChange={(event) => checkInputInfo(event, info.name)}
+              onChange={(event) => handleInputCheck(event, info.name)}
               inputStatus={info.status}
               onClick={
                 ['password', 'confirmPassword'].includes(info.name) ? () => handlePasswordVisible(info.name) : () => {}
@@ -106,18 +105,16 @@ function ForgotPasswordForm(props: Props) {
 
         <Button
           width='100%'
-          height={48}
-          fontSize={20}
+          height='48px'
+          fontSize='20px'
           color={palette.contrastText}
           backgroundColor={palette.primary.main}
-          onClick={() => console.log('forgot password')}
+          borderRadius='32px'
+          // TODO: 버튼 클릭 시 비밀번호 찾기, 비밀번호 재설정 API 호출
           css={{
-            marginTop: 24,
+            marginTop: '24px',
           }}
-          disabled={
-            forgotPasswordInfo.filter((info) => info.step === step && info.isValidated).length !==
-            forgotPasswordInfo.filter((info) => info.step === step).length
-          }
+          disabled={!isPassAllValidated}
         >
           {step === 1 ? (
             <>

@@ -3,7 +3,6 @@ import { Theme } from '@libs/theme';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
   className?: string;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
@@ -30,6 +29,7 @@ function Button(props: Props) {
     ...rest
   } = props;
 
+
   // lib hooks
   // state, ref hooks
   // form hook
@@ -53,7 +53,7 @@ function Button(props: Props) {
             fontWeight: '800',
             color,
             border: 0,
-            borderRadius: height ? `${Number(height) / 2}px` : '0px',
+            borderRadius,
             backgroundColor,
             zIndex: '20',
             cursor: 'pointer',

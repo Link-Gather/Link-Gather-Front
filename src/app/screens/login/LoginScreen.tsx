@@ -1,4 +1,3 @@
-import React from 'react';
 import { FlexBox, UnderlineTitle } from '@elements';
 import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
@@ -91,7 +90,7 @@ function LoginScreen() {
           },
         }}
       >
-        <FlexBox width={320} direction='column' css={{ minWidth: '320px', gap: '40px' }}>
+        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }} spacing={10}>
           <a
             href='/'
             css={{
@@ -102,7 +101,7 @@ function LoginScreen() {
           >
             <img src={IconArrowLeft} alt='go back' />
           </a>
-          <UnderlineTitle title='로그인' />
+          <UnderlineTitle title='로그인' marginBottom='40px' />
           <LoginForm />
           <OauthContainer />
           <LoginBottomInfo />

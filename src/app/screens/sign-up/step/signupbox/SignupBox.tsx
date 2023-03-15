@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SignupStep1, SignupStep2, SignupStep3 } from '@screens';
-import { Button, FlexBox, UnderlineTitle } from '@elements';
+import { FlexBox, UnderlineTitle } from '@elements';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { ShadowBox } from '@components';
 

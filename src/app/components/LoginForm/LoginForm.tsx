@@ -52,7 +52,7 @@ function LoginForm() {
   };
 
   return (
-    <FlexBox direction='column' spacing={4}>
+    <FlexBox direction='column' css={{ marginBottom: '40px' }}>
       {loginInfo.map((info) => (
         <Input
           key={info.name}
@@ -64,6 +64,9 @@ function LoginForm() {
           inputStatus={info.status}
           onClick={info.name === 'password' ? handlePasswordVisible : () => {}}
           message={info[`${info.status}Message`]}
+          css={{
+            marginBottom: '16px',
+          }}
         >
           {info.isValidated && info.type === 'email' ? <img src={info.icon[0]} alt={`checked ${info.name}`} /> : null}
           {info.value.length > 0 && info.name === 'password' ? (
@@ -80,7 +83,7 @@ function LoginForm() {
         backgroundColor={palette.primary.main}
         // TODO: 로그인 API 연동
         css={{
-          marginTop: '24px',
+          marginTop: '8px',
         }}
         disabled={!isPassAllValidated}
       >

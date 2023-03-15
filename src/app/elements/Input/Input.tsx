@@ -50,6 +50,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
   return (
     <label
       htmlFor={inputId}
+      className={className}
       css={{
         position: 'relative',
       }}
@@ -100,7 +101,6 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
             },
           ];
         }}
-        className={className}
         {...rest}
         ref={ref}
       />
@@ -147,9 +147,6 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
           },
           inputStatus === 'active' && {
             color: theme.palette.secondary.green,
-          },
-          message === undefined && {
-            display: 'none',
           },
         ]}
       >

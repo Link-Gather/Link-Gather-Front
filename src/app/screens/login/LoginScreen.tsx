@@ -90,7 +90,7 @@ function LoginScreen() {
           },
         }}
       >
-        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }} spacing={10}>
+        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
           <a
             href='/'
             css={{
@@ -101,9 +101,9 @@ function LoginScreen() {
           >
             <img src={IconArrowLeft} alt='go back' />
           </a>
-          <UnderlineTitle title='로그인' marginBottom='40px' />
+          <UnderlineTitle title='로그인' css={{ marginBottom: '40px' }} />
           <LoginForm />
-          <OauthContainer />
+          <OauthContainer css={{ marginBottom: '24px' }} />
           <LoginBottomInfo />
         </FlexBox>
       </ShadowBox>

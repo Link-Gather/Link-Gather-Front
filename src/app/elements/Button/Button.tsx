@@ -29,7 +29,6 @@ function Button(props: Props) {
     ...rest
   } = props;
 
-
   // lib hooks
   // state, ref hooks
   // form hook

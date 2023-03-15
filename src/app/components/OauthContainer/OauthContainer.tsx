@@ -12,7 +12,7 @@ function OauthContainer() {
   // handlers
 
   return (
-    <FlexBox justifyContent='space-around' css={{ padding: '0 26px' }}>
+    <FlexBox justifyContent='space-around' css={{ padding: '0px 26px' }}>
       <KakaoLoginButton />
       <GoogleLoginButton />
       <GithubLoginButton />

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
@@ -12,7 +12,6 @@ function ForgotPasswordForm(props: { step: number }) {
   const { step } = props;
   // lib hooks
   // state, ref, querystring hooks
-  const inputRef = useRef<HTMLInputElement>(null);
   const [forgotPasswordInfo, setForgotPasswordInfo] = useState<IForgotPasswordInfo[]>(FORGOT_PASSWORD_INFO);
   // form hooks
   // query hooks
@@ -83,7 +82,7 @@ function ForgotPasswordForm(props: { step: number }) {
               key={info.name}
               type={info.type}
               width='100%'
-              height={50}
+              height='50px'
               placeholder={info.placeholder}
               onChange={(event) => handleInputCheck(event, info.name)}
               inputStatus={info.status}
@@ -91,7 +90,6 @@ function ForgotPasswordForm(props: { step: number }) {
                 ['password', 'confirmPassword'].includes(info.name) ? () => handlePasswordVisible(info.name) : () => {}
               }
               message={info[`${info.status}Message`]}
-              ref={inputRef}
             >
               {info.isValidated && info.type === 'email' ? (
                 <img src={info.icon[0]} alt={`checked ${info.name}`} />

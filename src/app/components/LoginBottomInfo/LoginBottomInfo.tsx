@@ -17,11 +17,11 @@ function LoginBottomInfo() {
       <p
         css={(theme: Theme) => [
           {
-            fontSize: 16,
+            fontSize: '16px',
             fontWeight: 500,
             color: theme.palette.secondary.n300,
             lineHeight: '24px',
-            marginBottom: 8,
+            marginBottom: '8px',
           },
         ]}
         className='notoSans'
@@ -31,7 +31,7 @@ function LoginBottomInfo() {
           href={ROUTE_PATHS.signUp}
           css={(theme: Theme) => [
             {
-              fontSize: 16,
+              fontSize: '16px',
               fontWeight: 500,
               color: theme.palette.primary.main,
             },
@@ -45,7 +45,7 @@ function LoginBottomInfo() {
         href={`${ROUTE_PATHS.forgotPassword}?step=1`}
         css={(theme: Theme) => [
           {
-            fontSize: 14,
+            fontSize: '14px',
             fontWeight: 500,
             color: theme.palette.secondary.n300,
             lineHeight: '24px',

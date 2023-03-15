@@ -130,30 +130,28 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
       </button>
 
       <span
-        css={(theme: Theme) => {
-          return [
-            {
-              display: 'block',
-              width: '100%',
-              height: '20px',
-              fontSize: '12px',
-              fontWeight: '400',
-              lineHeight: '20px',
-            },
-            inputStatus === 'inActive' && {
-              color: theme.palette.secondary.n60,
-            },
-            inputStatus === 'error' && {
-              color: theme.palette.secondary.red,
-            },
-            inputStatus === 'active' && {
-              color: theme.palette.secondary.green,
-            },
-            message === undefined && {
-              display: 'none',
-            },
-          ];
-        }}
+        css={(theme: Theme) => [
+          {
+            display: 'block',
+            width: '100%',
+            height: '20px',
+            fontSize: '12px',
+            fontWeight: '400',
+            lineHeight: '20px',
+          },
+          inputStatus === 'inActive' && {
+            color: theme.palette.secondary.n60,
+          },
+          inputStatus === 'error' && {
+            color: theme.palette.secondary.red,
+          },
+          inputStatus === 'active' && {
+            color: theme.palette.secondary.green,
+          },
+          message === undefined && {
+            display: 'none',
+          },
+        ]}
       >
         {message}
       </span>

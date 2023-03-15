@@ -18,19 +18,17 @@ function KakaoLoginButton() {
   return (
     <a href={href}>
       <button
-        css={(theme: Theme) => {
-          return [
-            {
-              width: '60px',
-              height: '60px',
-              border: `2px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              background: `no-repeat center url(${IconKakao}) #F9E000`,
-              cursor: 'pointer',
-            },
-          ];
-        }}
-      />
+        css={(theme: Theme) => ({
+          width: '60px',
+          height: '60px',
+          border: `2px solid ${theme.palette.black.main}`,
+          borderRadius: '50%',
+          backgroundColor: '#F9E000',
+          cursor: 'pointer',
+        })}
+      >
+        <img src={IconKakao} alt='login' />
+      </button>
       <span
         css={{
           display: 'block',

@@ -21,7 +21,7 @@ function LoginScreen() {
       height='100vh'
       justifyContent='left'
       alignItems='center'
-      css={() => [
+      css={[
         {
           [mq[2]]: {
             alignItems: 'flex-start',
@@ -31,7 +31,7 @@ function LoginScreen() {
       ]}
     >
       <div
-        css={() => [
+        css={[
           {
             position: 'absolute',
             left: '0',
@@ -57,7 +57,7 @@ function LoginScreen() {
         ]}
       >
         <div
-          css={() => [
+          css={[
             {
               position: 'absolute',
               width: '34%',

@@ -2,7 +2,7 @@ import { FlexBox } from '@elements';
 import { ShadowBox, ForgotPasswordForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
-import { type Theme, mq } from '@libs/theme';
+import { mq } from '@libs/theme';
 
 function ForgotPasswordScreen() {
   // prop destruction
@@ -23,7 +23,7 @@ function ForgotPasswordScreen() {
       height='100vh'
       justifyContent='left'
       alignItems='center'
-      css={(theme: Theme) => [
+      css={[
         {
           [mq[2]]: {
             alignItems: 'flex-start',
@@ -33,7 +33,7 @@ function ForgotPasswordScreen() {
       ]}
     >
       <div
-        css={() => [
+        css={[
           {
             position: 'absolute',
             left: '0',
@@ -59,7 +59,7 @@ function ForgotPasswordScreen() {
         ]}
       >
         <div
-          css={() => [
+          css={[
             {
               position: 'absolute',
               width: '34%',

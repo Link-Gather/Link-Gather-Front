@@ -25,18 +25,14 @@ function GoogleLoginButton() {
   return (
     <a href={href}>
       <button
-        css={(theme: Theme) => {
-          return [
-            {
-              width: '60px',
-              height: '60px',
-              border: `2px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: `${theme.palette.paper}`,
-              cursor: 'pointer',
-            },
-          ];
-        }}
+        css={(theme: Theme) => ({
+          width: '60px',
+          height: '60px',
+          border: `2px solid ${theme.palette.black.main}`,
+          borderRadius: '50%',
+          backgroundColor: `${theme.palette.paper}`,
+          cursor: 'pointer',
+        })}
       >
         <img src={IconGoogle} alt='login' />
       </button>

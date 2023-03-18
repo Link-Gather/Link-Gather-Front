@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Input, FlexBox } from '@elements';
 import { checkValidation } from '@libs/util';
 import palette from '@libs/theme/palettes';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { LOGIN_INFO, type ILoginInfo } from './loginForm.data';
 
 function LoginForm() {
@@ -53,27 +56,27 @@ function LoginForm() {
 
   return (
     <FlexBox direction='column' css={{ marginBottom: '40px' }}>
-      {loginInfo.map((info) => (
-        <Input
-          key={info.name}
-          type={info.type}
-          width='100%'
-          height='50px'
-          placeholder={info.placeholder}
-          onChange={(event) => checkInputInfo(event, info.name)}
-          inputStatus={info.status}
-          onClick={info.name === 'password' ? handlePasswordVisible : () => {}}
-          message={info[`${info.status}Message`]}
-          css={{
-            marginBottom: '16px',
-          }}
-        >
-          {info.isValidated && info.type === 'email' ? <img src={info.icon[0]} alt={`checked ${info.name}`} /> : null}
-          {info.value.length > 0 && info.name === 'password' ? (
-            <img src={info.type === 'password' ? info.icon[0] : info.icon[1]} alt={`checked ${info.name}`} />
-          ) : null}
-        </Input>
-      ))}
+      <Input
+        type='email'
+        width='100%'
+        height='50px'
+        placeholder='이메일'
+        onChange={(event) => checkInputInfo(event, 'email')}
+        css={{ marginBottom: '16px' }}
+      >
+        <img src={IconCheckGreen} alt='checked email' />
+      </Input>
+      <Input
+        type='password'
+        width='100%'
+        height='50px'
+        placeholder='비밀번호'
+        onChange={(event) => checkInputInfo(event, 'password')}
+        onClick={handlePasswordVisible}
+        css={{ marginBottom: '16px' }}
+      >
+        <img src={IconPasswordHide} alt='checked password' />
+      </Input>
       <Button
         width='100%'
         height='48px'

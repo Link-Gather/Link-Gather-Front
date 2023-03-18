@@ -10,8 +10,8 @@ import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { VALIDATION_PATTERN } from '@libs/constants';
 
 interface IValidationLogin {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 function LoginForm() {
@@ -53,6 +53,7 @@ function LoginForm() {
   };
 
   const loginFormSubmit = (data: IValidationLogin) => {
+    // TODO : 로그인 API
     console.log(data);
   };
 

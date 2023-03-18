@@ -1,65 +1,57 @@
 import React, { useState } from 'react';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
-import palette from '@libs/theme/palettes';
 import { ROUTE_PATHS } from '@routes';
-import { FORGOT_PASSWORD_INFO, type IForgotPasswordInfo } from './forgotPasswordForm.data';
-import { checkValidation } from '@libs/util';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import palette from '@libs/theme/palettes';
+import { VALIDATION_PATTERN } from '@libs/constants';
 
-function ForgotPasswordForm(props: { step: number }) {
+interface IValidationForgotPassword {
+  password: string;
+  confirmPassword: string;
+}
+
+function ForgotPasswordForm() {
   // prop destruction
-  const { step } = props;
   // lib hooks
   // state, ref, querystring hooks
-  const [forgotPasswordInfo, setForgotPasswordInfo] = useState<IForgotPasswordInfo[]>(FORGOT_PASSWORD_INFO);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
   // form hooks
+  const schema = yup.object().shape({
+    password: yup
+      .string()
+      .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
+      .required('비밀번호를 다시 확인해주세요.'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다 :(')
+      .required('비밀번호를 입력해주세요'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<IValidationForgotPassword>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      password: '',
+      confirmPassword: '',
+    },
+  });
   // query hooks
   // calculated values
-  const isPassAllValidated =
-    forgotPasswordInfo.filter((info) => info.step === step && info.isValidated).length ===
-    forgotPasswordInfo.filter((info) => info.step === step).length;
   // effects
   // handlers
-
-  const handleInputCheck = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
-    const targetValue = event.currentTarget.value;
-    const isValidated = checkValidation(inputName, targetValue);
-    const isPasswordSame = forgotPasswordInfo.filter((item) => item.name === 'password')[0].value === targetValue;
-
-    setForgotPasswordInfo(
-      forgotPasswordInfo.map((info) =>
-        info.name === inputName
-          ? {
-              ...info,
-              status: isValidated
-                ? info.name === 'confirmPassword'
-                  ? isPasswordSame
-                    ? 'active'
-                    : 'error'
-                  : 'active'
-                : targetValue.length > 0
-                ? 'error'
-                : 'inActive',
-              isValidated: info.name === 'confirmPassword' ? isPasswordSame : isValidated,
-              value: targetValue,
-            }
-          : info
-      )
-    );
-  };
-
-  const handlePasswordVisible = (inputName: string) => {
-    setForgotPasswordInfo(
-      forgotPasswordInfo.map((info) =>
-        info.name === inputName
-          ? {
-              ...info,
-              type: info.type === 'password' ? 'text' : 'password',
-            }
-          : info
-      )
-    );
+  const forgotPasswordPasswordSubmit = (data: IValidationForgotPassword) => {
+    // TODO : 비밀번호 재설정 API
+    console.log(data);
   };
 
   return (
@@ -74,33 +66,48 @@ function ForgotPasswordForm(props: { step: number }) {
       >
         <img src={IconArrowLeft} alt='go back' />
       </a>
-      <UnderlineTitle title={step === 1 ? '비밀번호 찾기' : '비밀번호 재설정'} />
-      <FlexBox direction='column' spacing={4}>
-        {forgotPasswordInfo.map((info) =>
-          info.step === step ? (
-            <Input
-              key={info.name}
-              type={info.type}
-              width='100%'
-              height='50px'
-              placeholder={info.placeholder}
-              onChange={(event) => handleInputCheck(event, info.name)}
-              inputStatus={info.status}
-              onClick={
-                ['password', 'confirmPassword'].includes(info.name) ? () => handlePasswordVisible(info.name) : () => {}
-              }
-              message={info[`${info.status}Message`]}
-            >
-              {info.isValidated && info.type === 'email' ? (
-                <img src={info.icon[0]} alt={`checked ${info.name}`} />
-              ) : null}
-              {info.value.length > 0 && ['password', 'confirmPassword'].includes(info.name) ? (
-                <img src={info.type === 'password' ? info.icon[0] : info.icon[1]} alt={`checked ${info.name}`} />
-              ) : null}
-            </Input>
-          ) : null
-        )}
-
+      <UnderlineTitle title='비밀번호 재설정' />
+      <FlexBox direction='column'>
+        <Input
+          type={!isShowPassword ? 'password' : 'text'}
+          placeholder='비밀번호'
+          onClick={() => setIsShowPassword(!isShowPassword)}
+          css={{ width: '100%', marginBottom: '16px' }}
+          inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
+          message={
+            errors.password
+              ? errors.password.message
+              : dirtyFields.password
+              ? ''
+              : '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+          }
+          {...register('password')}
+        >
+          {dirtyFields.password ? (
+            <img src={!isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
+          ) : null}
+        </Input>
+        <Input
+          type={!isShowConfirmPassword ? 'password' : 'text'}
+          placeholder='비밀번호 확인'
+          onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
+          css={{ width: '100%', marginBottom: '16px' }}
+          inputStatus={
+            !dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword || !isValid ? 'error' : 'active'
+          }
+          message={
+            !dirtyFields.confirmPassword
+              ? '비밀번호를 한번 더 입력해주세요.'
+              : errors.confirmPassword || !isValid
+              ? errors.confirmPassword?.message || '비밀번호를 다시 확인해주세요.'
+              : '비밀번호가 일치합니다 :)'
+          }
+          {...register('confirmPassword')}
+        >
+          {dirtyFields.confirmPassword ? (
+            <img src={!isShowConfirmPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
+          ) : null}
+        </Input>
         <Button
           width='100%'
           height='48px'
@@ -108,19 +115,13 @@ function ForgotPasswordForm(props: { step: number }) {
           color={palette.contrastText}
           backgroundColor={palette.primary.main}
           borderRadius='32px'
-          // TODO: 버튼 클릭 시 비밀번호 찾기, 비밀번호 재설정 API 호출
+          onClick={handleSubmit(forgotPasswordPasswordSubmit)}
           css={{
             marginTop: '24px',
           }}
-          disabled={!isPassAllValidated}
+          disabled={!isValid}
         >
-          {step === 1 ? (
-            <>
-              인증하기 <img src={IconArrowRight} alt='go next' />
-            </>
-          ) : (
-            '비밀번호 변경하기'
-          )}
+          비밀번호 변경
         </Button>
       </FlexBox>
     </FlexBox>

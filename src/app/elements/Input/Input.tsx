@@ -6,14 +6,6 @@ export type InputStatus = 'inActive' | 'active' | 'error';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   inputStatus?: InputStatus;
-  // width?: CSSProperties['width'];
-  // height?: CSSProperties['height'];
-  // fontSize?: CSSProperties['fontSize'];
-  // color?: CSSProperties['color'];
-  // backgroundColor?: CSSProperties['backgroundColor'];
-  // className?: string;
-  // marginTop?: CSSProperties['marginTop'];
-  // marginLeft?: CSSProperties['marginLeft'];
   message?: string;
   onClick?: () => void | null;
   children?: React.ReactNode;
@@ -22,23 +14,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
   // prop destruction
-  const {
-    inputStatus = 'active',
-    type,
-    // width,
-    // marginTop,
-    // marginLeft,
-    // height,
-    // fontSize,
-    // color,
-    // backgroundColor,
-    message,
-    className,
-    children,
-    register,
-    onClick,
-    ...rest
-  } = props;
+  const { inputStatus = 'active', type, message, className, children, register, onClick, ...rest } = props;
 
   // lib hooks
   const inputId = useId();

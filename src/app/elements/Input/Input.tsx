@@ -1,5 +1,6 @@
 import { CSSProperties, useId, forwardRef } from 'react';
 import type { Theme } from '@libs/theme';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 export type InputStatus = 'inActive' | 'active' | 'error';
 
@@ -16,6 +17,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   message?: string;
   onClick?: () => void | null;
   children?: React.ReactNode;
+  register?: UseFormRegisterReturn;
 }
 
 const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
@@ -34,6 +36,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
     onClick,
     className,
     children,
+    register,
     ...rest
   } = props;
 
@@ -103,6 +106,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         }}
         {...rest}
         ref={ref}
+        {...register}
       />
 
       <button

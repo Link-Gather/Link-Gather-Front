@@ -1,57 +1,58 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, FlexBox } from '@elements';
-import { checkValidation } from '@libs/util';
 import palette from '@libs/theme/palettes';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { LOGIN_INFO, type ILoginInfo } from './loginForm.data';
+
+interface IValidationLogin {
+  email?: string;
+  password?: string;
+}
 
 function LoginForm() {
   // prop destruction
   // lib hooks
   // state, ref hooks
-
-  const [loginInfo, setLoginInfo] = useState<ILoginInfo[]>(LOGIN_INFO);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   // form hooks
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, '올바른 이메일 형식을 입력해주세요.')
+      .required('이메일을 입력해주세요.'),
+    password: yup
+      .string()
+      .matches(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W)(?!.*\s).{8,16}$/, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
+      .required('비밀번호를 다시 확인해주세요.'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<IValidationLogin>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
   // query hooks
   // calculated values
-
-  const isPassAllValidated = loginInfo.filter((info) => info.isValidated).length === loginInfo.length;
-
   // effects
   // handlers
-
-  const checkInputInfo = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
-    const targetValue = event.currentTarget.value;
-    const isValidated = checkValidation(inputName, targetValue);
-
-    setLoginInfo(
-      loginInfo.map((info) =>
-        info.name === inputName
-          ? {
-              ...info,
-              status: isValidated ? 'active' : targetValue.length > 0 ? 'error' : 'inActive',
-              isValidated,
-              value: targetValue,
-            }
-          : info
-      )
-    );
+  const handlePasswordVisible = () => {
+    setIsShowPassword(!isShowPassword);
   };
 
-  const handlePasswordVisible = () => {
-    setLoginInfo(
-      loginInfo.map((info) =>
-        info.name === 'password'
-          ? {
-              ...info,
-              type: info.type === 'password' ? 'text' : 'password',
-            }
-          : info
-      )
-    );
+  const loginFormSubmit = (data: IValidationLogin) => {
+    console.log(data);
   };
 
   return (
@@ -61,21 +62,27 @@ function LoginForm() {
         width='100%'
         height='50px'
         placeholder='이메일'
-        onChange={(event) => checkInputInfo(event, 'email')}
         css={{ marginBottom: '16px' }}
+        inputStatus={errors.email ? 'error' : dirtyFields.email ? 'active' : 'inActive'}
+        message={errors.email ? errors.email.message : ''}
+        {...register('email')}
       >
-        <img src={IconCheckGreen} alt='checked email' />
+        {!errors.email ? <img src={IconCheckGreen} alt='checked email' /> : null}
       </Input>
       <Input
-        type='password'
+        type={isShowPassword ? 'password' : 'text'}
         width='100%'
         height='50px'
         placeholder='비밀번호'
-        onChange={(event) => checkInputInfo(event, 'password')}
         onClick={handlePasswordVisible}
         css={{ marginBottom: '16px' }}
+        inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
+        message={errors.password ? errors.password.message : ''}
+        {...register('password')}
       >
-        <img src={IconPasswordHide} alt='checked password' />
+        {dirtyFields.password ? (
+          <img src={isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
+        ) : null}
       </Input>
       <Button
         width='100%'
@@ -84,11 +91,11 @@ function LoginForm() {
         borderRadius='32px'
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        // TODO: 로그인 API 연동
+        onClick={handleSubmit(loginFormSubmit)}
         css={{
           marginTop: '8px',
         }}
-        disabled={!isPassAllValidated}
+        disabled={!isValid}
       >
         로그인
       </Button>

@@ -25,7 +25,6 @@ function LoginScreen() {
         {
           [mq[2]]: {
             alignItems: 'flex-start',
-            paddingTop: '40px',
           },
         },
       ]}

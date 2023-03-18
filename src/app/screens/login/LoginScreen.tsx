@@ -1,5 +1,5 @@
-import { FlexBox, UnderlineTitle } from '@elements';
-import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
+import { FlexBox, UnderlineTitle, KakaoLoginButton, GoogleLoginButton, GithubLoginButton } from '@elements';
+import { LoginForm, LoginBottomInfo, ShadowBox } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -103,7 +103,11 @@ function LoginScreen() {
           </a>
           <UnderlineTitle title='로그인' css={{ marginBottom: '40px' }} />
           <LoginForm />
-          <OauthContainer css={{ marginBottom: '24px' }} />
+          <FlexBox justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
+            <KakaoLoginButton />
+            <GoogleLoginButton />
+            <GithubLoginButton />
+          </FlexBox>
           <LoginBottomInfo />
         </FlexBox>
       </ShadowBox>

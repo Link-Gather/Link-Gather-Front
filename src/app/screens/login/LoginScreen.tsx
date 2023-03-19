@@ -1,5 +1,5 @@
-import { FlexBox, UnderlineTitle } from '@elements';
-import { LoginForm, LoginBottomInfo, OauthContainer, ShadowBox } from '@components';
+import { FlexBox, UnderlineTitle, KakaoLoginButton, GoogleLoginButton, GithubLoginButton } from '@elements';
+import { LoginForm, LoginBottomInfo, ShadowBox } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -20,18 +20,17 @@ function LoginScreen() {
       width='100%'
       height='100vh'
       justifyContent='left'
-      alignItems='center'
-      css={() => [
+      alignItems='flex-start'
+      css={[
         {
           [mq[2]]: {
             alignItems: 'flex-start',
-            paddingTop: '40px',
           },
         },
       ]}
     >
       <div
-        css={() => [
+        css={[
           {
             position: 'absolute',
             left: '0',
@@ -57,7 +56,7 @@ function LoginScreen() {
         ]}
       >
         <div
-          css={() => [
+          css={[
             {
               position: 'absolute',
               width: '34%',
@@ -80,6 +79,7 @@ function LoginScreen() {
       <ShadowBox
         padding='40px'
         css={{
+          marginTop: '262px',
           marginLeft: 'calc(50% + 166px)',
           [mq[1]]: {
             marginLeft: '50%',
@@ -90,7 +90,7 @@ function LoginScreen() {
           },
         }}
       >
-        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }} spacing={10}>
+        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
           <a
             href='/'
             css={{
@@ -101,9 +101,13 @@ function LoginScreen() {
           >
             <img src={IconArrowLeft} alt='go back' />
           </a>
-          <UnderlineTitle title='로그인' marginBottom='40px' />
+          <UnderlineTitle title='로그인' css={{ marginBottom: '40px' }} />
           <LoginForm />
-          <OauthContainer />
+          <FlexBox justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
+            <KakaoLoginButton />
+            <GoogleLoginButton />
+            <GithubLoginButton />
+          </FlexBox>
           <LoginBottomInfo />
         </FlexBox>
       </ShadowBox>

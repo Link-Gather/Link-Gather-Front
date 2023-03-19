@@ -1,8 +1,8 @@
 import { FlexBox } from '@elements';
-import { ShadowBox, ForgotPasswordForm } from '@components';
+import { ShadowBox, ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
-import { type Theme, mq } from '@libs/theme';
+import { mq } from '@libs/theme';
 
 function ForgotPasswordScreen() {
   // prop destruction
@@ -22,8 +22,8 @@ function ForgotPasswordScreen() {
       width='100%'
       height='100vh'
       justifyContent='left'
-      alignItems='center'
-      css={(theme: Theme) => [
+      alignItems='flex-start'
+      css={[
         {
           [mq[2]]: {
             alignItems: 'flex-start',
@@ -33,7 +33,7 @@ function ForgotPasswordScreen() {
       ]}
     >
       <div
-        css={() => [
+        css={[
           {
             position: 'absolute',
             left: '0',
@@ -59,7 +59,7 @@ function ForgotPasswordScreen() {
         ]}
       >
         <div
-          css={() => [
+          css={[
             {
               position: 'absolute',
               width: '34%',
@@ -82,6 +82,7 @@ function ForgotPasswordScreen() {
       <ShadowBox
         padding='40px'
         css={{
+          marginTop: '262px',
           marginLeft: 'calc(50% + 166px)',
           [mq[1]]: {
             marginLeft: '50%',
@@ -92,7 +93,8 @@ function ForgotPasswordScreen() {
           },
         }}
       >
-        <ForgotPasswordForm step={step} />
+        {step === 1 ? <ForgotPasswordEmailForm /> : null}
+        {step === 2 ? <ForgotPasswordForm /> : null}
       </ShadowBox>
     </FlexBox>
   );

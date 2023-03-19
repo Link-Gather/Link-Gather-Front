@@ -49,25 +49,21 @@ function FlexBox(props: {
   return (
     <div
       className={className}
-      onClick={onClick}
-      css={(theme: Theme) => {
-        return [
-          {
-            width,
-            height,
-            position,
-            display: 'flex',
-            flexDirection: direction,
-            ...flexProperties,
-          },
-          spacing &&
-            directionToMarginPropertyMap[direction] && {
-              '& > *:not(:first-of-type)': {
-                [directionToMarginPropertyMap[direction]]: theme.spacing(spacing),
-              },
+      css={(theme: Theme) => [
+        {
+          width,
+          height,
+          display: 'flex',
+          flexDirection: direction,
+          ...flexProperties,
+        },
+        spacing &&
+          directionToMarginPropertyMap[direction] && {
+            '& > *:not(:first-of-type)': {
+              [directionToMarginPropertyMap[direction]]: theme.spacing(spacing),
             },
-        ];
-      }}
+          },
+      ]}
     >
       {children}
     </div>

@@ -1,4 +1,4 @@
-import { FlexBox } from '@elements';
+import { FlexBox, Typography } from '@elements';
 import { ROUTE_PATHS } from '@routes';
 import type { Theme } from '@libs/theme';
 
@@ -14,47 +14,31 @@ function LoginBottomInfo() {
 
   return (
     <FlexBox direction='column' alignItems='center'>
-      <p
-        css={(theme: Theme) => [
-          {
-            fontSize: 16,
-            fontWeight: 500,
-            color: theme.palette.secondary.n300,
-            lineHeight: '24px',
-            marginBottom: 8,
-          },
-        ]}
-        className='notoSans'
+      <Typography
+        css={{
+          fontSize: '16px',
+          marginBottom: '8px',
+        }}
       >
-        계정이 없으신가요?
+        계정이 없으신가요? &nbsp;
         <a
           href={ROUTE_PATHS.signUp}
           css={(theme: Theme) => [
             {
-              fontSize: 16,
-              fontWeight: 500,
               color: theme.palette.primary.main,
             },
           ]}
-          className='notoSans'
         >
           회원가입
         </a>
-      </p>
-      <a
-        href={`${ROUTE_PATHS.forgotPassword}?step=1`}
-        css={(theme: Theme) => [
-          {
-            fontSize: 14,
-            fontWeight: 500,
-            color: theme.palette.secondary.n300,
-            lineHeight: '24px',
-          },
-        ]}
-        className='notoSans'
+      </Typography>
+      <Typography
+        css={{
+          fontSize: '14px',
+        }}
       >
-        비밀번호 찾기
-      </a>
+        <a href={`${ROUTE_PATHS.forgotPassword}?step=1`}>비밀번호 찾기</a>
+      </Typography>
     </FlexBox>
   );
 }

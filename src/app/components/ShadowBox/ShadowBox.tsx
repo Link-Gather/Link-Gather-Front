@@ -15,27 +15,25 @@ function ShadowBox(props: { padding?: CSSProperties['padding']; children: React.
   // handlers
 
   return (
-    <div className={className}>
-      <FlexBox
-        alignItems='center'
-        direction='column'
-        css={(theme: Theme) => {
-          return [
-            {
-              position: 'relative',
-              border: `2px solid ${theme.palette.black.main}`,
-              borderRadius: '16px',
-              boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
-              backgroundColor: theme.palette.paper,
-              padding,
-              zIndex: 10,
-            },
-          ];
-        }}
-      >
-        {children}
-      </FlexBox>
-    </div>
+    <FlexBox
+      alignItems='center'
+      direction='column'
+      className={className}
+      css={(theme: Theme) => [
+        {
+          position: 'relative',
+          border: `2px solid ${theme.palette.black.main}`,
+          borderRadius: '16px',
+          boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
+          backgroundColor: theme.palette.paper,
+          padding,
+          overflow: 'hidden',
+          zIndex: 10,
+        },
+      ]}
+    >
+      {children}
+    </FlexBox>
   );
 }
 

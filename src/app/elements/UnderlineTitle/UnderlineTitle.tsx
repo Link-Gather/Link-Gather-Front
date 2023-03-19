@@ -1,9 +1,8 @@
 import type { Theme } from '@libs/theme';
-import { CSSProperties } from 'react';
 
-function UnderlineTitle(props: { title: string; marginBottom?: CSSProperties['marginBottom'] }) {
+function UnderlineTitle(props: { title: string; className?: string }) {
   // prop destruction
-  const { title, marginBottom } = props;
+  const { title, className } = props;
 
   // lib hooks
   // state, ref hooks
@@ -15,6 +14,7 @@ function UnderlineTitle(props: { title: string; marginBottom?: CSSProperties['ma
 
   return (
     <h3
+      className={className}
       css={{
         display: 'flex',
         alignItems: 'end',
@@ -24,7 +24,6 @@ function UnderlineTitle(props: { title: string; marginBottom?: CSSProperties['ma
         fontSize: '32px',
         textAlign: 'center',
         lineHeight: '32px',
-        marginBottom,
       }}
     >
       {title}

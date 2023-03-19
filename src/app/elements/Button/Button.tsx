@@ -39,29 +39,26 @@ function Button(props: Props) {
 
   return (
     <button
-      css={(theme: Theme) => {
-        return [
-          {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width,
-            height,
-            fontSize,
-            textAlign: 'center',
-            fontWeight: '800',
-            color,
-            border: 0,
-            borderRadius,
-            backgroundColor,
-            zIndex: '20',
-            cursor: 'pointer',
-            ':disabled': {
-              backgroundColor: theme.palette.secondary.n40,
-            },
+      css={(theme: Theme) => [
+        {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width,
+          height,
+          fontSize,
+          textAlign: 'center',
+          fontWeight: '800',
+          color,
+          border: 'none',
+          borderRadius,
+          backgroundColor,
+          cursor: 'pointer',
+          ':disabled': {
+            backgroundColor: theme.palette.secondary.n40,
           },
-        ];
-      }}
+        },
+      ]}
       className={className}
       onClick={onClick}
       disabled={disabled}

@@ -5,7 +5,7 @@ import { ImageBox } from './ImageBox';
 type ArgTypes = ComponentProps<typeof ImageBox>;
 
 export default {
-  title: 'elements/FlexBox',
+  title: 'elements/ImageBox',
   component: ImageBox,
   args: {
     width: '100%',

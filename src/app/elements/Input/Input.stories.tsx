@@ -8,9 +8,10 @@ export default {
   title: 'elements/Input',
   component: Input,
   args: {
-    inputType: 'default',
+    inputType: 'error',
     width: '50px',
     height: '30px',
+    message: 'validation check message',
   },
 } as Meta<ArgTypes>;
 

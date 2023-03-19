@@ -36,7 +36,7 @@ function Layout(props: { children: React.ReactNode; componentStyle: ComponentSty
               position: 'relative',
               width: '100%',
               maxWidth: '1920px',
-              margin: '0 auto',
+              margin: '0px auto',
             }}
           >
             {children}

@@ -19,8 +19,8 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
       <div
         css={{
           position: 'fixed',
-          top: 0,
-          left: 0,
+          top: '0px',
+          left: '0px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -33,8 +33,8 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
           css={{
             display: 'flex',
             flexDirection: 'column',
-            width: width,
-            height: height,
+            width,
+            height,
             borderRadius: '8px',
             backgroundColor: '#ffffff',
             padding: '10px',

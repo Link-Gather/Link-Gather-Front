@@ -20,19 +20,17 @@ function GithubLoginButton() {
   return (
     <a href={href}>
       <button
-        css={(theme: Theme) => {
-          return [
-            {
-              width: '60px',
-              height: '60px',
-              border: `2px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              background: `no-repeat center url(${IconGithub}) ${theme.palette.paper}`,
-              cursor: 'pointer',
-            },
-          ];
-        }}
-      />
+        css={(theme: Theme) => ({
+          width: '60px',
+          height: '60px',
+          border: `2px solid ${theme.palette.black.main}`,
+          borderRadius: '50%',
+          backgroundColor: `${theme.palette.paper}`,
+          cursor: 'pointer',
+        })}
+      >
+        <img src={IconGithub} alt='login' />
+      </button>
       <span
         css={{
           display: 'block',

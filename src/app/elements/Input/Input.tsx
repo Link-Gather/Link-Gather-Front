@@ -1,42 +1,20 @@
-import { CSSProperties, useId, forwardRef } from 'react';
+import { useId, forwardRef } from 'react';
 import type { Theme } from '@libs/theme';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 export type InputStatus = 'inActive' | 'active' | 'error';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   inputStatus?: InputStatus;
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  fontSize?: CSSProperties['fontSize'];
-  color?: CSSProperties['color'];
-  backgroundColor?: CSSProperties['backgroundColor'];
-  className?: string;
-  marginTop?: CSSProperties['marginTop'];
-  marginLeft?: CSSProperties['marginLeft'];
   message?: string;
   onClick?: () => void | null;
   children?: React.ReactNode;
+  register?: UseFormRegisterReturn;
 }
 
 const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
   // prop destruction
-  const {
-    inputStatus = 'active',
-    type,
-    width,
-    marginTop,
-    marginLeft,
-    height,
-    fontSize,
-    color,
-    backgroundColor,
-    onClick,
-    className,
-    message,
-    value,
-    children,
-    ...rest
-  } = props;
+  const { inputStatus = 'active', type, message, onClick, register, className, children, ...rest } = props;
 
   // lib hooks
   const inputId = useId();
@@ -51,6 +29,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
   return (
     <label
       htmlFor={inputId}
+      className={className}
       css={{
         position: 'relative',
       }}
@@ -61,15 +40,10 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
         css={(theme: Theme) => {
           return [
             {
-              width,
-              height,
-              marginTop,
-              marginLeft,
-              fontSize: fontSize || 20,
-              fontWeight: 500,
-              color,
+              width: '100%',
+              height: '50px',
+              fontSize: '20px',
               borderRadius: 8,
-              backgroundColor,
               padding: '11px 16px 11px 16px',
               outline: 'none',
               '&::placeholder': {
@@ -101,9 +75,9 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
             },
           ];
         }}
-        className={className}
-        {...rest}
         ref={ref}
+        {...rest}
+        {...register}
       />
       <button
         type='button'
@@ -113,8 +87,8 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
           top: '0',
           right: '8px',
           display: 'flex',
+          height: '50px',
           alignItems: 'center',
-          height,
           border: 'none',
           background: 'none',
           cursor: 'pointer',
@@ -147,7 +121,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
               color: theme.palette.secondary.red,
             },
             inputStatus === 'active' && {
-              color: theme.palette.secondary.n500,
+              color: theme.palette.secondary.green,
             },
             message === undefined && {
               display: 'none',

@@ -19,8 +19,8 @@ function ForgotPasswordForm() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   // form hooks
   const schema = yup.object().shape({
     password: yup
@@ -29,7 +29,7 @@ function ForgotPasswordForm() {
       .required('비밀번호를 다시 확인해주세요.'),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다 :(')
+      .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다 :(')
       .required('비밀번호를 입력해주세요'),
   });
 
@@ -55,18 +55,18 @@ function ForgotPasswordForm() {
   };
 
   return (
-    <FlexBox width='320px' direction='column' css={{ minWidth: '320px', gap: '40px' }}>
+    <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
       <a
         href={ROUTE_PATHS.logIn}
         css={{
           position: 'absolute',
-          top: '40px',
-          left: '40px',
+          top: '0px',
+          left: '0px',
         }}
       >
         <img src={IconArrowLeft} alt='go back' />
       </a>
-      <UnderlineTitle title='비밀번호 재설정' />
+      <UnderlineTitle title='비밀번호 재설정' css={{ marginBottom: '40px' }} />
       <FlexBox direction='column'>
         <Input
           type={!isShowPassword ? 'password' : 'text'}
@@ -109,14 +109,14 @@ function ForgotPasswordForm() {
           ) : null}
         </Input>
         <Button
-          width='100%'
-          height='48px'
-          fontSize='20px'
-          color={palette.contrastText}
-          backgroundColor={palette.primary.main}
-          borderRadius='32px'
           onClick={handleSubmit(forgotPasswordPasswordSubmit)}
           css={{
+            width: '100%',
+            height: '48px',
+            fontSize: '20px',
+            color: palette.contrastText,
+            backgroundColor: palette.primary.main,
+            borderRadius: '32px',
             marginTop: '24px',
           }}
           disabled={!isValid}

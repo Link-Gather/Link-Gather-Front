@@ -1,20 +1,13 @@
-import { CSSProperties } from 'react';
 import { Theme } from '@libs/theme';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  fontSize?: CSSProperties['fontSize'];
-  color?: CSSProperties['color'];
-  backgroundColor?: CSSProperties['backgroundColor'];
-  borderRadius?: CSSProperties['borderRadius'];
 }
 
 function Button(props: Props) {
   // prop destruction
-  const { width, height, fontSize, color, backgroundColor, borderRadius, children, className, ...rest } = props;
+  const { children, className, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -31,15 +24,9 @@ function Button(props: Props) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width,
-          height,
-          fontSize,
           textAlign: 'center',
           fontWeight: '800',
-          color,
           border: 'none',
-          borderRadius,
-          backgroundColor,
           cursor: 'pointer',
           ':disabled': {
             backgroundColor: theme.palette.secondary.n40,

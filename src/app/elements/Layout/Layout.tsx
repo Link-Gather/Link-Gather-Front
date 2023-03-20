@@ -35,6 +35,7 @@ function Layout(props: { children: React.ReactNode; componentStyle: ComponentSty
             css={{
               position: 'relative',
               width: '100%',
+              height: '100vh',
               maxWidth: '1920px',
               margin: '0px auto',
             }}

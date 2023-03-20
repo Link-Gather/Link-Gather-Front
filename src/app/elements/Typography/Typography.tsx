@@ -1,5 +1,5 @@
-import { Theme } from '@libs/theme';
 import React from 'react';
+import type { Theme } from '@libs/theme';
 
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
 
@@ -67,6 +67,12 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
       }
     }
   };
+  // state, ref hooks
+  // form hooks
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
   return (
     <span css={css(variant)} className={className}>
       {children}

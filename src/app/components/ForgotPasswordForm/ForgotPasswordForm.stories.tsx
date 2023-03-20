@@ -1,5 +1,5 @@
-import { ComponentProps } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ForgotPasswordForm } from './ForgotPasswordForm';
 
 type ArgTypes = ComponentProps<typeof ForgotPasswordForm>;
@@ -9,9 +9,6 @@ export default {
   component: ForgotPasswordForm,
   args: {
     step: 2,
-  },
-  argTypes: {
-    step: { type: 'number' },
   },
 } as Meta<ArgTypes>;
 

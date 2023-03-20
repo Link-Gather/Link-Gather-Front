@@ -48,9 +48,6 @@ function LoginForm() {
   // calculated values
   // effects
   // handlers
-  const handlePasswordVisible = () => {
-    setIsShowPassword(!isShowPassword);
-  };
 
   const loginFormSubmit = (data: IValidationLogin) => {
     // TODO : 로그인 API
@@ -72,7 +69,7 @@ function LoginForm() {
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
-        onClick={handlePasswordVisible}
+        onClick={() => setIsShowPassword(!isShowPassword)}
         css={{ width: '100%', marginBottom: '16px' }}
         inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
         message={errors.password ? errors.password.message : ''}
@@ -83,14 +80,14 @@ function LoginForm() {
         ) : null}
       </Input>
       <Button
-        width='100%'
-        height='48px'
-        fontSize='20px'
-        borderRadius='32px'
-        color={palette.contrastText}
-        backgroundColor={palette.primary.main}
         onClick={handleSubmit(loginFormSubmit)}
         css={{
+          width: '100%',
+          height: '48px',
+          fontSize: '20px',
+          borderRadius: '32px',
+          color: palette.contrastText,
+          backgroundColor: palette.primary.main,
           marginTop: '8px',
         }}
         disabled={!isValid}

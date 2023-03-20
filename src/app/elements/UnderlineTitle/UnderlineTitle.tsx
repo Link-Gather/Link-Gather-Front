@@ -28,14 +28,12 @@ function UnderlineTitle(props: { title: string; className?: string }) {
     >
       {title}
       <span
-        css={(theme: Theme) => [
-          {
-            display: 'inline-block',
-            width: '16px',
-            height: '4px',
-            backgroundColor: theme.palette.primary.main,
-          },
-        ]}
+        css={(theme: Theme) => ({
+          display: 'inline-block',
+          width: '16px',
+          height: '4px',
+          backgroundColor: theme.palette.primary.main,
+        })}
       />
     </h3>
   );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { GOOGLE_CLIENT_ID, REDIRECT_URI } from '@configs';
 import IconGoogle from '@assets/images/icons/icon-google.svg';
 import type { Theme } from '@libs/theme';
@@ -34,7 +33,7 @@ function GoogleLoginButton() {
           cursor: 'pointer',
         })}
       >
-        <img src={IconGoogle} alt='login' />
+        <img src={IconGoogle} alt='google login' />
       </button>
       <span
         css={{

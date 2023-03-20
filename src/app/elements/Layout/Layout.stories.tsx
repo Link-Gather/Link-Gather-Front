@@ -1,5 +1,5 @@
-import { ComponentProps } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Layout } from './Layout';
 
 type ArgTypes = ComponentProps<typeof Layout>;
@@ -15,9 +15,6 @@ export default {
         <div css={{ border: '1px solid #aaaaaa' }}>Third Child</div>
       </>
     ),
-  },
-  argTypes: {
-    componentStyle: { type: 'string' },
   },
 } as Meta<ArgTypes>;
 

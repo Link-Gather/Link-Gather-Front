@@ -23,15 +23,12 @@ const SignupBox = () => {
     <ShadowBox
       padding='40px'
       css={{
-        width: '566px',
+        width: '576px',
         margin: '0 auto',
+        height: '588px',
       }}
     >
-      <FlexBox
-        width='100%'
-        direction='column'
-        css={{ minWidth: '320px', height: step === 2 ? '600px' : '500px', gap: '25px' }}
-      >
+      <FlexBox width='100%' direction='column' css={{ gap: '25px' }}>
         <FlexBox
           css={{
             position: 'absolute',
@@ -49,7 +46,7 @@ const SignupBox = () => {
           />
         </FlexBox>
         <UnderlineTitle title='회원가입' />
-        <FlexBox width='369px' height='100%' css={{ margin: '0 auto' }}>
+        <FlexBox width='392px' height='100%' css={{ margin: '0 auto' }}>
           {step === 0 ? (
             <SignupStep1 moveNextStep={moveNextStep} />
           ) : step === 1 ? (

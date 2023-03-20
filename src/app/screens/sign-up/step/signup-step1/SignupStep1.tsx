@@ -1,163 +1,154 @@
-import { useState, useCallback, ChangeEvent } from 'react';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FlexBox, RequestButton, Input, Button } from '@elements';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import palette from '@libs/theme/palettes';
-// import
+import { VALIDATION_PATTERN } from '@libs/constants';
+import { useState } from 'react';
+
+interface ValidationSignup {
+  email: string;
+  code: string;
+  password: string;
+  confirmPassword: string;
+}
+interface MessageType {
+  authRequestMessage: string;
+  codeConfirmMessage: string;
+}
 
 const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
   // lib hooks
-  const { register, handleSubmit } = useForm();
   // state, ref, querystring hooks
-  const [label, setLabel] = useState({
-    firstLabel: '',
-    secondLabel: '',
+  const [message, setMessage] = useState<MessageType>({
+    authRequestMessage: '',
+    codeConfirmMessage: '',
   });
-  const [inputs, setInputs] = useState({
-    email: '',
-    code: '',
-    password: '',
-    confirmPassword: '',
+  // form hooks
+  const schema = yup.object().shape({
+    email: yup.string(),
+    code: yup.string(),
+    password: yup
+      .string()
+      .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
+      .required('비밀번호를 다시 확인해주세요.'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다')
+      .required('비밀번호가 일치하지 않습니다.'),
   });
 
-  // form hooks
+  const {
+    register,
+    getValues,
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<ValidationSignup>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: '',
+      code: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+  const loginFormSubmit = () => {
+    // TODO : 회원가입 API
+    const values = getValues('email');
+    console.log(values);
+  };
   // query hooks
   // calculated values
   // effects
   // handlers
-  const { email, code, password, confirmPassword } = inputs;
-
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      setInputs({
-        ...inputs,
-        [e.target.name]: e.target.value,
-      });
-    },
-    [inputs]
-  );
-
-  // const checkNull = () => {
-  //   if (email !== '' && code !== '' && password !== '' && confirmPassword !== '') {
-  //     if (password === confirmPassword) return true;
-  //   }
-  // };
-
-  const sendCode = (labelNumber: string) => {
-    if (labelNumber === 'firstLabel') {
-      setLabel({ ...label, firstLabel: `${label.firstLabel ? '코드를 재전송했습니다.' : '코드를 전송했습니다.'}` });
-    } else {
-      setLabel({ ...label, secondLabel: '인증이 완료되었습니다' });
-    }
-  };
-  // const passwordValidation = (password: string) => {
-  //   let reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/);
-  //   if (
-  //     (password.length > 0 && !reg.test(password)) ||
-  //     (password.length > 0 && (password.length < 8 || password.length > 16))
-  //   ) {
-  //     return 'error';
-  //   }
-  // };
-
-  // const confirmErrorCheck = () => {
-  //   if (password !== confirmPassword) return 'error';
-  //   return;
-  // };
 
   return (
-    <FlexBox position='relative' justifyContent='center'>
-      <form onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
-        <FlexBox spacing={2} direction='column' marginTop='25px'>
-          <FlexBox>
-            <Input
-              name='email'
-              value={email}
-              placeholder='이메일'
-              width='100%'
-              height={50}
-              onChange={onChange}
-              message={label.firstLabel}
-              inputStatus='inActive'
-              // {...register('email')}
-            />
-            <RequestButton
-              width='94px'
-              height='50px'
-              fontSize='14px'
-              marginLeft='10px'
-              onClick={(e) => {
-                // e.preventDefault();
-                sendCode('firstLabel');
-              }}
-              value={email}
-            >
-              인증요청
-            </RequestButton>
-          </FlexBox>
-          <FlexBox>
-            <Input
-              name='code'
-              value={code}
-              placeholder='코드입력'
-              width='100%'
-              height={50}
-              onChange={onChange}
-              message={label.secondLabel}
-              inputStatus='inActive'
-            />
-            <RequestButton
-              width='94px'
-              height='50px'
-              fontSize='14px'
-              marginLeft='10px'
-              onClick={(e) => {
-                // e.preventDefault();
-                sendCode('secondLabel');
-              }}
-              value={code}
-            >
-              확인
-            </RequestButton>
-          </FlexBox>
-          <FlexBox>
-            <Input
-              name='password'
-              value={password}
-              type='password'
-              placeholder='비밀번호 입력'
-              height={50}
-              width='369px'
-              message='8~16자리, 영문과 숫자로 입력해주세요'
-              onChange={onChange}
-              autoComplete='off'
-              inputStatus='inActive'
-            />
-          </FlexBox>
-          <FlexBox>
-            <Input
-              name='confirmPassword'
-              value={confirmPassword}
-              type='password'
-              placeholder='비밀번호 확인'
-              height={50}
-              width='369px'
-              onChange={onChange}
-              autoComplete='off'
-              inputStatus='inActive'
-            />
-          </FlexBox>
+    <FlexBox position='relative' justifyContent='center' css={{ width: '100%' }}>
+      <FlexBox direction='column' marginTop='25px'>
+        <FlexBox>
+          <Input
+            type='email'
+            placeholder='이메일'
+            message={message.authRequestMessage}
+            inputStatus={dirtyFields.email ? 'active' : 'inActive'}
+            css={{ width: '288px', marginBottom: '16px' }}
+            {...register('email')}
+          />
+          <RequestButton
+            value={getValues('email')}
+            onClick={() => {
+              console.log('d');
+              setMessage({
+                ...message,
+                authRequestMessage: '인증번호를 전송하였습니다.',
+              });
+            }}
+          >
+            인증요청
+          </RequestButton>
         </FlexBox>
-      </form>
+        <FlexBox>
+          <Input
+            type='text'
+            placeholder='코드입력'
+            message={message.codeConfirmMessage}
+            inputStatus={dirtyFields.code ? 'active' : 'inActive'}
+            css={{ width: '288px', marginBottom: '16px' }}
+            {...register('code')}
+          />
+          <RequestButton
+            value={getValues('code')}
+            onClick={() => {
+              setMessage({
+                ...message,
+                codeConfirmMessage: '인증이 완료되었습니다.',
+              });
+            }}
+          >
+            확인
+          </RequestButton>
+        </FlexBox>
+        <FlexBox>
+          <Input
+            type='password'
+            placeholder='비밀번호 입력'
+            message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+            autoComplete='off'
+            inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
+            css={{ width: '100%', marginBottom: '16px' }}
+            {...register('password')}
+          />
+        </FlexBox>
+        <FlexBox>
+          <Input
+            type='password'
+            placeholder='비밀번호 확인'
+            autoComplete='off'
+            inputStatus={
+              !dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword || !isValid ? 'error' : 'active'
+            }
+            css={{ width: '100%', marginBottom: '16px' }}
+            {...register('confirmPassword')}
+          />
+        </FlexBox>
+      </FlexBox>
       <Button
+        // onClick={moveNextStep}
+        disabled={
+          !isValid ||
+          !getValues('email') ||
+          !getValues('code') ||
+          !getValues('password') ||
+          !getValues('confirmPassword')
+        }
         onClick={moveNextStep}
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        width={320}
-        height={48}
-        fontSize={20}
-        css={{ position: 'absolute', top: '90%' }}
-        // disabled={checkNull() ? false : true}
+        width='320px'
+        height='48px'
+        fontSize='20px'
+        css={{ position: 'absolute', bottom: '40px', borderRadius: '32px' }}
       >
         다음
       </Button>

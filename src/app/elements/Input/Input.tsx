@@ -62,7 +62,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
               },
             },
             inputStatus === 'active' && {
-              border: `2px solid ${theme.palette.secondary.n500}`,
+              border: `2px solid ${theme.palette.secondary.n300}`,
               '&:focus': {
                 border: `2px solid ${theme.palette.primary.main}`,
               },
@@ -115,7 +115,7 @@ const Input = forwardRef((props: Props, ref: React.ForwardedRef<HTMLInputElement
               lineHeight: '20px',
             },
             inputStatus === 'inActive' && {
-              color: theme.palette.secondary.n60,
+              color: theme.palette.secondary.n300,
             },
             inputStatus === 'error' && {
               color: theme.palette.secondary.red,

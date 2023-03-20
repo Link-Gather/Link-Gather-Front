@@ -26,14 +26,14 @@ function RequestButton(props: {
         {
           width: '94px',
           height: '50px',
-          fontSize: '16px',
+          fontSize: '14px',
           textAlign: 'center',
           fontWeight: '600',
-          border: `2px solid ${theme.palette.secondary.n60}`,
+          border: `2px solid ${value ? theme.palette.secondary.n300 : theme.palette.secondary.n60}`,
           borderRadius: '8px',
-          color: theme.palette.secondary.n60,
+          color: value ? theme.palette.secondary.n300 : theme.palette.secondary.n60,
           backgroundColor: theme.palette.contrastText,
-          cursor: 'pointer',
+          cursor: value ? 'pointer' : 'null',
           marginLeft: '10px',
         },
       ]}

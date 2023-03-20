@@ -1,5 +1,9 @@
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { ChangeEvent, useState } from 'react';
 import { characters } from 'app/screens/data.mock';
+import { useForm, useFormState } from 'react-hook-form';
+import { VALIDATION_PATTERN } from '@libs/constants';
 import { FlexBox, Input, RequestButton, ImageBox, Button } from '@elements';
 import palette from '@libs/theme/palettes';
 
@@ -17,21 +21,26 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // lib hooks
   // state, ref, querystring hooks
   const [characterState, setCharacterState] = useState<Props>(characters[0]);
-  const [nickname, setNickname] = useState<string>('');
   // form hooks
+  const schema = yup.object().shape({
+    nickname: yup.string().matches(VALIDATION_PATTERN.nickname),
+  });
+
+  const {
+    register,
+    getValues,
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<{ nickname: string }>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      nickname: '',
+    },
+  });
   // query hooks
   // calculated values
-  const nicknameValidation = (nickname: string) => {
-    let reg = new RegExp(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/);
-    if (nickname === '') return 'inActive';
-    if (nickname.length > 0 && reg.test(nickname)) return 'active';
-    if (!reg.test(nickname)) return 'error';
-  };
   // effects
   // handlers
-  const onChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
 
   return (
     <FlexBox
@@ -84,7 +93,6 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
                   borderRadius: '50%',
                   overflow: 'hidden',
                   backgroundColor: character.backgroundColor,
-                  // marginLeft: '5px',
                   cursor: 'pointer',
                   '&:hover': {
                     border: '2px solid #00CA20',
@@ -107,12 +115,17 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width='227px'
           message='8자이내, 한글, 영문 숫자 혼용 가능'
           placeholder='닉네임 입력'
-          name='nickname'
-          value={nickname}
-          onChange={onChangeNickname}
-          inputStatus={nicknameValidation(nickname)}
+          inputStatus={errors.nickname ? 'error' : dirtyFields.nickname ? 'active' : 'inActive'}
+          {...register('nickname')}
         ></Input>
-        <RequestButton onClick={() => {}} fontSize='14px' value={nickname} marginLeft='4px' height='50px' width='93px'>
+        <RequestButton
+          onClick={() => {}}
+          fontSize='14px'
+          value={getValues('nickname')}
+          marginLeft='4px'
+          height='50px'
+          width='93px'
+        >
           중복확인
         </RequestButton>
       </FlexBox>
@@ -120,11 +133,11 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         onClick={moveNextStep}
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        width='100%'
-        height={48}
-        fontSize={20}
-        disabled={nickname === '' ? true : false}
-        css={{ position: 'absolute', top: '90%' }}
+        width='320px'
+        height='48px'
+        fontSize='20px'
+        disabled={getValues('nickname') === '' ? true : false}
+        css={{ position: 'absolute', bottom: '40px', borderRadius: '32px' }}
       >
         다음
       </Button>

@@ -49,6 +49,7 @@ function FlexBox(props: {
   return (
     <div
       className={className}
+      onClick={onClick}
       css={(theme: Theme) => [
         {
           width,

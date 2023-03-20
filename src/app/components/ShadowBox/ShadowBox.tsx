@@ -19,17 +19,15 @@ function ShadowBox(props: { children: React.ReactNode; className?: string }) {
       alignItems='center'
       direction='column'
       className={className}
-      css={(theme: Theme) => [
-        {
-          position: 'relative',
-          border: `2px solid ${theme.palette.black.main}`,
-          borderRadius: '16px',
-          boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
-          backgroundColor: theme.palette.paper,
-          overflow: 'hidden',
-          zIndex: 10,
-        },
-      ]}
+      css={(theme: Theme) => ({
+        position: 'relative',
+        border: `2px solid ${theme.palette.black.main}`,
+        borderRadius: '16px',
+        boxShadow: `20px 16px 0px ${theme.palette.black.main}`,
+        backgroundColor: theme.palette.paper,
+        overflow: 'hidden',
+        zIndex: 10,
+      })}
     >
       {children}
     </FlexBox>

@@ -1,11 +1,11 @@
 import { Theme } from '@libs/theme';
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  className?: string;
-}
-
-function Button(props: Props) {
+function Button(
+  props: {
+    children: React.ReactNode;
+    className?: string;
+  } & React.ButtonHTMLAttributes<HTMLButtonElement>
+) {
   // prop destruction
   const { children, className, ...rest } = props;
 
@@ -19,20 +19,17 @@ function Button(props: Props) {
 
   return (
     <button
-      css={(theme: Theme) => [
-        {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          fontWeight: '800',
-          border: 'none',
-          cursor: 'pointer',
-          ':disabled': {
-            backgroundColor: theme.palette.secondary.n40,
-          },
+      css={(theme: Theme) => ({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontWeight: '800',
+        cursor: 'pointer',
+        ':disabled': {
+          backgroundColor: theme.palette.secondary.n40,
         },
-      ]}
+      })}
       className={className}
       {...rest}
     >

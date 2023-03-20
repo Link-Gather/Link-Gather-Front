@@ -10,10 +10,16 @@ import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import palette from '@libs/theme/palettes';
 import { VALIDATION_PATTERN } from '@libs/constants';
 
-interface IValidationForgotPassword {
-  password: string;
-  confirmPassword: string;
-}
+const schema = yup.object().shape({
+  password: yup
+    .string()
+    .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
+    .required('비밀번호를 다시 확인해주세요.'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다 :(')
+    .required('비밀번호를 입력해주세요'),
+});
 
 function ForgotPasswordForm() {
   // prop destruction
@@ -21,23 +27,13 @@ function ForgotPasswordForm() {
   // state, ref, querystring hooks
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
-  // form hooks
-  const schema = yup.object().shape({
-    password: yup
-      .string()
-      .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
-      .required('비밀번호를 다시 확인해주세요.'),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다 :(')
-      .required('비밀번호를 입력해주세요'),
-  });
 
+  // form hooks
   const {
     register,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
-  } = useForm<IValidationForgotPassword>({
+  } = useForm<{ password: string; confirmPassword: string }>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
@@ -49,7 +45,7 @@ function ForgotPasswordForm() {
   // calculated values
   // effects
   // handlers
-  const forgotPasswordPasswordSubmit = (data: IValidationForgotPassword) => {
+  const forgotPasswordPasswordSubmit = (data: { password: string; confirmPassword: string }) => {
     // TODO : 비밀번호 재설정 API
     console.log(data);
   };
@@ -104,9 +100,9 @@ function ForgotPasswordForm() {
           }
           {...register('confirmPassword')}
         >
-          {dirtyFields.confirmPassword ? (
+          {dirtyFields.confirmPassword && (
             <img src={!isShowConfirmPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-          ) : null}
+          )}
         </Input>
         <Button
           onClick={handleSubmit(forgotPasswordPasswordSubmit)}

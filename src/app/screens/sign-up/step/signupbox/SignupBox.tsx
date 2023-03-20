@@ -25,7 +25,7 @@ const SignupBox = () => {
       css={{
         width: '576px',
         margin: '0 auto',
-        height: '588px',
+        height: step !== 2 ? '588px' : '718px',
       }}
     >
       <FlexBox width='100%' direction='column' css={{ gap: '25px' }}>

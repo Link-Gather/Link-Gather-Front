@@ -40,10 +40,10 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         onClick={moveNextStep}
         color={palette.contrastText}
         backgroundColor={palette.primary.main}
-        width={320}
-        height={48}
-        fontSize={20}
-        css={{ position: 'absolute', top: '90%' }}
+        width='320px'
+        height='48px'
+        fontSize='20px'
+        css={{ position: 'absolute', bottom: '40px', borderRadius: '32px' }}
       >
         회원가입
       </Button>

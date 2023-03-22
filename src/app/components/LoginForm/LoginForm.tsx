@@ -8,6 +8,7 @@ import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { VALIDATION_PATTERN } from '@libs/constants';
+import { httpClient } from '@libs/http-client';
 
 const schema = yup.object({
   email: yup
@@ -54,7 +55,7 @@ function LoginForm() {
         message={errors.email && errors.email.message}
         {...register('email')}
       >
-        {!errors.email && <img src={IconCheckGreen} alt='checked email' />}
+        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
       </Input>
       <Input
         type={!isShowPassword ? 'password' : 'text'}
@@ -71,7 +72,7 @@ function LoginForm() {
       </Input>
       <Button
         onClick={handleSubmit(async ({ email, password }) => {
-          console.log(email, password);
+          await httpClient.post('/users/sign-in', { email, password });
         })}
         css={{
           width: '100%',

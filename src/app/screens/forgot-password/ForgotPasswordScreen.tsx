@@ -74,7 +74,7 @@ function ForgotPasswordScreen() {
       </div>
       <ShadowBox
         css={{
-          marginTop: '262px',
+          marginTop: 'calc(50vh - 295px)',
           marginLeft: 'calc(50% + 166px)',
           padding: '40px',
           [mq[1]]: {

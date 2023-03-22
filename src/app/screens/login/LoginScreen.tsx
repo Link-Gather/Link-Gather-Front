@@ -21,7 +21,7 @@ function LoginScreen() {
       width='100%'
       height='100%'
       justifyContent='left'
-      alignItems='flex-start'
+      alignItems='center'
       css={{
         [mq[2]]: {
           alignItems: 'flex-start',
@@ -72,7 +72,6 @@ function LoginScreen() {
       </div>
       <ShadowBox
         css={{
-          marginTop: '262px',
           marginLeft: 'calc(50% + 166px)',
           padding: '40px',
           [mq[1]]: {

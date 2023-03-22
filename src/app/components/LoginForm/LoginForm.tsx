@@ -9,7 +9,7 @@ import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { VALIDATION_PATTERN } from '@libs/constants';
 
-const schema = yup.object().shape({
+const schema = yup.object({
   email: yup
     .string()
     .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
@@ -44,18 +44,13 @@ function LoginForm() {
   // effects
   // handlers
 
-  const loginFormSubmit = (data: { email: string; password: string }) => {
-    // TODO : 로그인 API
-    console.log(data);
-  };
-
   return (
     <FlexBox direction='column' css={{ marginBottom: '40px' }}>
       <Input
         type='email'
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={errors.email ? 'error' : dirtyFields.email ? 'active' : 'inActive'}
+        inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
         message={errors.email && errors.email.message}
         {...register('email')}
       >
@@ -66,7 +61,7 @@ function LoginForm() {
         placeholder='비밀번호'
         onClick={() => setIsShowPassword(!isShowPassword)}
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
+        inputStatus={(errors.password && 'error') || (dirtyFields.password && 'active') || 'inActive'}
         message={errors.password && errors.password.message}
         {...register('password')}
       >
@@ -75,7 +70,9 @@ function LoginForm() {
         )}
       </Input>
       <Button
-        onClick={handleSubmit(loginFormSubmit)}
+        onClick={handleSubmit(async ({ email, password }) => {
+          console.log(email, password);
+        })}
         css={{
           width: '100%',
           height: '48px',

@@ -16,7 +16,7 @@ const Input = forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { inputStatus, type, message, className, children, register, onClick, ...rest } = props;
+    const { inputStatus = 'inActive', type, message, className, children, register, onClick, ...rest } = props;
 
     // lib hooks
     const inputId = useId();

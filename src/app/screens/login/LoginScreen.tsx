@@ -85,17 +85,12 @@ function LoginScreen() {
         }}
       >
         <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
-          <a
-            href='/'
-            css={{
-              position: 'absolute',
-              top: '40px',
-              left: '40px',
-            }}
-          >
-            <img src={IconArrowLeft} alt='go back' />
-          </a>
-          <UnderlineTitle title='로그인' css={{ marginBottom: '40px' }} />
+          <FlexBox direction='row' width='100%'>
+            <a href='/'>
+              <img src={IconArrowLeft} alt='go home' />
+            </a>
+            <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
+          </FlexBox>
           <LoginForm />
           <FlexBox justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
             <KakaoLoginButton />

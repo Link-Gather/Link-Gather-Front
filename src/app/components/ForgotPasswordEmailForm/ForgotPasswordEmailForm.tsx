@@ -10,7 +10,7 @@ import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
 import { VALIDATION_PATTERN } from '@libs/constants';
 
-const schema = yup.object().shape({
+const schema = yup.object({
   email: yup
     .string()
     .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
@@ -38,34 +38,25 @@ function ForgotPasswordEmailForm() {
   // calculated values
   // effects
   // handlers
-  const forgotPasswordEmailSubmit = (data: { email: string }) => {
-    // TODO : 비밀번호 찾기 Email 인증 전송 API
-    console.log(data);
-  };
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
-      <a
-        href={ROUTE_PATHS.logIn}
-        css={{
-          position: 'absolute',
-          top: '0px',
-          left: '0px',
-        }}
-      >
-        <img src={IconArrowLeft} alt='go back' />
-      </a>
-      <UnderlineTitle title='비밀번호 찾기' css={{ marginBottom: '40px' }} />
+    <FlexBox width='320px' direction='column' spacing={4} css={{ minWidth: '320px' }}>
+      <FlexBox direction='row' width='100%'>
+        <a href={ROUTE_PATHS.logIn}>
+          <img src={IconArrowLeft} alt='go back' />
+        </a>
+        <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
+      </FlexBox>
       <FlexBox direction='column'>
         <Input
           type='email'
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
-          inputStatus={errors.email ? 'error' : dirtyFields.email ? 'active' : 'inActive'}
+          inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
           message={errors.email && errors.email.message}
           {...register('email')}
         >
-          {!errors.email && <img src={IconCheckGreen} alt='checked email' />}
+          {isValid && <img src={IconCheckGreen} alt='checked email' />}
         </Input>
         <Button
           css={{
@@ -78,7 +69,9 @@ function ForgotPasswordEmailForm() {
             marginTop: '24px',
           }}
           disabled={!isValid}
-          onClick={handleSubmit(forgotPasswordEmailSubmit)}
+          onClick={handleSubmit(async ({ email }) => {
+            console.log(email);
+          })}
         >
           인증하기 <img src={IconArrowRight} alt='go next' />
         </Button>

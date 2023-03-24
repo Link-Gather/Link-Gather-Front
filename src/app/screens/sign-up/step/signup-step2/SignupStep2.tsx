@@ -43,13 +43,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // handlers
 
   return (
-    <FlexBox
-      width='320px'
-      direction='column'
-      alignItems='center'
-      spacing={12}
-      css={{ margin: '0 auto', position: 'relative' }}
-    >
+    <FlexBox width='320px' direction='column' alignItems='center' spacing={12} css={{ margin: '0 auto' }}>
       <FlexBox width='100%' height='100px' css={{ marginTop: '20px' }}>
         <FlexBox
           width='100px'
@@ -86,7 +80,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
                 height='48px'
                 justifyContent='center'
                 alignItems='center'
-                // onClick={() => setCharacterState(character)}
+                onClick={() => setCharacterState(character)}
                 css={{
                   border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
                   borderRadius: '50%',
@@ -130,9 +124,8 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       </FlexBox>
       <Button
         onClick={moveNextStep}
-        color={palette.contrastText}
-        // disabled={getValues('nickname') === '' ? true : false}
         css={{
+          color: palette.contrastText,
           position: 'absolute',
           bottom: '40px',
           borderRadius: '32px',
@@ -140,6 +133,8 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width: '320px',
           height: '48px',
           fontSize: '20px',
+          fontWeight: '600',
+          letterSpacing: '0.6px',
         }}
       >
         다음

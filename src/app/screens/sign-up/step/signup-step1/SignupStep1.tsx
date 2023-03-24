@@ -61,7 +61,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // handlers
 
   return (
-    <FlexBox justifyContent='center' css={{ width: '100%', position: 'relative' }}>
+    <FlexBox justifyContent='center' css={{ width: '100%' }}>
       <FlexBox direction='column' css={{ marginTop: '25px' }}>
         <FlexBox>
           <Input
@@ -140,8 +140,8 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         //   !getValues('confirmPassword')
         // }
         onClick={moveNextStep}
-        color={palette.contrastText}
         css={{
+          color: palette.contrastText,
           position: 'absolute',
           bottom: '40px',
           borderRadius: '32px',
@@ -149,6 +149,8 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width: '320px',
           height: '48px',
           fontSize: '20px',
+          fontWeight: '600',
+          letterSpacing: '0.6px',
         }}
       >
         다음

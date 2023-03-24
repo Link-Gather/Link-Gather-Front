@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
+import { SignupBox } from './step';
 import { ShadowBox } from '@components';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
@@ -64,41 +65,7 @@ function SignUpScreen(props: {}) {
         zIndex='0'
         position='fixed'
       ></ImageBox>
-      <ShadowBox
-        // padding='40px'
-        css={{
-          width: '566px',
-          margin: '0 auto',
-        }}
-      >
-        <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '40px' }}>
-          <Link
-            to='/'
-            css={{
-              position: 'absolute',
-              top: '40px',
-              left: '40px',
-            }}
-          >
-            <img src={IconArrowLeft} alt='go back' />
-          </Link>
-          <UnderlineTitle title='회원가입' />
-          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
-            <Input placeholder='이메일' width='100%' />
-            <RequestButton onClick={() => console.log('request')}>인증요청</RequestButton>
-          </FlexBox>
-          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
-            <Input placeholder='코드입력' width='100%' />
-            <RequestButton onClick={() => console.log('request')}>확인</RequestButton>
-          </FlexBox>
-          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
-            <Input placeholder='비밀번호 입력' width='369px' />
-          </FlexBox>
-          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
-            <Input placeholder='비밀번호 확인' width='369px' />
-          </FlexBox>
-        </FlexBox>
-      </ShadowBox>
+      <SignupBox />
     </FlexBox>
   );
 }

@@ -15,13 +15,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // handlers
 
   return (
-    <FlexBox
-      width='100%'
-      height='100%'
-      direction='column'
-      alignItems='center'
-      css={{ gap: '25px', position: 'relative' }}
-    >
+    <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
       <FlexBox width='100%' justifyContent='space-between' css={{ marginTop: '25px' }}>
         <FlexBox width='212px' direction='column'>
           <CategoryTitle label='직무*' />
@@ -39,6 +33,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         onClick={moveNextStep}
         color={palette.contrastText}
         css={{
+          color: palette.contrastText,
           position: 'absolute',
           bottom: '40px',
           borderRadius: '32px',
@@ -46,6 +41,8 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width: '320px',
           height: '48px',
           fontSize: '20px',
+          fontWeight: '600',
+          letterSpacing: '0.6px',
         }}
       >
         회원가입

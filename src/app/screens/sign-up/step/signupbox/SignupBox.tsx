@@ -21,14 +21,14 @@ const SignupBox = () => {
   };
   return (
     <ShadowBox
-      // padding='40px'
       css={{
+        padding: '40px',
         width: '576px',
         margin: '0 auto',
         height: step !== 2 ? '588px' : '718px',
       }}
     >
-      <FlexBox width='100%' direction='column' css={{ gap: '25px' }}>
+      <FlexBox width='100%' height='100%' direction='column' css={{ gap: '25px' }}>
         <FlexBox
           css={{
             position: 'absolute',
@@ -54,7 +54,6 @@ const SignupBox = () => {
           ) : (
             <SignupStep3 moveNextStep={moveNextStep} />
           )}
-          {/* <SignupStep2 moveNextStep={moveNextStep} /> */}
         </FlexBox>
       </FlexBox>
     </ShadowBox>

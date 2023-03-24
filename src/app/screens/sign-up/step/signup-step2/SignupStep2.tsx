@@ -47,11 +47,10 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       width='320px'
       direction='column'
       alignItems='center'
-      position='relative'
       spacing={12}
-      css={{ margin: '0 auto' }}
+      css={{ margin: '0 auto', position: 'relative' }}
     >
-      <FlexBox width='100%' marginTop='20px' height='100px'>
+      <FlexBox width='100%' height='100px' css={{ marginTop: '20px' }}>
         <FlexBox
           width='100px'
           height='100px'
@@ -87,7 +86,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
                 height='48px'
                 justifyContent='center'
                 alignItems='center'
-                onClick={() => setCharacterState(character)}
+                // onClick={() => setCharacterState(character)}
                 css={{
                   border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
                   borderRadius: '50%',
@@ -132,12 +131,16 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       <Button
         onClick={moveNextStep}
         color={palette.contrastText}
-        backgroundColor={palette.primary.main}
-        width='320px'
-        height='48px'
-        fontSize='20px'
-        disabled={getValues('nickname') === '' ? true : false}
-        css={{ position: 'absolute', bottom: '40px', borderRadius: '32px' }}
+        // disabled={getValues('nickname') === '' ? true : false}
+        css={{
+          position: 'absolute',
+          bottom: '40px',
+          borderRadius: '32px',
+          backgroundColor: palette.primary.main,
+          width: '320px',
+          height: '48px',
+          fontSize: '20px',
+        }}
       >
         다음
       </Button>

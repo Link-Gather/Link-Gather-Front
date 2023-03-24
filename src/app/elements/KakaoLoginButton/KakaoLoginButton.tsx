@@ -27,7 +27,7 @@ function KakaoLoginButton() {
           cursor: 'pointer',
         })}
       >
-        <img src={IconKakao} alt='login' />
+        <img src={IconKakao} alt='kakao login' />
       </button>
       <span
         css={{

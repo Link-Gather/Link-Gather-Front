@@ -1,5 +1,5 @@
-import { ComponentProps, useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { type ComponentProps, useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Chip } from './Chip';
 
 type ArgTypes = ComponentProps<typeof Chip>;

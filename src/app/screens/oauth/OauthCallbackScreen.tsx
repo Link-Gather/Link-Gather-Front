@@ -25,7 +25,7 @@ function OauthCallbackScreen() {
 
     handleOauth(code, provider as OauthProvider).then((result) => {
       if (result) {
-        navigate('/project-list', { state: result });
+        navigate('/sign-up', { state: result });
       } else {
         navigate('/');
       }

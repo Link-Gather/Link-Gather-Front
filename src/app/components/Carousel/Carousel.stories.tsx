@@ -1,5 +1,5 @@
-import { ComponentProps } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Carousel } from './Carousel';
 
 type ArgTypes = ComponentProps<typeof Carousel>;

@@ -61,8 +61,8 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // handlers
 
   return (
-    <FlexBox position='relative' justifyContent='center' css={{ width: '100%' }}>
-      <FlexBox direction='column' marginTop='25px'>
+    <FlexBox justifyContent='center' css={{ width: '100%', position: 'relative' }}>
+      <FlexBox direction='column' css={{ marginTop: '25px' }}>
         <FlexBox>
           <Input
             type='email'
@@ -141,11 +141,15 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         // }
         onClick={moveNextStep}
         color={palette.contrastText}
-        backgroundColor={palette.primary.main}
-        width='320px'
-        height='48px'
-        fontSize='20px'
-        css={{ position: 'absolute', bottom: '40px', borderRadius: '32px' }}
+        css={{
+          position: 'absolute',
+          bottom: '40px',
+          borderRadius: '32px',
+          backgroundColor: palette.primary.main,
+          width: '320px',
+          height: '48px',
+          fontSize: '20px',
+        }}
       >
         다음
       </Button>

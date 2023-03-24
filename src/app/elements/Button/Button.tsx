@@ -1,33 +1,13 @@
-import { CSSProperties } from 'react';
 import { Theme } from '@libs/theme';
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  className?: string;
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  fontSize?: CSSProperties['fontSize'];
-  color?: CSSProperties['color'];
-  backgroundColor?: CSSProperties['backgroundColor'];
-  borderRadius?: CSSProperties['borderRadius'];
-  disabled?: boolean;
-}
-
-function Button(props: Props) {
+function Button(
+  props: {
+    children: React.ReactNode;
+    className?: string;
+  } & React.ButtonHTMLAttributes<HTMLButtonElement>
+) {
   // prop destruction
-  const {
-    width,
-    height,
-    fontSize,
-    color,
-    backgroundColor,
-    borderRadius,
-    children,
-    onClick,
-    className,
-    disabled,
-    ...rest
-  } = props;
+  const { children, className, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -39,29 +19,18 @@ function Button(props: Props) {
 
   return (
     <button
-      css={(theme: Theme) => [
-        {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width,
-          height,
-          fontSize,
-          textAlign: 'center',
-          fontWeight: '800',
-          color,
-          border: 'none',
-          borderRadius,
-          backgroundColor,
-          cursor: 'pointer',
-          ':disabled': {
-            backgroundColor: theme.palette.secondary.n40,
-          },
+      css={(theme: Theme) => ({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontWeight: '800',
+        cursor: 'pointer',
+        ':disabled': {
+          backgroundColor: theme.palette.secondary.n40,
         },
-      ]}
+      })}
       className={className}
-      onClick={onClick}
-      disabled={disabled}
       {...rest}
     >
       {children}

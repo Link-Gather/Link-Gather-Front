@@ -1,13 +1,19 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import palette from '@libs/theme/palettes/default';
+import { ShadowBox } from '@components';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { SignupBox } from './step/signupbox/';
-import { FlexBox, ImageBox } from '@elements';
-import { mq } from '@libs/theme';
+import { FlexBox, UnderlineTitle, RequestButton, ImageBox, Input, Button } from '@elements';
+import { type Theme, mq } from '@libs/theme';
 
-function SignUpScreen() {
+function SignUpScreen(props: {}) {
   // prop destruction
   // lib hooks
+  const { state } = useLocation();
+
   // state, ref, querystring hooks
 
   // form hooks
@@ -21,13 +27,15 @@ function SignUpScreen() {
       width='100%'
       height='100vh'
       alignItems='center'
-      css={{
-        backgroundColor: '#2E558E',
-        [mq[2]]: {
-          alignItems: 'flex-start',
-          paddingTop: '40px',
+      css={(theme: Theme) => [
+        {
+          backgroundColor: '#2E558E',
+          [mq[2]]: {
+            alignItems: 'flex-start',
+            paddingTop: '40px',
+          },
         },
-      }}
+      ]}
     >
       <ImageBox
         top='28%'
@@ -56,7 +64,41 @@ function SignUpScreen() {
         zIndex='0'
         position='fixed'
       ></ImageBox>
-      <SignupBox />
+      <ShadowBox
+        // padding='40px'
+        css={{
+          width: '566px',
+          margin: '0 auto',
+        }}
+      >
+        <FlexBox width='320' direction='column' css={{ minWidth: '320px', height: '500px', gap: '40px' }}>
+          <Link
+            to='/'
+            css={{
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+            }}
+          >
+            <img src={IconArrowLeft} alt='go back' />
+          </Link>
+          <UnderlineTitle title='회원가입' />
+          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
+            <Input placeholder='이메일' width='100%' />
+            <RequestButton onClick={() => console.log('request')}>인증요청</RequestButton>
+          </FlexBox>
+          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
+            <Input placeholder='코드입력' width='100%' />
+            <RequestButton onClick={() => console.log('request')}>확인</RequestButton>
+          </FlexBox>
+          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
+            <Input placeholder='비밀번호 입력' width='369px' />
+          </FlexBox>
+          <FlexBox width='100%' css={{ marginTop: '-20px' }}>
+            <Input placeholder='비밀번호 확인' width='369px' />
+          </FlexBox>
+        </FlexBox>
+      </ShadowBox>
     </FlexBox>
   );
 }

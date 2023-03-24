@@ -1,5 +1,5 @@
-import React, { ComponentProps } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { FlexBox } from './FlexBox';
 
 type ArgTypes = ComponentProps<typeof FlexBox>;

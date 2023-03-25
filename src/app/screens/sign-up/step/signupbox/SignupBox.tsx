@@ -8,7 +8,7 @@ const SignupBox = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(2);
   // form hooks
   // query hooks
   // calculated values

@@ -7,11 +7,12 @@ function ImageBox(props: {
   position?: CSSProperties['position'];
   left?: CSSProperties['left'];
   top?: CSSProperties['top'];
-  backgroundImage: string;
+  imageSrc: string;
+  alt: string;
   zIndex?: string;
 }) {
   // prop destruction
-  const { className, width, height, position, left, top, backgroundImage, zIndex } = props;
+  const { className, width, height, position, left, top, imageSrc, zIndex, alt } = props;
 
   // lib hooks
   // state, ref hooks
@@ -22,7 +23,7 @@ function ImageBox(props: {
   // handlers
 
   return (
-    <div
+    <img
       css={{
         width,
         top,
@@ -30,12 +31,11 @@ function ImageBox(props: {
         position,
         zIndex,
         height,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% auto',
       }}
+      src={imageSrc}
       className={className}
-    ></div>
+      alt={alt}
+    ></img>
   );
 }
 

@@ -39,29 +39,32 @@ function SignUpScreen(props: {}) {
       ]}
     >
       <ImageBox
+        alt='signupBackground'
         top='28%'
         left='27%'
         width='100px'
         height='10rem'
-        backgroundImage={BackgroundAstronaut1}
+        imageSrc={BackgroundAstronaut1}
         zIndex='1'
         position='fixed'
       ></ImageBox>
       <ImageBox
+        alt='signupBackground'
         top='40%'
         left='10%'
         width='700px'
         height='40rem'
-        backgroundImage={BackgroundPlanet1}
+        imageSrc={BackgroundPlanet1}
         zIndex='0'
         position='fixed'
       ></ImageBox>
       <ImageBox
+        alt='signupBackground'
         left='70%'
         top='-1.9%'
         width='300px'
         height='500px'
-        backgroundImage={BackgroundPlanet2}
+        imageSrc={BackgroundPlanet2}
         zIndex='0'
         position='fixed'
       ></ImageBox>

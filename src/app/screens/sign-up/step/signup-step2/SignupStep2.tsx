@@ -57,8 +57,9 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           }}
         >
           <ImageBox
-            backgroundImage={characterState.src}
+            imageSrc={characterState.src}
             width='50%'
+            alt='selectCharacter'
             css={{
               height: characterState.height,
               width: characterState.width,
@@ -93,9 +94,10 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
                 }}
               >
                 <ImageBox
+                  alt='character'
                   width={character.width}
                   height={character.height}
-                  backgroundImage={character.src}
+                  imageSrc={character.src}
                   css={{ marginTop: character.marginTop }}
                 />
               </FlexBox>
@@ -108,7 +110,7 @@ const SignupStep2 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width='227px'
           message='8자이내, 한글, 영문 숫자 혼용 가능'
           placeholder='닉네임 입력'
-          inputStatus={errors.nickname ? 'error' : dirtyFields.nickname ? 'active' : 'inActive'}
+          inputStatus={!dirtyFields.nickname ? 'inActive' : errors.nickname ? 'error' : 'active'}
           {...register('nickname')}
         ></Input>
         <RequestButton

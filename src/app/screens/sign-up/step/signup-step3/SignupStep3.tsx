@@ -1,4 +1,5 @@
-import { FlexBox, CategoryTitle, Button } from '@elements';
+import { FlexBox, CategoryTitle, Button, ImageBox } from '@elements';
+import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown } from '@components';
 import palette from '@libs/theme/palettes';
 
@@ -26,8 +27,19 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           <DropDown value='1~3년차' data={secondData}></DropDown>
         </FlexBox>
       </FlexBox>
-      <FlexBox width='100%'>
+      <FlexBox width='100%' direction='column'>
         <CategoryTitle label='보유기술*' />
+        <input
+          css={{
+            border: 'none',
+            borderBottom: `2px solid ${palette.secondary.n60}`,
+            marginTop: '20px',
+            '&:focus': {
+              outline: 'none',
+            },
+          }}
+        ></input>
+        <ImageBox alt={'search'} imageSrc={IconSearch}></ImageBox>
       </FlexBox>
       <Button
         onClick={moveNextStep}

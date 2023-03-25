@@ -27,19 +27,27 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           <DropDown value='1~3년차' data={secondData}></DropDown>
         </FlexBox>
       </FlexBox>
-      <FlexBox width='100%' direction='column'>
+      <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
         <CategoryTitle label='보유기술*' />
         <input
           css={{
             border: 'none',
             borderBottom: `2px solid ${palette.secondary.n60}`,
-            marginTop: '20px',
+            height: '50px',
+            padding: '10px 40px 0px 40px',
+            fontSize: '18px',
             '&:focus': {
               outline: 'none',
             },
           }}
         ></input>
-        <ImageBox alt={'search'} imageSrc={IconSearch}></ImageBox>
+        <ImageBox
+          alt={'search'}
+          imageSrc={IconSearch}
+          position='absolute'
+          width='25px'
+          css={{ marginTop: '35px', marginLeft: '5px' }}
+        ></ImageBox>
       </FlexBox>
       <Button
         onClick={moveNextStep}

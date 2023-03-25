@@ -11,12 +11,23 @@ const Input = forwardRef(
       message?: string;
       onClick?: () => void | null;
       children?: React.ReactNode;
+      maxLength?: number;
       register?: UseFormRegisterReturn;
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { inputStatus = 'inActive', type, message, className, children, register, onClick, ...rest } = props;
+    const {
+      inputStatus = 'inActive',
+      type,
+      maxLength,
+      message,
+      className,
+      children,
+      register,
+      onClick,
+      ...rest
+    } = props;
 
     // lib hooks
     const inputId = useId();
@@ -39,6 +50,7 @@ const Input = forwardRef(
         <input
           id={inputId}
           type={type}
+          maxLength={maxLength}
           css={(theme: Theme) => {
             return [
               {

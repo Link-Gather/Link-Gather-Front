@@ -13,8 +13,13 @@ interface ValidationSignup {
   confirmPassword: string;
 }
 interface MessageType {
-  authRequestMessage: string;
-  codeConfirmMessage: string;
+  emailMessage: string;
+  codeMessage: string;
+  confirmPasswordMessage: string;
+}
+interface prevValueType {
+  prevEmailValue: string;
+  prevCodeValue: string;
 }
 
 const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
@@ -22,23 +27,26 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // lib hooks
   // state, ref, querystring hooks
   const [message, setMessage] = useState<MessageType>({
-    authRequestMessage: '',
-    codeConfirmMessage: '',
+    emailMessage: '',
+    codeMessage: '',
+    confirmPasswordMessage: '',
+  });
+  const [prevValue, setPrevValue] = useState<prevValueType>({
+    prevEmailValue: '',
+    prevCodeValue: '',
   });
   // form hooks
   const schema = yup.object().shape({
     email: yup.string(),
     code: yup.string(),
-    password: yup
-      .string()
-      .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
-      .required('비밀번호를 다시 확인해주세요.'),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다'),
+    password: yup.string().matches(VALIDATION_PATTERN.password),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), '']),
   });
 
   const {
     register,
     getValues,
+    watch,
     formState: { errors, dirtyFields, isValid },
   } = useForm<ValidationSignup>({
     mode: 'onChange',
@@ -50,10 +58,9 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       confirmPassword: '',
     },
   });
-  const loginFormSubmit = () => {
+  const loginFormSubmit = (): void => {
     // TODO : 회원가입 API
     const values = getValues('email');
-    console.log(values);
   };
   // query hooks
   // calculated values
@@ -67,19 +74,19 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           <Input
             type='email'
             placeholder='이메일'
-            message={message.authRequestMessage}
-            inputStatus={dirtyFields.email ? 'active' : 'inActive'}
+            message={prevValue.prevEmailValue === getValues('email') ? message.emailMessage : ''}
+            inputStatus={getValues('email') ? 'active' : 'inActive'}
             css={{ width: '288px', marginBottom: '16px' }}
             {...register('email')}
           />
           <RequestButton
-            value={getValues('email')}
+            value={watch('email')}
             onClick={() => {
-              console.log('d');
               setMessage({
                 ...message,
-                authRequestMessage: '인증번호를 전송하였습니다.',
+                emailMessage: '인증번호를 전송하였습니다.',
               });
+              setPrevValue({ ...prevValue, prevEmailValue: watch('email') });
             }}
           >
             인증요청
@@ -89,18 +96,20 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           <Input
             type='text'
             placeholder='코드입력'
-            message={message.codeConfirmMessage}
+            maxLength={6}
+            message={prevValue.prevCodeValue === getValues('code') ? message.codeMessage : ''}
             inputStatus={dirtyFields.code ? 'active' : 'inActive'}
             css={{ width: '288px', marginBottom: '16px' }}
             {...register('code')}
           />
           <RequestButton
-            value={getValues('code')}
+            value={watch('code')}
             onClick={() => {
               setMessage({
                 ...message,
-                codeConfirmMessage: '인증이 완료되었습니다.',
+                codeMessage: '인증이 완료되었습니다.',
               });
+              setPrevValue({ ...prevValue, prevCodeValue: watch('code') });
             }}
           >
             확인
@@ -112,7 +121,7 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             placeholder='비밀번호 입력'
             message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
             autoComplete='off'
-            inputStatus={errors.password ? 'error' : dirtyFields.password ? 'active' : 'inActive'}
+            inputStatus={!dirtyFields.password ? 'inActive' : errors.password || !isValid ? 'error' : 'active'}
             css={{ width: '100%', marginBottom: '16px' }}
             {...register('password')}
           />
@@ -125,20 +134,19 @@ const SignupStep1 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             inputStatus={
               !dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword || !isValid ? 'error' : 'active'
             }
+            message={
+              !dirtyFields.confirmPassword
+                ? ''
+                : errors.confirmPassword
+                ? '비밀번호가 일치하지 않습니다.'
+                : '비밀번호가 일치합니다.'
+            }
             css={{ width: '100%', marginBottom: '16px' }}
             {...register('confirmPassword')}
           />
         </FlexBox>
       </FlexBox>
       <Button
-        // onClick={moveNextStep}
-        // disabled={
-        //   !isValid ||
-        //   !getValues('email') ||
-        //   !getValues('code') ||
-        //   !getValues('password') ||
-        //   !getValues('confirmPassword')
-        // }
         onClick={moveNextStep}
         css={{
           color: palette.contrastText,

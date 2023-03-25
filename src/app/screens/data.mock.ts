@@ -91,3 +91,22 @@ export const characters = [
     marginTop: '5px',
   },
 ];
+
+export const skills = [
+  'Figma',
+  'Java',
+  'Adobe Illustration',
+  'Spring',
+  'HTML',
+  'CSS',
+  'Spring Boot',
+  'Python',
+  'Node.js',
+  'React Native',
+  'PHP',
+  'C#',
+  'Vue.js',
+  'React.js',
+  'TypeScript',
+  'A Really Long Name Stack',
+];

@@ -1,12 +1,15 @@
 import { FlexBox, CategoryTitle, Button, ImageBox } from '@elements';
 import IconSearch from '@assets/images/icons/icon-search.svg';
-import { DropDown } from '@components';
+import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
+import { ChangeEvent, useState } from 'react';
 
 const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
+  const [searchSkill, setSearchSkill] = useState<string>('');
+
   // form hooks
   // query hooks
   // calculated values
@@ -14,6 +17,9 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   const secondData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
   // effects
   // handlers
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchSkill(e.target.value);
+  };
 
   return (
     <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
@@ -40,14 +46,18 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
               outline: 'none',
             },
           }}
+          name='searchSkill'
+          type='text'
+          onChange={onChange}
         ></input>
         <ImageBox
           alt={'search'}
           imageSrc={IconSearch}
           position='absolute'
           width='25px'
-          css={{ marginTop: '35px', marginLeft: '5px' }}
+          css={{ marginTop: '37px', marginLeft: '5px' }}
         ></ImageBox>
+        {searchSkill && <SkillDropdown searchSkill={searchSkill} />}
       </FlexBox>
       <Button
         onClick={moveNextStep}

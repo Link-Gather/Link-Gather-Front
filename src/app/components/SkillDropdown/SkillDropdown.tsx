@@ -4,6 +4,8 @@ import { skills } from 'app/screens/data.mock';
 import { FlexBox } from '@elements';
 
 const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
+  const showSkills = skills.filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()));
+
   return (
     <FlexBox
       css={(theme: Theme) => {
@@ -27,9 +29,10 @@ const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
       }}
     >
       <FlexBox css={{ flexWrap: 'wrap' }}>
-        {skills
-          .filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()))
-          .map((skill) => (
+        {showSkills.length === 0 ? (
+          <p>해당하는 스킬이 없습니다.</p>
+        ) : (
+          showSkills.map((skill) => (
             <li
               css={{
                 backgroundColor: '#EBECF0',
@@ -48,7 +51,8 @@ const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
             >
               {skill}
             </li>
-          ))}
+          ))
+        )}
       </FlexBox>
     </FlexBox>
   );

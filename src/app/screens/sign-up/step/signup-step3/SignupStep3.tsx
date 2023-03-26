@@ -50,7 +50,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width='25px'
           css={{ marginTop: '37px', marginLeft: '5px' }}
         ></ImageBox>
-        {searchSkill && <SkillDropdown searchSkill={searchSkill} />}
+        {searchSkill ? <SkillDropdown searchSkill={searchSkill} /> : null}
       </FlexBox>
       <FlexBox width='100%' direction='column'>
         <CategoryTitle label='자기소개 *' />

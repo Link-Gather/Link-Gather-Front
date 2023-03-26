@@ -1,8 +1,9 @@
-import { FlexBox, CategoryTitle, Button, ImageBox } from '@elements';
+import { FlexBox, CategoryTitle, Button, ImageBox, Input } from '@elements';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
 import { ChangeEvent, useState } from 'react';
+import styled from '@emotion/styled';
 
 const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // prop destruction
@@ -35,26 +36,13 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       </FlexBox>
       <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
         <CategoryTitle label='보유기술*' />
-        <input
-          css={{
-            border: 'none',
-            borderBottom: `2px solid ${palette.secondary.n60}`,
-            height: '50px',
-            padding: '10px 40px 0px 40px',
-            fontSize: '18px',
-            '&:focus': {
-              outline: 'none',
-            },
-            '::placeholder': {
-              color: palette.secondary.n60,
-              fontWeight: '600',
-            },
-          }}
+        <BottomLineInput
           name='searchSkill'
           type='text'
           onChange={onChange}
           placeholder='기술 스택 검색'
-        ></input>
+          css={{ padding: '10px 40px 0px 40px' }}
+        ></BottomLineInput>
         <ImageBox
           alt={'search'}
           imageSrc={IconSearch}
@@ -65,7 +53,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         {searchSkill && <SkillDropdown searchSkill={searchSkill} />}
       </FlexBox>
       <FlexBox width='100%' direction='column'>
-        <CategoryTitle label='자기소개 *'></CategoryTitle>
+        <CategoryTitle label='자기소개 *' />
         <textarea
           css={{
             marginTop: '8px',
@@ -75,13 +63,16 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             fontSize: '14px',
             borderRadius: 8,
             border: `2px solid ${palette.secondary.n300}`,
-            padding: '8px 8px 24px 8px',
+            padding: '8px 24px 8px 8px',
             outline: 'none',
             resize: 'none',
           }}
         ></textarea>
       </FlexBox>
-
+      <FlexBox width='100%' direction='column'>
+        <CategoryTitle label='참고 링크' />
+        <BottomLineInput placeholder='URL을 입력해주세요.' />
+      </FlexBox>
       <Button
         onClick={moveNextStep}
         color={palette.contrastText}
@@ -105,3 +96,19 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
 };
 
 export { SignupStep3 };
+
+const BottomLineInput = styled('input')({
+  border: 'none',
+  borderBottom: `2px solid ${palette.secondary.n60}`,
+  height: '50px',
+  padding: '10px 40px 0px 0px',
+  fontSize: '18px',
+  '&:focus': {
+    outline: 'none',
+    borderBottom: `2px solid ${palette.primary.main}`,
+  },
+  '::placeholder': {
+    color: palette.secondary.n60,
+    fontWeight: '600',
+  },
+});

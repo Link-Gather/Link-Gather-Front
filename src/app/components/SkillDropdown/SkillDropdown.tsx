@@ -14,7 +14,7 @@ const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
             maxHeight: '98px',
             border: `2px solid ${theme.palette.black.main}`,
             position: 'absolute',
-            top: '95%',
+            top: '99%',
             backgroundColor: theme.palette.paper,
             borderRadius: '8px',
             boxShadow: `3px 5px 0px ${theme.palette.black.main}`,

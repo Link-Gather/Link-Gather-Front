@@ -1,10 +1,11 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
 import { skills } from 'app/screens/data.mock';
+import { FlexBox } from '@elements';
 
 const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
   return (
-    <div
+    <FlexBox
       css={(theme: Theme) => {
         return [
           {
@@ -19,63 +20,37 @@ const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
             boxShadow: `3px 5px 0px ${theme.palette.black.main}`,
             zIndex: '2',
             display: 'flex',
-            flexWrap: 'wrap',
-            padding: '8px',
+            overflow: 'auto',
+            padding: '4px',
           },
         ];
       }}
     >
-      {skills
-        .filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()))
-        .map((skill) => {
-          return (
+      <FlexBox css={{ flexWrap: 'wrap' }}>
+        {skills
+          .filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()))
+          .map((skill) => (
             <li
               css={{
                 backgroundColor: '#EBECF0',
                 border: '1px solid #000000',
                 borderRadius: '20px',
-                width: '136px',
+                width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
                 height: '22px',
                 lineHeight: '22px',
                 fontSize: '14px',
                 fontWeight: '500',
                 textAlign: 'center',
                 cursor: 'pointer',
+                margin: '4px',
               }}
               key={skill}
             >
               {skill}
             </li>
-          );
-        })}
-      {/* <ul css={{ padding: '10px 0px' }}>
-        {data.map((data) => {
-          return (
-            <li
-              key={data}
-              css={(theme: Theme) => {
-                return [
-                  {
-                    fontSize: '16px',
-                    margin: '10px 15px',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      color: theme.palette.primary.main,
-                    },
-                  },
-                ];
-              }}
-              onClick={() => {
-                setSelectItem(data);
-                closeDialog();
-              }}
-            >
-              {data}
-            </li>
-          );
-        })}
-      </ul> */}
-    </div>
+          ))}
+      </FlexBox>
+    </FlexBox>
   );
 };
 

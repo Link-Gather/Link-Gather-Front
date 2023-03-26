@@ -45,10 +45,15 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             '&:focus': {
               outline: 'none',
             },
+            '::placeholder': {
+              color: palette.secondary.n60,
+              fontWeight: '600',
+            },
           }}
           name='searchSkill'
           type='text'
           onChange={onChange}
+          placeholder='기술 스택 검색'
         ></input>
         <ImageBox
           alt={'search'}
@@ -59,6 +64,24 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         ></ImageBox>
         {searchSkill && <SkillDropdown searchSkill={searchSkill} />}
       </FlexBox>
+      <FlexBox width='100%' direction='column'>
+        <CategoryTitle label='자기소개 *'></CategoryTitle>
+        <textarea
+          css={{
+            marginTop: '8px',
+            width: '100%',
+            height: '98px',
+            fontWeight: '500',
+            fontSize: '14px',
+            borderRadius: 8,
+            border: `2px solid ${palette.secondary.n300}`,
+            padding: '8px 8px 24px 8px',
+            outline: 'none',
+            resize: 'none',
+          }}
+        ></textarea>
+      </FlexBox>
+
       <Button
         onClick={moveNextStep}
         color={palette.contrastText}

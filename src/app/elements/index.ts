@@ -15,3 +15,4 @@ export * from './RequestButton';
 export * from './CategoryTitle';
 export * from './Typography';
 export * from './UnderlineTitle';
+export * from './SkillTab';

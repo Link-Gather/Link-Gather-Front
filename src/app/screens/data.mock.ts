@@ -109,4 +109,13 @@ export const skills = [
   'React.js',
   'TypeScript',
   'A Really Long Name Stack',
+  'Styled-Components',
+  'OpenGL',
+  'Storybook',
+  'Recoil',
+  'CassandraDB',
+  'Google Firebase',
+  'Google BigQuery',
+  'AWS DynamoDB',
+  'AWS CodePipeline',
 ];

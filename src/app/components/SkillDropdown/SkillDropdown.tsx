@@ -1,10 +1,29 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
 import { skills } from 'app/screens/data.mock';
-import { FlexBox } from '@elements';
+import { FlexBox, SkillTab } from '@elements';
 
-const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
+const SkillDropdown = (props: {
+  searchSkill: string;
+  setSearchSkill: React.Dispatch<React.SetStateAction<string>>;
+  selectSkill: string[];
+  setSelectSkill: React.Dispatch<React.SetStateAction<string[]>>;
+}) => {
+  // prop destruction
+  const { searchSkill, setSearchSkill, selectSkill, setSelectSkill } = props;
+  // lib hooks
+  // state, ref, querystring hooks
+
+  // form hooks
+  // query hooks
+  // calculated values
   const showSkills = skills.filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()));
+  // effects
+  // handlers
+  const addSkill = (skill: string) => {
+    setSelectSkill([...selectSkill, skill]);
+    setSearchSkill('');
+  };
 
   return (
     <FlexBox
@@ -33,24 +52,16 @@ const SkillDropdown = ({ searchSkill }: { searchSkill: string }) => {
           <p>해당하는 스킬이 없습니다.</p>
         ) : (
           showSkills.map((skill) => (
-            <li
+            <SkillTab
               css={{
-                backgroundColor: '#EBECF0',
-                border: '1px solid #000000',
-                borderRadius: '20px',
                 width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
-                height: '22px',
-                lineHeight: '22px',
-                fontSize: '14px',
-                fontWeight: '500',
-                textAlign: 'center',
-                cursor: 'pointer',
-                margin: '4px',
               }}
               key={skill}
+              skill={skill}
+              addSkill={addSkill}
             >
               {skill}
-            </li>
+            </SkillTab>
           ))
         )}
       </FlexBox>

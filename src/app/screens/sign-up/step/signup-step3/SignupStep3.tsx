@@ -1,4 +1,4 @@
-import { FlexBox, CategoryTitle, Button, ImageBox, Input } from '@elements';
+import { FlexBox, CategoryTitle, Button, ImageBox, Input, SkillTab } from '@elements';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
@@ -10,6 +10,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // lib hooks
   // state, ref, querystring hooks
   const [searchSkill, setSearchSkill] = useState<string>('');
+  const [selectSkill, setSelectSkill] = useState<string[]>([]);
 
   // form hooks
   // query hooks
@@ -39,6 +40,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
         <BottomLineInput
           name='searchSkill'
           type='text'
+          value={searchSkill}
           onChange={onChange}
           placeholder='기술 스택 검색'
           css={{ padding: '10px 40px 0px 40px' }}
@@ -50,7 +52,26 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
           width='25px'
           css={{ marginTop: '37px', marginLeft: '5px' }}
         ></ImageBox>
-        {searchSkill ? <SkillDropdown searchSkill={searchSkill} /> : null}
+        <FlexBox
+          css={{
+            flexWrap: 'wrap',
+            maxHeight: '30px',
+            overflowY: 'auto',
+            '&::-webkit-scrollbar-track-piece': {
+              backgroundColor: 'white',
+            },
+          }}
+        >
+          {selectSkill.length !== 0 && selectSkill.map((skill) => <SkillTab key={skill}>{skill}</SkillTab>)}
+        </FlexBox>
+        {searchSkill ? (
+          <SkillDropdown
+            searchSkill={searchSkill}
+            selectSkill={selectSkill}
+            setSelectSkill={setSelectSkill}
+            setSearchSkill={setSearchSkill}
+          />
+        ) : null}
       </FlexBox>
       <FlexBox width='100%' direction='column'>
         <CategoryTitle label='자기소개 *' />

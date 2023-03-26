@@ -2,7 +2,7 @@ import { FlexBox, CategoryTitle, Button, ImageBox, Input, SkillTab } from '@elem
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
-import { ChangeEvent, useState } from 'react';
+import { KeyboardEvent, ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
 const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
@@ -10,17 +10,33 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
   // lib hooks
   // state, ref, querystring hooks
   const [searchSkill, setSearchSkill] = useState<string>('');
+  const [urlString, setUrlString] = useState<string>('');
   const [selectSkill, setSelectSkill] = useState<string[]>([]);
-
+  const [urlArray, setUrlArray] = useState<string[]>([]);
   // form hooks
   // query hooks
   // calculated values
-  const firstData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
-  const secondData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
+  const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
+  const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
   // effects
   // handlers
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchSkill(e.target.value);
+  };
+
+  const onChangeUrl = (e: ChangeEvent<HTMLInputElement>): void => {
+    setUrlString(e.target.value);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      setUrlArray([...urlArray, urlString]);
+      setUrlString('');
+    }
+  };
+
+  const onDeleteUrl = (url: string) => {
+    setUrlArray(urlArray?.filter((urlName) => urlName !== url));
   };
 
   return (
@@ -28,11 +44,11 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       <FlexBox width='100%' justifyContent='space-between' css={{ marginTop: '25px' }}>
         <FlexBox width='212px' direction='column'>
           <CategoryTitle label='직무*' />
-          <DropDown value='기획자' data={firstData}></DropDown>
+          <DropDown value='기획자' data={jobData}></DropDown>
         </FlexBox>
         <FlexBox width='168px' direction='column'>
           <CategoryTitle label='경력*' />
-          <DropDown value='1~3년차' data={secondData}></DropDown>
+          <DropDown value='1~3년차' data={experienceData}></DropDown>
         </FlexBox>
       </FlexBox>
       <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
@@ -57,12 +73,19 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             flexWrap: 'wrap',
             maxHeight: '30px',
             overflowY: 'auto',
-            '&::-webkit-scrollbar-track-piece': {
-              backgroundColor: 'white',
-            },
           }}
         >
-          {selectSkill.length !== 0 && selectSkill.map((skill) => <SkillTab key={skill}>{skill}</SkillTab>)}
+          {selectSkill.length !== 0 &&
+            selectSkill.map((skill) => (
+              <SkillTab
+                css={{
+                  width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
+                }}
+                key={skill}
+              >
+                {skill}
+              </SkillTab>
+            ))}
         </FlexBox>
         {searchSkill ? (
           <SkillDropdown
@@ -92,7 +115,53 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
       </FlexBox>
       <FlexBox width='100%' direction='column'>
         <CategoryTitle label='참고 링크' />
-        <BottomLineInput placeholder='URL을 입력해주세요.' />
+        <BottomLineInput
+          onKeyDown={onKeyDown}
+          placeholder='URL을 입력해주세요.'
+          type='text'
+          name='urlString'
+          onChange={onChangeUrl}
+          value={urlString}
+        />
+        {urlArray.map((url) => (
+          <FlexBox css={{ padding: '5px' }}>
+            <a
+              css={{
+                color: palette.primary.main,
+                textDecoration: 'underline',
+                fontWeight: '500',
+                display: 'inline-block',
+              }}
+              key={url}
+              href={url}
+              target='_blank'
+              rel='noreferrer'
+            >
+              {url}
+            </a>
+            <button
+              css={{
+                width: '20px',
+                height: '20px',
+                marginLeft: '20px',
+                backgroundColor: palette.secondary.n90,
+                borderRadius: '20px',
+                color: 'white',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: palette.primary.main,
+                },
+              }}
+              onClick={() => {
+                onDeleteUrl(url);
+              }}
+            >
+              x
+            </button>
+          </FlexBox>
+        ))}
       </FlexBox>
       <Button
         onClick={moveNextStep}

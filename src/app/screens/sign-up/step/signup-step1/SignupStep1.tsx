@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FlexBox, RequestButton, Input, Button } from '@elements';
-import { useForm, useFormState } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import palette from '@libs/theme/palettes';
 import { VALIDATION_PATTERN } from '@libs/constants';
 import { useState } from 'react';

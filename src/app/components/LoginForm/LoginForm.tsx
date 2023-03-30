@@ -51,19 +51,19 @@ function LoginForm() {
         type='email'
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
-        message={errors.email && errors.email.message}
+        error={errors.email}
+        message={errors.email?.message}
         {...register('email')}
       >
-        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
+        {!errors.email && <img src={IconCheckGreen} alt='checked email' />}
       </Input>
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
         onClick={() => setIsShowPassword(!isShowPassword)}
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={(errors.password && 'error') || (dirtyFields.password && 'active') || 'inActive'}
-        message={errors.password && errors.password.message}
+        error={errors.password}
+        message={errors.password?.message}
         {...register('password')}
       >
         {dirtyFields.password && (

@@ -60,27 +60,21 @@ function ForgotPasswordForm() {
           placeholder='비밀번호'
           onClick={() => setIsShowPassword(!isShowPassword)}
           css={{ width: '100%', marginBottom: '16px' }}
-          inputStatus={(errors.password && 'error') || (dirtyFields.password && 'active') || 'inActive'}
-          message={
-            errors.password
-              ? errors.password.message
-              : dirtyFields.password
-              ? ''
-              : '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
-          }
+          error={errors.password}
+          message={errors.password?.message}
           {...register('password')}
         >
-          {dirtyFields.password ? (
+          {dirtyFields.password && (
             <img src={!isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-          ) : null}
+          )}
         </Input>
         <Input
           type={!isShowConfirmPassword ? 'password' : 'text'}
           placeholder='비밀번호 확인'
           onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
           css={{ width: '100%', marginBottom: '16px' }}
-          inputStatus={(errors.confirmPassword && 'error') || (dirtyFields.confirmPassword && 'active') || 'inActive'}
-          message={(isValid && '비밀번호가 일치합니다 :)') || errors.confirmPassword?.message}
+          error={errors.confirmPassword}
+          message={errors.confirmPassword?.message}
           {...register('confirmPassword')}
         >
           {dirtyFields.confirmPassword && (

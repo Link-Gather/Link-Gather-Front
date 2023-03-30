@@ -1,3 +1,4 @@
+import React from 'react';
 import { type ComponentStyle } from '@routes';
 
 function Layout(props: { children: React.ReactNode; componentStyle: ComponentStyle }) {

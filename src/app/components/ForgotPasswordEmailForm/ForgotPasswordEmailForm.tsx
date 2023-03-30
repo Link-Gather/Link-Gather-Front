@@ -26,7 +26,7 @@ function ForgotPasswordEmailForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, isValid },
   } = useForm<{ email: string }>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -52,8 +52,8 @@ function ForgotPasswordEmailForm() {
           type='email'
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
-          inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
-          message={errors.email && errors.email.message}
+          error={errors.email}
+          message={errors.email?.message}
           {...register('email')}
         >
           {isValid && <img src={IconCheckGreen} alt='checked email' />}

@@ -8,8 +8,9 @@ export default {
   title: 'components/SkillDropdown',
   component: SkillDropdown,
   args: {
-    children: 'SkillDropdown',
-    variant: 'body',
+    skills: ['java', 'javascript'],
+    searchSkill: 'java',
+    selectSkill: ['java', 'javascript'],
   },
 } as Meta<ArgTypes>;
 

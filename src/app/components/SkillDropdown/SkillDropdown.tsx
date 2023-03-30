@@ -1,6 +1,6 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
-import { skills } from 'app/screens/data.mock';
+// import { skills } from 'app/screens/data.mock';
 import { FlexBox, SkillTab } from '@elements';
 
 const SkillDropdown = (props: {
@@ -8,9 +8,10 @@ const SkillDropdown = (props: {
   setSearchSkill: React.Dispatch<React.SetStateAction<string>>;
   selectSkill: string[];
   setSelectSkill: React.Dispatch<React.SetStateAction<string[]>>;
+  skills: string[];
 }) => {
   // prop destruction
-  const { searchSkill, setSearchSkill, selectSkill, setSelectSkill } = props;
+  const { searchSkill, setSearchSkill, selectSkill, setSelectSkill, skills } = props;
   // lib hooks
   // state, ref, querystring hooks
 

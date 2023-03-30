@@ -131,7 +131,7 @@ const Input = forwardRef(
               color: theme.palette.secondary.red,
             },
             inputStatus === 'active' && {
-              color: theme.palette.secondary.green,
+              color: theme.palette.secondary.n300,
             },
           ]}
         >

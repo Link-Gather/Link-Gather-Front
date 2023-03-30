@@ -2,6 +2,7 @@ import { FlexBox, CategoryTitle, Button, ImageBox, Input, SkillTab } from '@elem
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
+import { skills } from 'app/screens/data.mock';
 import { KeyboardEvent, ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
@@ -93,6 +94,7 @@ const SignupStep3 = ({ moveNextStep }: { moveNextStep: () => void }) => {
             selectSkill={selectSkill}
             setSelectSkill={setSelectSkill}
             setSearchSkill={setSearchSkill}
+            skills={skills}
           />
         ) : null}
       </FlexBox>

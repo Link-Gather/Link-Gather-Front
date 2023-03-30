@@ -8,7 +8,11 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
   const { variant = 'body', className, children } = props;
 
   // lib hooks
-  const css = (variant: Variant) => {
+  // state, ref hooks
+  // form hooks
+  // query hooks
+  // calculated values
+  const css = ((variant: Variant) => {
     switch (variant) {
       // TODO: case 별로 스타일 지정 필요
       case 'h1':
@@ -66,15 +70,12 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
         ];
       }
     }
-  };
-  // state, ref hooks
-  // form hooks
-  // query hooks
-  // calculated values
+  })(variant);
+
   // effects
   // handlers
   return (
-    <span css={css(variant)} className={className}>
+    <span css={css} className={className}>
       {children}
     </span>
   );

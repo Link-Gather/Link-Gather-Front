@@ -11,7 +11,12 @@ export default {
     width: '100%',
     height: '100%',
   },
-  argTypes: {},
+  argTypes: {
+    justifyContent: { type: 'string' },
+    justifyItems: { type: 'string' },
+    alignContent: { type: 'string' },
+    alignItems: { type: 'string' },
+  },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

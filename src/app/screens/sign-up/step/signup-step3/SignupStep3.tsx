@@ -1,4 +1,4 @@
-import { FlexBox, CategoryTitle, Button, ImageBox, Input, SkillTab } from '@elements';
+import { FlexBox, CategoryTitle, Button, ImageBox, SkillTab } from '@elements';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';

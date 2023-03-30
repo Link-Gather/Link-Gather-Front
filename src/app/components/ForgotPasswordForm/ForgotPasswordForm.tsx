@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
-import { ROUTE_PATHS } from '@routes';
+import { pathLogIn } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
@@ -49,7 +49,7 @@ function ForgotPasswordForm() {
   return (
     <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
       <FlexBox direction='row' width='100%'>
-        <a href={ROUTE_PATHS.logIn}>
+        <a href={pathLogIn}>
           <img src={IconArrowLeft} alt='go back' />
         </a>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />

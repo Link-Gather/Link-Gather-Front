@@ -4,7 +4,7 @@ import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-plane
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq, Theme } from '@libs/theme';
-import { ROUTE_PATHS } from '@routes';
+import { pathForgotPassword, pathSignUp } from '@routes';
 
 function LoginScreen() {
   // prop destruction
@@ -105,7 +105,7 @@ function LoginScreen() {
             >
               계정이 없으신가요? &nbsp;
               <a
-                href={ROUTE_PATHS.signUp}
+                href={pathSignUp}
                 css={(theme: Theme) => [
                   {
                     color: theme.palette.primary.main,
@@ -120,7 +120,7 @@ function LoginScreen() {
                 fontSize: '14px',
               }}
             >
-              <a href={`${ROUTE_PATHS.forgotPassword}?step=1`}>비밀번호 찾기</a>
+              <a href={`${pathForgotPassword}?step=1`}>비밀번호 찾기</a>
             </Typography>
           </FlexBox>
         </FlexBox>

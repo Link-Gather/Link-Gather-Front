@@ -1,8 +1,6 @@
-export const ROUTE_PATHS = {
-  home: '/',
-  logIn: '/login',
-  oauth: '/oauth/:provider',
-  signUp: '/sign-up',
-  forgotPassword: '/forgot-password',
-  projectList: '/project-list',
-} as const;
+export const pathHome = '/';
+export const pathLogIn = '/login';
+export const pathOAuth = '/oauth/:provider';
+export const pathSignUp = '/sign-up';
+export const pathForgotPassword = '/forgot-password';
+export const pathProjectList = '/project-list';

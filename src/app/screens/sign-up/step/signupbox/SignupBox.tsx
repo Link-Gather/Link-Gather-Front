@@ -148,13 +148,10 @@ const SignupBox = () => {
           />
         </FlexBox>
         <UnderlineTitle title='회원가입' />
-        <FlexBox
-          width='392px'
-          height='100%'
-          css={{ margin: '0 auto', transform: `translateX(-${step}00%)`, overflow: 'hidden' }}
-        >
+        <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
-          <FlexBox justifyContent='center' css={{ width: '100%' }}>
+          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
+          <FlexBox justifyContent='center' css={{ width: '100%', margin: '0 auto' }}>
             <FlexBox direction='column' css={{ marginTop: '25px' }}>
               <FlexBox>
                 <Input
@@ -232,28 +229,15 @@ const SignupBox = () => {
                 />
               </FlexBox>
             </FlexBox>
-            <Button
-              onClick={moveNextStep}
-              css={{
-                color: palette.contrastText,
-                position: 'absolute',
-                bottom: '40px',
-                borderRadius: '32px',
-                backgroundColor: palette.primary.main,
-                width: '320px',
-                height: '48px',
-                fontSize: '20px',
-                fontWeight: '600',
-                letterSpacing: '0.6px',
-              }}
-            >
-              다음
-            </Button>
+            <SignupButton onClick={moveNextStep}>다음</SignupButton>
           </FlexBox>
-          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
+          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
 
-          <FlexBox width='100%' direction='column' alignItems='center' spacing={12} css={{ margin: '0 auto' }}>
-            <FlexBox width='100%' height='100px' css={{ marginTop: '20px' }}>
+          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          <FlexBox width='100%' direction='column' alignItems='center' spacing={12} css={{ marginLeft: '90px' }}>
+            <FlexBox width='392px' height='100px' justifyContent='center' css={{ marginTop: '20px' }}>
               <FlexBox
                 width='100px'
                 height='100px'
@@ -333,27 +317,15 @@ const SignupBox = () => {
                 중복확인
               </RequestButton>
             </FlexBox>
-            <Button
-              onClick={moveNextStep}
-              css={{
-                color: palette.contrastText,
-                position: 'absolute',
-                bottom: '40px',
-                borderRadius: '32px',
-                backgroundColor: palette.primary.main,
-                width: '320px',
-                height: '48px',
-                fontSize: '20px',
-                fontWeight: '600',
-                letterSpacing: '0.6px',
-              }}
-            >
-              다음
-            </Button>
+            <SignupButton onClick={moveNextStep}>다음</SignupButton>
           </FlexBox>
-          {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
-          <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px' }}>
-            <FlexBox width='100%' justifyContent='space-between' css={{ marginTop: '25px' }}>
+          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+
+          {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+          {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+          <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px', marginLeft: '90px' }}>
+            <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
               <FlexBox width='212px' direction='column'>
                 <CategoryTitle label='직무*' />
                 <DropDown value='기획자' data={jobData}></DropDown>
@@ -476,24 +448,9 @@ const SignupBox = () => {
                 </FlexBox>
               ))}
             </FlexBox>
-            <Button
-              onClick={moveNextStep}
-              color={palette.contrastText}
-              css={{
-                color: palette.contrastText,
-                position: 'absolute',
-                bottom: '40px',
-                borderRadius: '32px',
-                backgroundColor: palette.primary.main,
-                width: '320px',
-                height: '48px',
-                fontSize: '20px',
-                fontWeight: '600',
-                letterSpacing: '0.6px',
-              }}
-            >
-              회원가입
-            </Button>
+            {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+            {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+            <SignupButton onClick={moveNextStep}>회원가입</SignupButton>
           </FlexBox>
         </FlexBox>
       </FlexBox>
@@ -517,4 +474,18 @@ const BottomLineInput = styled('input')({
     color: palette.secondary.n60,
     fontWeight: '600',
   },
+});
+
+const SignupButton = styled('button')({
+  color: palette.contrastText,
+  position: 'absolute',
+  bottom: '0',
+  borderRadius: '32px',
+  backgroundColor: palette.primary.main,
+  width: '320px',
+  height: '48px',
+  fontSize: '20px',
+  fontWeight: '600',
+  letterSpacing: '0.6px',
+  cursor: 'pointer',
 });

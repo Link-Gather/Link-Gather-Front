@@ -8,13 +8,10 @@ import { pathLogIn } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
-import { VALIDATION_PATTERN } from '@libs/constants';
+import { emailSchema } from '@libs/schema';
 
 const schema = yup.object({
-  email: yup
-    .string()
-    .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
-    .required('이메일을 입력해주세요.'),
+  email: emailSchema.required('이메일을 입력해주세요.'),
 });
 
 function ForgotPasswordEmailForm() {
@@ -27,7 +24,7 @@ function ForgotPasswordEmailForm() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<{ email: string }>({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {

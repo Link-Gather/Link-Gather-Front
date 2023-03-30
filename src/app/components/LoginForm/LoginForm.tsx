@@ -7,18 +7,12 @@ import palette from '@libs/theme/palettes';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { VALIDATION_PATTERN } from '@libs/constants';
 import { httpClient } from '@libs/http-client';
+import { emailSchema, passwordSchema } from '@libs/schema';
 
 const schema = yup.object({
-  email: yup
-    .string()
-    .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
-    .required('이메일을 입력해주세요.'),
-  password: yup
-    .string()
-    .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
-    .required('비밀번호를 다시 확인해주세요.'),
+  email: emailSchema.required('이메일을 입력해주세요.'),
+  password: passwordSchema.required('비밀번호를 다시 확인해주세요.'),
 });
 
 function LoginForm() {
@@ -32,7 +26,7 @@ function LoginForm() {
     register,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
-  } = useForm<{ email: string; password: string }>({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {

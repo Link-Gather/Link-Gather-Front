@@ -8,17 +8,11 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import palette from '@libs/theme/palettes';
-import { VALIDATION_PATTERN } from '@libs/constants';
+import { confirmPasswordSchema, passwordSchema } from '@libs/schema';
 
 const schema = yup.object({
-  password: yup
-    .string()
-    .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
-    .required('비밀번호를 다시 확인해주세요.'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다 :(')
-    .required('비밀번호를 입력해주세요'),
+  password: passwordSchema.required('비밀번호를 다시 확인해주세요.'),
+  confirmPassword: confirmPasswordSchema.required('비밀번호를 입력해주세요'),
 });
 
 function ForgotPasswordForm() {
@@ -33,7 +27,7 @@ function ForgotPasswordForm() {
     register,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
-  } = useForm<{ password: string; confirmPassword: string }>({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
-// import { skills } from 'app/screens/data.mock';
 import { FlexBox, SkillTab } from '@elements';
 
 const SkillDropdown = (props: {

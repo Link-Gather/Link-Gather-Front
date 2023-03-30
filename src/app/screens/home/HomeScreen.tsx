@@ -3,7 +3,7 @@ import { Button, DialogAction, DialogContent, DialogTitle } from '@elements';
 import { Carousel, Dialog } from '@components';
 import { useDialog } from '@hooks';
 
-import { images } from '../data.mock';
+import { images } from '@screens';
 
 function HomeScreen() {
   // prop destruction

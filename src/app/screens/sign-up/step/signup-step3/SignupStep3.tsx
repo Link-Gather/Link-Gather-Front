@@ -2,7 +2,7 @@ import { FlexBox, CategoryTitle, Button, ImageBox, Input, SkillTab } from '@elem
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import { DropDown, SkillDropdown } from '@components';
 import palette from '@libs/theme/palettes';
-import { skills } from 'app/screens/data.mock';
+import { skills } from '@screens';
 import { KeyboardEvent, ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 

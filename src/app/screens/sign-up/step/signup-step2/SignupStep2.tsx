@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ChangeEvent, useState } from 'react';
-import { characters } from 'app/screens/data.mock';
-import { useForm, useFormState } from 'react-hook-form';
+import { useState } from 'react';
+import { characters } from '@screens';
+import { useForm } from 'react-hook-form';
 import { VALIDATION_PATTERN } from '@libs/constants';
 import { FlexBox, Input, RequestButton, ImageBox, Button } from '@elements';
 import palette from '@libs/theme/palettes';

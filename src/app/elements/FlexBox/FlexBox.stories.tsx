@@ -10,20 +10,8 @@ export default {
   args: {
     width: '100%',
     height: '100%',
-    children: (
-      <>
-        <div css={{ border: '1px solid #aaaaaa' }}>First Child</div>
-        <div css={{ border: '1px solid #aaaaaa' }}>Second Child</div>
-        <div css={{ border: '1px solid #aaaaaa' }}>Third Child</div>
-      </>
-    ),
   },
-  argTypes: {
-    justifyContent: { type: 'string' },
-    justifyItems: { type: 'string' },
-    alignContent: { type: 'string' },
-    alignItems: { type: 'string' },
-  },
+  argTypes: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

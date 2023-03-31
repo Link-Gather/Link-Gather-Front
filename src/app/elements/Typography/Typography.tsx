@@ -1,17 +1,20 @@
 import React from 'react';
 import type { Theme } from '@libs/theme';
 
-type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
+type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
 
 function Typography(props: { variant?: Variant; className?: string; children: React.ReactNode }) {
   // prop destruction
-  const { variant = 'body', className, children } = props;
+  const { variant = 'span', className, children } = props;
 
   // lib hooks
+  const HTMLTag = variant;
+
   // state, ref hooks
   // form hooks
   // query hooks
   // calculated values
+
   const css = ((variant: Variant) => {
     switch (variant) {
       // TODO: case 별로 스타일 지정 필요
@@ -51,7 +54,7 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
           fontWeight: 400,
           lineHeight: '20px',
         };
-      case 'body': {
+      case 'span': {
         return (theme: Theme) => [
           {
             fontFamily: '"Noto Sans KR", sans-serif',
@@ -75,9 +78,9 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
   // effects
   // handlers
   return (
-    <span css={css} className={className}>
+    <HTMLTag css={css} className={className}>
       {children}
-    </span>
+    </HTMLTag>
   );
 }
 

@@ -25,10 +25,13 @@ const SignupBox = () => {
     prevEmailValue: '',
     prevCodeValue: '',
   });
-  const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
+  const [step, setStep] = useState<number>(0);
   const [searchSkill, setSearchSkill] = useState<string>('');
-  const [selectSkill, setSelectSkill] = useState<string[]>([]);
+  const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
   const [urlString, setUrlString] = useState<string>('');
+  const [selectJob, setSelectJob] = useState<string>('');
+  const [selectExperience, setSelectExperience] = useState<string>('');
+  const [selectSkill, setSelectSkill] = useState<string[]>([]);
   const [urlArray, setUrlArray] = useState<string[]>([]);
 
   // form hooks
@@ -83,8 +86,6 @@ const SignupBox = () => {
     setUrlArray(urlArray?.filter((urlName) => urlName !== url));
   };
 
-  const [step, setStep] = useState<number>(0);
-
   const moveNextStep = (): void => {
     if (step < 2) {
       setStep((prevState) => prevState + 1);
@@ -120,13 +121,13 @@ const SignupBox = () => {
         <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
-          <FlexBox justifyContent='center' css={{ width: '100%', margin: '0 auto' }}>
+          <FlexBox justifyContent='center' width='100%' height='447px' css={{ margin: '0 auto' }}>
             <FlexBox direction='column' css={{ marginTop: '25px' }}>
               <FlexBox>
                 <Input
                   type='email'
                   placeholder='이메일'
-                  message={prevValue.prevEmailValue === getValues('email') ? message.emailMessage : ''}
+                  message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
                   inputStatus={getValues('email') ? 'active' : 'inActive'}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('email')}
@@ -149,7 +150,7 @@ const SignupBox = () => {
                   type='text'
                   placeholder='코드입력'
                   maxLength={6}
-                  message={prevValue.prevCodeValue === getValues('code') ? message.codeMessage : ''}
+                  message={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
                   inputStatus={dirtyFields.code ? 'active' : 'inActive'}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('code')}
@@ -173,7 +174,7 @@ const SignupBox = () => {
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
-                  inputStatus={!dirtyFields.password ? 'inActive' : errors.password || !isValid ? 'error' : 'active'}
+                  inputStatus={!dirtyFields.password ? 'inActive' : errors.password ? 'error' : 'active'}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('password')}
                 />
@@ -183,9 +184,7 @@ const SignupBox = () => {
                   type='password'
                   placeholder='비밀번호 확인'
                   autoComplete='off'
-                  inputStatus={
-                    !dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword || !isValid ? 'error' : 'active'
-                  }
+                  inputStatus={!dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword ? 'error' : 'active'}
                   message={
                     !dirtyFields.confirmPassword
                       ? ''
@@ -205,8 +204,15 @@ const SignupBox = () => {
 
           {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
           {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
-          <FlexBox width='100%' direction='column' alignItems='center' spacing={12} css={{ marginLeft: '90px' }}>
-            <FlexBox width='392px' height='100px' justifyContent='center' css={{ marginTop: '20px' }}>
+          <FlexBox
+            width='100%'
+            height='447px'
+            direction='column'
+            alignItems='center'
+            spacing={12}
+            css={{ marginLeft: '90px' }}
+          >
+            <FlexBox width='392px' justifyContent='center' css={{ marginTop: '20px' }}>
               <FlexBox
                 width='100px'
                 height='100px'
@@ -297,11 +303,16 @@ const SignupBox = () => {
             <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
               <FlexBox width='212px' direction='column'>
                 <CategoryTitle label='직무*' />
-                <DropDown value='기획자' data={jobData}></DropDown>
+                <DropDown value='기획자' data={jobData} selectItem={selectJob} setSelectItem={setSelectJob}></DropDown>
               </FlexBox>
               <FlexBox width='168px' direction='column'>
                 <CategoryTitle label='경력*' />
-                <DropDown value='1~3년차' data={experienceData}></DropDown>
+                <DropDown
+                  value='1~3년차'
+                  data={experienceData}
+                  selectItem={selectExperience}
+                  setSelectItem={setSelectExperience}
+                ></DropDown>
               </FlexBox>
             </FlexBox>
             <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
@@ -340,7 +351,7 @@ const SignupBox = () => {
                     </SkillTab>
                   ))}
               </FlexBox>
-              {searchSkill ? (
+              {searchSkill && (
                 <SkillDropdown
                   searchSkill={searchSkill}
                   selectSkill={selectSkill}
@@ -348,7 +359,7 @@ const SignupBox = () => {
                   setSearchSkill={setSearchSkill}
                   skills={skills}
                 />
-              ) : null}
+              )}
             </FlexBox>
             <FlexBox width='100%' direction='column'>
               <CategoryTitle label='자기소개 *' />
@@ -419,7 +430,9 @@ const SignupBox = () => {
             </FlexBox>
             {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
             {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
-            <SignupButton onClick={moveNextStep}>회원가입</SignupButton>
+            <SignupButton css={{ top: '529px' }} onClick={moveNextStep}>
+              회원가입
+            </SignupButton>
           </FlexBox>
         </FlexBox>
       </FlexBox>
@@ -448,7 +461,7 @@ const BottomLineInput = styled('input')({
 const SignupButton = styled('button')({
   color: palette.contrastText,
   position: 'absolute',
-  bottom: '0',
+  top: '400px',
   borderRadius: '32px',
   backgroundColor: palette.primary.main,
   width: '320px',

@@ -6,42 +6,34 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { ShadowBox } from '@components';
 
 interface Props {
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  fontSize?: CSSProperties['fontSize'];
-  color?: CSSProperties['color'];
-  backgroundColor?: CSSProperties['backgroundColor'];
   className?: string;
-  marginTop?: CSSProperties['marginTop'];
-  marginLeft?: CSSProperties['marginLeft'];
   value?: string;
   data: string[];
+  selectItem: string;
+  setSelectItem: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function DropDown(props: Props) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const { width, marginTop, marginLeft, height, fontSize, color, backgroundColor, className, value, data, ...rest } =
-    props;
+  const { className, value, data, selectItem, setSelectItem, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
-  const [selectItem, setSelectItem] = useState<string | null>(null);
   // form hook
   // query hooks
   // calculated values
   // effects
   // handlers
   return (
-    <FlexBox direction='column' css={{ width, position: 'relative' }}>
+    <FlexBox direction='column' css={{ position: 'relative' }}>
       <FlexBox
         css={(theme: Theme) => {
           return [
             {
-              height: height || '50px',
+              height: '50px',
               marginTop: '5px',
-              marginLeft,
-              fontSize: fontSize || 20,
+              fontSize: 20,
               fontWeight: 500,
               border: `2px solid ${
                 isOpenDialog || selectItem ? theme.palette.black.main : theme.palette.secondary.n60

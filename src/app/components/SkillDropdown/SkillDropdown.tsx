@@ -12,7 +12,6 @@ const SkillDropdown = (props: {
   const { skills, thirdStepState, setThirdStepState } = props;
   // lib hooks
   // state, ref, querystring hooks
-
   // form hooks
   // query hooks
   // calculated values

@@ -9,8 +9,11 @@ export default {
   component: SkillDropdown,
   args: {
     skills: ['java', 'javascript'],
-    searchSkill: 'java',
-    selectSkill: ['java', 'javascript'],
+    thirdStepState: {
+      searchSkill: '',
+      selectJob: '',
+      selectExperience: '',
+    },
   },
 } as Meta<ArgTypes>;
 

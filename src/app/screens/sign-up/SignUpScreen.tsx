@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import palette from '@libs/theme/palettes/default';
+import { useLocation } from 'react-router-dom';
 import { SignupBox } from './signupbox';
-import { ShadowBox } from '@components';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox, UnderlineTitle, RequestButton, ImageBox, Input, Button } from '@elements';
+import { FlexBox, ImageBox } from '@elements';
 import { type Theme, mq } from '@libs/theme';
 
-function SignUpScreen(props: {}) {
+function SignUpScreen() {
   // prop destruction
   // lib hooks
   const { state } = useLocation();

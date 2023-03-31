@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { ShadowBox, DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, ImageBox, SkillTab } from '@elements';
-import { MessageType, prevValueType, ValidationSignup, CharacterProps } from './types';
+import { MessageType, prevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
 import { VALIDATION_PATTERN } from '@libs/constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
@@ -16,6 +16,7 @@ const SignupBox = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
+  const [step, setStep] = useState<number>(0);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -25,14 +26,15 @@ const SignupBox = () => {
     prevEmailValue: '',
     prevCodeValue: '',
   });
-  const [step, setStep] = useState<number>(0);
-  const [searchSkill, setSearchSkill] = useState<string>('');
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
-  const [urlString, setUrlString] = useState<string>('');
-  const [selectJob, setSelectJob] = useState<string>('');
-  const [selectExperience, setSelectExperience] = useState<string>('');
-  const [selectSkill, setSelectSkill] = useState<string[]>([]);
-  const [urlArray, setUrlArray] = useState<string[]>([]);
+  const [thirdStepState, setThirdStepState] = useState<ThirdStepData>({
+    searchSkill: '',
+    urlString: '',
+    selectJob: '',
+    selectExperience: '',
+    selectSkill: [],
+    urlArray: [],
+  });
 
   // form hooks
   const schema = yup.object().shape({
@@ -47,7 +49,7 @@ const SignupBox = () => {
     register,
     getValues,
     watch,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, dirtyFields },
   } = useForm<ValidationSignup>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -68,22 +70,27 @@ const SignupBox = () => {
   // handlers
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearchSkill(e.target.value);
+    setThirdStepState({ ...thirdStepState, searchSkill: e.target.value });
   };
 
   const onChangeUrl = (e: ChangeEvent<HTMLInputElement>): void => {
-    setUrlString(e.target.value);
+    setThirdStepState({ ...thirdStepState, urlString: e.target.value });
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
-      setUrlArray([...urlArray, urlString]);
-      setUrlString('');
+      // setUrlArray([...urlArray, thirdStepState.urlString]);
+      setThirdStepState({
+        ...thirdStepState,
+        urlArray: [...thirdStepState.urlArray, thirdStepState.urlString],
+        urlString: '',
+      });
     }
   };
 
   const onDeleteUrl = (url: string) => {
-    setUrlArray(urlArray?.filter((urlName) => urlName !== url));
+    // setUrlArray(urlArray?.filter((urlName) => urlName !== url));
+    setThirdStepState({ ...thirdStepState, urlArray: thirdStepState.urlArray?.filter((urlName) => urlName !== url) });
   };
 
   const moveNextStep = (): void => {
@@ -303,15 +310,22 @@ const SignupBox = () => {
             <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
               <FlexBox width='212px' direction='column'>
                 <CategoryTitle label='직무*' />
-                <DropDown value='기획자' data={jobData} selectItem={selectJob} setSelectItem={setSelectJob}></DropDown>
+                <DropDown
+                  value='기획자'
+                  data={jobData}
+                  selectItem={thirdStepState.selectJob}
+                  thirdStepState={thirdStepState}
+                  setThirdStepState={setThirdStepState}
+                ></DropDown>
               </FlexBox>
               <FlexBox width='168px' direction='column'>
                 <CategoryTitle label='경력*' />
                 <DropDown
                   value='1~3년차'
                   data={experienceData}
-                  selectItem={selectExperience}
-                  setSelectItem={setSelectExperience}
+                  selectItem={thirdStepState.selectExperience}
+                  thirdStepState={thirdStepState}
+                  setThirdStepState={setThirdStepState}
                 ></DropDown>
               </FlexBox>
             </FlexBox>
@@ -320,7 +334,7 @@ const SignupBox = () => {
               <BottomLineInput
                 name='searchSkill'
                 type='text'
-                value={searchSkill}
+                value={thirdStepState.searchSkill}
                 onChange={onChange}
                 placeholder='기술 스택 검색'
                 css={{ padding: '10px 40px 0px 40px' }}
@@ -339,8 +353,8 @@ const SignupBox = () => {
                   overflowY: 'auto',
                 }}
               >
-                {selectSkill.length !== 0 &&
-                  selectSkill.map((skill) => (
+                {thirdStepState.selectSkill.length !== 0 &&
+                  thirdStepState.selectSkill.map((skill) => (
                     <SkillTab
                       css={{
                         width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
@@ -351,14 +365,8 @@ const SignupBox = () => {
                     </SkillTab>
                   ))}
               </FlexBox>
-              {searchSkill && (
-                <SkillDropdown
-                  searchSkill={searchSkill}
-                  selectSkill={selectSkill}
-                  setSelectSkill={setSelectSkill}
-                  setSearchSkill={setSearchSkill}
-                  skills={skills}
-                />
+              {thirdStepState.searchSkill && (
+                <SkillDropdown thirdStepState={thirdStepState} setThirdStepState={setThirdStepState} skills={skills} />
               )}
             </FlexBox>
             <FlexBox width='100%' direction='column'>
@@ -386,10 +394,10 @@ const SignupBox = () => {
                 type='text'
                 name='urlString'
                 onChange={onChangeUrl}
-                value={urlString}
+                value={thirdStepState.urlString}
               />
-              {urlArray.map((url) => (
-                <FlexBox css={{ padding: '5px' }}>
+              {thirdStepState.urlArray.map((url) => (
+                <FlexBox key={url} css={{ padding: '5px' }}>
                   <a
                     css={{
                       color: palette.primary.main,
@@ -397,7 +405,6 @@ const SignupBox = () => {
                       fontWeight: '500',
                       display: 'inline-block',
                     }}
-                    key={url}
                     href={url}
                     target='_blank'
                     rel='noreferrer'

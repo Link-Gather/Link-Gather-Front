@@ -1,28 +1,28 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
+import { ThirdStepData } from 'app/screens/sign-up/signupbox/types';
 import { FlexBox, SkillTab } from '@elements';
 
 const SkillDropdown = (props: {
-  searchSkill: string;
-  setSearchSkill: React.Dispatch<React.SetStateAction<string>>;
-  selectSkill: string[];
-  setSelectSkill: React.Dispatch<React.SetStateAction<string[]>>;
   skills: string[];
+  thirdStepState: ThirdStepData;
+  setThirdStepState: React.Dispatch<React.SetStateAction<ThirdStepData>>;
 }) => {
   // prop destruction
-  const { searchSkill, setSearchSkill, selectSkill, setSelectSkill, skills } = props;
+  const { skills, thirdStepState, setThirdStepState } = props;
   // lib hooks
   // state, ref, querystring hooks
 
   // form hooks
   // query hooks
   // calculated values
-  const showSkills = skills.filter((skillFilter) => skillFilter.toLowerCase().includes(searchSkill.toLowerCase()));
+  const showSkills = skills.filter((skillFilter) =>
+    skillFilter.toLowerCase().includes(thirdStepState.searchSkill.toLowerCase())
+  );
   // effects
   // handlers
   const addSkill = (skill: string) => {
-    setSelectSkill([...selectSkill, skill]);
-    setSearchSkill('');
+    setThirdStepState({ ...thirdStepState, selectSkill: [...thirdStepState.selectSkill, skill], searchSkill: '' });
   };
 
   return (

@@ -1,22 +1,22 @@
-import { CSSProperties, useState } from 'react';
 import { useDialog } from '@hooks';
 import { FlexBox } from '@elements';
 import { type Theme } from '@libs/theme';
+import { ThirdStepData } from 'app/screens/sign-up/signupbox/types';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import { ShadowBox } from '@components';
 
 interface Props {
   className?: string;
   value?: string;
   data: string[];
   selectItem: string;
-  setSelectItem: React.Dispatch<React.SetStateAction<string>>;
+  thirdStepState: ThirdStepData;
+  setThirdStepState: React.Dispatch<React.SetStateAction<ThirdStepData>>;
 }
 
 function DropDown(props: Props) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const { className, value, data, selectItem, setSelectItem, ...rest } = props;
+  const { className, value, data, selectItem, thirdStepState, setThirdStepState, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -111,7 +111,11 @@ function DropDown(props: Props) {
                       ];
                     }}
                     onClick={() => {
-                      setSelectItem(data);
+                      setThirdStepState(
+                        selectItem === thirdStepState.selectJob
+                          ? { ...thirdStepState, selectJob: data }
+                          : { ...thirdStepState, selectExperience: data }
+                      );
                       closeDialog();
                     }}
                   >

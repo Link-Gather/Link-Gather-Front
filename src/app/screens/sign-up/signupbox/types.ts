@@ -23,3 +23,12 @@ export interface CharacterProps {
   height: string;
   marginTop: string;
 }
+
+export interface ThirdStepData {
+  searchSkill: string;
+  urlString: string;
+  selectJob: string;
+  selectExperience: string;
+  selectSkill: string[];
+  urlArray: string[];
+}

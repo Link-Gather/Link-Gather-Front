@@ -8,13 +8,13 @@ import {
   ForgotPasswordScreen,
   ProjectList,
 } from '@screens';
-import { pathHome, pathLogIn, pathForgotPassword, pathOAuth, pathProjectList, pathSignUp } from '@routes';
+import { PATH_HOME, PATH_LOGIN, PATH_FORGOT_PASSWORD, PATH_OAUTH, PATH_PROJECT_LIST, PATH_SIGNUP } from '@routes';
 
 function AppRouter() {
   return (
     <Routes>
       <Route
-        path={pathHome}
+        path={PATH_HOME}
         element={
           <Layout componentStyle='contents'>
             <HomeScreen />
@@ -22,7 +22,7 @@ function AppRouter() {
         }
       />
       <Route
-        path={pathLogIn}
+        path={PATH_LOGIN}
         element={
           <Layout componentStyle='full'>
             <LoginScreen />
@@ -30,7 +30,7 @@ function AppRouter() {
         }
       />
       <Route
-        path={pathSignUp}
+        path={PATH_SIGNUP}
         element={
           <Layout componentStyle='full'>
             <SignUpScreen />
@@ -38,7 +38,7 @@ function AppRouter() {
         }
       />
       <Route
-        path={pathOAuth}
+        path={PATH_OAUTH}
         element={
           <Layout componentStyle='full'>
             <OauthCallbackScreen />
@@ -46,7 +46,7 @@ function AppRouter() {
         }
       />
       <Route
-        path={pathForgotPassword}
+        path={PATH_FORGOT_PASSWORD}
         element={
           <Layout componentStyle='full'>
             <ForgotPasswordScreen />
@@ -54,7 +54,7 @@ function AppRouter() {
         }
       />
       <Route
-        path={pathProjectList}
+        path={PATH_PROJECT_LIST}
         element={
           <Layout componentStyle='full'>
             <ProjectList />

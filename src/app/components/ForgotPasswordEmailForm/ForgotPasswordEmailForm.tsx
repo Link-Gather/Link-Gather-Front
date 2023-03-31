@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
-import { pathLogIn } from '@routes';
+import { PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
@@ -40,7 +40,7 @@ function ForgotPasswordEmailForm() {
   return (
     <FlexBox width='320px' direction='column' spacing={4} css={{ minWidth: '320px' }}>
       <FlexBox direction='row' width='100%'>
-        <Link to={pathLogIn}>
+        <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />

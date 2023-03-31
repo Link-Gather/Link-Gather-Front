@@ -5,7 +5,7 @@ import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-plane
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq, Theme } from '@libs/theme';
-import { pathForgotPassword, pathHome, pathSignUp } from '@routes';
+import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';
 
 function LoginScreen() {
   // prop destruction
@@ -86,7 +86,7 @@ function LoginScreen() {
       >
         <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
           <FlexBox direction='row' width='100%'>
-            <Link to={pathHome}>
+            <Link to={PATH_HOME}>
               <img src={IconArrowLeft} alt='go home' />
             </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
@@ -106,7 +106,7 @@ function LoginScreen() {
             >
               계정이 없으신가요? &nbsp;
               <Link
-                to={pathSignUp}
+                to={PATH_SIGNUP}
                 css={(theme: Theme) => [
                   {
                     color: theme.palette.primary.main,
@@ -121,7 +121,7 @@ function LoginScreen() {
                 fontSize: '14px',
               }}
             >
-              <Link to={`${pathForgotPassword}?step=1`}>비밀번호 찾기</Link>
+              <Link to={`${PATH_FORGOT_PASSWORD}?step=1`}>비밀번호 찾기</Link>
             </Typography>
           </FlexBox>
         </FlexBox>

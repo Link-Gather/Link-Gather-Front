@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { PATH_HOME, PATH_SIGNUP } from '@routes';
 import { useOauth } from '@libs/auth';
+import { OauthProvider } from 'app/types';
 
 function OauthCallbackScreen() {
   // prop destruction

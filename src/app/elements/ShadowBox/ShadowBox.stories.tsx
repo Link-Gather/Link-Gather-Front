@@ -5,9 +5,20 @@ import { ShadowBox } from './ShadowBox';
 type ArgTypes = ComponentProps<typeof ShadowBox>;
 
 export default {
-  title: 'components/ShadowBox',
+  title: 'elements/ShadowBox',
   component: ShadowBox,
-  args: {},
+  args: {
+    children: (
+      <div
+        style={{
+          width: '300px',
+          height: '300px',
+        }}
+      >
+        children
+      </div>
+    ),
+  },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom';
-import { FlexBox, UnderlineTitle, KakaoLoginButton, GoogleLoginButton, GithubLoginButton, Typography } from '@elements';
-import { LoginForm, ShadowBox } from '@components';
+import {
+  FlexBox,
+  UnderlineTitle,
+  KakaoLoginButton,
+  GoogleLoginButton,
+  GithubLoginButton,
+  ShadowBox,
+  Typography,
+} from '@elements';
+import { LoginForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';

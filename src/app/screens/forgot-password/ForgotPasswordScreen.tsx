@@ -1,5 +1,5 @@
-import { FlexBox } from '@elements';
-import { ShadowBox, ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
+import { FlexBox, ShadowBox } from '@elements';
+import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import { mq } from '@libs/theme';

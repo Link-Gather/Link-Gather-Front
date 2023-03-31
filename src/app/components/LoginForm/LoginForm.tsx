@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, FlexBox } from '@elements';
-import palette from '@libs/theme/palettes';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { httpClient } from '@libs/http-client';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
+import palette from '@libs/theme/palettes';
+import { userRepository } from '@libs/repository';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -54,10 +54,10 @@ function LoginForm() {
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
-        onClick={() => setIsShowPassword(!isShowPassword)}
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
+        iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
         {...register('password')}
       >
         {dirtyFields.password && (
@@ -65,9 +65,7 @@ function LoginForm() {
         )}
       </Input>
       <Button
-        onClick={handleSubmit(async ({ email, password }) => {
-          await httpClient.post('/users/sign-in', { email, password });
-        })}
+        onClick={handleSubmit(({ email, password }) => userRepository.signin(email, password))}
         css={{
           width: '100%',
           height: '48px',

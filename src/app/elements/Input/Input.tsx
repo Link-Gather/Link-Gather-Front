@@ -9,14 +9,14 @@ const Input = forwardRef(
     props: {
       error?: FieldError;
       message?: string;
-      onClick?: () => void | null;
       children?: React.ReactNode;
       register?: UseFormRegisterReturn;
+      iconProps?: { onIconClick?: () => void };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, className, children, register, onClick, ...rest } = props;
+    const { error, type, message, className, children, register, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -100,7 +100,7 @@ const Input = forwardRef(
               opacity: 1,
             },
           }}
-          onClick={onClick}
+          onClick={iconProps?.onIconClick}
         >
           {children}
         </button>

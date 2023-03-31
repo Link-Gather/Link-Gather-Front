@@ -53,10 +53,10 @@ function ForgotPasswordForm() {
         <Input
           type={!isShowPassword ? 'password' : 'text'}
           placeholder='비밀번호'
-          onClick={() => setIsShowPassword(!isShowPassword)}
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.password}
           message={errors.password?.message}
+          iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
           {...register('password')}
         >
           {dirtyFields.password && (
@@ -66,10 +66,10 @@ function ForgotPasswordForm() {
         <Input
           type={!isShowConfirmPassword ? 'password' : 'text'}
           placeholder='비밀번호 확인'
-          onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
+          iconProps={{ onIconClick: () => setIsShowConfirmPassword(!isShowConfirmPassword) }}
           {...register('confirmPassword')}
         >
           {dirtyFields.confirmPassword && (

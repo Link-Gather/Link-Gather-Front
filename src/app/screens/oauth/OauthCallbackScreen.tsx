@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { pathHome, pathSignUp } from '@routes';
 import { useOauth } from '@libs/auth';
 
 function OauthCallbackScreen() {
@@ -25,9 +26,9 @@ function OauthCallbackScreen() {
 
     handleOauth(code, provider as OauthProvider).then((result) => {
       if (result) {
-        navigate('/sign-up', { state: result });
+        navigate(pathSignUp, { state: result });
       } else {
-        navigate('/');
+        navigate(pathHome);
       }
     });
   }, [handleOauth, navigate, params, querystring]);

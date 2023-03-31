@@ -8,7 +8,6 @@ function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-
   const step = Number(new URLSearchParams(window.location.search).get('step'));
 
   // form hooks
@@ -86,8 +85,8 @@ function ForgotPasswordScreen() {
           },
         }}
       >
-        {step === 1 ? <ForgotPasswordEmailForm /> : null}
-        {step === 2 ? <ForgotPasswordForm /> : null}
+        {step === 1 && <ForgotPasswordEmailForm />}
+        {step === 2 && <ForgotPasswordForm />}
       </ShadowBox>
     </FlexBox>
   );

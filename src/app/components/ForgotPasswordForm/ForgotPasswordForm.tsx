@@ -9,6 +9,7 @@ import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import palette from '@libs/theme/palettes';
 import { confirmPasswordSchema, passwordSchema } from '@libs/schema';
+import { Link } from 'react-router-dom';
 
 const schema = yup.object({
   password: passwordSchema.required('비밀번호를 다시 확인해주세요.'),
@@ -43,9 +44,9 @@ function ForgotPasswordForm() {
   return (
     <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
       <FlexBox direction='row' width='100%'>
-        <a href={pathLogIn}>
+        <Link to={pathLogIn}>
           <img src={IconArrowLeft} alt='go back' />
-        </a>
+        </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
       <FlexBox direction='column'>

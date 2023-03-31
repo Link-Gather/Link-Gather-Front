@@ -9,6 +9,7 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
 import { emailSchema } from '@libs/schema';
+import { Link } from 'react-router-dom';
 
 const schema = yup.object({
   email: emailSchema.required('이메일을 입력해주세요.'),
@@ -39,9 +40,9 @@ function ForgotPasswordEmailForm() {
   return (
     <FlexBox width='320px' direction='column' spacing={4} css={{ minWidth: '320px' }}>
       <FlexBox direction='row' width='100%'>
-        <a href={pathLogIn}>
+        <Link to={pathLogIn}>
           <img src={IconArrowLeft} alt='go back' />
-        </a>
+        </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
       <FlexBox direction='column'>

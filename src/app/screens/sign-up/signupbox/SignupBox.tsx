@@ -5,43 +5,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { ShadowBox, DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, Button, ImageBox, SkillTab } from '@elements';
+import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, ImageBox, SkillTab } from '@elements';
+import { MessageType, prevValueType, ValidationSignup, CharacterProps } from './types';
 import { VALIDATION_PATTERN } from '@libs/constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import styled from '@emotion/styled';
 
-interface ValidationSignup {
-  email: string;
-  code: string;
-  password: string;
-  confirmPassword: string;
-  nickname: string;
-}
-interface MessageType {
-  emailMessage: string;
-  codeMessage: string;
-  confirmPasswordMessage: string;
-}
-interface prevValueType {
-  prevEmailValue: string;
-  prevCodeValue: string;
-}
-
-interface Props {
-  id: number;
-  src: string;
-  backgroundColor: string;
-  width: string;
-  height: string;
-  marginTop: string;
-}
-
 const SignupBox = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -51,6 +25,12 @@ const SignupBox = () => {
     prevEmailValue: '',
     prevCodeValue: '',
   });
+  const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
+  const [searchSkill, setSearchSkill] = useState<string>('');
+  const [selectSkill, setSelectSkill] = useState<string[]>([]);
+  const [urlString, setUrlString] = useState<string>('');
+  const [urlArray, setUrlArray] = useState<string[]>([]);
+
   // form hooks
   const schema = yup.object().shape({
     email: yup.string(),
@@ -77,20 +57,13 @@ const SignupBox = () => {
     },
   });
 
-  const [characterState, setCharacterState] = useState<Props>(characters[0]);
-  // form hooks
-
-  const [searchSkill, setSearchSkill] = useState<string>('');
-  const [urlString, setUrlString] = useState<string>('');
-  const [selectSkill, setSelectSkill] = useState<string[]>([]);
-  const [urlArray, setUrlArray] = useState<string[]>([]);
-  // form hooks
   // query hooks
   // calculated values
   const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
   const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
   // effects
   // handlers
+
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchSkill(e.target.value);
   };
@@ -111,11 +84,7 @@ const SignupBox = () => {
   };
 
   const [step, setStep] = useState<number>(0);
-  // form hooks
-  // query hooks
-  // calculated values
-  // effects
-  // handlers
+
   const moveNextStep = (): void => {
     if (step < 2) {
       setStep((prevState) => prevState + 1);
@@ -422,7 +391,7 @@ const SignupBox = () => {
                     target='_blank'
                     rel='noreferrer'
                   >
-                    {url}
+                    {url.includes('https://') ? url : 'https://' + url}
                   </a>
                   <button
                     css={{

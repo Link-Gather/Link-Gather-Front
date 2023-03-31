@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
-import { SignupBox } from './step';
+import { SignupBox } from './signupbox';
 import { ShadowBox } from '@components';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';

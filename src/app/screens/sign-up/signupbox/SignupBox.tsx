@@ -34,6 +34,7 @@ const SignupBox = () => {
     selectExperience: '',
     selectSkill: [],
     urlArray: [],
+    introduction: '',
   });
 
   // form hooks
@@ -61,7 +62,6 @@ const SignupBox = () => {
       nickname: '',
     },
   });
-
   // query hooks
   // calculated values
   const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
@@ -69,17 +69,15 @@ const SignupBox = () => {
   // effects
   // handlers
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setThirdStepState({ ...thirdStepState, searchSkill: e.target.value });
-  };
-
-  const onChangeUrl = (e: ChangeEvent<HTMLInputElement>): void => {
-    setThirdStepState({ ...thirdStepState, urlString: e.target.value });
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
+    setThirdStepState((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
-      // setUrlArray([...urlArray, thirdStepState.urlString]);
       setThirdStepState({
         ...thirdStepState,
         urlArray: [...thirdStepState.urlArray, thirdStepState.urlString],
@@ -89,7 +87,6 @@ const SignupBox = () => {
   };
 
   const onDeleteUrl = (url: string) => {
-    // setUrlArray(urlArray?.filter((urlName) => urlName !== url));
     setThirdStepState({ ...thirdStepState, urlArray: thirdStepState.urlArray?.filter((urlName) => urlName !== url) });
   };
 
@@ -372,6 +369,9 @@ const SignupBox = () => {
             <FlexBox width='100%' direction='column'>
               <CategoryTitle label='자기소개 *' />
               <textarea
+                onChange={onChange}
+                value={thirdStepState.introduction}
+                name='introduction'
                 css={{
                   marginTop: '8px',
                   width: '100%',
@@ -393,7 +393,7 @@ const SignupBox = () => {
                 placeholder='URL을 입력해주세요.'
                 type='text'
                 name='urlString'
-                onChange={onChangeUrl}
+                onChange={onChange}
                 value={thirdStepState.urlString}
               />
               {thirdStepState.urlArray.map((url) => (

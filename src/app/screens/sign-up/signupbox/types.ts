@@ -31,4 +31,5 @@ export interface ThirdStepData {
   selectExperience: string;
   selectSkill: string[];
   urlArray: string[];
+  introduction: string;
 }

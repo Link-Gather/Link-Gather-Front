@@ -8,11 +8,11 @@ import { PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
-import { emailSchema } from '@libs/schema';
+import { SCHEMA_EMAIL } from '@libs/schema';
 import { Link } from 'react-router-dom';
 
 const schema = yup.object({
-  email: emailSchema.required('이메일을 입력해주세요.'),
+  email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
 });
 
 function ForgotPasswordEmailForm() {

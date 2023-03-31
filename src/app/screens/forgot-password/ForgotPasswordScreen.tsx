@@ -3,12 +3,15 @@ import { ShadowBox, ForgotPasswordForm, ForgotPasswordEmailForm } from '@compone
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import { mq } from '@libs/theme';
+import { useLocation } from 'react-router-dom';
 
 function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
+  const location = useLocation();
+
   // state, ref, querystring hooks
-  const step = Number(new URLSearchParams(window.location.search).get('step'));
+  const step = Number(new URLSearchParams(location.search).get('step'));
 
   // form hooks
   // query hooks

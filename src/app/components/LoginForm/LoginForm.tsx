@@ -8,11 +8,11 @@ import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { httpClient } from '@libs/http-client';
-import { emailSchema, passwordSchema } from '@libs/schema';
+import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 
 const schema = yup.object({
-  email: emailSchema.required('이메일을 입력해주세요.'),
-  password: passwordSchema.required('비밀번호를 다시 확인해주세요.'),
+  email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
+  password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
 });
 
 function LoginForm() {

@@ -8,12 +8,12 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import palette from '@libs/theme/palettes';
-import { confirmPasswordSchema, passwordSchema } from '@libs/schema';
+import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { Link } from 'react-router-dom';
 
 const schema = yup.object({
-  password: passwordSchema.required('비밀번호를 다시 확인해주세요.'),
-  confirmPassword: confirmPasswordSchema.required('비밀번호를 입력해주세요'),
+  password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
+  confirmPassword: SCHEMA_CONFIRM_PASSWORD.required('비밀번호를 입력해주세요'),
 });
 
 function ForgotPasswordForm() {

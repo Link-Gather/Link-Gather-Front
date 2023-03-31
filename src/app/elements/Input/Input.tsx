@@ -22,7 +22,7 @@ const Input = forwardRef(
     const inputId = useId();
 
     // state, ref hooks
-    const [isFocus, setIsFocus] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     // form hook
     // query hooks
@@ -61,7 +61,7 @@ const Input = forwardRef(
                   },
                 },
               },
-              isFocus && {
+              isFocused && {
                 border: `2px solid ${theme.palette.secondary.n300}`,
                 '&:focus': {
                   border: `2px solid ${theme.palette.primary.main}`,
@@ -75,7 +75,7 @@ const Input = forwardRef(
               },
             ];
           }}
-          onFocus={() => setIsFocus(true)}
+          onFocus={() => setIsFocused(true)}
           ref={ref}
           {...rest}
           {...register}
@@ -116,7 +116,7 @@ const Input = forwardRef(
               lineHeight: '20px',
               color: theme.palette.secondary.n60,
             },
-            isFocus && {
+            isFocused && {
               color: theme.palette.secondary.n300,
             },
             error && {

@@ -4,16 +4,14 @@ import { type Theme } from '@libs/theme';
 import { ThirdStepData } from 'app/screens/sign-up/signupbox/types';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
-interface Props {
+function DropDown(props: {
   className?: string;
   value?: string;
   data: string[];
   selectItem: string;
   thirdStepState: ThirdStepData;
   setThirdStepState: React.Dispatch<React.SetStateAction<ThirdStepData>>;
-}
-
-function DropDown(props: Props) {
+}) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
   const { className, value, data, selectItem, thirdStepState, setThirdStepState, ...rest } = props;

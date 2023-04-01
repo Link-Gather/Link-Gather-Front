@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import React, { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FlexBox } from './FlexBox';
 
@@ -8,14 +8,15 @@ export default {
   title: 'elements/FlexBox',
   component: FlexBox,
   args: {
-    width: '100%',
-    height: '100%',
-  },
-  argTypes: {
-    justifyContent: { type: 'string' },
-    justifyItems: { type: 'string' },
-    alignContent: { type: 'string' },
-    alignItems: { type: 'string' },
+    width: '50%',
+    height: '50%',
+    children: (
+      <>
+        <div css={{ border: '1px solid #aaaaaa' }}>First Child</div>
+        <div css={{ border: '1px solid #80daa2' }}>Second Child</div>
+        <div css={{ border: '1px solid #a84444' }}>Third Child</div>
+      </>
+    ),
   },
 } as Meta<ArgTypes>;
 

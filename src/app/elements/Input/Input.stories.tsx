@@ -8,7 +8,7 @@ export default {
   title: 'elements/Input',
   component: Input,
   args: {
-    inputtype: 'error',
+    inputType: 'error',
     width: '50px',
     height: '30px',
     message: 'validation check message',

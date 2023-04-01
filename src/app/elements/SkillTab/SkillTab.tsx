@@ -3,7 +3,7 @@ import React from 'react';
 const SkillTab = (props: {
   children: React.ReactNode;
   className?: string;
-  skill?: string | undefined;
+  skill?: string;
   addSkill?: (skill: string) => void;
 }) => {
   // prop destruction

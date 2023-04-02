@@ -48,7 +48,7 @@ function SignUpScreen() {
       <img
         alt='signupBackground'
         src={BackgroundPlanet2}
-        css={{ position: 'fixed', top: '-1.9%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
+        css={{ position: 'fixed', top: '-13%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
       ></img>
       <SignupBox />
     </FlexBox>

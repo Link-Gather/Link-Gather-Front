@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, ImageBox, SkillTab, ShadowBox } from '@elements';
+import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, SkillTab, ShadowBox } from '@elements';
 import { MessageType, prevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
 import { VALIDATION_PATTERN } from '@libs/constants/validation.constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -334,13 +334,11 @@ const SignupBox = () => {
                 placeholder='기술 스택 검색'
                 css={{ padding: '10px 40px 0px 40px' }}
               ></BottomLineInput>
-              <ImageBox
+              <img
                 alt={'search'}
-                imageSrc={IconSearch}
-                position='absolute'
-                width='25px'
-                css={{ marginTop: '37px', marginLeft: '5px' }}
-              ></ImageBox>
+                src={IconSearch}
+                css={{ widht: '25px', marginTop: '37px', marginLeft: '5px', position: 'absolute' }}
+              ></img>
               <FlexBox
                 css={{
                   flexWrap: 'wrap',

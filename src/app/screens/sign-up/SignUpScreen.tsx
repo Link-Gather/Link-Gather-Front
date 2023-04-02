@@ -4,7 +4,7 @@ import { SignupBox } from './signupbox';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox, ImageBox } from '@elements';
+import { FlexBox } from '@elements';
 import { type Theme, mq } from '@libs/theme';
 
 function SignUpScreen() {
@@ -35,36 +35,21 @@ function SignUpScreen() {
         },
       ]}
     >
-      <ImageBox
+      <img
         alt='signupBackground'
-        top='28%'
-        left='27%'
-        width='100px'
-        height='10rem'
-        imageSrc={BackgroundAstronaut1}
-        zIndex='1'
-        position='fixed'
-      ></ImageBox>
-      <ImageBox
+        src={BackgroundAstronaut1}
+        css={{ position: 'fixed', top: '28%', left: '27%', width: '100px', height: '150px', zIndex: '1' }}
+      ></img>
+      <img
         alt='signupBackground'
-        top='40%'
-        left='10%'
-        width='700px'
-        height='40rem'
-        imageSrc={BackgroundPlanet1}
-        zIndex='0'
-        position='fixed'
-      ></ImageBox>
-      <ImageBox
+        src={BackgroundPlanet1}
+        css={{ position: 'fixed', top: '40%', left: '10%', width: '700px', height: '700px', zIndex: '0' }}
+      ></img>
+      <img
         alt='signupBackground'
-        left='70%'
-        top='-1.9%'
-        width='300px'
-        height='500px'
-        imageSrc={BackgroundPlanet2}
-        zIndex='0'
-        position='fixed'
-      ></ImageBox>
+        src={BackgroundPlanet2}
+        css={{ position: 'fixed', top: '-1.9%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
+      ></img>
       <SignupBox />
     </FlexBox>
   );

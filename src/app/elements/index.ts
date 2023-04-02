@@ -7,7 +7,6 @@ export * from './Dimmer';
 export * from './FlexBox';
 export * from './GithubLoginButton';
 export * from './GoogleLoginButton';
-export * from './ImageBox';
 export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Layout';

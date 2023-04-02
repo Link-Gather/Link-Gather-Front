@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, FlexBox } from '@elements';
-import palette from '@libs/theme/palettes';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { VALIDATION_PATTERN } from '@libs/constants';
-import { httpClient } from '@libs/http-client';
+import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
+import palette from '@libs/theme/palettes';
+import { userRepository } from '@libs/repository';
 
 const schema = yup.object({
-  email: yup
-    .string()
-    .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
-    .required('이메일을 입력해주세요.'),
-  password: yup
-    .string()
-    .matches(VALIDATION_PATTERN.password, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.')
-    .required('비밀번호를 다시 확인해주세요.'),
+  email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
+  password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
 });
 
 function LoginForm() {
@@ -32,7 +26,7 @@ function LoginForm() {
     register,
     handleSubmit,
     formState: { errors, dirtyFields, isValid },
-  } = useForm<{ email: string; password: string }>({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
@@ -50,19 +44,19 @@ function LoginForm() {
         type='email'
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
-        message={errors.email && errors.email.message}
+        error={errors.email}
+        message={errors.email?.message}
         {...register('email')}
       >
-        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
+        {!errors.email && <img src={IconCheckGreen} alt='checked email' />}
       </Input>
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
-        onClick={() => setIsShowPassword(!isShowPassword)}
         css={{ width: '100%', marginBottom: '16px' }}
-        inputStatus={(errors.password && 'error') || (dirtyFields.password && 'active') || 'inActive'}
-        message={errors.password && errors.password.message}
+        error={errors.password}
+        message={errors.password?.message}
+        iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
         {...register('password')}
       >
         {dirtyFields.password && (
@@ -70,9 +64,7 @@ function LoginForm() {
         )}
       </Input>
       <Button
-        onClick={handleSubmit(async ({ email, password }) => {
-          await httpClient.post('/users/sign-in', { email, password });
-        })}
+        onClick={handleSubmit(({ email, password }) => userRepository.signin(email, password))}
         css={{
           width: '100%',
           height: '48px',

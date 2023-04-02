@@ -1,5 +1,4 @@
-type Breakpoints = (1920 | 1366 | 1024 | 768 | 425)[];
+const breakpoints = [1902, 1366, 1024, 768, 425] as const;
+type Breakpoints = typeof breakpoints[number];
 
-const breakpoints: Breakpoints = [1920, 1366, 1024, 768, 425];
-
-export const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+export const mq = breakpoints.map((bp: Breakpoints) => `@media (max-width: ${bp}px)`);

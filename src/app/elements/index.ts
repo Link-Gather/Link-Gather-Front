@@ -13,6 +13,7 @@ export * from './KakaoLoginButton';
 export * from './Layout';
 export * from './RequestButton';
 export * from './CategoryTitle';
+export * from './ShadowBox';
 export * from './Typography';
 export * from './UnderlineTitle';
 export * from './SkillTab';

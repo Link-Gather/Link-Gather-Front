@@ -4,17 +4,15 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
-import { ROUTE_PATHS } from '@routes';
+import { PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
-import { VALIDATION_PATTERN } from '@libs/constants';
+import { SCHEMA_EMAIL } from '@libs/schema';
+import { Link } from 'react-router-dom';
 
 const schema = yup.object({
-  email: yup
-    .string()
-    .matches(VALIDATION_PATTERN.email, '올바른 이메일 형식을 입력해주세요.')
-    .required('이메일을 입력해주세요.'),
+  email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
 });
 
 function ForgotPasswordEmailForm() {
@@ -26,8 +24,8 @@ function ForgotPasswordEmailForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
-  } = useForm<{ email: string }>({
+    formState: { errors, isValid },
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
@@ -42,9 +40,9 @@ function ForgotPasswordEmailForm() {
   return (
     <FlexBox width='320px' direction='column' spacing={4} css={{ minWidth: '320px' }}>
       <FlexBox direction='row' width='100%'>
-        <a href={ROUTE_PATHS.logIn}>
+        <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
-        </a>
+        </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
       <FlexBox direction='column'>
@@ -52,8 +50,8 @@ function ForgotPasswordEmailForm() {
           type='email'
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
-          inputStatus={(errors.email && 'error') || (dirtyFields.email && 'active') || 'inActive'}
-          message={errors.email && errors.email.message}
+          error={errors.email}
+          message={errors.email?.message}
           {...register('email')}
         >
           {isValid && <img src={IconCheckGreen} alt='checked email' />}

@@ -1,10 +1,19 @@
-import { FlexBox, UnderlineTitle, KakaoLoginButton, GoogleLoginButton, GithubLoginButton, Typography } from '@elements';
-import { LoginForm, ShadowBox } from '@components';
+import { Link } from 'react-router-dom';
+import {
+  FlexBox,
+  UnderlineTitle,
+  KakaoLoginButton,
+  GoogleLoginButton,
+  GithubLoginButton,
+  ShadowBox,
+  Typography,
+} from '@elements';
+import { LoginForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq, Theme } from '@libs/theme';
-import { ROUTE_PATHS } from '@routes';
+import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';
 
 function LoginScreen() {
   // prop destruction
@@ -85,9 +94,9 @@ function LoginScreen() {
       >
         <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
           <FlexBox direction='row' width='100%'>
-            <a href='/'>
+            <Link to={PATH_HOME}>
               <img src={IconArrowLeft} alt='go home' />
-            </a>
+            </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
           </FlexBox>
           <LoginForm />
@@ -104,8 +113,8 @@ function LoginScreen() {
               }}
             >
               계정이 없으신가요? &nbsp;
-              <a
-                href={ROUTE_PATHS.signUp}
+              <Link
+                to={PATH_SIGNUP}
                 css={(theme: Theme) => [
                   {
                     color: theme.palette.primary.main,
@@ -113,14 +122,14 @@ function LoginScreen() {
                 ]}
               >
                 회원가입
-              </a>
+              </Link>
             </Typography>
             <Typography
               css={{
                 fontSize: '14px',
               }}
             >
-              <a href={`${ROUTE_PATHS.forgotPassword}?step=1`}>비밀번호 찾기</a>
+              <Link to={`${PATH_FORGOT_PASSWORD}?step=1`}>비밀번호 찾기</Link>
             </Typography>
           </FlexBox>
         </FlexBox>

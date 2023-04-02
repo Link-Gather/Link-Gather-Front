@@ -8,10 +8,10 @@ export default {
   title: 'elements/Input',
   component: Input,
   args: {
-    inputType: 'error',
-    width: '50px',
-    height: '30px',
+    type: 'text',
+    placeholder: 'placeholder',
     message: 'validation check message',
+    style: { width: '350px', height: '50px' },
   },
 } as Meta<ArgTypes>;
 

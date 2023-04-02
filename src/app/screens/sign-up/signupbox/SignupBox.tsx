@@ -4,10 +4,10 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
-import { ShadowBox, DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, ImageBox, SkillTab } from '@elements';
+import { DropDown, SkillDropdown } from '@components';
+import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, ImageBox, SkillTab, ShadowBox } from '@elements';
 import { MessageType, prevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
-import { VALIDATION_PATTERN } from '@libs/constants';
+import { VALIDATION_PATTERN } from '@libs/constants/validation.constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import styled from '@emotion/styled';
@@ -155,7 +155,6 @@ const SignupBox = () => {
                   placeholder='코드입력'
                   maxLength={6}
                   message={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
-                  inputStatus={dirtyFields.code ? 'active' : 'inActive'}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('code')}
                 />
@@ -178,7 +177,8 @@ const SignupBox = () => {
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
-                  inputStatus={!dirtyFields.password ? 'inActive' : errors.password ? 'error' : 'active'}
+                  // inputStatus={!dirtyFields.password ? 'inActive' : errors.password ? 'error' : 'active'}
+                  error={errors.password}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('password')}
                 />
@@ -188,7 +188,8 @@ const SignupBox = () => {
                   type='password'
                   placeholder='비밀번호 확인'
                   autoComplete='off'
-                  inputStatus={!dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword ? 'error' : 'active'}
+                  // inputStatus={!dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword ? 'error' : 'active'}
+                  error={errors.confirmPassword}
                   message={
                     !dirtyFields.confirmPassword
                       ? ''
@@ -228,16 +229,15 @@ const SignupBox = () => {
                   justifyContent: 'center',
                 }}
               >
-                <ImageBox
-                  imageSrc={characterState.src}
-                  width='50%'
+                <img
+                  src={characterState.src}
                   alt='selectCharacter'
                   css={{
                     height: characterState.height,
                     width: characterState.width,
                     marginTop: characterState.marginTop,
                   }}
-                ></ImageBox>
+                ></img>
               </FlexBox>
               <FlexBox
                 width='204px'
@@ -253,7 +253,6 @@ const SignupBox = () => {
                       height='48px'
                       justifyContent='center'
                       alignItems='center'
-                      onClick={() => setCharacterState(character)}
                       css={{
                         border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
                         borderRadius: '50%',
@@ -265,12 +264,11 @@ const SignupBox = () => {
                         },
                       }}
                     >
-                      <ImageBox
+                      <img
+                        onClick={() => setCharacterState(character)}
                         alt='character'
-                        width={character.width}
-                        height={character.height}
-                        imageSrc={character.src}
-                        css={{ marginTop: character.marginTop }}
+                        src={character.src}
+                        css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
                       />
                     </FlexBox>
                   );

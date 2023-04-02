@@ -15,6 +15,7 @@ function DialogTitle(props: { children: React.ReactNode }) {
   return (
     <h3
       css={{
+        width: '100%',
         height: '40px',
         lineHeight: '30px',
         fontWeight: 'bolder',

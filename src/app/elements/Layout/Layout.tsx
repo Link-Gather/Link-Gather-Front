@@ -1,5 +1,5 @@
 import React from 'react';
-import { type ComponentStyle } from '@routes';
+import { ComponentStyle } from 'app/types';
 
 function Layout(props: { children: React.ReactNode; componentStyle: ComponentStyle }) {
   // prop destruction

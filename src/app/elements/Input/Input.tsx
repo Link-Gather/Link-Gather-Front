@@ -1,38 +1,31 @@
-import { useId, forwardRef } from 'react';
+import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 export type InputStatus = 'inActive' | 'active' | 'error';
 
 const Input = forwardRef(
   (
     props: {
-      inputStatus?: InputStatus;
+      error?: FieldError;
       message?: string;
-      onClick?: () => void | null;
       children?: React.ReactNode;
       maxLength?: number;
       register?: UseFormRegisterReturn;
+      iconProps?: { onIconClick?: () => void };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const {
-      inputStatus = 'inActive',
-      type,
-      maxLength,
-      message,
-      className,
-      children,
-      register,
-      onClick,
-      ...rest
-    } = props;
+
+    const { error, type, message, className, children, register, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
 
     // state, ref hooks
+    const [isFocused, setIsFocused] = useState(false);
+
     // form hook
     // query hooks
     // calculated values
@@ -50,7 +43,6 @@ const Input = forwardRef(
         <input
           id={inputId}
           type={type}
-          maxLength={maxLength}
           css={(theme: Theme) => {
             return [
               {
@@ -71,20 +63,21 @@ const Input = forwardRef(
                   },
                 },
               },
-              inputStatus === 'error' && {
+              isFocused && {
+                border: `2px solid ${theme.palette.secondary.n300}`,
+                '&:focus': {
+                  border: `2px solid ${theme.palette.primary.main}`,
+                },
+              },
+              error && {
                 border: `2px solid ${theme.palette.secondary.red}`,
                 '&:focus': {
                   border: `2px solid ${theme.palette.secondary.red}`,
                 },
               },
-              inputStatus === 'active' && {
-                border: `2px solid ${theme.palette.secondary.n500}`,
-                '&:focus': {
-                  border: `2px solid ${theme.palette.primary.main}`,
-                },
-              },
             ];
           }}
+          onFocus={() => setIsFocused(true)}
           ref={ref}
           {...rest}
           {...register}
@@ -109,7 +102,7 @@ const Input = forwardRef(
               opacity: 1,
             },
           }}
-          onClick={onClick}
+          onClick={iconProps?.onIconClick}
         >
           {children}
         </button>
@@ -123,15 +116,13 @@ const Input = forwardRef(
               fontSize: '12px',
               fontWeight: '400',
               lineHeight: '20px',
-            },
-            inputStatus === 'inActive' && {
               color: theme.palette.secondary.n60,
             },
-            inputStatus === 'error' && {
-              color: theme.palette.secondary.red,
-            },
-            inputStatus === 'active' && {
+            isFocused && {
               color: theme.palette.secondary.n300,
+            },
+            error && {
+              color: theme.palette.secondary.red,
             },
           ]}
         >

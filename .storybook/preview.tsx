@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { DecoratorFn, StoryContext } from '@storybook/react';
 import { ThemeProvider, useTheme } from '../src/app/libs/theme';
 import { MemoryRouter } from 'react-router-dom';
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -21,10 +22,12 @@ export const decorators: DecoratorFn[] = [
     </MemoryRouter>
   ),
 ];
+
 const colorToTheme = {
   '#F8F8F8': 'default',
   '#333333': 'dark',
 };
+
 function ThemeSetter({ context }: { context: StoryContext<any> }) {
   const [, setPalette] = useTheme();
   useEffect(() => {

@@ -1,15 +1,17 @@
-import { FlexBox } from '@elements';
-import { ShadowBox, ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
+import { FlexBox, ShadowBox } from '@elements';
+import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import { mq } from '@libs/theme';
+import { useLocation } from 'react-router-dom';
 
 function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
-  // state, ref, querystring hooks
+  const location = useLocation();
 
-  const step = Number(new URLSearchParams(window.location.search).get('step'));
+  // state, ref, querystring hooks
+  const step = Number(new URLSearchParams(location.search).get('step'));
 
   // form hooks
   // query hooks
@@ -86,8 +88,8 @@ function ForgotPasswordScreen() {
           },
         }}
       >
-        {step === 1 ? <ForgotPasswordEmailForm /> : null}
-        {step === 2 ? <ForgotPasswordForm /> : null}
+        {step === 1 && <ForgotPasswordEmailForm />}
+        {step === 2 && <ForgotPasswordForm />}
       </ShadowBox>
     </FlexBox>
   );

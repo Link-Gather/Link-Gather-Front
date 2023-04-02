@@ -49,7 +49,7 @@ function LoginForm() {
         message={errors.email?.message}
         {...register('email')}
       >
-        {!errors.email && <img src={IconCheckGreen} alt='checked email' />}
+        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
       </Input>
       <Input
         type={!isShowPassword ? 'password' : 'text'}

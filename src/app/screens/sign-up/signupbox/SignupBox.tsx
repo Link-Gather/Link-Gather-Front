@@ -66,6 +66,13 @@ const SignupBox = () => {
   // calculated values
   const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
   const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
+  const canMoveStep2 = !!(
+    getValues('email') &&
+    getValues('code') &&
+    getValues('password') &&
+    getValues('confirmPassword')
+  );
+  const canMoveStep3 = getValues('nickname');
   // effects
   // handlers
 
@@ -132,12 +139,12 @@ const SignupBox = () => {
                   type='email'
                   placeholder='이메일'
                   message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
-                  inputStatus={getValues('email') ? 'active' : 'inActive'}
+                  getValues={getValues('email')}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('email')}
                 />
                 <RequestButton
-                  value={watch('email')}
+                  value={getValues('email')}
                   onClick={() => {
                     setMessage({
                       ...message,
@@ -155,6 +162,7 @@ const SignupBox = () => {
                   placeholder='코드입력'
                   maxLength={6}
                   message={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
+                  getValues={getValues('code')}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('code')}
                 />
@@ -177,7 +185,7 @@ const SignupBox = () => {
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
-                  // inputStatus={!dirtyFields.password ? 'inActive' : errors.password ? 'error' : 'active'}
+                  getValues={getValues('password')}
                   error={errors.password}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('password')}
@@ -188,7 +196,7 @@ const SignupBox = () => {
                   type='password'
                   placeholder='비밀번호 확인'
                   autoComplete='off'
-                  // inputStatus={!dirtyFields.confirmPassword ? 'inActive' : errors.confirmPassword ? 'error' : 'active'}
+                  getValues={getValues('confirmPassword')}
                   error={errors.confirmPassword}
                   message={
                     !dirtyFields.confirmPassword
@@ -202,7 +210,16 @@ const SignupBox = () => {
                 />
               </FlexBox>
             </FlexBox>
-            <SignupButton onClick={moveNextStep}>다음</SignupButton>
+            <SignupButton
+              onClick={moveNextStep}
+              disabled={!canMoveStep2}
+              css={{
+                backgroundColor: !canMoveStep2 ? palette.secondary.n60 : palette.primary.main,
+                cursor: !canMoveStep2 ? 'default' : 'pointer',
+              }}
+            >
+              다음
+            </SignupButton>
           </FlexBox>
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
@@ -280,7 +297,7 @@ const SignupBox = () => {
                 width='227px'
                 message='8자이내, 한글, 영문 숫자 혼용 가능'
                 placeholder='닉네임 입력'
-                inputStatus={!dirtyFields.nickname ? 'inActive' : errors.nickname ? 'error' : 'active'}
+                getValues={getValues('nickname')}
                 {...register('nickname')}
               ></Input>
               <RequestButton
@@ -294,7 +311,16 @@ const SignupBox = () => {
                 중복확인
               </RequestButton>
             </FlexBox>
-            <SignupButton onClick={moveNextStep}>다음</SignupButton>
+            <SignupButton
+              onClick={moveNextStep}
+              disabled={!canMoveStep3}
+              css={{
+                backgroundColor: !canMoveStep3 ? palette.secondary.n60 : palette.primary.main,
+                cursor: !canMoveStep3 ? 'default' : 'pointer',
+              }}
+            >
+              다음
+            </SignupButton>
           </FlexBox>
           {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
           {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}

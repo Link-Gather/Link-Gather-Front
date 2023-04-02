@@ -2,12 +2,11 @@ import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-export type InputStatus = 'inActive' | 'active' | 'error';
-
 const Input = forwardRef(
   (
     props: {
       error?: FieldError;
+      getValues?: string;
       message?: string;
       children?: React.ReactNode;
       maxLength?: number;
@@ -18,7 +17,7 @@ const Input = forwardRef(
   ) => {
     // prop destruction
 
-    const { error, type, message, className, children, register, iconProps, ...rest } = props;
+    const { error, type, getValues, message, className, children, register, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -63,7 +62,7 @@ const Input = forwardRef(
                   },
                 },
               },
-              isFocused && {
+              getValues && {
                 border: `2px solid ${theme.palette.secondary.n300}`,
                 '&:focus': {
                   border: `2px solid ${theme.palette.primary.main}`,

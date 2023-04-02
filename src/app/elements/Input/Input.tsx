@@ -6,7 +6,6 @@ const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      getValues?: string;
       message?: string;
       children?: React.ReactNode;
       maxLength?: number;
@@ -17,7 +16,7 @@ const Input = forwardRef(
   ) => {
     // prop destruction
 
-    const { error, type, getValues, message, className, children, register, iconProps, ...rest } = props;
+    const { error, type, message, className, children, register, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -62,7 +61,7 @@ const Input = forwardRef(
                   },
                 },
               },
-              getValues && {
+              isFocused && {
                 border: `2px solid ${theme.palette.secondary.n300}`,
                 '&:focus': {
                   border: `2px solid ${theme.palette.primary.main}`,

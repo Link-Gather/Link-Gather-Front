@@ -139,7 +139,6 @@ const SignupBox = () => {
                   type='email'
                   placeholder='이메일'
                   message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
-                  getValues={getValues('email')}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('email')}
                 />
@@ -162,7 +161,6 @@ const SignupBox = () => {
                   placeholder='코드입력'
                   maxLength={6}
                   message={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
-                  getValues={getValues('code')}
                   css={{ width: '288px', marginBottom: '16px' }}
                   {...register('code')}
                 />
@@ -185,7 +183,6 @@ const SignupBox = () => {
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
-                  getValues={getValues('password')}
                   error={errors.password}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('password')}
@@ -196,7 +193,6 @@ const SignupBox = () => {
                   type='password'
                   placeholder='비밀번호 확인'
                   autoComplete='off'
-                  getValues={getValues('confirmPassword')}
                   error={errors.confirmPassword}
                   message={
                     !dirtyFields.confirmPassword
@@ -297,7 +293,6 @@ const SignupBox = () => {
                 width='227px'
                 message='8자이내, 한글, 영문 숫자 혼용 가능'
                 placeholder='닉네임 입력'
-                getValues={getValues('nickname')}
                 {...register('nickname')}
               ></Input>
               <RequestButton

@@ -2,6 +2,7 @@ import React, { createContext, ReactNode, useCallback, useContext, useEffect, us
 import { User } from '@models';
 import { getToken } from '../util';
 import { httpClient } from '../http-client';
+import { OauthProvider } from 'app/types';
 
 const loadToken = (token: string) => {
   // TODO: 쿠키에 저장하도록 수정
@@ -111,7 +112,7 @@ export const useOauth = (): [
     async (code: string, provider: OauthProvider) => {
       const result = await httpClient.post<
         { accessToken: string } | { email: string; nickname: string; profileImage: string }
-      >(`/auth/${provider}`, { code });
+      >(`/auth/oauth/${provider}`, { code });
 
       if ('accessToken' in result) {
         loadToken(result.accessToken);

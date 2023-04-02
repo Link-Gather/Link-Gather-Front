@@ -1,5 +1,6 @@
-import React, { ComponentProps } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { FlexBox } from './FlexBox';
 
 type ArgTypes = ComponentProps<typeof FlexBox>;
@@ -9,12 +10,16 @@ export default {
   component: FlexBox,
   args: {
     width: '100%',
-    height: '100%',
+    height: '300px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    direction: 'row',
+    spacing: 4,
     children: (
       <>
-        <div css={{ border: '1px solid #aaaaaa' }}>First Child</div>
-        <div css={{ border: '1px solid #aaaaaa' }}>Second Child</div>
-        <div css={{ border: '1px solid #aaaaaa' }}>Third Child</div>
+        <div style={{ width: '200px', height: '200px', backgroundColor: 'yellow' }}>first box</div>
+        <div style={{ width: '200px', height: '200px', backgroundColor: 'orange' }}>second box</div>
+        <div style={{ width: '200px', height: '200px', backgroundColor: 'green' }}>third box</div>
       </>
     ),
   },
@@ -23,6 +28,8 @@ export default {
     justifyItems: { type: 'string' },
     alignContent: { type: 'string' },
     alignItems: { type: 'string' },
+    direction: { type: 'string' },
+    spacing: { type: 'number' },
   },
 } as Meta<ArgTypes>;
 

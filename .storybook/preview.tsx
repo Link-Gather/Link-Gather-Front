@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { DecoratorFn, StoryContext } from '@storybook/react';
 import { ThemeProvider, useTheme } from '../src/app/libs/theme';
+import { MemoryRouter } from 'react-router-dom';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,17 +15,19 @@ export const parameters = {
 
 export const decorators: DecoratorFn[] = [
   (storyFn, context) => (
-    <ThemeProvider>
-      <ThemeSetter context={context} />
-      {storyFn()}
-    </ThemeProvider>
-  )
-]
+    <MemoryRouter initialEntries={['/']}>
+      <ThemeProvider>
+        <ThemeSetter context={context} />
+        {storyFn()}
+      </ThemeProvider>
+    </MemoryRouter>
+  ),
+];
 
 const colorToTheme = {
   '#F8F8F8': 'default',
   '#333333': 'dark',
-}
+};
 
 function ThemeSetter({ context }: { context: StoryContext<any> }) {
   const [, setPalette] = useTheme();

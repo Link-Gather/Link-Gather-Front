@@ -1,10 +1,13 @@
-function Button(props: {
-  children: React.ReactNode;
-  onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
-  className?: string;
-}) {
+import { Theme } from '@libs/theme';
+
+function Button(
+  props: {
+    children: React.ReactNode;
+    className?: string;
+  } & React.ButtonHTMLAttributes<HTMLButtonElement>
+) {
   // prop destruction
-  const { children, onClick, className } = props;
+  const { children, className, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -16,19 +19,19 @@ function Button(props: {
 
   return (
     <button
-      css={{
-        minWidth: '5rem',
-        height: '2rem',
-        fontSize: '1rem',
-        color: '#FFF',
-        border: 0,
-        borderRadius: '0.8rem',
-        backgroundColor: '#18191F',
-        padding: '0 1.2rem',
+      css={(theme: Theme) => ({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontWeight: '800',
         cursor: 'pointer',
-      }}
+        ':disabled': {
+          backgroundColor: theme.palette.secondary.n40,
+        },
+      })}
       className={className}
-      onClick={onClick}
+      {...rest}
     >
       {children}
     </button>

@@ -28,8 +28,8 @@ export function Dimmer() {
         width: '100%',
         height: '100%',
         display: 'flex',
-        top: 0,
-        left: 0,
+        top: '0px',
+        left: '0px',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',
@@ -48,7 +48,7 @@ export function Dimmer() {
           transition: 'stroke ease 200ms',
           stroke: theme.palette.primary.main,
           '&:hover': {
-            stroke: theme.palette.primary.light,
+            stroke: theme.palette.primary.p20,
           },
         })}
       >

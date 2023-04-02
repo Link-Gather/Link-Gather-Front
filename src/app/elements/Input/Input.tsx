@@ -76,12 +76,12 @@ const Input = forwardRef(
               },
             ];
           }}
-          onFocus={() => setIsFocused(true)}
           ref={ref}
           {...rest}
           {...register}
+          onFocus={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
+          onBlur={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
         />
-
         <button
           type='button'
           tabIndex={-1}

@@ -8,8 +8,8 @@ import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
-import { userRepository } from 'repository';
-import { useMutation } from '@libs/query';
+import { userRepository } from '@repositories';
+import { useMutation } from '@libs/index';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),

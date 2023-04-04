@@ -1,6 +1,6 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 
 export type InputStatus = 'inActive' | 'active' | 'error';
 
@@ -9,14 +9,12 @@ const Input = forwardRef(
     props: {
       error?: FieldError;
       message?: string;
-      children?: React.ReactNode;
-      register?: UseFormRegisterReturn;
-      iconProps?: { onIconClick?: () => void };
+      iconProps?: { onIconClick?: () => void; iconImage?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, className, children, register, iconProps, ...rest } = props;
+    const { error, type, message, className, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -77,7 +75,6 @@ const Input = forwardRef(
           }}
           ref={ref}
           {...rest}
-          {...register}
           onFocus={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
           onBlur={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
         />
@@ -102,7 +99,7 @@ const Input = forwardRef(
           }}
           onClick={iconProps?.onIconClick}
         >
-          {children}
+          {iconProps?.iconImage && <img src={iconProps?.iconImage} alt='icon' />}
         </button>
 
         <span

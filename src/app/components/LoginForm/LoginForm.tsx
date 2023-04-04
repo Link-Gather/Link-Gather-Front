@@ -47,23 +47,23 @@ function LoginForm() {
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
         message={errors.email?.message}
+        iconProps={{
+          iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
+        }}
         {...register('email')}
-      >
-        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
-      </Input>
+      />
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
-        iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
+        iconProps={{
+          onIconClick: () => setIsShowPassword(!isShowPassword),
+          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+        }}
         {...register('password')}
-      >
-        {dirtyFields.password && (
-          <img src={!isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-        )}
-      </Input>
+      />
       <Button
         onClick={handleSubmit(({ email, password }) => userRepository.signin(email, password))}
         css={{

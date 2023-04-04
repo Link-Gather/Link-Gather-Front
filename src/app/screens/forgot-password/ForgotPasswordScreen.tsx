@@ -39,15 +39,15 @@ function ForgotPasswordScreen() {
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'center',
-          width: '58%',
+          width: '54%',
           height: '100%',
           backgroundImage: `url(${BackgroundPlanetPrimary})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% auto',
-          backgroundPosition: 'left 0 bottom -520px',
+          backgroundPosition: 'right -30px bottom calc(-50vw / 2)',
           zIndex: 0,
-
           [mq[0]]: {
+            width: '58%',
             backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
           },
           [mq[2]]: {
@@ -59,13 +59,15 @@ function ForgotPasswordScreen() {
         <div
           css={{
             position: 'absolute',
-            width: '34%',
+            width: '28%',
             height: '100%',
             backgroundImage: `url(${BackgroundAstronautYellow})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100% auto',
-            backgroundPosition: 'left 10px bottom 420px',
+            backgroundPosition: 'right 0 bottom calc(50vw / 2 - 100px)',
+
             [mq[0]]: {
+              width: '34%',
               backgroundPosition: 'left 10px bottom calc(58vw / 2 - 150px)',
             },
             [mq[2]]: {

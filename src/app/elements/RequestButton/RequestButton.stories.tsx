@@ -8,7 +8,6 @@ export default {
   title: 'elements/RequestButton',
   component: RequestButton,
   args: { children: 'Lorem Ipsum is' },
-  argTypes: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

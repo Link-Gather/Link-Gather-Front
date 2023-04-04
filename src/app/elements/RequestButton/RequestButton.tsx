@@ -1,10 +1,6 @@
 import { Theme } from '@libs/theme';
 
-function RequestButton(props: {
-  onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void;
-  className?: string;
-  children: React.ReactNode;
-}) {
+function RequestButton(props: { onClick: () => void; className?: string; children: React.ReactNode }) {
   // prop destruction
   const { onClick, className, children } = props;
   // lib hooks

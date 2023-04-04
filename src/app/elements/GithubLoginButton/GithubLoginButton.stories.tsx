@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof GithubLoginButton>;
 export default {
   title: 'elements/GithubLoginButton',
   component: GithubLoginButton,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

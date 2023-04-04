@@ -1,5 +1,3 @@
-import { Provider } from 'app/types';
-
 export type User = {
   id: string;
   email: string;
@@ -11,8 +9,4 @@ export type User = {
   career: any; // TODO:
   job: 'Developer' | 'Designer' | 'Product Manager' | 'Other';
   urls: string[];
-};
-
-export type UserSignIn = {
-  errorMessages?: string;
 };

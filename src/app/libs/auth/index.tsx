@@ -2,7 +2,6 @@ import React, { createContext, ReactNode, useCallback, useContext, useEffect, us
 import { User } from '@models';
 import { getToken } from '../util';
 import { httpClient } from '../http-client';
-import { OauthProvider } from 'app/types';
 
 const loadToken = (token: string) => {
   // TODO: 쿠키에 저장하도록 수정

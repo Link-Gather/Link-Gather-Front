@@ -75,9 +75,7 @@ function ForgotPasswordForm() {
           {...register('confirmPassword')}
         />
         <Button
-          onClick={handleSubmit(async ({ password, confirmPassword }) => {
-            console.log(password, confirmPassword);
-          })}
+          onClick={handleSubmit(async ({ password, confirmPassword }) => {})}
           css={{
             width: '100%',
             height: '48px',

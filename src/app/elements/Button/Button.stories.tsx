@@ -9,7 +9,9 @@ export default {
   component: Button,
   args: {
     children: 'Lorem Ipsum is',
-    style: { width: '350px', height: '40px', backgroundColor: '#5555ff', color: '#ffffff', borderRadius: '20px' },
+    onClick: () => {
+      alert('You clicked the button!');
+    },
   },
 } as Meta<ArgTypes>;
 

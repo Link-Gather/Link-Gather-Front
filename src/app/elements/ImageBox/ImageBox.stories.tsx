@@ -6,8 +6,6 @@ type ArgTypes = ComponentProps<typeof ImageBox>;
 
 export default {
   title: 'elements/ImageBox',
-  component: ImageBox,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

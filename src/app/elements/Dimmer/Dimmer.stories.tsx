@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof Dimmer>;
 export default {
   title: 'elements/Dimmer',
   component: Dimmer,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

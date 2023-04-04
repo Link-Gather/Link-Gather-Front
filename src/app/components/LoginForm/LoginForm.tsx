@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, FlexBox } from '@elements';
+import { Button, Input, FlexBox, Dimmer } from '@elements';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
-import { userRepository } from '@libs/repository';
+import { userRepository } from 'repository';
+import { useMutation } from '@libs/query';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -34,7 +35,13 @@ function LoginForm() {
       password: '',
     },
   });
+
   // query hooks
+  const { mutateAsync, isLoading } = useMutation(userRepository.signin);
+  if (isLoading) {
+    return <Dimmer />;
+  }
+
   // calculated values
   // effects
   // handlers
@@ -65,7 +72,7 @@ function LoginForm() {
         {...register('password')}
       />
       <Button
-        onClick={handleSubmit(({ email, password }) => userRepository.signin(email, password))}
+        onClick={handleSubmit(({ email, password }) => mutateAsync({ email, password }))}
         css={{
           width: '100%',
           height: '48px',

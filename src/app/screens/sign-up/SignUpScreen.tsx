@@ -78,11 +78,11 @@ function SignUpScreen() {
           <UnderlineTitle title='회원가입' />
           <FlexBox width='100%' css={{ marginTop: '20px' }}>
             <Input placeholder='이메일' width='100%' height='50px' />
-            <RequestButton onClick={() => console.log('request')}>인증요청</RequestButton>
+            <RequestButton onClick={() => {}}>인증요청</RequestButton>
           </FlexBox>
           <FlexBox width='100%' css={{ marginTop: '-20px' }}>
             <Input placeholder='코드입력' width='100%' height='50px' />
-            <RequestButton onClick={() => console.log('request')}>확인</RequestButton>
+            <RequestButton onClick={() => {}}>확인</RequestButton>
           </FlexBox>
           <FlexBox width='100%' css={{ marginTop: '-20px' }}>
             <Input placeholder='비밀번호 입력' height='50px' width='369px' />
@@ -91,10 +91,6 @@ function SignUpScreen() {
             <Input placeholder='비밀번호 확인' height='50px' width='369px' />
           </FlexBox>
           <Button
-            onClick={() => {
-              // TODO : 회원가입 다음단계 이동
-              console.log('go to next step');
-            }}
             css={{
               width: '320px',
               height: '48px',
@@ -104,6 +100,7 @@ function SignUpScreen() {
               margin: '0 auto',
               marginTop: '60px',
             }}
+            // TODO: 회원가입 API 연동
           >
             다음
           </Button>

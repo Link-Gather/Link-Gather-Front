@@ -38,7 +38,6 @@ const endIcon = (
       fontWeight: 700,
       cursor: 'pointer',
     }}
-    onClick={() => console.log('End Icon Clicked!')}
   >
     X
   </span>

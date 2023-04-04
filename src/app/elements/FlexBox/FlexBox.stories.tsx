@@ -23,14 +23,6 @@ export default {
       </>
     ),
   },
-  argTypes: {
-    justifyContent: { type: 'string' },
-    justifyItems: { type: 'string' },
-    alignContent: { type: 'string' },
-    alignItems: { type: 'string' },
-    direction: { type: 'string' },
-    spacing: { type: 'number' },
-  },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

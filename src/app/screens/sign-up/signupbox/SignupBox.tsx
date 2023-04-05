@@ -131,7 +131,6 @@ const SignupBox = () => {
         <UnderlineTitle title='회원가입' />
         <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
           {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
-          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
           <FlexBox justifyContent='center' width='100%' height='447px' css={{ margin: '0 auto' }}>
             <FlexBox direction='column' css={{ marginTop: '25px' }}>
               <FlexBox>

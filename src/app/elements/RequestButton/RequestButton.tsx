@@ -11,7 +11,7 @@ function RequestButton(props: {
   fontSize?: string;
 }) {
   // prop destruction
-  const { onClick, className, children, value, marginLeft, width, height, fontSize } = props;
+  const { onClick, className, children, value } = props;
   // lib hooks
   // state, ref hooks
   // form hook

@@ -37,60 +37,50 @@ function LoginScreen() {
         },
       }}
     >
-      <div
+      <img
+        src={BackgroundPlanetPrimary}
         css={{
           position: 'absolute',
-          left: '0',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
+          left: 'calc(50% - 54vw)',
+          top: 'calc(100% - 32vw)',
           width: '54%',
-          height: '100%',
-          backgroundImage: `url(${BackgroundPlanetPrimary})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% auto',
-          backgroundPosition: 'right -30px bottom calc(-50vw / 2)',
           zIndex: 0,
-          [mq[0]]: {
-            width: '58%',
-            backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
-          },
           [mq[2]]: {
-            width: '80vw',
-            marginLeft: '10vw',
+            width: '80%',
+            top: '100%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           },
         }}
-      >
-        <div
-          css={{
-            position: 'absolute',
-            width: '28%',
-            height: '100%',
-            backgroundImage: `url(${BackgroundAstronautPrimary})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100% auto',
-            backgroundPosition: 'right 0 bottom calc(50vw / 2 - 100px)',
-
-            [mq[0]]: {
-              width: '34%',
-              backgroundPosition: 'left 10px bottom calc(58vw / 2 - 150px)',
-            },
-            [mq[2]]: {
-              backgroundPosition: 'left 10px bottom 40vw',
-            },
-          }}
-        />
-      </div>
+        alt='background planet'
+      />
+      <img
+        src={BackgroundAstronautPrimary}
+        css={{
+          position: 'absolute',
+          left: 'calc(50% - 32vw)',
+          top: 'calc(100% - 42vw)',
+          width: '16%',
+          zIndex: 1,
+          [mq[2]]: {
+            width: '20%',
+            top: '100%',
+            left: '50%',
+            transform: 'translate(-50%, -220%)',
+          },
+        }}
+        alt='background astronaut'
+      />
       <ShadowBox
         css={{
+          position: 'absolute',
           marginLeft: 'calc(50% + 166px)',
           padding: '40px',
-          [mq[1]]: {
-            marginLeft: '50%',
-          },
+          zIndex: 2,
           [mq[2]]: {
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            top: '40px',
+            left: '50%',
+            marginLeft: '-202px',
           },
         }}
       >

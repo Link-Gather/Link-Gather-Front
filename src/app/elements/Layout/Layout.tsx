@@ -1,4 +1,3 @@
-import { mq } from '@libs/theme';
 import React from 'react';
 
 function Layout(props: { children: React.ReactNode; componentStyle: 'contents' | 'full' }) {
@@ -38,11 +37,7 @@ function Layout(props: { children: React.ReactNode; componentStyle: 'contents' |
               width: '100%',
               height: '100vh',
               margin: '0px auto',
-
-              [mq[0]]: {
-                width: '58%',
-                backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
-              },
+              overflow: 'hidden',
             }}
           >
             {children}

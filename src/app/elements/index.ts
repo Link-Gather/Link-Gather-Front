@@ -1,4 +1,5 @@
 export * from './Button';
+export * from './CategoryTitle';
 export * from './Chip';
 export * from './DialogAction';
 export * from './DialogContent';
@@ -11,7 +12,6 @@ export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Layout';
 export * from './RequestButton';
-export * from './CategoryTitle';
 export * from './ShadowBox';
 export * from './Typography';
 export * from './UnderlineTitle';

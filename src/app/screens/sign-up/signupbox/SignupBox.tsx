@@ -63,7 +63,7 @@ const SignupBox = () => {
     selectJob: '',
     selectExperience: '',
     selectSkill: [],
-    urlArray: [],
+    urls: [],
     introduction: '',
   });
 
@@ -117,14 +117,14 @@ const SignupBox = () => {
     if (e.key === 'Enter') {
       setThirdStepState({
         ...thirdStepState,
-        urlArray: [...thirdStepState.urlArray, thirdStepState.urlString],
+        urls: [...thirdStepState.urls, thirdStepState.urlString],
         urlString: '',
       });
     }
   };
 
   const onDeleteUrl = (url: string) => {
-    setThirdStepState({ ...thirdStepState, urlArray: thirdStepState.urlArray?.filter((urlName) => urlName !== url) });
+    setThirdStepState({ ...thirdStepState, urls: thirdStepState.urls?.filter((urlName) => urlName !== url) });
   };
 
   const moveNextStep = (): void => {
@@ -403,6 +403,7 @@ const SignupBox = () => {
                         width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
                       }}
                       key={skill}
+                      skill={skill}
                     >
                       {skill}
                     </SkillTab>
@@ -442,7 +443,7 @@ const SignupBox = () => {
                 onChange={handleChange}
                 value={thirdStepState.urlString}
               />
-              {thirdStepState.urlArray.map((url) => (
+              {thirdStepState.urls.map((url) => (
                 <FlexBox key={url} css={{ padding: '5px' }}>
                   <a
                     css={{

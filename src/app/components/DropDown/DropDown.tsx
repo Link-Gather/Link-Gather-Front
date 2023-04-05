@@ -10,7 +10,7 @@ function DropDown(props: {
   data: string[];
   selectItem: string;
   thirdStepState: ThirdStepData;
-  setThirdStepState: React.Dispatch<React.SetStateAction<ThirdStepData>>;
+  setThirdStepState: (value: ThirdStepData) => void;
 }) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
@@ -31,7 +31,7 @@ function DropDown(props: {
             {
               height: '50px',
               marginTop: '5px',
-              fontSize: 20,
+              fontSize: '20px',
               fontWeight: 500,
               border: `2px solid ${
                 isOpenDialog || selectItem ? theme.palette.black.main : theme.palette.secondary.n60

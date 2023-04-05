@@ -12,6 +12,36 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import styled from '@emotion/styled';
 
+const BottomLineInput = styled('input')({
+  border: 'none',
+  borderBottom: `2px solid ${palette.secondary.n60}`,
+  height: '50px',
+  padding: '10px 40px 0px 0px',
+  fontSize: '18px',
+  '&:focus': {
+    outline: 'none',
+    borderBottom: `2px solid ${palette.primary.main}`,
+  },
+  '::placeholder': {
+    color: palette.secondary.n60,
+    fontWeight: '600',
+  },
+});
+
+const SignupButton = styled('button')({
+  color: palette.contrastText,
+  position: 'absolute',
+  top: '400px',
+  borderRadius: '32px',
+  backgroundColor: palette.primary.main,
+  width: '320px',
+  height: '48px',
+  fontSize: '20px',
+  fontWeight: '600',
+  letterSpacing: '0.6px',
+  cursor: 'pointer',
+});
+
 const SignupBox = () => {
   // prop destruction
   // lib hooks
@@ -464,33 +494,3 @@ const SignupBox = () => {
 };
 
 export { SignupBox };
-
-const BottomLineInput = styled('input')({
-  border: 'none',
-  borderBottom: `2px solid ${palette.secondary.n60}`,
-  height: '50px',
-  padding: '10px 40px 0px 0px',
-  fontSize: '18px',
-  '&:focus': {
-    outline: 'none',
-    borderBottom: `2px solid ${palette.primary.main}`,
-  },
-  '::placeholder': {
-    color: palette.secondary.n60,
-    fontWeight: '600',
-  },
-});
-
-const SignupButton = styled('button')({
-  color: palette.contrastText,
-  position: 'absolute',
-  top: '400px',
-  borderRadius: '32px',
-  backgroundColor: palette.primary.main,
-  width: '320px',
-  height: '48px',
-  fontSize: '20px',
-  fontWeight: '600',
-  letterSpacing: '0.6px',
-  cursor: 'pointer',
-});

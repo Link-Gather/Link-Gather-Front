@@ -38,9 +38,6 @@ function LoginForm() {
 
   // query hooks
   const { mutateAsync, isLoading } = useMutation(userRepository.signin);
-  if (isLoading) {
-    return <Dimmer />;
-  }
 
   // calculated values
   // effects
@@ -84,7 +81,7 @@ function LoginForm() {
         }}
         disabled={!isValid}
       >
-        로그인
+        {isLoading ? <Dimmer /> : '로그인'}
       </Button>
     </FlexBox>
   );

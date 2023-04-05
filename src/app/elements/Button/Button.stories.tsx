@@ -9,9 +9,9 @@ export default {
   component: Button,
   args: {
     children: 'Lorem Ipsum is',
-    onClick: () => {
-      alert('You clicked the button!');
-    },
+  },
+  argTypes: {
+    onClick: { action: 'onClick' },
   },
 } as Meta<ArgTypes>;
 

@@ -2,8 +2,6 @@ import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
 
-export type InputStatus = 'inActive' | 'active' | 'error';
-
 const Input = forwardRef(
   (
     props: {
@@ -75,32 +73,34 @@ const Input = forwardRef(
           }}
           ref={ref}
           {...rest}
-          onFocus={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
-          onBlur={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
+          onFocus={(event) => setIsFocused(!!event.currentTarget.value.length)}
+          onBlur={(event) => setIsFocused(!!event.currentTarget.value.length)}
         />
-        <button
-          type='button'
-          tabIndex={-1}
-          css={{
-            position: 'absolute',
-            top: '0',
-            right: '8px',
-            display: 'flex',
-            height: '50px',
-            alignItems: 'center',
-            border: 'none',
-            background: 'none',
-            cursor: 'pointer',
-            outline: 'none',
-            opacity: 0,
-            '&:focus': {
-              opacity: 1,
-            },
-          }}
-          onClick={iconProps?.onIconClick}
-        >
-          {iconProps?.iconImage && <img src={iconProps?.iconImage} alt='icon' />}
-        </button>
+        {iconProps?.iconImage && (
+          <button
+            type='button'
+            tabIndex={-1}
+            css={{
+              position: 'absolute',
+              top: '0',
+              right: '8px',
+              display: 'flex',
+              height: '50px',
+              alignItems: 'center',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              outline: 'none',
+              opacity: 0,
+              '&:focus': {
+                opacity: 1,
+              },
+            }}
+            onClick={iconProps?.onIconClick}
+          >
+            <img src={iconProps?.iconImage} alt='icon' />
+          </button>
+        )}
 
         <span
           css={(theme: Theme) => [

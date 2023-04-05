@@ -17,7 +17,6 @@ function Typography(props: { variant?: Variant; className?: string; children: Re
 
   const css = ((variant: Variant) => {
     switch (variant) {
-      // TODO: case 별로 스타일 지정 필요
       case 'h1':
         return {
           fontSize: '32px',

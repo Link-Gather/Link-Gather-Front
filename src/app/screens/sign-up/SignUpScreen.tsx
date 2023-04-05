@@ -1,12 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import palette from '@libs/theme/palettes/default';
-
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
-import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
-import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox, UnderlineTitle, RequestButton, ImageBox, Input, Button, ShadowBox } from '@elements';
+import { FlexBox, UnderlineTitle, RequestButton, Input, Button, ShadowBox } from '@elements';
 import { mq } from '@libs/theme';
 
 function SignUpScreen() {
@@ -33,30 +29,6 @@ function SignUpScreen() {
         },
       }}
     >
-      <ImageBox
-        top='28%'
-        left='27%'
-        width='100px'
-        height='10rem'
-        backgroundImage={BackgroundAstronaut1}
-        zIndex='1'
-      ></ImageBox>
-      <ImageBox
-        top='40%'
-        left='10%'
-        width='700px'
-        height='40rem'
-        backgroundImage={BackgroundPlanet1}
-        zIndex='0'
-      ></ImageBox>
-      <ImageBox
-        left='70%'
-        top='-1.9%'
-        width='300px'
-        height='500px'
-        backgroundImage={BackgroundPlanet2}
-        zIndex='0'
-      ></ImageBox>
       <ShadowBox
         css={{
           width: '566px',

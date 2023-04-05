@@ -3,15 +3,16 @@ import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import { mq } from '@libs/theme';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
-  const location = useLocation();
+  // const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   // state, ref, querystring hooks
-  const step = Number(new URLSearchParams(location.search).get('step'));
+  const step = searchParams.get('step');
 
   // form hooks
   // query hooks
@@ -90,8 +91,8 @@ function ForgotPasswordScreen() {
           },
         }}
       >
-        {step === 1 && <ForgotPasswordEmailForm />}
-        {step === 2 && <ForgotPasswordForm />}
+        {step === '1' && <ForgotPasswordEmailForm />}
+        {step === '2' && <ForgotPasswordForm />}
       </ShadowBox>
     </FlexBox>
   );

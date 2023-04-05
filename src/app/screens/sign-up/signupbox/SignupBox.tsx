@@ -76,7 +76,7 @@ const SignupBox = () => {
   // effects
   // handlers
 
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
     setThirdStepState((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -350,7 +350,7 @@ const SignupBox = () => {
                 name='searchSkill'
                 type='text'
                 value={thirdStepState.searchSkill}
-                onChange={onChange}
+                onChange={handleChange}
                 placeholder='기술 스택 검색'
                 css={{ padding: '10px 40px 0px 40px' }}
               ></BottomLineInput>
@@ -385,7 +385,7 @@ const SignupBox = () => {
             <FlexBox width='100%' direction='column'>
               <CategoryTitle label='자기소개 *' />
               <textarea
-                onChange={onChange}
+                onChange={handleChange}
                 value={thirdStepState.introduction}
                 name='introduction'
                 css={{
@@ -409,7 +409,7 @@ const SignupBox = () => {
                 placeholder='URL을 입력해주세요.'
                 type='text'
                 name='urlString'
-                onChange={onChange}
+                onChange={handleChange}
                 value={thirdStepState.urlString}
               />
               {thirdStepState.urlArray.map((url) => (

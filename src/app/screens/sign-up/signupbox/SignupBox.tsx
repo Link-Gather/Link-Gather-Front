@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, SkillTab, ShadowBox } from '@elements';
-import { MessageType, prevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
+import { MessageType, PrevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
 import { VALIDATION_PATTERN } from '@libs/constants/validation.constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
@@ -52,7 +52,7 @@ const SignupBox = () => {
     codeMessage: '',
     confirmPasswordMessage: '',
   });
-  const [prevValue, setPrevValue] = useState<prevValueType>({
+  const [prevValue, setPrevValue] = useState<PrevValueType>({
     prevEmailValue: '',
     prevCodeValue: '',
   });

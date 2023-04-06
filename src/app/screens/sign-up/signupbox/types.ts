@@ -1,30 +1,32 @@
-export interface ValidationSignup {
+export type ValidationSignup = {
   email: string;
   code: string;
   password: string;
   confirmPassword: string;
   nickname: string;
-}
-export interface MessageType {
+};
+
+export type MessageType = {
   emailMessage: string;
   codeMessage: string;
   confirmPasswordMessage: string;
-}
-export interface prevValueType {
+};
+
+export type PrevValueType = {
   prevEmailValue: string;
   prevCodeValue: string;
-}
+};
 
-export interface CharacterProps {
+export type CharacterProps = {
   id: number;
   src: string;
   backgroundColor: string;
   width: string;
   height: string;
   marginTop: string;
-}
+};
 
-export interface ThirdStepData {
+export type ThirdStepData = {
   searchSkill: string;
   urlString: string;
   selectJob: string;
@@ -32,4 +34,4 @@ export interface ThirdStepData {
   selectedSkill: string[];
   urls: string[];
   introduction: string;
-}
+};

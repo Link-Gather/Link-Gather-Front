@@ -11,8 +11,8 @@ export default {
     skills: ['java', 'javascript'],
     thirdStepState: {
       searchSkill: '',
-      selectJob: '',
-      selectExperience: '',
+      selectedJob: '',
+      selectedExperience: '',
     },
   },
 } as Meta<ArgTypes>;

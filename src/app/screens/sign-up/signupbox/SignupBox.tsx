@@ -41,7 +41,16 @@ const SignupButton = styled('button')({
   letterSpacing: '0.6px',
   cursor: 'pointer',
 });
+const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
+const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
 
+const schema = yup.object().shape({
+  email: yup.string(),
+  code: yup.string(),
+  password: yup.string().matches(VALIDATION_PATTERN.password),
+  confirmPassword: yup.string().oneOf([yup.ref('password'), '']),
+  nickname: yup.string().matches(VALIDATION_PATTERN.nickname),
+});
 const SignupBox = () => {
   // prop destruction
   // lib hooks
@@ -68,13 +77,6 @@ const SignupBox = () => {
   });
 
   // form hooks
-  const schema = yup.object().shape({
-    email: yup.string(),
-    code: yup.string(),
-    password: yup.string().matches(VALIDATION_PATTERN.password),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), '']),
-    nickname: yup.string().matches(VALIDATION_PATTERN.nickname),
-  });
 
   const {
     register,
@@ -94,8 +96,6 @@ const SignupBox = () => {
   });
   // query hooks
   // calculated values
-  const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
-  const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
   const canMoveStep2 = !!(
     getValues('email') &&
     getValues('code') &&
@@ -160,7 +160,7 @@ const SignupBox = () => {
         </FlexBox>
         <UnderlineTitle title='회원가입' />
         <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
-          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
+          {/* <-- step1 */}
           <FlexBox justifyContent='center' width='100%' height='447px' css={{ margin: '0 auto' }}>
             <FlexBox direction='column' css={{ marginTop: '25px' }}>
               <FlexBox>
@@ -246,11 +246,8 @@ const SignupBox = () => {
               다음
             </SignupButton>
           </FlexBox>
-          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
-          {/* step111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */}
-
-          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
-          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          {/* --> */}
+          {/* <-- step2 */}
           <FlexBox
             width='100%'
             height='447px'
@@ -346,11 +343,9 @@ const SignupBox = () => {
               다음
             </SignupButton>
           </FlexBox>
-          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
-          {/* step222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 */}
+          {/* --> */}
 
-          {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
-          {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+          {/* <-- step3 */}
           <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px', marginLeft: '90px' }}>
             <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
               <FlexBox width='212px' direction='column'>
@@ -482,8 +477,7 @@ const SignupBox = () => {
                 </FlexBox>
               ))}
             </FlexBox>
-            {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
-            {/* step333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 */}
+            {/* --> */}
             <SignupButton css={{ top: '529px' }} onClick={moveNextStep}>
               회원가입
             </SignupButton>

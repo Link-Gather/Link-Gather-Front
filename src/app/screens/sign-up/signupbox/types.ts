@@ -29,7 +29,7 @@ export interface ThirdStepData {
   urlString: string;
   selectJob: string;
   selectExperience: string;
-  selectSkill: string[];
+  selectedSkill: string[];
   urls: string[];
   introduction: string;
 }

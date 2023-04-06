@@ -39,17 +39,17 @@ function SignUpScreen() {
         alt='signupBackground'
         src={BackgroundAstronaut1}
         css={{ position: 'fixed', top: '28%', left: '27%', width: '100px', height: '150px', zIndex: '1' }}
-      ></img>
+      />
       <img
         alt='signupBackground'
         src={BackgroundPlanet1}
         css={{ position: 'fixed', top: '40%', left: '10%', width: '700px', height: '700px', zIndex: '0' }}
-      ></img>
+      />
       <img
         alt='signupBackground'
         src={BackgroundPlanet2}
         css={{ position: 'fixed', top: '-13%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
-      ></img>
+      />
       <SignupBox />
     </FlexBox>
   );

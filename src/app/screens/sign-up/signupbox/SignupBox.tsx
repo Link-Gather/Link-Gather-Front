@@ -62,7 +62,7 @@ const SignupBox = () => {
     urlString: '',
     selectJob: '',
     selectExperience: '',
-    selectSkill: [],
+    selectedSkill: [],
     urls: [],
     introduction: '',
   });
@@ -396,8 +396,8 @@ const SignupBox = () => {
                   overflowY: 'auto',
                 }}
               >
-                {thirdStepState.selectSkill.length !== 0 &&
-                  thirdStepState.selectSkill.map((skill) => (
+                {thirdStepState.selectedSkill.length !== 0 &&
+                  thirdStepState.selectedSkill.map((skill) => (
                     <SkillTab
                       css={{
                         width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',

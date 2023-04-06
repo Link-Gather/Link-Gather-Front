@@ -105,7 +105,7 @@ const Input = forwardRef(
         <span
           css={(theme: Theme) => [
             {
-              display: 'block',
+              display: 'inline-block',
               width: '100%',
               height: '20px',
               fontSize: '12px',

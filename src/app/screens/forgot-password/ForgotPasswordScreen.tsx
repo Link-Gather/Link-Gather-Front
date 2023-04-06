@@ -76,8 +76,8 @@ function ForgotPasswordScreen() {
           zIndex: 2,
           [mq[2]]: {
             top: '40px',
-            left: '50%',
-            marginLeft: '-202px',
+            left: 'calc(50% - 202px)',
+            marginLeft: '0',
           },
         }}
       >

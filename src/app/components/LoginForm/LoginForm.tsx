@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, FlexBox, Dimmer } from '@elements';
+import { Button, Input, FlexBox } from '@elements';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
-import { useMutation } from '@libs/index';
+import { useMutation } from '@libs/query';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -69,7 +69,7 @@ function LoginForm() {
         {...register('password')}
       />
       <Button
-        onClick={handleSubmit(({ email, password }) => mutateAsync({ email, password }))}
+        onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
         css={{
           width: '100%',
           height: '48px',
@@ -81,7 +81,7 @@ function LoginForm() {
         }}
         disabled={!isValid}
       >
-        {isLoading ? <Dimmer /> : '로그인'}
+        {isLoading ? '로딩중...' : '로그인'}
       </Button>
     </FlexBox>
   );

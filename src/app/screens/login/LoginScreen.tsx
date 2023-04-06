@@ -79,12 +79,12 @@ function LoginScreen() {
           zIndex: 2,
           [mq[2]]: {
             top: '40px',
-            left: '50%',
-            marginLeft: '-202px',
+            left: 'calc(50% - 202px)',
+            marginLeft: '0',
           },
         }}
       >
-        <FlexBox width='320px' direction='column' css={{ minWidth: '320px' }}>
+        <FlexBox width='320px' direction='column'>
           <FlexBox direction='row' width='100%'>
             <Link to={PATH_HOME}>
               <img src={IconArrowLeft} alt='go home' />

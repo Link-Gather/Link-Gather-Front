@@ -42,7 +42,7 @@ function ForgotPasswordForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
+    <FlexBox width='320px' direction='column' spacing={4}>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />

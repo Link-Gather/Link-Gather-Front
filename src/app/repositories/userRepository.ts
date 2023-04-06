@@ -1,4 +1,5 @@
-import { httpClient, queryKeyMap } from '@libs/index';
+import { httpClient } from '@libs/http-client';
+import { queryKeyMap } from '@libs/query';
 
 export const userRepository = {
   async signin({ email, password }: { email: string; password: string }) {

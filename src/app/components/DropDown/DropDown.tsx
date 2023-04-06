@@ -10,11 +10,11 @@ function DropDown(props: {
   data: string[];
   selectItem: string;
   thirdStepState: ThirdStepData;
-  setThirdStepState: (value: ThirdStepData) => void;
+  onClick: (value: ThirdStepData) => void;
 }) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const { className, value, data, selectItem, thirdStepState, setThirdStepState, ...rest } = props;
+  const { className, value, data, selectItem, thirdStepState, onClick } = props;
 
   // lib hooks
   // state, ref hooks
@@ -44,7 +44,6 @@ function DropDown(props: {
           ];
         }}
         className={className}
-        {...rest}
       >
         <span
           css={(theme: Theme) => {
@@ -109,7 +108,7 @@ function DropDown(props: {
                       ];
                     }}
                     onClick={() => {
-                      setThirdStepState(
+                      onClick(
                         selectItem === thirdStepState.selectJob
                           ? { ...thirdStepState, selectJob: data }
                           : { ...thirdStepState, selectExperience: data }

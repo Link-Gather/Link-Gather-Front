@@ -21,7 +21,11 @@ const SkillDropdown = (props: {
   // effects
   // handlers
   const addSkill = (skill: string) => {
-    setThirdStepState({ ...thirdStepState, selectSkill: [...thirdStepState.selectSkill, skill], searchSkill: '' });
+    setThirdStepState({
+      ...thirdStepState,
+      selectedSkill: [...thirdStepState.selectedSkill, skill],
+      searchSkill: '',
+    });
   };
 
   return (

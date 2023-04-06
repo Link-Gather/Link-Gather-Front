@@ -1,20 +1,20 @@
 import { useDialog } from '@hooks';
 import { FlexBox } from '@elements';
-import { type Theme } from '@libs/theme';
 import { ThirdStepData } from 'app/screens/sign-up/signupbox/types';
+import palette from '@libs/theme/palettes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
 function DropDown(props: {
   className?: string;
   value?: string;
   data: string[];
-  selectItem: string;
+  selectedItem: string;
   thirdStepState: ThirdStepData;
   onClick: (value: ThirdStepData) => void;
 }) {
   // prop destruction
   const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
-  const { className, value, data, selectItem, thirdStepState, onClick } = props;
+  const { className, value, data, selectedItem, thirdStepState, onClick } = props;
 
   // lib hooks
   // state, ref hooks
@@ -26,35 +26,25 @@ function DropDown(props: {
   return (
     <FlexBox direction='column' css={{ position: 'relative' }}>
       <FlexBox
-        css={(theme: Theme) => {
-          return [
-            {
-              height: '50px',
-              marginTop: '5px',
-              fontSize: '20px',
-              fontWeight: 500,
-              border: `2px solid ${
-                isOpenDialog || selectItem ? theme.palette.black.main : theme.palette.secondary.n60
-              }`,
-              borderRadius: 8,
-              padding: '11px 16px 11px 16px',
-              outline: 'none',
-              position: 'relative',
-            },
-          ];
+        css={{
+          height: '50px',
+          marginTop: '5px',
+          fontSize: '20px',
+          fontWeight: 500,
+          border: `2px solid ${isOpenDialog || selectedItem ? palette.black.main : palette.secondary.n60}`,
+          borderRadius: 8,
+          padding: '11px 16px 11px 16px',
+          outline: 'none',
+          position: 'relative',
         }}
         className={className}
       >
         <span
-          css={(theme: Theme) => {
-            return [
-              {
-                color: selectItem ? theme.palette.black.main : theme.palette.secondary.n60,
-              },
-            ];
+          css={{
+            color: selectedItem ? palette.black.main : palette.secondary.n60,
           }}
         >
-          {selectItem ? selectItem : value}
+          {selectedItem ? selectedItem : value}
         </span>
         <button
           css={{
@@ -74,20 +64,16 @@ function DropDown(props: {
         </button>
         {isOpenDialog && (
           <div
-            css={(theme: Theme) => {
-              return [
-                {
-                  width: '100%',
-                  border: `2px solid ${theme.palette.black.main}`,
-                  position: 'absolute',
-                  top: '105%',
-                  left: '0',
-                  backgroundColor: theme.palette.paper,
-                  borderRadius: '8px',
-                  boxShadow: `3px 5px 0px ${theme.palette.black.main}`,
-                  zIndex: '2',
-                },
-              ];
+            css={{
+              width: '100%',
+              border: `2px solid ${palette.black.main}`,
+              position: 'absolute',
+              top: '105%',
+              left: '0',
+              backgroundColor: palette.paper,
+              borderRadius: '8px',
+              boxShadow: `3px 5px 0px ${palette.black.main}`,
+              zIndex: '2',
             }}
           >
             <ul css={{ padding: '10px 0px' }}>
@@ -95,23 +81,19 @@ function DropDown(props: {
                 return (
                   <li
                     key={data}
-                    css={(theme: Theme) => {
-                      return [
-                        {
-                          fontSize: '16px',
-                          margin: '10px 15px',
-                          cursor: 'pointer',
-                          '&:hover': {
-                            color: theme.palette.primary.main,
-                          },
-                        },
-                      ];
+                    css={{
+                      fontSize: '16px',
+                      margin: '10px 15px',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: palette.primary.main,
+                      },
                     }}
                     onClick={() => {
                       onClick(
-                        selectItem === thirdStepState.selectJob
-                          ? { ...thirdStepState, selectJob: data }
-                          : { ...thirdStepState, selectExperience: data }
+                        selectedItem === thirdStepState.selectedJob
+                          ? { ...thirdStepState, selectedJob: data }
+                          : { ...thirdStepState, selectedExperience: data }
                       );
                       closeDialog();
                     }}

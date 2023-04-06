@@ -13,13 +13,13 @@ export default {
     thirdStepState: {
       searchSkill: '',
       urlString: '',
-      selectJob: '',
-      selectExperience: '',
-      selectSkill: [],
-      urlArray: [],
+      selectedJob: '',
+      selectedExperience: '',
+      selectedSkill: [],
+      urls: [],
       introduction: '',
     },
-    setThirdStepState: (updatedState: { selectJob?: string; selectExperience?: string }) => {
+    setThirdStepState: (updatedState: { selectedJob?: string; selectExperience?: string }) => {
       console.log(updatedState);
     },
   },

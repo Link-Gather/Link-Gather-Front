@@ -29,8 +29,8 @@ export type CharacterProps = {
 export type ThirdStepData = {
   searchSkill: string;
   urlString: string;
-  selectJob: string;
-  selectExperience: string;
+  selectedJob: string;
+  selectedExperience: string;
   selectedSkill: string[];
   urls: string[];
   introduction: string;

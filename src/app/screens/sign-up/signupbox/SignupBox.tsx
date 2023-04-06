@@ -60,8 +60,8 @@ const SignupBox = () => {
   const [thirdStepState, setThirdStepState] = useState<ThirdStepData>({
     searchSkill: '',
     urlString: '',
-    selectJob: '',
-    selectExperience: '',
+    selectedJob: '',
+    selectedExperience: '',
     selectedSkill: [],
     urls: [],
     introduction: '',
@@ -358,9 +358,9 @@ const SignupBox = () => {
                 <DropDown
                   value='기획자'
                   data={jobData}
-                  selectItem={thirdStepState.selectJob}
+                  selectedItem={thirdStepState.selectedJob}
                   thirdStepState={thirdStepState}
-                  setThirdStepState={setThirdStepState}
+                  onClick={setThirdStepState}
                 ></DropDown>
               </FlexBox>
               <FlexBox width='168px' direction='column'>
@@ -368,9 +368,9 @@ const SignupBox = () => {
                 <DropDown
                   value='1~3년차'
                   data={experienceData}
-                  selectItem={thirdStepState.selectExperience}
+                  selectedItem={thirdStepState.selectedExperience}
                   thirdStepState={thirdStepState}
-                  setThirdStepState={setThirdStepState}
+                  onClick={setThirdStepState}
                 ></DropDown>
               </FlexBox>
             </FlexBox>

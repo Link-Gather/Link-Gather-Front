@@ -2,6 +2,7 @@ import React from 'react';
 import { type Theme } from '@libs/theme';
 import { ThirdStepData } from 'app/screens/sign-up/signupbox/types';
 import { FlexBox, SkillTab } from '@elements';
+import palette from '@libs/theme/palettes';
 
 const SkillDropdown = (props: {
   skills: string[];
@@ -30,24 +31,20 @@ const SkillDropdown = (props: {
 
   return (
     <FlexBox
-      css={(theme: Theme) => {
-        return [
-          {
-            width: '100%',
-            minHeight: '68px',
-            maxHeight: '98px',
-            border: `2px solid ${theme.palette.black.main}`,
-            position: 'absolute',
-            top: '99%',
-            backgroundColor: theme.palette.paper,
-            borderRadius: '8px',
-            boxShadow: `3px 5px 0px ${theme.palette.black.main}`,
-            zIndex: '2',
-            display: 'flex',
-            overflow: 'auto',
-            padding: '4px',
-          },
-        ];
+      css={{
+        width: '100%',
+        minHeight: '68px',
+        maxHeight: '98px',
+        border: `2px solid ${palette.black.main}`,
+        position: 'absolute',
+        top: '99%',
+        backgroundColor: palette.paper,
+        borderRadius: '8px',
+        boxShadow: `3px 5px 0px ${palette.black.main}`,
+        zIndex: '2',
+        display: 'flex',
+        overflow: 'auto',
+        padding: '4px',
       }}
     >
       <FlexBox css={{ flexWrap: 'wrap' }}>

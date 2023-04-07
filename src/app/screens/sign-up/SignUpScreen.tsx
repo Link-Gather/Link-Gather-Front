@@ -4,8 +4,11 @@ import { SignupBox } from './signupbox';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { FlexBox } from '@elements';
-import { type Theme, mq } from '@libs/theme';
+import { Link } from 'react-router-dom';
+import { FlexBox, UnderlineTitle, RequestButton, Input, Button, ShadowBox } from '@elements';
+import palette from '@libs/theme/palettes/default';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { mq } from '@libs/theme';
 
 function SignUpScreen() {
   // prop destruction
@@ -25,15 +28,13 @@ function SignUpScreen() {
       width='100%'
       height='100vh'
       alignItems='center'
-      css={(theme: Theme) => [
-        {
-          backgroundColor: '#2E558E',
-          [mq[2]]: {
-            alignItems: 'flex-start',
-            paddingTop: '40px',
-          },
+      css={{
+        backgroundColor: '#2E558E',
+        [mq[2]]: {
+          alignItems: 'flex-start',
+          paddingTop: '40px',
         },
-      ]}
+      }}
     >
       <img
         alt='signupBackground'

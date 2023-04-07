@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof KakaoLoginButton>;
 export default {
   title: 'elements/KakaoLoginButton',
   component: KakaoLoginButton,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

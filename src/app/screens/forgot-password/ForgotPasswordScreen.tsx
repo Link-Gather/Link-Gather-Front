@@ -3,15 +3,16 @@ import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import { mq } from '@libs/theme';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 function ForgotPasswordScreen() {
   // prop destruction
   // lib hooks
-  const location = useLocation();
+  // const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   // state, ref, querystring hooks
-  const step = Number(new URLSearchParams(location.search).get('step'));
+  const step = searchParams.get('step');
 
   // form hooks
   // query hooks
@@ -32,64 +33,56 @@ function ForgotPasswordScreen() {
         },
       }}
     >
-      <div
+      <img
+        src={BackgroundPlanetPrimary}
         css={{
           position: 'absolute',
-          left: '0',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
-          width: '58%',
-          height: '100%',
-          backgroundImage: `url(${BackgroundPlanetPrimary})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% auto',
-          backgroundPosition: 'left 0 bottom -520px',
+          left: 'calc(50% - 54vw)',
+          top: 'calc(100% - 32vw)',
+          width: '54%',
           zIndex: 0,
-
-          [mq[0]]: {
-            backgroundPosition: 'left 0 bottom calc(-58vw / 2)',
-          },
           [mq[2]]: {
-            width: '80vw',
-            marginLeft: '10vw',
+            width: '80%',
+            top: '100%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           },
         }}
-      >
-        <div
-          css={{
-            position: 'absolute',
-            width: '34%',
-            height: '100%',
-            backgroundImage: `url(${BackgroundAstronautYellow})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100% auto',
-            backgroundPosition: 'left 10px bottom 420px',
-            [mq[0]]: {
-              backgroundPosition: 'left 10px bottom calc(58vw / 2 - 150px)',
-            },
-            [mq[2]]: {
-              backgroundPosition: 'left 10px bottom 40vw',
-            },
-          }}
-        />
-      </div>
+        alt='background planet'
+      />
+      <img
+        src={BackgroundAstronautYellow}
+        css={{
+          position: 'absolute',
+          left: 'calc(50% - 32vw)',
+          top: 'calc(100% - 42vw)',
+          width: '16%',
+          zIndex: 1,
+          [mq[2]]: {
+            width: '20%',
+            top: '100%',
+            left: '50%',
+            transform: 'translate(-50%, -220%)',
+          },
+        }}
+        alt='background astronaut'
+      />
       <ShadowBox
         css={{
-          marginTop: 'calc(50vh - 295px)',
+          position: 'absolute',
           marginLeft: 'calc(50% + 166px)',
+          top: 'calc(50vh - 295px)',
           padding: '40px',
-          [mq[1]]: {
-            marginLeft: '50%',
-          },
+          zIndex: 2,
           [mq[2]]: {
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            top: '40px',
+            left: 'calc(50% - 202px)',
+            marginLeft: '0',
           },
         }}
       >
-        {step === 1 && <ForgotPasswordEmailForm />}
-        {step === 2 && <ForgotPasswordForm />}
+        {step === '1' && <ForgotPasswordEmailForm />}
+        {step === '2' && <ForgotPasswordForm />}
       </ShadowBox>
     </FlexBox>
   );

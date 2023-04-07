@@ -321,14 +321,7 @@ const SignupBox = () => {
                 placeholder='닉네임 입력'
                 {...register('nickname')}
               ></Input>
-              <RequestButton
-                onClick={() => {}}
-                fontSize='14px'
-                value={getValues('nickname')}
-                marginLeft='4px'
-                height='50px'
-                width='93px'
-              >
+              <RequestButton onClick={() => {}} value={getValues('nickname')}>
                 중복확인
               </RequestButton>
             </FlexBox>

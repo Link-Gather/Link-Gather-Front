@@ -7,7 +7,7 @@ const spin = keyframes({
     transform: 'rotate(-90deg)',
   },
   '100%': {
-    strokeDashoffset: '0px',
+    strokeDashoffset: 0,
     transform: 'rotate(270deg)',
   },
 });
@@ -28,8 +28,8 @@ export function Dimmer() {
         width: '100%',
         height: '100%',
         display: 'flex',
-        top: '0px',
-        left: '0px',
+        top: 0,
+        left: 0,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'fixed',

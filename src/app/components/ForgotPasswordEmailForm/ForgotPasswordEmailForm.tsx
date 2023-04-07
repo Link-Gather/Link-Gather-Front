@@ -38,7 +38,7 @@ function ForgotPasswordEmailForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4} css={{ minWidth: '320px' }}>
+    <FlexBox width='320px' direction='column' spacing={4}>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
@@ -52,10 +52,9 @@ function ForgotPasswordEmailForm() {
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email}
           message={errors.email?.message}
+          iconProps={{ iconImage: (isValid && IconCheckGreen) || undefined }}
           {...register('email')}
-        >
-          {isValid && <img src={IconCheckGreen} alt='checked email' />}
-        </Input>
+        />
         <Button
           css={{
             width: '100%',
@@ -67,9 +66,7 @@ function ForgotPasswordEmailForm() {
             marginTop: '24px',
           }}
           disabled={!isValid}
-          onClick={handleSubmit(async ({ email }) => {
-            console.log(email);
-          })}
+          onClick={handleSubmit(async ({ email }) => {})}
         >
           인증하기 <img src={IconArrowRight} alt='go next' />
         </Button>

@@ -10,13 +10,12 @@ const Input = forwardRef(
       children?: React.ReactNode;
       maxLength?: number;
       register?: UseFormRegisterReturn;
-      iconProps?: { onIconClick?: () => void };
+      iconProps?: { onIconClick?: () => void; iconImage?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-
-    const { error, type, message, className, children, register, iconProps, ...rest } = props;
+    const { error, type, message, className, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -77,38 +76,39 @@ const Input = forwardRef(
           }}
           ref={ref}
           {...rest}
-          {...register}
-          onFocus={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
-          onBlur={(event) => setIsFocused(event.currentTarget.value.length !== 0)}
+          onFocus={(event) => setIsFocused(!!event.currentTarget.value.length)}
+          onBlur={(event) => setIsFocused(!!event.currentTarget.value.length)}
         />
-        <button
-          type='button'
-          tabIndex={-1}
-          css={{
-            position: 'absolute',
-            top: '0',
-            right: '8px',
-            display: 'flex',
-            height: '50px',
-            alignItems: 'center',
-            border: 'none',
-            background: 'none',
-            cursor: 'pointer',
-            outline: 'none',
-            opacity: 0,
-            '&:focus': {
-              opacity: 1,
-            },
-          }}
-          onClick={iconProps?.onIconClick}
-        >
-          {children}
-        </button>
+        {iconProps?.iconImage && (
+          <button
+            type='button'
+            tabIndex={-1}
+            css={{
+              position: 'absolute',
+              top: '0',
+              right: '8px',
+              display: 'flex',
+              height: '50px',
+              alignItems: 'center',
+              border: 'none',
+              background: 'none',
+              cursor: 'pointer',
+              outline: 'none',
+              opacity: 0,
+              '&:focus': {
+                opacity: 1,
+              },
+            }}
+            onClick={iconProps?.onIconClick}
+          >
+            <img src={iconProps?.iconImage} alt='icon' />
+          </button>
+        )}
 
         <span
           css={(theme: Theme) => [
             {
-              display: 'block',
+              display: 'inline-block',
               width: '100%',
               height: '20px',
               fontSize: '12px',

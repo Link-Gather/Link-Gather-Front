@@ -8,7 +8,8 @@ import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
-import { userRepository } from '@libs/repository';
+import { userRepository } from '@repositories';
+import { useMutation } from '@libs/query';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -34,7 +35,10 @@ function LoginForm() {
       password: '',
     },
   });
+
   // query hooks
+  const { mutateAsync, isLoading } = useMutation(userRepository.signin);
+
   // calculated values
   // effects
   // handlers
@@ -46,25 +50,25 @@ function LoginForm() {
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
         message={errors.email?.message}
+        iconProps={{
+          iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
+        }}
         {...register('email')}
-      >
-        {!errors.email && dirtyFields.email && <img src={IconCheckGreen} alt='checked email' />}
-      </Input>
+      />
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
-        iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
+        iconProps={{
+          onIconClick: () => setIsShowPassword(!isShowPassword),
+          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+        }}
         {...register('password')}
-      >
-        {dirtyFields.password && (
-          <img src={!isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-        )}
-      </Input>
+      />
       <Button
-        onClick={handleSubmit(({ email, password }) => userRepository.signin(email, password))}
+        onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
         css={{
           width: '100%',
           height: '48px',
@@ -76,7 +80,7 @@ function LoginForm() {
         }}
         disabled={!isValid}
       >
-        로그인
+        {isLoading ? '로딩중...' : '로그인'}
       </Button>
     </FlexBox>
   );

@@ -19,8 +19,8 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
       <div
         css={{
           position: 'fixed',
-          top: '0px',
-          left: '0px',
+          top: 0,
+          left: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

@@ -42,7 +42,7 @@ function ForgotPasswordForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4} css={{ position: 'relative', minWidth: '320px' }}>
+    <FlexBox width='320px' direction='column' spacing={4}>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
@@ -56,30 +56,26 @@ function ForgotPasswordForm() {
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.password}
           message={errors.password?.message}
-          iconProps={{ onIconClick: () => setIsShowPassword(!isShowPassword) }}
+          iconProps={{
+            onIconClick: () => setIsShowPassword(!isShowPassword),
+            iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+          }}
           {...register('password')}
-        >
-          {dirtyFields.password && (
-            <img src={!isShowPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-          )}
-        </Input>
+        />
         <Input
           type={!isShowConfirmPassword ? 'password' : 'text'}
           placeholder='비밀번호 확인'
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
-          iconProps={{ onIconClick: () => setIsShowConfirmPassword(!isShowConfirmPassword) }}
+          iconProps={{
+            onIconClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
+            iconImage: dirtyFields.confirmPassword && !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
+          }}
           {...register('confirmPassword')}
-        >
-          {dirtyFields.confirmPassword && (
-            <img src={!isShowConfirmPassword ? IconPasswordHide : IconPasswordShow} alt='checked password' />
-          )}
-        </Input>
+        />
         <Button
-          onClick={handleSubmit(async ({ password, confirmPassword }) => {
-            console.log(password, confirmPassword);
-          })}
+          onClick={handleSubmit(async ({ password, confirmPassword }) => {})}
           css={{
             width: '100%',
             height: '48px',

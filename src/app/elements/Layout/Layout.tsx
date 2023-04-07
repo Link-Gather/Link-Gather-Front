@@ -1,7 +1,6 @@
 import React from 'react';
-import { ComponentStyle } from 'app/types';
 
-function Layout(props: { children: React.ReactNode; componentStyle: ComponentStyle }) {
+function Layout(props: { children: React.ReactNode; componentStyle: 'contents' | 'full' }) {
   // prop destruction
   const { children, componentStyle } = props;
 
@@ -37,8 +36,8 @@ function Layout(props: { children: React.ReactNode; componentStyle: ComponentSty
               position: 'relative',
               width: '100%',
               height: '100vh',
-              maxWidth: '1920px',
               margin: '0px auto',
+              overflow: 'hidden',
             }}
           >
             {children}

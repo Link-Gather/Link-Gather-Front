@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof GoogleLoginButton>;
 export default {
   title: 'elements/GoogleLoginButton',
   component: GoogleLoginButton,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

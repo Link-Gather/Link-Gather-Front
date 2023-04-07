@@ -13,7 +13,7 @@ function DropDown(props: {
   onClick: (value: ThirdStepData) => void;
 }) {
   // prop destruction
-  const { isOpenDialog, openDialog, closeDialog, toggleDialog } = useDialog();
+  const { isOpenDialog, closeDialog, toggleDialog } = useDialog();
   const { className, value, data, selectedItem, thirdStepState, onClick } = props;
 
   // lib hooks

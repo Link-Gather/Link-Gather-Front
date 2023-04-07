@@ -141,7 +141,7 @@ const SignupBox = () => {
     }));
   };
 
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       setThirdStepState({
         ...thirdStepState,
@@ -149,10 +149,6 @@ const SignupBox = () => {
         urlString: '',
       });
     }
-  };
-
-  const onDeleteUrl = (url: string) => {
-    setThirdStepState({ ...thirdStepState, urls: thirdStepState.urls?.filter((urlName) => urlName !== url) });
   };
 
   const moveNextStep = (): void => {
@@ -452,7 +448,7 @@ const SignupBox = () => {
             <FlexBox width='100%' direction='column'>
               <CategoryTitle label='참고 링크' />
               <BottomLineInput
-                onKeyDown={onKeyDown}
+                onKeyDown={handlerKeyDown}
                 placeholder='URL을 입력해주세요.'
                 type='text'
                 name='urlString'
@@ -490,7 +486,10 @@ const SignupBox = () => {
                       },
                     }}
                     onClick={() => {
-                      onDeleteUrl(url);
+                      setThirdStepState({
+                        ...thirdStepState,
+                        urls: thirdStepState.urls?.filter((urlName) => urlName !== url),
+                      });
                     }}
                   >
                     x

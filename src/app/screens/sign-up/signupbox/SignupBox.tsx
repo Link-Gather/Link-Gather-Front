@@ -55,7 +55,7 @@ const SignupBox = () => {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState(0);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',

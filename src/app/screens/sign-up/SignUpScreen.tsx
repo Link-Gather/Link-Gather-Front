@@ -37,17 +37,17 @@ function SignUpScreen() {
       }}
     >
       <img
-        alt='signupBackground'
+        alt='BackgroundAstronaut1'
         src={BackgroundAstronaut1}
         css={{ position: 'fixed', top: '28%', left: '27%', width: '100px', height: '150px', zIndex: '1' }}
       />
       <img
-        alt='signupBackground'
+        alt='BackgroundPlanet1'
         src={BackgroundPlanet1}
         css={{ position: 'fixed', top: '40%', left: '10%', width: '700px', height: '700px', zIndex: '0' }}
       />
       <img
-        alt='signupBackground'
+        alt='BackgroundPlanet2'
         src={BackgroundPlanet2}
         css={{ position: 'fixed', top: '-13%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
       />

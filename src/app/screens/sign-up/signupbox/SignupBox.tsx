@@ -6,11 +6,39 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, SkillTab, ShadowBox } from '@elements';
-import { MessageType, PrevValueType, ValidationSignup, CharacterProps, ThirdStepData } from './types';
+import { ThirdStepData } from './types';
 import { VALIDATION_PATTERN } from '@libs/constants/validation.constants';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import styled from '@emotion/styled';
+
+export type ValidationSignup = {
+  email: string;
+  code: string;
+  password: string;
+  confirmPassword: string;
+  nickname: string;
+};
+
+export type MessageType = {
+  emailMessage: string;
+  codeMessage: string;
+  confirmPasswordMessage: string;
+};
+
+export type PrevValueType = {
+  prevEmailValue: string;
+  prevCodeValue: string;
+};
+
+export type CharacterProps = {
+  id: number;
+  src: string;
+  backgroundColor: string;
+  width: string;
+  height: string;
+  marginTop: string;
+};
 
 const BottomLineInput = styled('input')({
   border: 'none',
@@ -371,7 +399,7 @@ const SignupBox = () => {
                 onChange={handleChange}
                 placeholder='기술 스택 검색'
                 css={{ padding: '10px 40px 0px 40px' }}
-              ></BottomLineInput>
+              />
               <img
                 alt={'search'}
                 src={IconSearch}

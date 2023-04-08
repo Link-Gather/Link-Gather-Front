@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, SkillTab, ShadowBox } from '@elements';
+import { FlexBox, UnderlineTitle, Input, CategoryTitle, SkillTab, ShadowBox } from '@elements';
 import { ThirdStepData } from './types';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -39,6 +39,24 @@ export type CharacterProps = {
   height: string;
   marginTop: string;
 };
+
+const RequestButton = styled('button')<{ value: string }>(
+  {
+    width: '94px',
+    height: '50px',
+    fontSize: '14px',
+    textAlign: 'center',
+    fontWeight: '600',
+    borderRadius: '8px',
+    marginLeft: '10px',
+  },
+  (props) => ({
+    border: props.value ? `2px solid ${palette.secondary.n300}` : `2px solid ${palette.secondary.n60}`,
+    color: props.value ? palette.secondary.n300 : palette.secondary.n60,
+    backgroundColor: palette.contrastText,
+    cursor: props.value ? 'pointer' : 'null',
+  })
+);
 
 const BottomLineInput = styled('input')({
   border: 'none',
@@ -85,16 +103,20 @@ const SignupBox = () => {
   // lib hooks
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
+
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
     confirmPasswordMessage: '',
   });
+
   const [prevValue, setPrevValue] = useState<PrevValueType>({
     prevEmailValue: '',
     prevCodeValue: '',
   });
+
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
+
   const [thirdStepState, setThirdStepState] = useState<ThirdStepData>({
     searchSkill: '',
     urlString: '',

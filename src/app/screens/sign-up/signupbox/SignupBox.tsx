@@ -7,7 +7,7 @@ import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, RequestButton, CategoryTitle, SkillTab, ShadowBox } from '@elements';
 import { ThirdStepData } from './types';
-import { VALIDATION_PATTERN } from '@libs/constants/validation.constants';
+import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import styled from '@emotion/styled';
@@ -72,13 +72,14 @@ const SignupButton = styled('button')({
 const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
 const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
 
-const schema = yup.object().shape({
-  email: yup.string(),
+const schema = yup.object({
+  email: SCHEMA_EMAIL,
   code: yup.string(),
-  password: yup.string().matches(VALIDATION_PATTERN.password),
-  confirmPassword: yup.string().oneOf([yup.ref('password'), '']),
-  nickname: yup.string().matches(VALIDATION_PATTERN.nickname),
+  password: SCHEMA_PASSWORD,
+  confirmPassword: SCHEMA_CONFIRM_PASSWORD,
+  nickname: SCHEMA_NICKNAME,
 });
+
 const SignupBox = () => {
   // prop destruction
   // lib hooks

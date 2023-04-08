@@ -10,6 +10,7 @@ import { ThirdStepData } from './types';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
+import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import styled from '@emotion/styled';
 
 export type ValidationSignup = {
@@ -493,37 +494,27 @@ const SignupBox = () => {
                   >
                     {url.includes('https://') ? url : 'https://' + url}
                   </a>
-                  <button
-                    css={{
-                      width: '20px',
-                      height: '20px',
-                      marginLeft: '20px',
-                      backgroundColor: palette.secondary.n90,
-                      borderRadius: '20px',
-                      color: 'white',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        backgroundColor: palette.primary.main,
-                      },
-                    }}
+                  <img
+                    alt='delete-url'
+                    src={DeleteUrl}
+                    css={{ marginLeft: '10px', cursor: 'pointer' }}
                     onClick={() => {
                       setThirdStepState({
                         ...thirdStepState,
                         urls: thirdStepState.urls?.filter((urlName) => urlName !== url),
                       });
                     }}
-                  >
-                    x
-                  </button>
+                  />
                 </FlexBox>
               ))}
             </FlexBox>
-            {/* --> */}
-            <SignupButton css={{ top: '529px' }} onClick={moveNextStep}>
+            <SignupButton
+              css={{ top: '529px' }}
+              // Todo: api연결
+            >
               회원가입
             </SignupButton>
+            {/* --> */}
           </FlexBox>
         </FlexBox>
       </FlexBox>

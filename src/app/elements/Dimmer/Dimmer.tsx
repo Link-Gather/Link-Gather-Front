@@ -1,9 +1,8 @@
 import { keyframes } from '@emotion/react';
-import { Theme } from '@emotion/react';
 
 const spin = keyframes({
   '0%': {
-    strokeDashoffset: '600px',
+    strokeDashoffset: '700px',
     transform: 'rotate(-90deg)',
   },
   '100%': {
@@ -23,37 +22,22 @@ export function Dimmer() {
   // handlers
 
   return (
-    <div
+    <svg
       css={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        top: 0,
-        left: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed',
+        width: '19px',
+        height: '19px',
+        animation: `${spin} 2000ms ease 0ms`,
+        animationDirection: 'normal',
+        animationIterationCount: 'infinite',
+        strokeWidth: '2',
+        strokeDasharray: '300px',
+        fill: 'none',
+        transition: 'stroke ease 200ms',
+        stroke: '#ffffff',
+        opacity: 0.5,
       }}
     >
-      <svg
-        css={(theme: Theme) => ({
-          width: '250px',
-          height: '250px',
-          animation: `${spin} 1500ms ease 0ms`,
-          animationDirection: 'normal',
-          animationIterationCount: 'infinite',
-          strokeWidth: '20',
-          strokeDasharray: '628px',
-          fill: 'none',
-          transition: 'stroke ease 200ms',
-          stroke: theme.palette.primary.main,
-          '&:hover': {
-            stroke: theme.palette.primary.p20,
-          },
-        })}
-      >
-        <circle cx={125} cy={125} r={100} />
-      </svg>
-    </div>
+      <circle cx={9} cy={9} r={7} />
+    </svg>
   );
 }

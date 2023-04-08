@@ -7,8 +7,8 @@ import { useSearchParams } from 'react-router-dom';
 
 function ForgotPasswordScreen() {
   // prop destruction
+
   // lib hooks
-  // const location = useLocation();
   const [searchParams] = useSearchParams();
 
   // state, ref, querystring hooks

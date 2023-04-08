@@ -53,6 +53,7 @@ function LoginForm() {
         message={errors.email?.message}
         iconProps={{
           iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
+          alt: (!errors.email && dirtyFields.email && 'valid email') || undefined,
         }}
         {...register('email')}
       />
@@ -63,8 +64,9 @@ function LoginForm() {
         error={errors.password}
         message={errors.password?.message}
         iconProps={{
-          onIconClick: () => setIsShowPassword(!isShowPassword),
+          onClick: () => setIsShowPassword(!isShowPassword),
           iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+          alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
         }}
         {...register('password')}
       />

@@ -7,7 +7,7 @@ const Input = forwardRef(
     props: {
       error?: FieldError;
       message?: string;
-      iconProps?: { onIconClick?: () => void; iconImage?: string };
+      iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
@@ -96,9 +96,9 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onIconClick}
+            onClick={iconProps?.onClick}
           >
-            <img src={iconProps?.iconImage} alt='icon' />
+            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
 

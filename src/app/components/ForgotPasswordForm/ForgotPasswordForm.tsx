@@ -57,8 +57,9 @@ function ForgotPasswordForm() {
           error={errors.password}
           message={errors.password?.message}
           iconProps={{
-            onIconClick: () => setIsShowPassword(!isShowPassword),
+            onClick: () => setIsShowPassword(!isShowPassword),
             iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+            alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
           }}
           {...register('password')}
         />
@@ -69,8 +70,9 @@ function ForgotPasswordForm() {
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
           iconProps={{
-            onIconClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
+            onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
             iconImage: dirtyFields.confirmPassword && !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
+            alt: dirtyFields.confirmPassword && !isShowConfirmPassword ? 'hide password' : 'show password',
           }}
           {...register('confirmPassword')}
         />

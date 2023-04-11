@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, FlexBox, Dimmer } from '@elements';
+import { Button, Input, FlexBox } from '@elements';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
@@ -81,9 +81,10 @@ function LoginForm() {
           backgroundColor: palette.primary.main,
           marginTop: '8px',
         }}
+        isLoading={isLoading}
         disabled={!isValid}
       >
-        {isLoading ? `로딩중 ${(<Dimmer />)}` : '로그인'}
+        로그인
       </Button>
     </FlexBox>
   );

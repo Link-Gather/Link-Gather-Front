@@ -1,5 +1,7 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 const Input = forwardRef(
@@ -7,10 +9,7 @@ const Input = forwardRef(
     props: {
       error?: FieldError;
       message?: string;
-      children?: React.ReactNode;
-      maxLength?: number;
-      register?: UseFormRegisterReturn;
-      iconProps?: { onIconClick?: () => void; iconImage?: string };
+      iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
@@ -22,6 +21,7 @@ const Input = forwardRef(
 
     // state, ref hooks
     const [isFocused, setIsFocused] = useState(false);
+    const [isPasswordShow, setIsPasswrodShow] = useState(false);
 
     // form hook
     // query hooks
@@ -99,9 +99,9 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onIconClick}
+            onClick={iconProps?.onClick}
           >
-            <img src={iconProps?.iconImage} alt='icon' />
+            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
 

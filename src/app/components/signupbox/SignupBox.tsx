@@ -8,6 +8,8 @@ import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, CategoryTitle, SkillTab, ShadowBox } from '@elements';
 import { ThirdStepData } from './types';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -104,7 +106,7 @@ const SignupBox = () => {
   // lib hooks
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
-
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -261,6 +263,11 @@ const SignupBox = () => {
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
                   error={errors.password}
+                  iconProps={{
+                    onClick: () => setIsShowPassword(!isShowPassword),
+                    iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+                    alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+                  }}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('password')}
                 />
@@ -271,13 +278,18 @@ const SignupBox = () => {
                   placeholder='비밀번호 확인'
                   autoComplete='off'
                   error={errors.confirmPassword}
-                  message={
-                    !dirtyFields.confirmPassword
-                      ? ''
-                      : errors.confirmPassword
-                      ? '비밀번호가 일치하지 않습니다.'
-                      : '비밀번호가 일치합니다.'
-                  }
+                  // message={
+                  //   !dirtyFields.confirmPassword
+                  //     ? ''
+                  //     : errors.confirmPassword
+                  //     ? '비밀번호가 일치하지 않습니다.'
+                  //     : '비밀번호가 일치합니다.'
+                  // }
+                  iconProps={{
+                    onClick: () => setIsShowPassword(!isShowPassword),
+                    iconImage: dirtyFields.confirmPassword && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+                    alt: dirtyFields.confirmPassword && !isShowPassword ? 'hide password' : 'show password',
+                  }}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register('confirmPassword')}
                 />
@@ -435,9 +447,9 @@ const SignupBox = () => {
                 {thirdStepState.selectedSkill.length !== 0 &&
                   thirdStepState.selectedSkill.map((skill) => (
                     <SkillTab
-                      css={{
-                        width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
-                      }}
+                      // css={{
+                      //   width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
+                      // }}
                       key={skill}
                       skill={skill}
                     >

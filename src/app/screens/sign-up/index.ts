@@ -1,2 +1,2 @@
 export * from './SignUpScreen';
-export * from './signupbox';
+export * from '../../components/signupbox';

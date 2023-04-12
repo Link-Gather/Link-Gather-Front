@@ -1,6 +1,5 @@
 import React from 'react';
-import { type Theme } from '@libs/theme';
-import { ThirdStepData } from '../SignupBox';
+import { ThirdStepData } from '@components';
 import { FlexBox, SkillTab } from '@elements';
 import palette from '@libs/theme/palettes';
 

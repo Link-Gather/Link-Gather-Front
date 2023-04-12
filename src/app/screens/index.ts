@@ -4,4 +4,3 @@ export * from './login';
 export * from './oauth';
 export * from './sign-up';
 export * from './data.mock';
-export * from './sign-up';

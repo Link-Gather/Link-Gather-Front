@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { SignupBox } from '../../components/SignupBox';
+import { SignUpBox } from '../../components/SignUpBox';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
@@ -48,7 +48,7 @@ function SignUpScreen() {
         src={BackgroundPlanet2}
         css={{ position: 'fixed', top: '-13%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
       />
-      <SignupBox />
+      <SignUpBox />
     </FlexBox>
   );
 }

@@ -110,7 +110,7 @@ const schema = yup.object({
   nickname: SCHEMA_NICKNAME,
 });
 
-function SignupBox() {
+function SignUpBox() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -548,4 +548,4 @@ function SignupBox() {
   );
 }
 
-export { SignupBox };
+export { SignUpBox };

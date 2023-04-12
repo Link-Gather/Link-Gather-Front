@@ -1,12 +1,12 @@
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { SignupBox } from './SignupBox';
+import { SignUpBox } from './SignUpBox';
 
-type ArgTypes = ComponentProps<typeof SignupBox>;
+type ArgTypes = ComponentProps<typeof SignUpBox>;
 
 export default {
-  title: 'components/Signupbox',
-  component: SignupBox,
+  title: 'components/SignUpbox',
+  component: SignUpBox,
   args: {},
 } as Meta<ArgTypes>;
 

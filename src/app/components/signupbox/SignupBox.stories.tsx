@@ -5,7 +5,7 @@ import { SignUpBox } from './SignUpBox';
 type ArgTypes = ComponentProps<typeof SignUpBox>;
 
 export default {
-  title: 'components/SignUpbox',
+  title: 'components/SignUpBox',
   component: SignUpBox,
   args: {},
 } as Meta<ArgTypes>;

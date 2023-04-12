@@ -30,13 +30,9 @@ function SkillDropdown(props: {
   };
 
   const getWidth = (skill: string) => {
-    if (skill.length < 7) {
-      return '64px';
-    } else if (skill.length < 14) {
-      return '136px';
-    } else {
-      return '208px';
-    }
+    if (skill.length < 7) return '64px';
+    if (skill.length < 14) return '136px';
+    if (skill.length > 14) return '208px';
   };
 
   return (

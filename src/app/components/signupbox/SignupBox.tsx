@@ -168,6 +168,11 @@ function SignupBox() {
   const canMoveStep3 = getValues('nickname');
   // effects
   // handlers
+  const getWidth = (skill: string) => {
+    if (skill.length < 7) return '64px';
+    if (skill.length < 14) return '136px';
+    if (skill.length > 14) return '208px';
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
     setThirdStepState((prevState) => ({
@@ -456,9 +461,9 @@ function SignupBox() {
                 {thirdStepState.selectedSkill.length !== 0 &&
                   thirdStepState.selectedSkill.map((skill) => (
                     <SkillTab
-                      // css={{
-                      //   width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
-                      // }}
+                      css={{
+                        width: getWidth(skill),
+                      }}
                       key={skill}
                       skill={skill}
                     >

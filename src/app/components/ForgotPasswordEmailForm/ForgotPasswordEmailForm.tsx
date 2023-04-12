@@ -1,15 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
+import * as yup from 'yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import { Link } from 'react-router-dom';
+import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),

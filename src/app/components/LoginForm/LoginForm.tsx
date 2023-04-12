@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Button, Input, FlexBox } from '@elements';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
 import { useMutation } from '@libs/query';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),

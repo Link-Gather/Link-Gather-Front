@@ -9,11 +9,12 @@ import {
   Typography,
 } from '@elements';
 import { LoginForm } from '@components';
-import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
-import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq, Theme } from '@libs/theme';
 import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';
+import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-astronaut-primary.svg';
+import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
+import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
 function LoginScreen() {
   // prop destruction
@@ -37,6 +38,17 @@ function LoginScreen() {
         },
       }}
     >
+      <img
+        src={BackgroundStar}
+        css={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          zIndex: 0,
+        }}
+        alt='background star'
+      />
       <img
         src={BackgroundPlanetPrimary}
         css={{

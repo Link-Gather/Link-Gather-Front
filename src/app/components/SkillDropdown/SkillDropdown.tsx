@@ -1,16 +1,16 @@
 import React from 'react';
 import { type Theme } from '@libs/theme';
-import { ThirdStepData } from 'app/components/signupbox/types';
+import { ThirdStepData } from '../SignupBox';
 import { FlexBox, SkillTab } from '@elements';
 import palette from '@libs/theme/palettes';
 
-const SkillDropdown = (props: {
+function SkillDropdown(props: {
   skills: string[];
   thirdStepState: ThirdStepData;
-  setThirdStepState: React.Dispatch<React.SetStateAction<ThirdStepData>>;
-}) => {
+  onClick: (value: ThirdStepData) => void;
+}) {
   // prop destruction
-  const { skills, thirdStepState, setThirdStepState } = props;
+  const { skills, thirdStepState, onClick } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
@@ -22,11 +22,21 @@ const SkillDropdown = (props: {
   // effects
   // handlers
   const addSkill = (skill: string) => {
-    setThirdStepState({
+    onClick({
       ...thirdStepState,
       selectedSkill: [...thirdStepState.selectedSkill, skill],
       searchSkill: '',
     });
+  };
+
+  const getWidth = (skill: string) => {
+    if (skill.length < 7) {
+      return '64px';
+    } else if (skill.length < 14) {
+      return '136px';
+    } else {
+      return '208px';
+    }
   };
 
   return (
@@ -54,7 +64,7 @@ const SkillDropdown = (props: {
           showSkills.map((skill) => (
             <SkillTab
               css={{
-                width: skill.length < 7 ? '64px' : skill.length < 14 ? '136px' : '208px',
+                width: getWidth(skill),
               }}
               key={skill}
               skill={skill}
@@ -67,6 +77,6 @@ const SkillDropdown = (props: {
       </FlexBox>
     </FlexBox>
   );
-};
+}
 
 export { SkillDropdown };

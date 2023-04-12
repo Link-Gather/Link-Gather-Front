@@ -1,6 +1,6 @@
 import { useDialog } from '@hooks';
 import { FlexBox } from '@elements';
-import { ThirdStepData } from 'app/components/signupbox/types';
+import { ThirdStepData } from '../SignupBox';
 import palette from '@libs/theme/palettes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 

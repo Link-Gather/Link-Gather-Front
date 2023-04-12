@@ -19,9 +19,7 @@ export default {
       urls: [],
       introduction: '',
     },
-    setThirdStepState: (updatedState: { selectedJob?: string; selectExperience?: string }) => {
-      console.log(updatedState);
-    },
+    setThirdStepState: (updatedState: { selectedJob?: string; selectExperience?: string }) => {},
   },
 } as Meta<ArgTypes>;
 

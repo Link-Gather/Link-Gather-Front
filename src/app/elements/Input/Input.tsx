@@ -21,7 +21,6 @@ const Input = forwardRef(
 
     // state, ref hooks
     const [isFocused, setIsFocused] = useState(false);
-    const [isPasswordShow, setIsPasswrodShow] = useState(false);
 
     // form hook
     // query hooks

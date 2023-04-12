@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { characters, skills } from '@screens';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, CategoryTitle, SkillTab, ShadowBox } from '@elements';
-import { ThirdStepData } from './types';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
@@ -14,6 +13,16 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import styled from '@emotion/styled';
+
+export type ThirdStepData = {
+  searchSkill: string;
+  urlString: string;
+  selectedJob: string;
+  selectedExperience: string;
+  selectedSkill: string[];
+  urls: string[];
+  introduction: string;
+};
 
 export type ValidationSignup = {
   email: string;
@@ -101,7 +110,7 @@ const schema = yup.object({
   nickname: SCHEMA_NICKNAME,
 });
 
-const SignupBox = () => {
+function SignupBox() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
@@ -258,7 +267,7 @@ const SignupBox = () => {
               </FlexBox>
               <FlexBox>
                 <Input
-                  type='password'
+                  type={!isShowPassword ? 'password' : 'text'}
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
@@ -274,7 +283,7 @@ const SignupBox = () => {
               </FlexBox>
               <FlexBox>
                 <Input
-                  type='password'
+                  type={!isShowPassword ? 'password' : 'text'}
                   placeholder='비밀번호 확인'
                   autoComplete='off'
                   error={errors.confirmPassword}
@@ -458,7 +467,7 @@ const SignupBox = () => {
                   ))}
               </FlexBox>
               {thirdStepState.searchSkill && (
-                <SkillDropdown thirdStepState={thirdStepState} setThirdStepState={setThirdStepState} skills={skills} />
+                <SkillDropdown thirdStepState={thirdStepState} onClick={setThirdStepState} skills={skills} />
               )}
             </FlexBox>
             <FlexBox width='100%' direction='column'>
@@ -532,6 +541,6 @@ const SignupBox = () => {
       </FlexBox>
     </ShadowBox>
   );
-};
+}
 
 export { SignupBox };

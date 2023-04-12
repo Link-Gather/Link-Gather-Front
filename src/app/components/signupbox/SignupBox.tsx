@@ -114,7 +114,7 @@ function SignUpBox() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
@@ -168,11 +168,6 @@ function SignUpBox() {
   const canMoveStep3 = getValues('nickname');
   // effects
   // handlers
-  const getWidth = (skill: string) => {
-    if (skill.length < 7) return '64px';
-    if (skill.length < 14) return '136px';
-    if (skill.length > 14) return '208px';
-  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
     setThirdStepState((prevState) => ({
@@ -218,7 +213,7 @@ function SignUpBox() {
             src={IconArrowLeft}
             alt='go back'
             onClick={() => {
-              setStep((prevState) => (prevState !== 0 ? prevState - 1 : 0));
+              setStep((prevState) => (prevState ? prevState - 1 : 0));
             }}
           />
         </FlexBox>
@@ -292,13 +287,6 @@ function SignUpBox() {
                   placeholder='비밀번호 확인'
                   autoComplete='off'
                   error={errors.confirmPassword}
-                  // message={
-                  //   !dirtyFields.confirmPassword
-                  //     ? ''
-                  //     : errors.confirmPassword
-                  //     ? '비밀번호가 일치하지 않습니다.'
-                  //     : '비밀번호가 일치합니다.'
-                  // }
                   iconProps={{
                     onClick: () => setIsShowPassword(!isShowPassword),
                     iconImage: dirtyFields.confirmPassword && !isShowPassword ? IconPasswordHide : IconPasswordShow,
@@ -350,7 +338,7 @@ function SignUpBox() {
                     width: characterState.width,
                     marginTop: characterState.marginTop,
                   }}
-                ></img>
+                />
               </FlexBox>
               <FlexBox
                 width='204px'
@@ -394,7 +382,7 @@ function SignUpBox() {
                 message='8자이내, 한글, 영문 숫자 혼용 가능'
                 placeholder='닉네임 입력'
                 {...register('nickname')}
-              ></Input>
+              />
               <RequestButton onClick={() => {}} value={getValues('nickname')}>
                 중복확인
               </RequestButton>
@@ -423,7 +411,7 @@ function SignUpBox() {
                   selectedItem={thirdStepState.selectedJob}
                   thirdStepState={thirdStepState}
                   onClick={setThirdStepState}
-                ></DropDown>
+                />
               </FlexBox>
               <FlexBox width='168px' direction='column'>
                 <CategoryTitle label='경력*' />
@@ -433,7 +421,7 @@ function SignUpBox() {
                   selectedItem={thirdStepState.selectedExperience}
                   thirdStepState={thirdStepState}
                   onClick={setThirdStepState}
-                ></DropDown>
+                />
               </FlexBox>
             </FlexBox>
             <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
@@ -449,8 +437,8 @@ function SignUpBox() {
               <img
                 alt={'search'}
                 src={IconSearch}
-                css={{ widht: '25px', marginTop: '37px', marginLeft: '5px', position: 'absolute' }}
-              ></img>
+                css={{ marginTop: '37px', marginLeft: '5px', position: 'absolute' }}
+              />
               <FlexBox
                 css={{
                   flexWrap: 'wrap',
@@ -458,12 +446,14 @@ function SignUpBox() {
                   overflowY: 'auto',
                 }}
               >
-                {thirdStepState.selectedSkill.length !== 0 &&
+                {!!thirdStepState.selectedSkill.length &&
                   thirdStepState.selectedSkill.map((skill) => (
                     <SkillTab
-                      css={{
-                        width: getWidth(skill),
-                      }}
+                      css={[
+                        { width: '64px' },
+                        skill.length > 7 && skill.length < 14 && { width: '136px' },
+                        skill.length >= 14 && { width: '208px' },
+                      ]}
                       key={skill}
                       skill={skill}
                     >
@@ -493,7 +483,7 @@ function SignUpBox() {
                   outline: 'none',
                   resize: 'none',
                 }}
-              ></textarea>
+              />
             </FlexBox>
             <FlexBox width='100%' direction='column'>
               <CategoryTitle label='참고 링크' />

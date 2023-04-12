@@ -4,10 +4,10 @@ const SkillTab = (props: {
   children: React.ReactNode;
   className?: string;
   skill: string;
-  addSkill?: (skill: string) => void;
+  onAddSkill?: (skill: string) => void;
 }) => {
   // prop destruction
-  const { children, className, skill, addSkill } = props;
+  const { children, className, skill, onAddSkill } = props;
   // lib hooks
   // state, ref, querystring hooks
 
@@ -32,8 +32,8 @@ const SkillTab = (props: {
       }}
       className={className}
       onClick={() => {
-        if (addSkill && skill) {
-          addSkill(skill);
+        if (onAddSkill && skill) {
+          onAddSkill(skill);
         }
       }}
     >

@@ -15,23 +15,15 @@ function SkillDropdown(props: {
   // form hooks
   // query hooks
   // calculated values
-  const showSkills = skills.filter((skillFilter) =>
-    skillFilter.toLowerCase().includes(thirdStepState.searchSkill.toLowerCase())
-  );
+  const showSkills = skills.filter((skill) => skill.toLowerCase().includes(thirdStepState.searchSkill.toLowerCase()));
   // effects
   // handlers
-  const addSkill = (skill: string) => {
+  const handleAddSkill = (skill: string) => {
     onClick({
       ...thirdStepState,
       selectedSkill: [...thirdStepState.selectedSkill, skill],
       searchSkill: '',
     });
-  };
-
-  const getWidth = (skill: string) => {
-    if (skill.length < 7) return '64px';
-    if (skill.length < 14) return '136px';
-    if (skill.length > 14) return '208px';
   };
 
   return (
@@ -53,17 +45,19 @@ function SkillDropdown(props: {
       }}
     >
       <FlexBox css={{ flexWrap: 'wrap' }}>
-        {showSkills.length === 0 ? (
+        {!showSkills.length ? (
           <p>해당하는 스킬이 없습니다.</p>
         ) : (
           showSkills.map((skill) => (
             <SkillTab
-              css={{
-                width: getWidth(skill),
-              }}
+              css={[
+                { width: '64px' },
+                skill.length > 7 && skill.length < 14 && { width: '136px' },
+                skill.length >= 14 && { width: '208px' },
+              ]}
               key={skill}
               skill={skill}
-              addSkill={addSkill}
+              onAddSkill={handleAddSkill}
             >
               {skill}
             </SkillTab>

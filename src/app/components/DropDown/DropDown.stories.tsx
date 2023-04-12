@@ -19,8 +19,8 @@ export default {
       urls: [],
       introduction: '',
     },
-    setThirdStepState: (updatedState: { selectedJob?: string; selectExperience?: string }) => {},
   },
+  onClick: { action: 'onClick' },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

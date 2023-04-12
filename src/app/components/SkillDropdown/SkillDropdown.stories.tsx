@@ -11,10 +11,15 @@ export default {
     skills: ['java', 'javascript'],
     thirdStepState: {
       searchSkill: '',
+      urlString: '',
       selectedJob: '',
       selectedExperience: '',
+      selectedSkill: [],
+      urls: [],
+      introduction: '',
     },
   },
+  onClick: { action: 'onClick' },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

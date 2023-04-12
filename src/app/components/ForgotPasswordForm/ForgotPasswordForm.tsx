@@ -78,11 +78,11 @@ function ForgotPasswordForm() {
         />
         <Button
           onClick={handleSubmit(async ({ password, confirmPassword }) => {})}
+          color={palette.contrastText}
           css={{
             width: '100%',
             height: '48px',
             fontSize: '20px',
-            color: palette.contrastText,
             backgroundColor: palette.primary.main,
             borderRadius: '32px',
             marginTop: '24px',

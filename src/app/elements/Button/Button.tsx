@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Dimmer } from '@elements';
 import { Theme } from '@libs/theme';
 
 function Button(
   props: {
+    color?: CSSProperties['color'];
     children: React.ReactNode;
     className?: string;
     isLoading?: boolean;
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 ) {
   // prop destruction
-  const { children, className, isLoading, ...rest } = props;
+  const { color, children, className, isLoading, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -40,6 +41,7 @@ function Button(
         justifyContent: 'center',
         textAlign: 'center',
         fontWeight: '800',
+        color,
         cursor: 'pointer',
         ':disabled': {
           backgroundColor: theme.palette.secondary.n40,
@@ -50,7 +52,7 @@ function Button(
       {...rest}
       ref={buttonRef}
     >
-      {isLoading ? <Dimmer size={size} /> : children}
+      {isLoading ? <Dimmer size={size} color={color} /> : children}
     </button>
   );
 }

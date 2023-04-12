@@ -72,12 +72,12 @@ function LoginForm() {
       />
       <Button
         onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
+        color={palette.contrastText}
         css={{
           width: '100%',
           height: '48px',
           fontSize: '20px',
           borderRadius: '32px',
-          color: palette.contrastText,
           backgroundColor: palette.primary.main,
           marginTop: '8px',
         }}

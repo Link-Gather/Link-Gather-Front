@@ -33,11 +33,14 @@ function Dialog(props: { children: React.ReactNode; width: string; height: strin
           css={{
             display: 'flex',
             flexDirection: 'column',
-            width: width,
-            height: height,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width,
+            height,
             borderRadius: '8px',
             backgroundColor: '#ffffff',
-            padding: '10px',
+            boxShadow: '4px 4px 0px #000000',
+            padding: '24px',
           }}
         >
           {children}

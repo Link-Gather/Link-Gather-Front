@@ -1,6 +1,19 @@
 import React, { useEffect } from 'react';
 import { DecoratorFn, StoryContext } from '@storybook/react';
 import { ThemeProvider, useTheme } from '../src/app/libs/theme';
+import { MemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retry: 3,
+    },
+  },
+});
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,17 +27,21 @@ export const parameters = {
 
 export const decorators: DecoratorFn[] = [
   (storyFn, context) => (
-    <ThemeProvider>
-      <ThemeSetter context={context} />
-      {storyFn()}
-    </ThemeProvider>
-  )
-]
+    <QueryClientProvider client={queryClient}>
+      <MemoryRouter initialEntries={['/']}>
+        <ThemeProvider>
+          <ThemeSetter context={context} />
+          {storyFn()}
+        </ThemeProvider>
+      </MemoryRouter>
+    </QueryClientProvider>
+  ),
+];
 
 const colorToTheme = {
   '#F8F8F8': 'default',
   '#333333': 'dark',
-}
+};
 
 function ThemeSetter({ context }: { context: StoryContext<any> }) {
   const [, setPalette] = useTheme();

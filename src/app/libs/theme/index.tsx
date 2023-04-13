@@ -45,3 +45,5 @@ export const useTheme = (): [Theme, (palette: Palette) => void] => {
 };
 
 export { ThemeProvider, Theme };
+
+export * from './media-query';

@@ -1,5 +1,5 @@
-import { ComponentProps, useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { type ComponentProps, useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Chip } from './Chip';
 
 type ArgTypes = ComponentProps<typeof Chip>;
@@ -38,7 +38,6 @@ const endIcon = (
       fontWeight: 700,
       cursor: 'pointer',
     }}
-    onClick={() => console.log('End Icon Clicked!')}
   >
     X
   </span>

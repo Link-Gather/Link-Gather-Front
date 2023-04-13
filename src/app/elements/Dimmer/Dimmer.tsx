@@ -1,19 +1,18 @@
 import { keyframes } from '@emotion/react';
-import { Theme } from '@emotion/react';
+import { CSSProperties } from 'react';
 
 const spin = keyframes({
   '0%': {
-    strokeDashoffset: '600px',
     transform: 'rotate(-90deg)',
   },
   '100%': {
-    strokeDashoffset: '0px',
     transform: 'rotate(270deg)',
   },
 });
 
-export function Dimmer() {
+function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
   // prop destruction
+  const { size, color } = props;
   // lib hooks
   // state, ref hooks
   // form hook
@@ -23,37 +22,25 @@ export function Dimmer() {
   // handlers
 
   return (
-    <div
+    <svg
       css={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        top: 0,
-        left: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed',
+        display: 'block',
+        width: `${size}px`,
+        height: `${size}px`,
+        animation: `${spin} 2000ms linear`,
+        animationDirection: 'normal',
+        animationIterationCount: 'infinite',
+        strokeWidth: '3px',
+        strokeDasharray: `${((size * 0.54) / 4) * Math.PI}px ${size * 0.75}px`,
+        strokeDashoffset: `${(size / 4) * Math.PI}px`,
+        fill: 'none',
+        transition: 'stroke linear 2000ms',
+        stroke: color,
       }}
     >
-      <svg
-        css={(theme: Theme) => ({
-          width: '250px',
-          height: '250px',
-          animation: `${spin} 1500ms ease 0ms`,
-          animationDirection: 'normal',
-          animationIterationCount: 'infinite',
-          strokeWidth: '20',
-          strokeDasharray: '628px',
-          fill: 'none',
-          transition: 'stroke ease 200ms',
-          stroke: theme.palette.primary.main,
-          '&:hover': {
-            stroke: theme.palette.primary.light,
-          },
-        })}
-      >
-        <circle cx={125} cy={125} r={100} />
-      </svg>
-    </div>
+      <circle cx={size / 2} cy={size / 2} r={size / 4} />
+    </svg>
   );
 }
+
+export { Dimmer };

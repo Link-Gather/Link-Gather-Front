@@ -10,10 +10,7 @@ import { mq } from '@libs/theme';
 function SignUpScreen() {
   // prop destruction
   // lib hooks
-  const { state } = useLocation();
-
   // state, ref, querystring hooks
-
   // form hooks
   // query hooks
   // calculated values

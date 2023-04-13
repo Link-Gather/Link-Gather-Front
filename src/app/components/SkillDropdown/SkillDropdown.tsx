@@ -57,7 +57,7 @@ function SkillDropdown(props: {
               ]}
               key={skill}
               skill={skill}
-              onAddSkill={handleAddSkill}
+              onClick={handleAddSkill}
             >
               {skill}
             </SkillTab>

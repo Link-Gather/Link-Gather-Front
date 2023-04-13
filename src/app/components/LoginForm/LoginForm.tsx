@@ -26,6 +26,7 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, dirtyFields, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -57,15 +58,15 @@ function LoginForm() {
         {...register('email')}
       />
       <Input
-        type={!isShowPassword ? 'password' : 'text'}
+        type={'password'}
         placeholder='비밀번호'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
+        getValues={getValues('password')}
         message={errors.password?.message}
         iconProps={{
-          onClick: () => setIsShowPassword(!isShowPassword),
-          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-          alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+          iconImage: IconPasswordShow,
+          alt: 'show password',
         }}
         {...register('password')}
       />

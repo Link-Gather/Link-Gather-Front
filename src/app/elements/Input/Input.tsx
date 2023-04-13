@@ -1,30 +1,43 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
-import { FieldError } from 'react-hook-form';
+import { FieldError, FieldValues } from 'react-hook-form';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 
 const Input = forwardRef(
   (
     props: {
       error?: FieldError;
       message?: string;
+      getValues?: string;
       iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, className, iconProps, ...rest } = props;
+    const { error, type, message, getValues, className, iconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
 
     // state, ref hooks
     const [isFocused, setIsFocused] = useState(false);
-
+    const [isShowPassword, setIsShowPassword] = useState(false);
     // form hook
     // query hooks
     // calculated values
     // effects
     // handlers
+    const onChangePasswordType = () => {
+      if (iconProps?.iconImage === IconPasswordShow) return isShowPassword ? 'text' : 'password';
+      return type;
+    };
+
+    const onSetIconImage = () => {
+      if (iconProps?.iconImage === IconPasswordShow) return isShowPassword ? IconPasswordShow : IconPasswordHide;
+      if (iconProps?.iconImage === IconCheckGreen) return IconCheckGreen;
+    };
 
     return (
       <label
@@ -36,7 +49,7 @@ const Input = forwardRef(
       >
         <input
           id={inputId}
-          type={type}
+          type={onChangePasswordType()}
           css={(theme: Theme) => {
             return [
               {
@@ -96,9 +109,11 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onClick}
+            onClick={() => {
+              setIsShowPassword(!isShowPassword);
+            }}
           >
-            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
+            <img src={onSetIconImage()} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
 

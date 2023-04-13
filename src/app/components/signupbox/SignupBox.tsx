@@ -141,7 +141,6 @@ function SignUpBox() {
   // lib hooks
   // state, ref, querystring hooks
   const [step, setStep] = useState(2);
-  const [isShowPassword, setIsShowPassword] = useState(false);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -315,15 +314,15 @@ function SignUpBox() {
               </FlexBox>
               <FlexBox>
                 <Input
-                  type={!isShowPassword ? 'password' : 'text'}
+                  type={'password'}
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
                   error={errors1.password}
+                  getValues={getValues1('password')}
                   iconProps={{
-                    onClick: () => setIsShowPassword(!isShowPassword),
-                    iconImage: dirtyFields1.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-                    alt: dirtyFields1.password && !isShowPassword ? 'hide password' : 'show password',
+                    iconImage: IconPasswordShow,
+                    alt: 'show password',
                   }}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register1('password')}
@@ -331,14 +330,14 @@ function SignUpBox() {
               </FlexBox>
               <FlexBox>
                 <Input
-                  type={!isShowPassword ? 'password' : 'text'}
+                  type={'passwrod'}
                   placeholder='비밀번호 확인'
                   autoComplete='off'
                   error={errors1.confirmPassword}
+                  getValues={getValues1('confirmPassword')}
                   iconProps={{
-                    onClick: () => setIsShowPassword(!isShowPassword),
-                    iconImage: dirtyFields1.confirmPassword && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-                    alt: dirtyFields1.confirmPassword && !isShowPassword ? 'hide password' : 'show password',
+                    iconImage: IconPasswordShow,
+                    alt: 'show password',
                   }}
                   css={{ width: '100%', marginBottom: '16px' }}
                   {...register1('confirmPassword')}

@@ -4,18 +4,22 @@ const SkillTab = (props: {
   children: React.ReactNode;
   className?: string;
   skill: string;
-  onAddSkill?: (skill: string) => void;
+  onClick?: (skill: string) => void;
 }) => {
   // prop destruction
-  const { children, className, skill, onAddSkill } = props;
+  const { children, className, skill, onClick } = props;
   // lib hooks
   // state, ref, querystring hooks
-
   // form hooks
   // query hooks
   // calculated values
   // effects
   // handlers
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    onClick?.(skill);
+  };
+
   return (
     <div
       css={{
@@ -31,11 +35,7 @@ const SkillTab = (props: {
         margin: '4px',
       }}
       className={className}
-      onClick={() => {
-        if (onAddSkill && skill) {
-          onAddSkill(skill);
-        }
-      }}
+      onClick={handleClick}
     >
       {children}
     </div>

@@ -7,7 +7,6 @@ type ArgTypes = ComponentProps<typeof SignUpBox>;
 export default {
   title: 'components/SignUpBox',
   component: SignUpBox,
-  args: {},
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

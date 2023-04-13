@@ -27,6 +27,7 @@ function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, dirtyFields, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -50,7 +51,7 @@ function ForgotPasswordForm() {
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
       <FlexBox direction='column'>
-        <Input
+        {/* <Input
           type={!isShowPassword ? 'password' : 'text'}
           placeholder='비밀번호'
           css={{ width: '100%', marginBottom: '16px' }}
@@ -62,18 +63,32 @@ function ForgotPasswordForm() {
             alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
           }}
           {...register('password')}
+        /> */}
+        <Input
+          type={'password'}
+          placeholder='비밀번호 입력'
+          autoComplete='off'
+          getValues={getValues('password')}
+          error={errors.password}
+          message={errors.password?.message}
+          iconProps={{
+            iconImage: IconPasswordShow,
+            alt: 'show password',
+          }}
+          css={{ width: '100%', marginBottom: '16px' }}
+          {...register('password')}
         />
         <Input
-          type={!isShowConfirmPassword ? 'password' : 'text'}
+          type={'password'}
           placeholder='비밀번호 확인'
-          css={{ width: '100%', marginBottom: '16px' }}
+          getValues={getValues('password')}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
           iconProps={{
-            onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
-            iconImage: dirtyFields.confirmPassword && !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.confirmPassword && !isShowConfirmPassword ? 'hide password' : 'show password',
+            iconImage: IconPasswordShow,
+            alt: 'show password',
           }}
+          css={{ width: '100%', marginBottom: '16px' }}
           {...register('confirmPassword')}
         />
         <Button

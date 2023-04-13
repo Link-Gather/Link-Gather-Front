@@ -127,11 +127,11 @@ const schema = [
   }),
   yup.object().shape({
     searchSkill: yup.string(),
-    urlString: yup.string(),
+    urlString: yup.string().url(),
     selectedJob: yup.string(),
     selectedExperience: yup.string(),
-    selectedSkills: yup.array(),
-    urls: yup.array(),
+    selectedSkills: yup.array().of(yup.string()),
+    urls: yup.array().of(yup.string().url()),
     introduction: yup.string(),
   }),
 ];

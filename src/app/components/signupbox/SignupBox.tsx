@@ -3,7 +3,7 @@ import palette from '@libs/theme/palettes';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { characters, skills } from '@screens';
+import { characters, skills } from './tempData';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, CategoryTitle, SkillTab, ShadowBox } from '@elements';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
@@ -19,31 +19,44 @@ export type ThirdStepData = {
   urlString: string;
   selectedJob: string;
   selectedExperience: string;
-  selectedSkill: string[];
+  selectedSkills: string[];
   urls: string[];
   introduction: string;
 };
 
-export type ValidationSignup = {
+type ValidationStep1 = {
   email: string;
   code: string;
   password: string;
   confirmPassword: string;
+};
+
+type ValidationStep2 = {
   nickname: string;
 };
 
-export type MessageType = {
+type ValidationStep3 = {
+  searchSkill: string;
+  urlString: string;
+  selectedJob: string;
+  selectedExperience: string;
+  selectedSkills: string[];
+  urls: string[];
+  introduction: string;
+};
+
+type MessageType = {
   emailMessage: string;
   codeMessage: string;
   confirmPasswordMessage: string;
 };
 
-export type PrevValueType = {
+type PrevValueType = {
   prevEmailValue: string;
   prevCodeValue: string;
 };
 
-export type CharacterProps = {
+type CharacterProps = {
   id: number;
   src: string;
   backgroundColor: string;
@@ -102,13 +115,26 @@ const SignupButton = styled('button')({
 const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
 const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
 
-const schema = yup.object({
-  email: SCHEMA_EMAIL,
-  code: yup.string(),
-  password: SCHEMA_PASSWORD,
-  confirmPassword: SCHEMA_CONFIRM_PASSWORD,
-  nickname: SCHEMA_NICKNAME,
-});
+const schema = [
+  yup.object().shape({
+    email: yup.string(),
+    code: yup.string(),
+    password: SCHEMA_PASSWORD,
+    confirmPassword: SCHEMA_CONFIRM_PASSWORD,
+  }),
+  yup.object().shape({
+    nickname: SCHEMA_NICKNAME,
+  }),
+  yup.object().shape({
+    searchSkill: yup.string(),
+    urlString: yup.string(),
+    selectedJob: yup.string(),
+    selectedExperience: yup.string(),
+    selectedSkills: yup.array(),
+    urls: yup.array(),
+    introduction: yup.string(),
+  }),
+];
 
 function SignUpBox() {
   // prop destruction
@@ -129,12 +155,12 @@ function SignUpBox() {
 
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
 
-  const [thirdStepState, setThirdStepState] = useState<ThirdStepData>({
+  const [thirdStepState, setThirdStepState] = useState<ValidationStep3>({
     searchSkill: '',
     urlString: '',
     selectedJob: '',
     selectedExperience: '',
-    selectedSkill: [],
+    selectedSkills: [],
     urls: [],
     introduction: '',
   });
@@ -142,30 +168,52 @@ function SignUpBox() {
   // form hooks
 
   const {
-    register,
-    getValues,
-    watch,
-    formState: { errors, dirtyFields },
-  } = useForm<ValidationSignup>({
+    register: register1,
+    getValues: getValues1,
+    watch: watch1,
+    formState: { errors: errors1, dirtyFields: dirtyFields1, isValid: isValid1 },
+  } = useForm<ValidationStep1>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema[0]),
     defaultValues: {
       email: '',
       code: '',
       password: '',
       confirmPassword: '',
+    },
+  });
+  const {
+    register: register2,
+    getValues: getValues2,
+    watch: watch2,
+    formState: { errors: errors2, dirtyFields: dirtyFields2, isValid: isValid2 },
+  } = useForm<ValidationStep2>({
+    mode: 'onChange',
+    resolver: yupResolver(schema[1]),
+    defaultValues: {
       nickname: '',
+    },
+  });
+  const {
+    register: register3,
+    getValues: getValues3,
+    watch: watch3,
+    formState: { errors: errors3, dirtyFields: dirtyFields3, isValid: isValid3 },
+  } = useForm<ValidationStep3>({
+    mode: 'onChange',
+    resolver: yupResolver(schema[2]),
+    defaultValues: {
+      searchSkill: '',
+      urlString: '',
+      selectedJob: '',
+      selectedExperience: '',
+      selectedSkills: [],
+      urls: [],
+      introduction: '',
     },
   });
   // query hooks
   // calculated values
-  const canMoveStep2 = !!(
-    getValues('email') &&
-    getValues('code') &&
-    getValues('password') &&
-    getValues('confirmPassword')
-  );
-  const canMoveStep3 = getValues('nickname');
   // effects
   // handlers
 
@@ -226,18 +274,18 @@ function SignUpBox() {
                 <Input
                   type='email'
                   placeholder='이메일'
-                  message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
+                  message={prevValue.prevEmailValue === watch1('email') ? message.emailMessage : ''}
                   css={{ width: '288px', marginBottom: '16px' }}
-                  {...register('email')}
+                  {...register1('email')}
                 />
                 <RequestButton
-                  value={getValues('email')}
+                  value={getValues1('email')}
                   onClick={() => {
                     setMessage({
                       ...message,
                       emailMessage: '인증번호를 전송하였습니다.',
                     });
-                    setPrevValue({ ...prevValue, prevEmailValue: watch('email') });
+                    setPrevValue({ ...prevValue, prevEmailValue: watch1('email') });
                   }}
                 >
                   인증요청
@@ -248,18 +296,18 @@ function SignUpBox() {
                   type='text'
                   placeholder='코드입력'
                   maxLength={6}
-                  message={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
+                  message={prevValue.prevCodeValue === watch1('code') ? message.codeMessage : ''}
                   css={{ width: '288px', marginBottom: '16px' }}
-                  {...register('code')}
+                  {...register1('code')}
                 />
                 <RequestButton
-                  value={watch('code')}
+                  value={watch1('code')}
                   onClick={() => {
                     setMessage({
                       ...message,
                       codeMessage: '인증이 완료되었습니다.',
                     });
-                    setPrevValue({ ...prevValue, prevCodeValue: watch('code') });
+                    // setPrevValue({ ...prevValue, prevCodeValue: watch('code') });
                   }}
                 >
                   확인
@@ -271,14 +319,14 @@ function SignUpBox() {
                   placeholder='비밀번호 입력'
                   message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                   autoComplete='off'
-                  error={errors.password}
+                  error={errors1.password}
                   iconProps={{
                     onClick: () => setIsShowPassword(!isShowPassword),
-                    iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-                    alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+                    iconImage: dirtyFields1.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+                    alt: dirtyFields1.password && !isShowPassword ? 'hide password' : 'show password',
                   }}
                   css={{ width: '100%', marginBottom: '16px' }}
-                  {...register('password')}
+                  {...register1('password')}
                 />
               </FlexBox>
               <FlexBox>
@@ -286,23 +334,23 @@ function SignUpBox() {
                   type={!isShowPassword ? 'password' : 'text'}
                   placeholder='비밀번호 확인'
                   autoComplete='off'
-                  error={errors.confirmPassword}
+                  error={errors1.confirmPassword}
                   iconProps={{
                     onClick: () => setIsShowPassword(!isShowPassword),
-                    iconImage: dirtyFields.confirmPassword && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-                    alt: dirtyFields.confirmPassword && !isShowPassword ? 'hide password' : 'show password',
+                    iconImage: dirtyFields1.confirmPassword && !isShowPassword ? IconPasswordHide : IconPasswordShow,
+                    alt: dirtyFields1.confirmPassword && !isShowPassword ? 'hide password' : 'show password',
                   }}
                   css={{ width: '100%', marginBottom: '16px' }}
-                  {...register('confirmPassword')}
+                  {...register1('confirmPassword')}
                 />
               </FlexBox>
             </FlexBox>
             <SignupButton
               onClick={moveNextStep}
-              disabled={!canMoveStep2}
+              disabled={!isValid1}
               css={{
-                backgroundColor: !canMoveStep2 ? palette.secondary.n60 : palette.primary.main,
-                cursor: !canMoveStep2 ? 'default' : 'pointer',
+                backgroundColor: !isValid1 ? palette.secondary.n60 : palette.primary.main,
+                cursor: !isValid1 ? 'default' : 'pointer',
               }}
             >
               다음
@@ -381,18 +429,18 @@ function SignUpBox() {
                 width='227px'
                 message='8자이내, 한글, 영문 숫자 혼용 가능'
                 placeholder='닉네임 입력'
-                {...register('nickname')}
+                {...register2('nickname')}
               />
-              <RequestButton onClick={() => {}} value={getValues('nickname')}>
+              <RequestButton onClick={() => {}} value={getValues2('nickname')}>
                 중복확인
               </RequestButton>
             </FlexBox>
             <SignupButton
               onClick={moveNextStep}
-              disabled={!canMoveStep3}
+              disabled={!isValid2}
               css={{
-                backgroundColor: !canMoveStep3 ? palette.secondary.n60 : palette.primary.main,
-                cursor: !canMoveStep3 ? 'default' : 'pointer',
+                backgroundColor: !isValid2 ? palette.secondary.n60 : palette.primary.main,
+                cursor: !isValid2 ? 'default' : 'pointer',
               }}
             >
               다음
@@ -446,8 +494,8 @@ function SignUpBox() {
                   overflowY: 'auto',
                 }}
               >
-                {!!thirdStepState.selectedSkill.length &&
-                  thirdStepState.selectedSkill.map((skill) => (
+                {!!thirdStepState.selectedSkills.length &&
+                  thirdStepState.selectedSkills.map((skill) => (
                     <SkillTab
                       css={[
                         { width: '64px' },

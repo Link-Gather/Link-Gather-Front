@@ -14,7 +14,7 @@ export default {
       urlString: '',
       selectedJob: '',
       selectedExperience: '',
-      selectedSkill: [],
+      selectedSkills: [],
       urls: [],
       introduction: '',
     },

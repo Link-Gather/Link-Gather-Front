@@ -21,7 +21,7 @@ function SkillDropdown(props: {
   const handleAddSkill = (skill: string) => {
     onClick({
       ...thirdStepState,
-      selectedSkill: [...thirdStepState.selectedSkill, skill],
+      selectedSkills: [...thirdStepState.selectedSkills, skill],
       searchSkill: '',
     });
   };

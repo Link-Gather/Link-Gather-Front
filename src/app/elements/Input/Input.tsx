@@ -1,8 +1,6 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 
 const Input = forwardRef(
   (

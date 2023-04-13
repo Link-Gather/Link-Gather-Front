@@ -38,14 +38,14 @@ function ForgotPasswordEmailForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4}>
+    <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
-      <FlexBox direction='column'>
+      <FlexBox direction='column' justifyContent='space-between' css={{ flex: 1 }}>
         <Input
           type='email'
           placeholder='이메일'

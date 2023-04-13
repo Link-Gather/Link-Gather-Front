@@ -42,7 +42,7 @@ function ForgotPasswordForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4}>
+    <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
@@ -53,9 +53,11 @@ function ForgotPasswordForm() {
         <Input
           type={!isShowPassword ? 'password' : 'text'}
           placeholder='비밀번호'
-          css={{ width: '100%', marginBottom: '16px' }}
+          css={{ width: '100%', height: '88px', marginBottom: '16px' }}
           error={errors.password}
-          message={errors.password?.message}
+          message={
+            errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
+          }
           iconProps={{
             onClick: () => setIsShowPassword(!isShowPassword),
             iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
@@ -85,7 +87,7 @@ function ForgotPasswordForm() {
             fontSize: '20px',
             backgroundColor: palette.primary.main,
             borderRadius: '32px',
-            marginTop: '24px',
+            marginTop: '14px',
           }}
           disabled={!isValid}
         >

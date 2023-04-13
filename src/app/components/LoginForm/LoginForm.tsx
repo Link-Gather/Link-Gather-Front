@@ -37,7 +37,7 @@ function LoginForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading } = useMutation(userRepository.signin);
+  const { mutateAsync, isLoading } = useMutation(userRepository.signIn);
 
   // calculated values
   // effects
@@ -60,7 +60,7 @@ function LoginForm() {
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
-        css={{ width: '100%', marginBottom: '16px' }}
+        css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
         iconProps={{

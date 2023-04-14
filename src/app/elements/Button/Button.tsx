@@ -44,7 +44,7 @@ function Button(
         color,
         cursor: 'pointer',
         ':disabled': {
-          backgroundColor: theme.palette.secondary.n40,
+          backgroundColor: !isLoading ? theme.palette.secondary.n40 : undefined,
         },
       })}
       className={className}

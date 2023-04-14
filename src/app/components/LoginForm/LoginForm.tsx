@@ -79,7 +79,6 @@ function LoginForm() {
           fontSize: '20px',
           borderRadius: '32px',
           backgroundColor: palette.primary.main,
-          marginTop: '8px',
         }}
         isLoading={isLoading}
         disabled={!isValid}

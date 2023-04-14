@@ -21,6 +21,9 @@ function GithubLoginButton() {
     <a href={href}>
       <button
         css={(theme: Theme) => ({
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           width: '60px',
           height: '60px',
           border: `2px solid ${theme.palette.black.main}`,

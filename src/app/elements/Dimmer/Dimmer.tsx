@@ -1,5 +1,5 @@
 import { keyframes } from '@emotion/react';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 const spin = keyframes({
   '0%': {
@@ -27,14 +27,14 @@ function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
         display: 'block',
         width: `${size}px`,
         height: `${size}px`,
-        animation: `${spin} 2000ms linear`,
+        animation: `${spin} 800ms linear`,
         animationDirection: 'normal',
         animationIterationCount: 'infinite',
         strokeWidth: '3px',
-        strokeDasharray: `${((size * 0.54) / 4) * Math.PI}px ${size * 0.75}px`,
+        strokeDasharray: `${((size * 0.54) / 2.5) * Math.PI}px ${size * 0.75}px`,
         strokeDashoffset: `${(size / 4) * Math.PI}px`,
         fill: 'none',
-        transition: 'stroke linear 2000ms',
+        transition: 'stroke linear 800ms',
         stroke: color,
       }}
     >

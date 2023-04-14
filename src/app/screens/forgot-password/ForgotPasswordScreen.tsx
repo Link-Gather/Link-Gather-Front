@@ -44,6 +44,7 @@ function ForgotPasswordScreen() {
           zIndex: 0,
         }}
         alt='background star'
+        draggable={false}
       />
       <img
         src={BackgroundPlanetPrimary}
@@ -61,6 +62,7 @@ function ForgotPasswordScreen() {
           },
         }}
         alt='background planet'
+        draggable={false}
       />
       <img
         src={BackgroundAstronautYellow}
@@ -78,6 +80,7 @@ function ForgotPasswordScreen() {
           },
         }}
         alt='background astronaut'
+        draggable={false}
       />
       <ShadowBox
         css={{

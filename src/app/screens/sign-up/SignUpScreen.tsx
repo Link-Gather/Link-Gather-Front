@@ -45,7 +45,7 @@ function SignUpScreen() {
               left: '40px',
             }}
           >
-            <img src={IconArrowLeft} alt='go back' />
+            <img src={IconArrowLeft} alt='go back' draggable={false} />
           </Link>
           <UnderlineTitle title='회원가입' />
           <FlexBox width='100%' css={{ marginTop: '20px' }}>

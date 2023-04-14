@@ -45,7 +45,7 @@ function ForgotPasswordForm() {
     <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' />
+          <img src={IconArrowLeft} alt='go back' draggable={false} />
         </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>

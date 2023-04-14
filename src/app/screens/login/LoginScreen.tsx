@@ -48,6 +48,7 @@ function LoginScreen() {
           zIndex: 0,
         }}
         alt='background star'
+        draggable={false}
       />
       <img
         src={BackgroundPlanetPrimary}
@@ -65,6 +66,7 @@ function LoginScreen() {
           },
         }}
         alt='background planet'
+        draggable={false}
       />
       <img
         src={BackgroundAstronautPrimary}
@@ -82,6 +84,7 @@ function LoginScreen() {
           },
         }}
         alt='background astronaut'
+        draggable={false}
       />
       <ShadowBox
         css={{
@@ -99,7 +102,7 @@ function LoginScreen() {
         <FlexBox width='320px' direction='column'>
           <FlexBox direction='row' width='100%'>
             <Link to={PATH_HOME}>
-              <img src={IconArrowLeft} alt='go home' />
+              <img src={IconArrowLeft} alt='go home' draggable={false} />
             </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
           </FlexBox>

@@ -83,6 +83,7 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
                 flex: 'none',
               }}
               alt={image.alt}
+              draggable={false}
             />
           );
         })}

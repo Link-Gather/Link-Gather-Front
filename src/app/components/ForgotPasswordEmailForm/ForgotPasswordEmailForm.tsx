@@ -41,7 +41,7 @@ function ForgotPasswordEmailForm() {
     <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' />
+          <img src={IconArrowLeft} alt='go back' draggable={false} />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
@@ -68,7 +68,7 @@ function ForgotPasswordEmailForm() {
           disabled={!isValid}
           onClick={handleSubmit(async ({ email }) => {})}
         >
-          인증하기 <img src={IconArrowRight} alt='go next' />
+          인증하기 <img src={IconArrowRight} alt='go next' draggable={false} />
         </Button>
       </FlexBox>
     </FlexBox>

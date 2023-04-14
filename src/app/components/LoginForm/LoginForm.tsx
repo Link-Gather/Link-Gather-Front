@@ -50,7 +50,7 @@ function LoginForm() {
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
-        message={errors.email?.message}
+        message={{ error: errors.email?.message }}
         iconProps={{
           iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
           alt: (!errors.email && dirtyFields.email && 'valid email') || undefined,
@@ -62,7 +62,7 @@ function LoginForm() {
         placeholder='비밀번호'
         css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}
-        message={errors.password?.message}
+        message={{ error: errors.password?.message }}
         iconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
           iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,

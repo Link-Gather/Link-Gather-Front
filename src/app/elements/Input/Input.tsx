@@ -6,7 +6,7 @@ const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      message?: string;
+      message?: { error?: string; help?: string };
       iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -121,7 +121,7 @@ const Input = forwardRef(
             },
           ]}
         >
-          {message}
+          {message?.error || message?.help}
         </span>
       </label>
     );

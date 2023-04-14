@@ -7,9 +7,7 @@ import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -27,7 +25,7 @@ function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -61,8 +59,8 @@ function ForgotPasswordForm() {
           }}
           iconProps={{
             onClick: () => setIsShowPassword(!isShowPassword),
-            iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+            iconImage: !isShowPassword ? IconPasswordHide : IconPasswordShow,
+            alt: !isShowPassword ? 'hide password' : 'show password',
           }}
           {...register('password')}
         />
@@ -74,8 +72,8 @@ function ForgotPasswordForm() {
           message={{ error: errors.confirmPassword?.message }}
           iconProps={{
             onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
-            iconImage: dirtyFields.confirmPassword && !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.confirmPassword && !isShowConfirmPassword ? 'hide password' : 'show password',
+            iconImage: !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
+            alt: !isShowConfirmPassword ? 'hide password' : 'show password',
           }}
           {...register('confirmPassword')}
         />

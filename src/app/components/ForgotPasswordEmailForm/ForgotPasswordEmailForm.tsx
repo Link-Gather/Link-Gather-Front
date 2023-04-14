@@ -7,9 +7,7 @@ import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import { IconArrowRight, IconArrowLeft, IconCheckGreen } from '@assets/images';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),

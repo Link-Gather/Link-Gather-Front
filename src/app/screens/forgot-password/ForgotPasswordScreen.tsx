@@ -2,9 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { FlexBox, ShadowBox } from '@elements';
 import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import { mq } from '@libs/theme';
-import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
-import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
-import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
+import { BackgroundAstronautYellow, BackgroundPlanetPrimary, BackgroundStar } from '@assets/images';
 
 function ForgotPasswordScreen() {
   // prop destruction

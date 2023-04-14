@@ -7,9 +7,7 @@ import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
 import { useMutation } from '@libs/query';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { IconCheckGreen, IconPasswordHide, IconPasswordShow } from '@assets/images';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -65,8 +63,8 @@ function LoginForm() {
         message={{ error: errors.password?.message }}
         iconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
-          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-          alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+          iconImage: !isShowPassword ? IconPasswordHide : IconPasswordShow,
+          alt: !isShowPassword ? 'hide password' : 'show password',
         }}
         {...register('password')}
       />

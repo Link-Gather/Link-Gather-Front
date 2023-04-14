@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FlexBox, UnderlineTitle, RequestButton, Input, Button, ShadowBox } from '@elements';
 import palette from '@libs/theme/palettes/default';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq } from '@libs/theme';
+import { IconArrowLeft } from '@assets/images';
 
 function SignUpScreen() {
   // prop destruction

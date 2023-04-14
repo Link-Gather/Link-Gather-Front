@@ -1,5 +1,5 @@
 import { GOOGLE_CLIENT_ID, REDIRECT_URI } from '@configs';
-import IconGoogle from '@assets/images/icons/icon-google.svg';
+import { IconGoogle } from '@assets/images';
 import type { Theme } from '@libs/theme';
 
 const AUTHORIZE_URI = 'https://accounts.google.com/o/oauth2/v2/auth';

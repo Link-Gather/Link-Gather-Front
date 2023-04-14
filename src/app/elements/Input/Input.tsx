@@ -98,7 +98,7 @@ const Input = forwardRef(
             }}
             onClick={iconProps?.onClick}
           >
-            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} draggable={false} />
+            <img src={iconProps.iconImage} alt={iconProps.alt ?? 'icon'} draggable={false} />
           </button>
         )}
 

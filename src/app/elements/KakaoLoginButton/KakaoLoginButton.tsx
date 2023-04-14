@@ -1,6 +1,5 @@
-import React from 'react';
 import { KAKAO_CLIENT_ID, REDIRECT_URI } from '@configs';
-import IconKakao from '@assets/images/icons/icon-kakao.svg';
+import { IconKakao } from '@assets/images';
 import type { Theme } from '@libs/theme';
 
 const href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/kakao&response_type=code`;

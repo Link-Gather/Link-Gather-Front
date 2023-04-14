@@ -1,9 +1,9 @@
 import React from 'react';
 
-import IconGithub from '@assets/images/icons/icon-github.svg';
 import type { Theme } from '@libs/theme';
 
 import { REDIRECT_URI, GITHUB_CLIENT_ID } from '@configs';
+import { IconGithub } from '@assets/images';
 
 const href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}/github`;
 

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, FlexBox, Dimmer } from '@elements';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import * as yup from 'yup';
+import { Button, Input, FlexBox } from '@elements';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
 import { useMutation } from '@libs/query';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -38,7 +38,7 @@ function LoginForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading } = useMutation(userRepository.signin);
+  const { mutateAsync, isLoading } = useMutation(userRepository.signIn);
 
   // calculated values
   // effects
@@ -60,7 +60,7 @@ function LoginForm() {
       <Input
         type={'password'}
         placeholder='비밀번호'
-        css={{ width: '100%', marginBottom: '16px' }}
+        css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}
         getValues={getValues('password')}
         message={errors.password?.message}
@@ -72,18 +72,19 @@ function LoginForm() {
       />
       <Button
         onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
+        color={palette.contrastText}
         css={{
           width: '100%',
           height: '48px',
           fontSize: '20px',
           borderRadius: '32px',
-          color: palette.contrastText,
           backgroundColor: palette.primary.main,
           marginTop: '8px',
         }}
+        isLoading={isLoading}
         disabled={!isValid}
       >
-        {isLoading ? `로딩중 ${(<Dimmer />)}` : '로그인'}
+        로그인
       </Button>
     </FlexBox>
   );

@@ -86,8 +86,8 @@ const Input = forwardRef(
           }}
           ref={ref}
           {...rest}
-          onFocus={(event) => setIsFocused(!!event.currentTarget.value.length)}
-          onBlur={(event) => setIsFocused(!!event.currentTarget.value.length)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         {iconProps?.iconImage && (
           <button

@@ -1,15 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
+import * as yup from 'yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import { Link } from 'react-router-dom';
+import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -38,14 +38,14 @@ function ForgotPasswordEmailForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4}>
+    <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
-      <FlexBox direction='column'>
+      <FlexBox direction='column' justifyContent='space-between' css={{ flex: 1 }}>
         <Input
           type='email'
           placeholder='이메일'
@@ -56,11 +56,11 @@ function ForgotPasswordEmailForm() {
           {...register('email')}
         />
         <Button
+          color={palette.contrastText}
           css={{
             width: '100%',
             height: '48px',
             fontSize: '20px',
-            color: palette.contrastText,
             backgroundColor: palette.primary.main,
             borderRadius: '32px',
             marginTop: '24px',

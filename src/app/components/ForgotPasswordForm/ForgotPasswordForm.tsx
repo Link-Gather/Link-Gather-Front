@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
+import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
+import palette from '@libs/theme/palettes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import palette from '@libs/theme/palettes';
-import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
-import { Link } from 'react-router-dom';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -43,7 +43,7 @@ function ForgotPasswordForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' direction='column' spacing={4}>
+    <FlexBox width='320px' height='324px' direction='column'>
       <FlexBox direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
           <img src={IconArrowLeft} alt='go back' />
@@ -54,9 +54,11 @@ function ForgotPasswordForm() {
         {/* <Input
           type={!isShowPassword ? 'password' : 'text'}
           placeholder='비밀번호'
-          css={{ width: '100%', marginBottom: '16px' }}
+          css={{ width: '100%', height: '88px', marginBottom: '16px' }}
           error={errors.password}
-          message={errors.password?.message}
+          message={
+            errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
+          }
           iconProps={{
             onClick: () => setIsShowPassword(!isShowPassword),
             iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
@@ -93,14 +95,14 @@ function ForgotPasswordForm() {
         />
         <Button
           onClick={handleSubmit(async ({ password, confirmPassword }) => {})}
+          color={palette.contrastText}
           css={{
             width: '100%',
             height: '48px',
             fontSize: '20px',
-            color: palette.contrastText,
             backgroundColor: palette.primary.main,
             borderRadius: '32px',
-            marginTop: '24px',
+            marginTop: '14px',
           }}
           disabled={!isValid}
         >

@@ -1,18 +1,18 @@
 import { keyframes } from '@emotion/react';
+import { CSSProperties } from 'react';
 
 const spin = keyframes({
   '0%': {
-    strokeDashoffset: '700px',
     transform: 'rotate(-90deg)',
   },
   '100%': {
-    strokeDashoffset: 0,
     transform: 'rotate(270deg)',
   },
 });
 
-export function Dimmer() {
+function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
   // prop destruction
+  const { size, color } = props;
   // lib hooks
   // state, ref hooks
   // form hook
@@ -24,20 +24,23 @@ export function Dimmer() {
   return (
     <svg
       css={{
-        width: '19px',
-        height: '19px',
-        animation: `${spin} 2000ms ease 0ms`,
+        display: 'block',
+        width: `${size}px`,
+        height: `${size}px`,
+        animation: `${spin} 2000ms linear`,
         animationDirection: 'normal',
         animationIterationCount: 'infinite',
-        strokeWidth: '2',
-        strokeDasharray: '300px',
+        strokeWidth: '3px',
+        strokeDasharray: `${((size * 0.54) / 4) * Math.PI}px ${size * 0.75}px`,
+        strokeDashoffset: `${(size / 4) * Math.PI}px`,
         fill: 'none',
-        transition: 'stroke ease 200ms',
-        stroke: '#ffffff',
-        opacity: 0.5,
+        transition: 'stroke linear 2000ms',
+        stroke: color,
       }}
     >
-      <circle cx={9} cy={9} r={7} />
+      <circle cx={size / 2} cy={size / 2} r={size / 4} />
     </svg>
   );
 }
+
+export { Dimmer };

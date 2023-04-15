@@ -3,10 +3,7 @@ import * as yup from 'yup';
 export const SCHEMA_EMAIL = yup.string().matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, '올바른 이메일 형식을 입력해주세요.');
 export const SCHEMA_PASSWORD = yup
   .string()
-  .matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*\-_+.,?])[A-Za-z\d!@#$%^&*\-_+.,?]{8,16}$/,
-    '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
-  );
+  .matches(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W)(?!.*\s).{8,16}$/, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.');
 export const SCHEMA_NICKNAME = yup.string().matches(/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,8}$/);
 /**
  * NOTE: password key값을 무조건 password로 해야한다.

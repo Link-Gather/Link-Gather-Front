@@ -1,8 +1,9 @@
 import type { ComponentProps } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { DecoratorFn, Meta, StoryObj } from '@storybook/react';
 import { DropDown } from './DropDown';
 
 type ArgTypes = ComponentProps<typeof DropDown>;
+const wrapper: DecoratorFn = (storyFn) => <div style={{ width: '376px' }}>{storyFn()}</div>;
 
 export default {
   title: 'components/DropDown',
@@ -20,6 +21,7 @@ export default {
       introduction: '',
     },
   },
+  decorators: [wrapper],
   onClick: { action: 'onClick' },
 } as Meta<ArgTypes>;
 

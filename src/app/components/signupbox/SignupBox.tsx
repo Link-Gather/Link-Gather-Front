@@ -99,19 +99,24 @@ const BottomLineInput = styled('input')({
   },
 });
 
-const SignupButton = styled('button')({
-  color: palette.contrastText,
-  position: 'absolute',
-  top: '400px',
-  borderRadius: '32px',
-  backgroundColor: palette.primary.main,
-  width: '320px',
-  height: '48px',
-  fontSize: '20px',
-  fontWeight: '600',
-  letterSpacing: '0.6px',
-  cursor: 'pointer',
-});
+const SignupButton = styled('button')<{ disabled?: boolean }>(
+  {
+    color: palette.contrastText,
+    position: 'absolute',
+    top: '400px',
+    borderRadius: '32px',
+    width: '320px',
+    height: '48px',
+    fontSize: '20px',
+    fontWeight: '600',
+    letterSpacing: '0.6px',
+  },
+  (props) => ({
+    backgroundColor: !props.disabled ? palette.primary.main : palette.secondary.n60,
+    cursor: !props.disabled ? 'pointer' : 'null',
+  })
+);
+
 const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
 const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
 
@@ -140,7 +145,7 @@ function SignUpBox() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -344,14 +349,7 @@ function SignUpBox() {
                 />
               </FlexBox>
             </FlexBox>
-            <SignupButton
-              onClick={moveNextStep}
-              disabled={!isValid1}
-              css={{
-                backgroundColor: !isValid1 ? palette.secondary.n60 : palette.primary.main,
-                cursor: !isValid1 ? 'default' : 'pointer',
-              }}
-            >
+            <SignupButton onClick={moveNextStep} disabled={!isValid1}>
               다음
             </SignupButton>
           </FlexBox>
@@ -434,14 +432,7 @@ function SignUpBox() {
                 중복확인
               </RequestButton>
             </FlexBox>
-            <SignupButton
-              onClick={moveNextStep}
-              disabled={!isValid2}
-              css={{
-                backgroundColor: !isValid2 ? palette.secondary.n60 : palette.primary.main,
-                cursor: !isValid2 ? 'default' : 'pointer',
-              }}
-            >
+            <SignupButton onClick={moveNextStep} disabled={!isValid2}>
               다음
             </SignupButton>
           </FlexBox>

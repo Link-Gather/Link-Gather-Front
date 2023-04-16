@@ -8,6 +8,8 @@ import { PATH_LOGIN } from '@routes';
 import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
 import { IconArrowRight, IconArrowLeft, IconCheckGreen } from '@assets/images';
+import { useMutation } from '@libs/query';
+import { authRepository } from '@repositories';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -30,7 +32,10 @@ function ForgotPasswordEmailForm() {
       email: '',
     },
   });
+
   // query hooks
+  const { mutateAsync, isLoading } = useMutation(authRepository.emailVerification);
+
   // calculated values
   // effects
   // handlers
@@ -64,7 +69,8 @@ function ForgotPasswordEmailForm() {
             marginTop: '24px',
           }}
           disabled={!isValid}
-          onClick={handleSubmit(async ({ email }) => {})}
+          isLoading={isLoading}
+          onClick={handleSubmit(async ({ email }) => await mutateAsync({ email, type: 'password' }))}
         >
           인증하기 <img src={IconArrowRight} alt='go next' draggable={false} />
         </Button>

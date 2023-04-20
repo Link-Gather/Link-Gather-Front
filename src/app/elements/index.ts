@@ -12,5 +12,6 @@ export * from './KakaoLoginButton';
 export * from './Layout';
 export * from './RequestButton';
 export * from './ShadowBox';
+export * from './TextArea';
 export * from './Typography';
 export * from './UnderlineTitle';

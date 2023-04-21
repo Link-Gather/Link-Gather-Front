@@ -51,21 +51,6 @@ function ForgotPasswordForm() {
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </FlexBox>
       <FlexBox direction='column'>
-        {/* <Input
-          type={!isShowPassword ? 'password' : 'text'}
-          placeholder='비밀번호'
-          css={{ width: '100%', height: '88px', marginBottom: '16px' }}
-          error={errors.password}
-          message={
-            errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
-          }
-          iconProps={{
-            onClick: () => setIsShowPassword(!isShowPassword),
-            iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
-          }}
-          {...register('password')}
-        /> */}
         <Input
           type='password'
           placeholder='비밀번호 입력'

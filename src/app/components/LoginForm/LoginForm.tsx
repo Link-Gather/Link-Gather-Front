@@ -58,7 +58,7 @@ function LoginForm() {
         {...register('email')}
       />
       <Input
-        type={'password'}
+        type='password'
         placeholder='비밀번호'
         css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}

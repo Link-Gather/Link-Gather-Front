@@ -1,4 +1,5 @@
 import React from 'react';
+import { Header } from '@components';
 
 function Layout(props: { children: React.ReactNode; componentStyle: 'contents' | 'full' }) {
   // prop destruction
@@ -20,7 +21,8 @@ function Layout(props: { children: React.ReactNode; componentStyle: 'contents' |
             minHeight: '100vh',
           }}
         >
-          {children}
+          <Header />
+          <div css={{ maxWidth: '1352px', width: '100%', margin: '0 auto' }}>{children}</div>
         </div>
       )}
       {componentStyle === 'full' && (

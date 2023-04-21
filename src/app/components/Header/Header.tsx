@@ -108,6 +108,7 @@ function Header() {
         </FlexBox>
         <FlexBox height='100%'>
           <Button
+            // TODO: onClick event 생성 / 로그인 여부에 따라 로그인 안내 alert or 프로젝트 생성 페이지로 이동
             css={{
               width: '212px',
               height: '100%',
@@ -126,15 +127,27 @@ function Header() {
           >
             프로젝트생성
           </Button>
-          <Button
+          <FlexBox
+            width='112px'
+            height='100%'
+            alignItems='center'
+            justifyContent='center'
             css={{
-              width: '112px',
-              height: '100%',
               borderRight: `2px solid ${palette.black.main}`,
             }}
           >
-            아이콘
-          </Button>
+            <Button
+              css={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                border: `2px solid ${palette.secondary.green}`,
+                overflow: 'hidden',
+              }}
+            >
+              <img src={LogoHeader} alt='link gather' />
+            </Button>
+          </FlexBox>
         </FlexBox>
       </FlexBox>
     </FlexBox>

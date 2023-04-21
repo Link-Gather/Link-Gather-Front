@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
-import palette from '@libs/theme/palettes';
 import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
+import palette from '@libs/theme/palettes';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -17,7 +17,11 @@ const schema = yup.object({
 function ForgotPasswordForm() {
   // prop destruction
   // lib hooks
+  const [searchParams] = useSearchParams();
+
   // state, ref, querystring hooks
+  const verificationId = searchParams.get('verificationId');
+
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
 
@@ -78,7 +82,9 @@ function ForgotPasswordForm() {
           {...register('confirmPassword')}
         />
         <Button
-          onClick={handleSubmit(async ({ password, confirmPassword }) => {})}
+          onClick={handleSubmit(async ({ password, confirmPassword }) => {
+            console.log(verificationId);
+          })}
           color={palette.contrastText}
           css={{
             width: '100%',

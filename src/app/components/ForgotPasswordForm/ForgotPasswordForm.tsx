@@ -67,7 +67,7 @@ function ForgotPasswordForm() {
           {...register('password')}
         /> */}
         <Input
-          type={'password'}
+          type='password'
           placeholder='비밀번호 입력'
           autoComplete='off'
           getValues={getValues('password')}
@@ -81,7 +81,7 @@ function ForgotPasswordForm() {
           {...register('password')}
         />
         <Input
-          type={'password'}
+          type='password'
           placeholder='비밀번호 확인'
           getValues={getValues('password')}
           error={errors.confirmPassword}

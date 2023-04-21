@@ -250,7 +250,7 @@ function SignUpScreen() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -452,7 +452,7 @@ function SignUpScreen() {
                 </FlexBox>
                 <FlexBox>
                   <Input
-                    type={'password'}
+                    type='password'
                     placeholder='비밀번호 입력'
                     message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                     autoComplete='off'
@@ -468,7 +468,7 @@ function SignUpScreen() {
                 </FlexBox>
                 <FlexBox>
                   <Input
-                    type={'passwrod'}
+                    type='passwrod'
                     placeholder='비밀번호 확인'
                     autoComplete='off'
                     error={errors1.confirmPassword}
@@ -576,23 +576,11 @@ function SignUpScreen() {
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
                 <FlexBox width='212px' direction='column'>
                   <CategoryTitle label='직무*' />
-                  <DropDown
-                    value='기획자'
-                    data={jobData}
-                    selectedItem={thirdStepState.selectedJob}
-                    thirdStepState={thirdStepState}
-                    onClick={setThirdStepState}
-                  />
+                  <DropDown selectedItem={thirdStepState.selectedJob} thirdStepState={thirdStepState} />
                 </FlexBox>
                 <FlexBox width='168px' direction='column'>
                   <CategoryTitle label='경력*' />
-                  <DropDown
-                    value='1~3년차'
-                    data={experienceData}
-                    selectedItem={thirdStepState.selectedExperience}
-                    thirdStepState={thirdStepState}
-                    onClick={setThirdStepState}
-                  />
+                  <DropDown selectedItem={thirdStepState.selectedExperience} thirdStepState={thirdStepState} />
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
@@ -606,7 +594,7 @@ function SignUpScreen() {
                   css={{ padding: '10px 40px 0px 40px' }}
                 />
                 <img
-                  alt={'search'}
+                  alt='search'
                   src={IconSearch}
                   css={{ marginTop: '37px', marginLeft: '5px', position: 'absolute' }}
                 />

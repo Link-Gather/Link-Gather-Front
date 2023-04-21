@@ -291,6 +291,7 @@ function SignUpScreen() {
       confirmPassword: '',
     },
   });
+
   const {
     register: register2,
     getValues: getValues2,

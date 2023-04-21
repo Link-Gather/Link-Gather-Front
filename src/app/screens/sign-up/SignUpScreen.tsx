@@ -222,8 +222,21 @@ const SignupButton = styled('button')<{ disabled?: boolean }>(
   })
 );
 
-const jobData = ['프론트엔드', '백엔드', '디자이너', '기획자'];
-const experienceData = ['학생/취준생', '1~3년차', '3~5년차', '5~10년차', '10년차이상'];
+const jobsData = [
+  { label: '프론트엔드', value: 'Frontend Developer' },
+  { label: '백엔드', value: 'Backend Developer' },
+  { label: '디자이너', value: 'Designer' },
+  { label: '기획자', value: 'Product Manager' },
+  { label: '기타', value: 'Other' },
+];
+
+const careersData = [
+  { label: '학생/취준생', value: 0 },
+  { label: '1~3년차', value: 1 },
+  { label: '3~5년차', value: 3 },
+  { label: '5~10년차', value: 5 },
+  { label: '10년차이상', value: 10 },
+];
 
 const schema = [
   yup.object().shape({
@@ -576,12 +589,10 @@ function SignUpScreen() {
             <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px', marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
                 <FlexBox width='212px' direction='column'>
-                  <CategoryTitle label='직무*' />
-                  <DropDown selectedItem={thirdStepState.selectedJob} thirdStepState={thirdStepState} />
+                  <DropDown label='직무' options={jobsData} required />
                 </FlexBox>
                 <FlexBox width='168px' direction='column'>
-                  <CategoryTitle label='경력*' />
-                  <DropDown selectedItem={thirdStepState.selectedExperience} thirdStepState={thirdStepState} />
+                  <DropDown label='경력' options={careersData} required />
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>

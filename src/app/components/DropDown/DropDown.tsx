@@ -1,22 +1,19 @@
 import { useDialog } from '@hooks';
-import { FlexBox } from '@elements';
+import { FlexBox, Label } from '@elements';
 import { ThirdStepData } from '@screens';
 import palette from '@libs/theme/palettes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
 function DropDown(props: {
   className?: string;
-  options?: { label: string; value: string }[];
-  selectedItem: string;
-  thirdStepState: ThirdStepData;
+  label: string;
   required?: boolean;
+  options: { label: string; value: string | number }[];
 }) {
   // prop destruction
-  const { className, options, selectedItem, thirdStepState, required } = props;
-  // const { label, value } = options;
+  const { className, label, options, required } = props;
 
   // lib hooks
-  const { isOpenDialog, closeDialog, toggleDialog } = useDialog();
   // state, ref hooks
   // form hook
   // query hooks
@@ -26,9 +23,11 @@ function DropDown(props: {
 
   //n300 n500
   return (
-    <FlexBox direction='column'>
+    <>
+      <Label required>{label}</Label>
       <select
         css={{
+          width: '100%',
           marginTop: '8px',
           padding: '12px 12px 12px 16px',
           border: `2px solid ${palette.secondary.n300}`,
@@ -36,11 +35,11 @@ function DropDown(props: {
           fontSize: '16px',
         }}
       >
-        <option css={{ padding: '10px' }}>fds</option>
-        <option css={{ padding: '10px' }}>ffdsds</option>
-        <option css={{ padding: '10px' }}>fdds</option>
+        {options.map((option) => (
+          <option key={option.label}>{option.label}</option>
+        ))}
       </select>
-    </FlexBox>
+    </>
   );
 }
 

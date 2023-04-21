@@ -38,7 +38,7 @@ function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
         stroke: color,
       }}
     >
-      <circle cx={size / 2} cy={size / 2} r={size / 4} />
+      <circle cx={String(size / 2)} cy={String(size / 2)} r={String(size / 4)} />
     </svg>
   );
 }

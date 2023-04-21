@@ -7,6 +7,9 @@ type ArgTypes = ComponentProps<typeof Label>;
 export default {
   title: 'elements/Label',
   component: Label,
+  args: {
+    children: '직무',
+  },
 } as Meta<ArgTypes>;
 
 export const Default: StoryObj<ArgTypes> = {};

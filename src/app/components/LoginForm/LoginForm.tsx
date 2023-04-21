@@ -8,6 +8,7 @@ import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
 import { useMutation } from '@libs/query';
 import { IconCheckGreen, IconPasswordHide, IconPasswordShow } from '@assets/images';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -17,6 +18,7 @@ const schema = yup.object({
 function LoginForm() {
   // prop destruction
   // lib hooks
+  const navigate = useNavigate();
   // state, ref hooks
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -35,12 +37,14 @@ function LoginForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading } = useMutation(userRepository.signIn);
+  const { mutateAsync, isLoading, isSuccess } = useMutation(userRepository.signIn);
 
   // calculated values
   // effects
   // handlers
-
+  if (isSuccess) {
+    navigate('/');
+  }
   return (
     <FlexBox direction='column' css={{ marginBottom: '40px' }}>
       <Input

@@ -1,7 +1,6 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
-import { Typography } from '../Typography';
 import { FlexBox } from '../FlexBox';
 import { Label } from '../Label';
 
@@ -32,10 +31,9 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <FlexBox direction='column'>
+      <FlexBox direction='column' className={className}>
         {label && <Label id={inputId} label={label} required={required} />}
         <input
-          className={className}
           id={inputId}
           type={type}
           css={(theme: Theme) => {
@@ -102,29 +100,27 @@ const Input = forwardRef(
             <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
-        {helperText && (
-          <span
-            css={(theme: Theme) => [
-              {
-                display: 'inline-block',
-                width: '100%',
-                height: '20px',
-                fontSize: '12px',
-                fontWeight: '400',
-                lineHeight: '20px',
-                color: theme.palette.secondary.n60,
-              },
-              isFocused && {
-                color: theme.palette.secondary.n300,
-              },
-              error && {
-                color: theme.palette.secondary.red,
-              },
-            ]}
-          >
-            {helperText}
-          </span>
-        )}
+        <span
+          css={(theme: Theme) => [
+            {
+              display: 'inline-block',
+              width: '100%',
+              height: '20px',
+              fontSize: '12px',
+              fontWeight: '400',
+              lineHeight: '20px',
+              color: theme.palette.secondary.n60,
+            },
+            isFocused && {
+              color: theme.palette.secondary.n300,
+            },
+            error && {
+              color: theme.palette.secondary.red,
+            },
+          ]}
+        >
+          {helperText}
+        </span>
       </FlexBox>
     );
   }

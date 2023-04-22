@@ -1,5 +1,4 @@
 export * from './Button';
-export * from './CategoryTitle';
 export * from './Chip';
 export * from './DialogAction';
 export * from './DialogContent';

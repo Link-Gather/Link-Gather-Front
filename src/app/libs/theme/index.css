@@ -16,6 +16,138 @@ a {
   text-decoration: none;
 }
 
+input[type='range'] {
+  -webkit-appearance: none;
+  background: #fff;
+
+  --thumb-height: 24px;
+  --track-height: 8px;
+  --track-color: #eaecf0;
+  --brightness-hover: 180%;
+  --brightness-down: 80%;
+  --clip-edges: 0.125em;
+}
+
+input[type='range']:focus {
+  outline: none;
+}
+
+/* chrome, safari */
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  transition: all ease 100ms;
+  height: var(--thumb-height);
+}
+
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+  position: relative;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: grab;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-top: -8px;
+
+  --thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
+  --clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px);
+  --clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+  --clip-further: calc(100% + 1px);
+  /* HACK: 계산식이 너무 어렵다.. */
+  --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax #5555ff;
+  box-shadow: var(--box-fill);
+  clip-path: polygon(
+    100% -1px,
+    var(--clip-edges) -1px,
+    0 var(--clip-top),
+    -100vmax var(--clip-top),
+    -100vmax var(--clip-bottom),
+    0 var(--clip-bottom),
+    var(--clip-edges) 100%,
+    var(--clip-further) var(--clip-further)
+  );
+}
+
+input[type='range']:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #eaecf0;
+  border-radius: 4px;
+
+  background: linear-gradient(#eaecf0 0 0) scroll no-repeat center / 100% calc(var(--track-height) + 1px);
+}
+
+/* firefox */
+input[type='range']::-moz-range-progress {
+  background: #5555ff;
+}
+
+input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+input[type='range']:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+input[type='range']::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #eaecf0;
+  border-radius: 4px;
+}
+
+/* edge */
+input[type='range']::-ms-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+input[type='range']:active::-ms-thumb {
+  cursor: grabbing;
+}
+
+input[type='range']::-ms-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #eaecf0;
+  border-radius: 4px;
+}
+
+input[type='range']::-ms-fill-lower {
+  background: #5555ff;
+}
+input[type='range']::-ms-fill-upper {
+  background: #eaecf0;
+}
+
 button {
   border: none;
   outline: none;

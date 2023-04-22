@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox } from '@elements';
+import { BottomLineInput, FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -187,22 +187,6 @@ const RequestButton = styled('button')<{ value: string }>(
     cursor: props.value ? 'pointer' : 'null',
   })
 );
-
-const BottomLineInput = styled('input')({
-  border: 'none',
-  borderBottom: `2px solid ${palette.secondary.n60}`,
-  height: '50px',
-  padding: '10px 40px 0px 0px',
-  fontSize: '18px',
-  '&:focus': {
-    outline: 'none',
-    borderBottom: `2px solid ${palette.primary.main}`,
-  },
-  '::placeholder': {
-    color: palette.secondary.n60,
-    fontWeight: '600',
-  },
-});
 
 const SignupButton = styled('button')<{ disabled?: boolean }>(
   {
@@ -597,17 +581,18 @@ function SignUpScreen() {
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
                 <BottomLineInput
+                  label='보유기술'
+                  required
                   name='searchSkill'
                   type='text'
                   value={thirdStepState.searchSkill}
                   onChange={handleChange}
                   placeholder='기술 스택 검색'
                   css={{ padding: '10px 40px 0px 40px' }}
-                ></BottomLineInput>
-                <img
-                  alt='search'
-                  src={IconSearch}
-                  css={{ marginTop: '15px', marginLeft: '5px', position: 'absolute' }}
+                  iconProps={{
+                    iconImage: IconSearch,
+                    alt: 'search',
+                  }}
                 />
                 <FlexBox
                   css={{
@@ -657,6 +642,7 @@ function SignUpScreen() {
               </FlexBox>
               <FlexBox width='100%' direction='column'>
                 <BottomLineInput
+                  label='참고 링크'
                   onKeyDown={handlerKeyDown}
                   placeholder='URL을 입력해주세요.'
                   type='text'

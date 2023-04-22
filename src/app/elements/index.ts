@@ -1,3 +1,4 @@
+export * from './BottomLineInput';
 export * from './Button';
 export * from './Chip';
 export * from './DialogAction';

@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import palettes from '@libs/theme/palettes';
+import React from 'react';
+import palette from '@libs/theme/palettes';
 
 function Label(props: { label: string; required?: boolean }) {
   // prop destruction
@@ -17,7 +17,7 @@ function Label(props: { label: string; required?: boolean }) {
   //n300 n500
   return (
     <label>
-      <span css={{ color: palettes.secondary.n500, fontWeight: '700' }}>{label}</span>
+      <span css={{ color: palette.secondary.n500, fontWeight: '700' }}>{label}</span>
       {required && <span css={{ color: 'red', marginLeft: '3px' }}>*</span>}
     </label>
   );

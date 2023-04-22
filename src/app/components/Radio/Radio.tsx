@@ -1,5 +1,6 @@
 import { FlexBox } from '@elements';
 import type { Theme } from '@libs/theme';
+import { useState } from 'react';
 
 function Radio(props: {
   label: string;
@@ -11,6 +12,7 @@ function Radio(props: {
   const { label, options, required = false, optionProps } = props;
   // lib hooks
   // state, ref hooks
+  const [isChecked, setIsChecked] = useState('');
   // form hook
   // query hooks
   // calculated values
@@ -34,7 +36,9 @@ function Radio(props: {
               type='radio'
               name={option.value}
               value={option.value}
-            />{' '}
+              checked={option.value === isChecked}
+              onChange={() => setIsChecked(option.value)}
+            />
             {option.label}
           </label>
         ))}

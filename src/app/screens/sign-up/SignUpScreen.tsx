@@ -1,4 +1,5 @@
 import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
@@ -10,11 +11,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
 import { BottomLineInput, FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox, TextArea } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconSearch from '@assets/images/icons/icon-search.svg';
-import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import styled from '@emotion/styled';
+import DeleteUrl from '@assets/images/icons/delete-url.svg';
+import IconSearch from '@assets/images/icons/icon-search.svg';
+import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import character1 from '@assets/images/icons/character/character1.svg';
 import character2 from '@assets/images/icons/character/character2.svg';
 import character3 from '@assets/images/icons/character/character3.svg';
@@ -246,8 +247,9 @@ const schema = [
 function SignUpScreen() {
   // prop destruction
   // lib hooks
+  const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -319,6 +321,59 @@ function SignUpScreen() {
       introduction: '',
     },
   });
+
+  const {
+    register,
+    getValues,
+    watch,
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<ValidationStep1 | ValidationStep2 | ValidationStep3>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      code: '',
+      password: '',
+      confirmPassword: '',
+      nickname: '',
+      searchSkill: '',
+      urlString: '',
+      selectedJob: '',
+      selectedExperience: '',
+      selectedSkills: [],
+      urls: [],
+      introduction: '',
+    },
+    resolver: yupResolver(
+      (() => {
+        switch (step) {
+          case 1:
+            return yup.object().shape({
+              email: yup.string(),
+              code: yup.string(),
+              password: SCHEMA_PASSWORD,
+              confirmPassword: SCHEMA_CONFIRM_PASSWORD,
+            });
+          case 2:
+            return yup.object().shape({
+              nickname: SCHEMA_NICKNAME,
+            });
+          case 3:
+            return yup.object().shape({
+              searchSkill: yup.string(),
+              urlString: yup.string().url(),
+              selectedJob: yup.string(),
+              selectedExperience: yup.string(),
+              selectedSkills: yup.array().of(yup.string()),
+              urls: yup.array().of(yup.string().url()),
+              introduction: yup.string(),
+            });
+          default:
+            return {};
+        }
+      })() as yup.Schema<ValidationStep1 | ValidationStep2 | ValidationStep3> | undefined | null
+    ),
+  });
+
   // query hooks
   // calculated values
   // effects
@@ -396,7 +451,8 @@ function SignUpScreen() {
               src={IconArrowLeft}
               alt='go back'
               onClick={() => {
-                setStep((prevState) => (prevState ? prevState - 1 : 0));
+                if (step) setStep((prevState) => prevState - 1);
+                else navigate('/login');
               }}
             />
           </FlexBox>
@@ -409,9 +465,9 @@ function SignUpScreen() {
                   <Input
                     type='email'
                     placeholder='이메일'
-                    message={prevValue.prevEmailValue === watch1('email') ? message.emailMessage : ''}
+                    message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
                     css={{ width: '288px', marginBottom: '16px' }}
-                    {...register1('email')}
+                    {...register('email')}
                   />
                   <RequestButton
                     value={getValues1('email')}
@@ -554,12 +610,11 @@ function SignUpScreen() {
               </FlexBox>
               <FlexBox width='324px' justifyContent='center'>
                 <Input
-                  width='227px'
                   message='8자이내, 한글, 영문 숫자 혼용 가능'
                   placeholder='닉네임 입력'
                   {...register2('nickname')}
                 />
-                <RequestButton onClick={() => {}} value={getValues2('nickname')}>
+                <RequestButton onClick={() => {}} value={getValues2('nickname')} css={{ width: '170px' }}>
                   중복확인
                 </RequestButton>
               </FlexBox>

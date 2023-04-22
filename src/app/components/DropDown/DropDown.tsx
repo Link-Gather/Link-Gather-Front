@@ -1,3 +1,4 @@
+import React from 'react';
 import { Label } from '@elements';
 import palette from '@libs/theme/palettes';
 

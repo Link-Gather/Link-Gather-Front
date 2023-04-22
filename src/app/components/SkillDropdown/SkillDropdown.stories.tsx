@@ -8,7 +8,7 @@ export default {
   title: 'components/SkillDropdown',
   component: SkillDropdown,
   args: {
-    skills: ['java', 'javascript'],
+    skills: ['java', 'javascript', 'spring'],
     thirdStepState: {
       searchSkill: '',
       urlString: '',

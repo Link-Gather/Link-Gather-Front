@@ -2,6 +2,7 @@ import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useId, useState } fro
 import { Theme } from '@libs/theme';
 import { Typography } from '../Typography';
 import { FieldError } from 'react-hook-form';
+import { FlexBox } from '../FlexBox';
 
 const TextArea = forwardRef(function TextArea(
   props: {
@@ -15,7 +16,7 @@ const TextArea = forwardRef(function TextArea(
   // prop destruction
   const { className, error, label, required = false, ...rest } = props;
   // lib hooks
-  const inputId = useId();
+  const id = useId();
   // state, ref hooks
   const [isFocused, setIsFocused] = useState(false);
   // form hook
@@ -25,17 +26,22 @@ const TextArea = forwardRef(function TextArea(
   // handlers
 
   return (
-    <label
-      htmlFor={inputId}
-      css={{
-        position: 'relative',
-      }}
-    >
-      <Typography variant='h5' css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}>
-        {label}
-        {required && <span css={{ color: '#FF2626 ' }}> *</span>}
-      </Typography>
+    <FlexBox direction='column'>
+      {label && (
+        <FlexBox direction='row'>
+          <label htmlFor={id}>
+            <Typography
+              variant='h5'
+              css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
+            >
+              {label}
+            </Typography>
+          </label>
+          {required && <span css={{ color: '#FF2626 ' }}> *</span>}
+        </FlexBox>
+      )}
       <textarea
+        id={id}
         css={(theme: Theme) => {
           return [
             {
@@ -76,7 +82,7 @@ const TextArea = forwardRef(function TextArea(
         ref={ref}
         {...rest}
       />
-    </label>
+    </FlexBox>
   );
 });
 

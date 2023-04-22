@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
-import { BottomLineInput, FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox } from '@elements';
+import { BottomLineInput, FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox, TextArea } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -620,24 +620,14 @@ function SignUpScreen() {
                   <SkillDropdown thirdStepState={thirdStepState} onClick={setThirdStepState} skills={skills} />
                 )}
               </FlexBox>
-              <FlexBox width='100%' direction='column'>
-                <textarea
+              <FlexBox width='100%' height='120px' direction='column'>
+                <TextArea
+                  label='자기소개'
+                  required
                   onChange={handleChange}
                   value={thirdStepState.introduction}
                   name='introduction'
                   placeholder='안녕하세욥!'
-                  css={{
-                    marginTop: '8px',
-                    width: '100%',
-                    height: '98px',
-                    fontWeight: '500',
-                    fontSize: '14px',
-                    borderRadius: 8,
-                    border: `2px solid ${palette.secondary.n300}`,
-                    padding: '8px 24px 8px 8px',
-                    outline: 'none',
-                    resize: 'none',
-                  }}
                 />
               </FlexBox>
               <FlexBox width='100%' direction='column'>

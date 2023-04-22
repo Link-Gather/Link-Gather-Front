@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Button, FlexBox } from '@elements';
 import palette from '@libs/theme/palettes';
-import LogoHeader from '@assets/images/logos/logo-header.svg';
+import LogoHeader from '@assets/images/logos/logo-header.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
+import ProfileDefault from '@assets/images/profiles/profile-default.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
 
 function Header() {
   return (
@@ -142,10 +143,20 @@ function Header() {
                 height: '50px',
                 borderRadius: '50%',
                 border: `2px solid ${palette.secondary.green}`,
+                backgroundColor: palette.primary.main,
                 overflow: 'hidden',
               }}
             >
-              <img src={LogoHeader} alt='link gather' />
+              <img
+                src={ProfileDefault} // TODO: User Image에 맞게 가져오도록 수정
+                alt='profile'
+                css={{
+                  width: '200%',
+                  height: '200%',
+                  objectFit: 'contain',
+                  transform: 'translate(25%, 20%)',
+                }}
+              />
             </Button>
           </FlexBox>
         </FlexBox>

@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, CategoryTitle, SkillTab, ShadowBox } from '@elements';
+import { FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -596,7 +596,6 @@ function SignUpScreen() {
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
-                <CategoryTitle label='보유기술*' />
                 <BottomLineInput
                   name='searchSkill'
                   type='text'
@@ -604,11 +603,11 @@ function SignUpScreen() {
                   onChange={handleChange}
                   placeholder='기술 스택 검색'
                   css={{ padding: '10px 40px 0px 40px' }}
-                />
+                ></BottomLineInput>
                 <img
                   alt='search'
                   src={IconSearch}
-                  css={{ marginTop: '37px', marginLeft: '5px', position: 'absolute' }}
+                  css={{ marginTop: '15px', marginLeft: '5px', position: 'absolute' }}
                 />
                 <FlexBox
                   css={{
@@ -637,11 +636,11 @@ function SignUpScreen() {
                 )}
               </FlexBox>
               <FlexBox width='100%' direction='column'>
-                <CategoryTitle label='자기소개 *' />
                 <textarea
                   onChange={handleChange}
                   value={thirdStepState.introduction}
                   name='introduction'
+                  placeholder='안녕하세욥!'
                   css={{
                     marginTop: '8px',
                     width: '100%',
@@ -657,7 +656,6 @@ function SignUpScreen() {
                 />
               </FlexBox>
               <FlexBox width='100%' direction='column'>
-                <CategoryTitle label='참고 링크' />
                 <BottomLineInput
                   onKeyDown={handlerKeyDown}
                   placeholder='URL을 입력해주세요.'

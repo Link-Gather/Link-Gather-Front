@@ -1,8 +1,5 @@
-import { useDialog } from '@hooks';
-import { FlexBox, Label } from '@elements';
-import { ThirdStepData } from '@screens';
+import { Label } from '@elements';
 import palette from '@libs/theme/palettes';
-import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
 function DropDown(props: {
   className?: string;
@@ -24,7 +21,7 @@ function DropDown(props: {
   //n300 n500
   return (
     <>
-      <Label required>{label}</Label>
+      <Label label={label} required={required}></Label>
       <select
         css={{
           width: '100%',

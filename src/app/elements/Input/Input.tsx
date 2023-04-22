@@ -3,6 +3,7 @@ import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
 import { Typography } from '../Typography';
 import { FlexBox } from '../FlexBox';
+import { Label } from '../Label';
 
 const Input = forwardRef(
   (
@@ -32,25 +33,7 @@ const Input = forwardRef(
 
     return (
       <FlexBox direction='column'>
-        {label && (
-          <FlexBox direction='row'>
-            <label
-              htmlFor={inputId}
-              className={className}
-              css={{
-                position: 'relative',
-              }}
-            >
-              <Typography
-                variant='h5'
-                css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
-              >
-                {label}
-              </Typography>
-            </label>
-            {required && <span css={{ color: '#FF2626 ' }}> *</span>}
-          </FlexBox>
-        )}
+        {label && <Label id={inputId} label={label} required={required} />}
         <input
           className={className}
           id={inputId}
@@ -119,27 +102,29 @@ const Input = forwardRef(
             <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
-        <span
-          css={(theme: Theme) => [
-            {
-              display: 'inline-block',
-              width: '100%',
-              height: '20px',
-              fontSize: '12px',
-              fontWeight: '400',
-              lineHeight: '20px',
-              color: theme.palette.secondary.n60,
-            },
-            isFocused && {
-              color: theme.palette.secondary.n300,
-            },
-            error && {
-              color: theme.palette.secondary.red,
-            },
-          ]}
-        >
-          {helperText}
-        </span>
+        {helperText && (
+          <span
+            css={(theme: Theme) => [
+              {
+                display: 'inline-block',
+                width: '100%',
+                height: '20px',
+                fontSize: '12px',
+                fontWeight: '400',
+                lineHeight: '20px',
+                color: theme.palette.secondary.n60,
+              },
+              isFocused && {
+                color: theme.palette.secondary.n300,
+              },
+              error && {
+                color: theme.palette.secondary.red,
+              },
+            ]}
+          >
+            {helperText}
+          </span>
+        )}
       </FlexBox>
     );
   }

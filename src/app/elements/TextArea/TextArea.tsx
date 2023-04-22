@@ -1,8 +1,8 @@
 import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useId, useState } from 'react';
 import { Theme } from '@libs/theme';
-import { Typography } from '../Typography';
 import { FieldError } from 'react-hook-form';
 import { FlexBox } from '../FlexBox';
+import { Label } from '../Label';
 
 const TextArea = forwardRef(function TextArea(
   props: {
@@ -27,19 +27,7 @@ const TextArea = forwardRef(function TextArea(
 
   return (
     <FlexBox direction='column'>
-      {label && (
-        <FlexBox direction='row'>
-          <label htmlFor={id}>
-            <Typography
-              variant='h5'
-              css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
-            >
-              {label}
-            </Typography>
-          </label>
-          {required && <span css={{ color: '#FF2626 ' }}> *</span>}
-        </FlexBox>
-      )}
+      {label && <Label id={id} label={label} required={required} />}
       <textarea
         id={id}
         css={(theme: Theme) => {

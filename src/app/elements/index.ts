@@ -9,6 +9,7 @@ export * from './GithubLoginButton';
 export * from './GoogleLoginButton';
 export * from './Input';
 export * from './KakaoLoginButton';
+export * from './Label';
 export * from './Layout';
 export * from './RequestButton';
 export * from './Section';

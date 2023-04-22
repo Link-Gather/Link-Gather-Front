@@ -11,6 +11,7 @@ export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Layout';
 export * from './RequestButton';
+export * from './Section';
 export * from './ShadowBox';
 export * from './TextArea';
 export * from './Typography';

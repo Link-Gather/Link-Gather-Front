@@ -1,25 +1,27 @@
-import React from 'react';
-import palette from '@libs/theme/palettes';
+import { Theme } from '@libs/theme';
+import { FlexBox } from '../FlexBox';
+import { Typography } from '../Typography';
 
-function Label(props: { label: string; required?: boolean }) {
+function Label(props: { id: string; label: string; required: boolean }) {
   // prop destruction
-  const { label, required } = props;
-
+  const { id, label, required } = props;
   // lib hooks
   // state, ref hooks
-  // form hook
   // query hooks
   // calculated values
-
   // effects
   // handlers
-
-  //n300 n500
   return (
-    <label>
-      <span css={{ color: palette.secondary.n500, fontWeight: '700' }}>{label}</span>
-      {required && <span css={{ color: 'red', marginLeft: '3px' }}>*</span>}
-    </label>
+    <FlexBox
+      direction='row'
+      alignContent='center'
+      css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
+    >
+      <label htmlFor={id}>
+        <Typography variant='h5'>{label}</Typography>
+      </label>
+      {required && <span css={{ color: '#FF2626 ' }}>*</span>}
+    </FlexBox>
   );
 }
 

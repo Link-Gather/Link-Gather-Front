@@ -1,39 +1,78 @@
-import React, { ChangeEvent } from 'react';
-import { Label } from '@elements';
-import palette from '@libs/theme/palettes';
+import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useId, useState } from 'react';
+import { Theme } from '@libs/theme';
+import { FieldError } from 'react-hook-form';
+import { FlexBox } from '../FlexBox';
+import { Label } from '../Label';
 
-function TextArea(props: {
-  label: string;
-  required?: boolean;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
-  value: string;
-  name: string;
-  placeholder: string;
-}) {
-  const { label, required, onChange, value, name, placeholder } = props;
+const TextArea = forwardRef(function TextArea(
+  props: {
+    error?: FieldError;
+    className?: string;
+    label?: string;
+    required?: boolean;
+  } & TextareaHTMLAttributes<HTMLTextAreaElement>,
+  ref: ForwardedRef<HTMLTextAreaElement>
+) {
+  // prop destruction
+  const { className, error, label, required = false, ...rest } = props;
+  // lib hooks
+  const id = useId();
+  // state, ref hooks
+  const [isFocused, setIsFocused] = useState(false);
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
+
   return (
-    <>
-      <Label label={label} required />
+    <FlexBox direction='column'>
+      {label && <Label id={id} label={label} required={required} />}
       <textarea
-        onChange={onChange}
-        value={value}
-        name={name}
-        placeholder={placeholder}
-        css={{
-          marginTop: '8px',
-          width: '100%',
-          height: '100%',
-          fontWeight: '500',
-          fontSize: '14px',
-          borderRadius: 8,
-          border: `2px solid ${palette.secondary.n300}`,
-          padding: '8px 24px 8px 8px',
-          outline: 'none',
-          resize: 'none',
+        id={id}
+        css={(theme: Theme) => {
+          return [
+            {
+              width: '100%',
+              overflow: 'scroll',
+              fontSize: '20px',
+              borderRadius: 8,
+              border: `2px solid ${theme.palette.secondary.n60}`,
+              padding: '11px 16px 11px 16px',
+              outline: 'none',
+              resize: 'none',
+              '&::placeholder': {
+                color: theme.palette.secondary.n60,
+              },
+              '&:focus': {
+                border: `2px solid ${theme.palette.primary.main}`,
+                '& + button': {
+                  opacity: 1,
+                },
+              },
+            },
+            isFocused && {
+              border: `2px solid ${theme.palette.secondary.n300}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.primary.main}`,
+              },
+            },
+            error && {
+              border: `2px solid ${theme.palette.secondary.red}`,
+              '&:focus': {
+                border: `2px solid ${theme.palette.secondary.red}`,
+              },
+            },
+          ];
         }}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className={className}
+        ref={ref}
+        {...rest}
       />
-    </>
+    </FlexBox>
   );
-}
+});
 
 export { TextArea };

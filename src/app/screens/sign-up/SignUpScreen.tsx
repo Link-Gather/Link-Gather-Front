@@ -130,18 +130,12 @@ export type ThirdStepData = {
   introduction: string;
 };
 
-type ValidationStep1 = {
+type ValidationType = {
   email: string;
   code: string;
   password: string;
   confirmPassword: string;
-};
-
-type ValidationStep2 = {
   nickname: string;
-};
-
-type ValidationStep3 = {
   searchSkill: string;
   urlString: string;
   selectedJob: string;
@@ -223,33 +217,12 @@ const careersData = [
   { label: '10년차이상', value: 10 },
 ];
 
-const schema = [
-  yup.object().shape({
-    email: yup.string(),
-    code: yup.string(),
-    password: SCHEMA_PASSWORD,
-    confirmPassword: SCHEMA_CONFIRM_PASSWORD,
-  }),
-  yup.object().shape({
-    nickname: SCHEMA_NICKNAME,
-  }),
-  yup.object().shape({
-    searchSkill: yup.string(),
-    urlString: yup.string().url(),
-    selectedJob: yup.string(),
-    selectedExperience: yup.string(),
-    selectedSkills: yup.array().of(yup.string()),
-    urls: yup.array().of(yup.string().url()),
-    introduction: yup.string(),
-  }),
-];
-
 function SignUpScreen() {
   // prop destruction
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -263,71 +236,14 @@ function SignUpScreen() {
 
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
 
-  const [thirdStepState, setThirdStepState] = useState<ValidationStep3>({
-    searchSkill: '',
-    urlString: '',
-    selectedJob: '',
-    selectedExperience: '',
-    selectedSkills: [],
-    urls: [],
-    introduction: '',
-  });
-
   // form hooks
-
-  const {
-    register: register1,
-    getValues: getValues1,
-    watch: watch1,
-    formState: { errors: errors1, dirtyFields: dirtyFields1, isValid: isValid1 },
-  } = useForm<ValidationStep1>({
-    mode: 'onChange',
-    resolver: yupResolver(schema[0]),
-    defaultValues: {
-      email: '',
-      code: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
-
-  const {
-    register: register2,
-    getValues: getValues2,
-    watch: watch2,
-    formState: { errors: errors2, dirtyFields: dirtyFields2, isValid: isValid2 },
-  } = useForm<ValidationStep2>({
-    mode: 'onChange',
-    resolver: yupResolver(schema[1]),
-    defaultValues: {
-      nickname: '',
-    },
-  });
-  const {
-    register: register3,
-    getValues: getValues3,
-    watch: watch3,
-    formState: { errors: errors3, dirtyFields: dirtyFields3, isValid: isValid3 },
-  } = useForm<ValidationStep3>({
-    mode: 'onChange',
-    resolver: yupResolver(schema[2]),
-    defaultValues: {
-      searchSkill: '',
-      urlString: '',
-      selectedJob: '',
-      selectedExperience: '',
-      selectedSkills: [],
-      urls: [],
-      introduction: '',
-    },
-  });
 
   const {
     register,
     getValues,
     watch,
     formState: { errors, dirtyFields, isValid },
-  } = useForm<ValidationStep1 | ValidationStep2 | ValidationStep3>({
+  } = useForm<ValidationType>({
     mode: 'onChange',
     defaultValues: {
       email: '',
@@ -343,8 +259,8 @@ function SignUpScreen() {
       urls: [],
       introduction: '',
     },
-    resolver: yupResolver(
-      (() => {
+    resolver: ((step: number) => {
+      const resolver = (() => {
         switch (step) {
           case 1:
             return yup.object().shape({
@@ -367,11 +283,10 @@ function SignUpScreen() {
               urls: yup.array().of(yup.string().url()),
               introduction: yup.string(),
             });
-          default:
-            return {};
         }
-      })() as yup.Schema<ValidationStep1 | ValidationStep2 | ValidationStep3> | undefined | null
-    ),
+      })();
+      return yupResolver(resolver);
+    })(1),
   });
 
   // query hooks
@@ -379,22 +294,15 @@ function SignUpScreen() {
   // effects
   // handlers
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
-    setThirdStepState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
-      setThirdStepState({
-        ...thirdStepState,
-        urls: [...thirdStepState.urls, thirdStepState.urlString],
-        urlString: '',
-      });
-    }
-  };
+  // const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+  //   if (e.key === 'Enter') {
+  //     setThirdStepState({
+  //       ...thirdStepState,
+  //       urls: [...thirdStepState.urls, thirdStepState.urlString],
+  //       urlString: '',
+  //     });
+  //   }
+  // };
 
   const moveNextStep = (): void => {
     if (step < 2) {
@@ -465,18 +373,18 @@ function SignUpScreen() {
                   <Input
                     type='email'
                     placeholder='이메일'
-                    message={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
+                    helperText={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
                     css={{ width: '288px', marginBottom: '16px' }}
                     {...register('email')}
                   />
                   <RequestButton
-                    value={getValues1('email')}
+                    value={getValues('email')}
                     onClick={() => {
                       setMessage({
                         ...message,
                         emailMessage: '인증번호를 전송하였습니다.',
                       });
-                      setPrevValue({ ...prevValue, prevEmailValue: watch1('email') });
+                      setPrevValue({ ...prevValue, prevEmailValue: watch('email') });
                     }}
                   >
                     인증요청
@@ -487,12 +395,12 @@ function SignUpScreen() {
                     type='text'
                     placeholder='코드입력'
                     maxLength={6}
-                    message={prevValue.prevCodeValue === watch1('code') ? message.codeMessage : ''}
+                    helperText={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
                     css={{ width: '288px', marginBottom: '16px' }}
-                    {...register1('code')}
+                    {...register('code')}
                   />
                   <RequestButton
-                    value={watch1('code')}
+                    value={watch('code')}
                     onClick={() => {
                       setMessage({
                         ...message,
@@ -504,39 +412,37 @@ function SignUpScreen() {
                     확인
                   </RequestButton>
                 </FlexBox>
-                <FlexBox>
+                <FlexBox css={{ position: 'relative' }}>
                   <Input
                     type='password'
                     placeholder='비밀번호 입력'
-                    message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                    helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                     autoComplete='off'
-                    error={errors1.password}
-                    getValues={getValues1('password')}
+                    error={errors.password}
                     iconProps={{
                       iconImage: IconPasswordShow,
                       alt: 'show password',
                     }}
-                    css={{ width: '100%', marginBottom: '16px' }}
-                    {...register1('password')}
+                    css={{ width: '392px' }}
+                    {...register('password')}
                   />
                 </FlexBox>
-                <FlexBox>
+                <FlexBox css={{ position: 'relative', marginTop: '16px' }}>
                   <Input
                     type='passwrod'
                     placeholder='비밀번호 확인'
                     autoComplete='off'
-                    error={errors1.confirmPassword}
-                    getValues={getValues1('confirmPassword')}
+                    error={errors.confirmPassword}
                     iconProps={{
                       iconImage: IconPasswordShow,
                       alt: 'show password',
                     }}
-                    css={{ width: '100%', marginBottom: '16px' }}
-                    {...register1('confirmPassword')}
+                    css={{ width: '392px' }}
+                    {...register('confirmPassword')}
                   />
                 </FlexBox>
               </FlexBox>
-              <SignupButton onClick={moveNextStep} disabled={!isValid1}>
+              <SignupButton onClick={moveNextStep} disabled={!isValid}>
                 다음
               </SignupButton>
             </FlexBox>
@@ -610,15 +516,15 @@ function SignUpScreen() {
               </FlexBox>
               <FlexBox width='324px' justifyContent='center'>
                 <Input
-                  message='8자이내, 한글, 영문 숫자 혼용 가능'
+                  helperText='8자이내, 한글, 영문 숫자 혼용 가능'
                   placeholder='닉네임 입력'
-                  {...register2('nickname')}
+                  {...register('nickname')}
                 />
-                <RequestButton onClick={() => {}} value={getValues2('nickname')} css={{ width: '170px' }}>
+                <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '170px' }}>
                   중복확인
                 </RequestButton>
               </FlexBox>
-              <SignupButton onClick={moveNextStep} disabled={!isValid2}>
+              <SignupButton onClick={moveNextStep} disabled={!isValid}>
                 다음
               </SignupButton>
             </FlexBox>
@@ -628,26 +534,25 @@ function SignUpScreen() {
             <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px', marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
                 <FlexBox width='212px' direction='column'>
-                  <DropDown label='직무' options={jobsData} required />
+                  <DropDown label='직무' options={jobsData} required {...register('selectedJob')} />
                 </FlexBox>
                 <FlexBox width='168px' direction='column'>
-                  <DropDown label='경력' options={careersData} required />
+                  <DropDown label='경력' options={careersData} required {...register('selectedExperience')} />
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
-                <BottomLineInput
+                <Input
+                  bottomLine
                   label='보유기술'
                   required
-                  name='searchSkill'
                   type='text'
-                  value={thirdStepState.searchSkill}
-                  onChange={handleChange}
                   placeholder='기술 스택 검색'
-                  css={{ padding: '10px 40px 0px 40px' }}
                   iconProps={{
                     iconImage: IconSearch,
                     alt: 'search',
                   }}
+                  css={{ marginTop: '-16px', fontSize: '16px', paddingLeft: '25px' }}
+                  {...register('searchSkill')}
                 />
                 <FlexBox
                   css={{
@@ -656,8 +561,8 @@ function SignUpScreen() {
                     overflowY: 'auto',
                   }}
                 >
-                  {!!thirdStepState.selectedSkills.length &&
-                    thirdStepState.selectedSkills.map((skill) => (
+                  {!!getValues('selectedSkills').length &&
+                    getValues('selectedSkills').map((skill) => (
                       <SkillTab
                         css={[
                           { width: '64px' },
@@ -671,58 +576,66 @@ function SignUpScreen() {
                       </SkillTab>
                     ))}
                 </FlexBox>
-                {thirdStepState.searchSkill && (
-                  <SkillDropdown thirdStepState={thirdStepState} onClick={setThirdStepState} skills={skills} />
-                )}
+                {/* {getValues('searchSkill') && <SkillDropdown skills={skills} />} */}
               </FlexBox>
-              <FlexBox width='100%' height='120px' direction='column'>
+              <FlexBox width='100%' height='125px' direction='column'>
                 <TextArea
                   label='자기소개'
                   required
-                  onChange={handleChange}
-                  value={thirdStepState.introduction}
-                  name='introduction'
                   placeholder='안녕하세욥!'
+                  css={{ fontSize: '16px', overflow: 'unset', marginTop: '-8px', height: '100px' }}
+                  {...register('introduction')}
                 />
               </FlexBox>
               <FlexBox width='100%' direction='column'>
-                <BottomLineInput
+                <Input
+                  bottomLine
                   label='참고 링크'
-                  onKeyDown={handlerKeyDown}
-                  placeholder='URL을 입력해주세요.'
                   type='text'
-                  name='urlString'
-                  onChange={handleChange}
-                  value={thirdStepState.urlString}
+                  placeholder='URL을 입력해주세요.'
+                  iconProps={{
+                    iconImage: IconSearch,
+                    alt: 'search',
+                  }}
+                  css={{ marginTop: '-16px', fontSize: '16px' }}
+                  {...register('urlString')}
                 />
-                {thirdStepState.urls.map((url) => (
-                  <FlexBox key={url} css={{ padding: '5px' }}>
-                    <a
-                      css={{
-                        color: palette.primary.main,
-                        textDecoration: 'underline',
-                        fontWeight: '500',
-                        display: 'inline-block',
-                      }}
-                      href={url}
-                      target='_blank'
-                      rel='noreferrer'
-                    >
-                      {url.includes('https://') ? url : 'https://' + url}
-                    </a>
-                    <img
-                      alt='delete-url'
-                      src={DeleteUrl}
-                      css={{ marginLeft: '10px', cursor: 'pointer' }}
-                      onClick={() => {
-                        setThirdStepState({
-                          ...thirdStepState,
-                          urls: thirdStepState.urls?.filter((urlName) => urlName !== url),
-                        });
-                      }}
-                    />
-                  </FlexBox>
-                ))}
+                <FlexBox
+                  width='100%'
+                  height='50px'
+                  direction='column'
+                  css={{ overflowY: 'scroll', border: 'none' }}
+                  {...register('urls')}
+                >
+                  {getValues('urls').map((url) => (
+                    <FlexBox key={url} css={{ padding: '5px' }}>
+                      <a
+                        css={{
+                          color: palette.primary.main,
+                          textDecoration: 'underline',
+                          fontWeight: '500',
+                          display: 'inline-block',
+                        }}
+                        href={url}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        {url.includes('https://') ? url : 'https://' + url}
+                      </a>
+                      <img
+                        alt='delete-url'
+                        src={DeleteUrl}
+                        css={{ marginLeft: '10px', cursor: 'pointer' }}
+                        // onClick={() => {
+                        //   setThirdStepState({
+                        //     ...thirdStepState,
+                        //     urls: thirdStepState.urls?.filter((urlName) => urlName !== url),
+                        //   });
+                        // }}
+                      />
+                    </FlexBox>
+                  ))}
+                </FlexBox>
               </FlexBox>
               <SignupButton
                 css={{ top: '529px' }}

@@ -1,14 +1,16 @@
-import type { ComponentProps } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { ComponentProps } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 import { Label } from './Label';
 
 type ArgTypes = ComponentProps<typeof Label>;
 
 export default {
-  title: 'elements/Label',
+  title: 'components/Label',
   component: Label,
   args: {
-    label: '직무',
+    label: 'Label name',
+    required: true,
+    id: 'label-id',
   },
 } as Meta<ArgTypes>;
 

@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, forwardRef, ReactNode } from 'react';
 import { Theme } from '@emotion/react';
 
 const directionToMarginPropertyMap: Partial<
@@ -10,51 +10,56 @@ const directionToMarginPropertyMap: Partial<
   'column-reverse': 'marginBottom',
 };
 
-function FlexBox(props: {
-  className?: string;
-  children?: ReactNode;
-  direction?: CSSProperties['flexDirection'];
-  spacing?: number;
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
-  justifyContent?: CSSProperties['justifyContent'];
-  justifyItems?: CSSProperties['justifyItems'];
-  alignContent?: CSSProperties['alignContent'];
-  alignItems?: CSSProperties['alignItems'];
-}) {
-  // prop destruction
-  const { children, className, direction = 'row', width, height, spacing, ...flexProperties } = props;
+const FlexBox = forwardRef(
+  (
+    props: {
+      className?: string;
+      children?: ReactNode;
+      direction?: CSSProperties['flexDirection'];
+      spacing?: number;
+      width?: CSSProperties['width'];
+      height?: CSSProperties['height'];
+      justifyContent?: CSSProperties['justifyContent'];
+      justifyItems?: CSSProperties['justifyItems'];
+      alignContent?: CSSProperties['alignContent'];
+      alignItems?: CSSProperties['alignItems'];
+    },
+    ref: React.ForwardedRef<HTMLDivElement>
+  ) => {
+    // prop destruction
+    const { children, className, direction = 'row', width, height, spacing, ...flexProperties } = props;
 
-  // lib hooks
-  // state, ref, querystring hooks
-  // form hooks
-  // query hooks
-  // calculated values
-  // effects
-  // handlers
+    // lib hooks
+    // state, ref, querystring hooks
+    // form hooks
+    // query hooks
+    // calculated values
+    // effects
+    // handlers
 
-  return (
-    <div
-      className={className}
-      css={(theme: Theme) => [
-        {
-          width,
-          height,
-          display: 'flex',
-          flexDirection: direction,
-          ...flexProperties,
-        },
-        spacing &&
-          directionToMarginPropertyMap[direction] && {
-            '& > *:not(:first-of-type)': {
-              [directionToMarginPropertyMap[direction]]: theme.spacing(spacing),
-            },
+    return (
+      <div
+        className={className}
+        css={(theme: Theme) => [
+          {
+            width,
+            height,
+            display: 'flex',
+            flexDirection: direction,
+            ...flexProperties,
           },
-      ]}
-    >
-      {children}
-    </div>
-  );
-}
+          spacing &&
+            directionToMarginPropertyMap[direction] && {
+              '& > *:not(:first-of-type)': {
+                [directionToMarginPropertyMap[direction]]: theme.spacing(spacing),
+              },
+            },
+        ]}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 export { FlexBox };

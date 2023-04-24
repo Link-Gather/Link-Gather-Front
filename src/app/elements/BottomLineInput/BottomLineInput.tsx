@@ -1,13 +1,11 @@
-import React, { ChangeEvent, KeyboardEvent } from 'react';
+import React, { useId, ChangeEvent, KeyboardEvent } from 'react';
 import palette from '@libs/theme/palettes';
 import { Label } from '@elements';
 
 function BottomLineInput(props: {
   label: string;
-  required?: boolean;
-  name: string;
+  required: boolean;
   type: string;
-  value: string;
   className?: string;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
@@ -17,14 +15,21 @@ function BottomLineInput(props: {
     alt: string;
   };
 }) {
-  const { label, required, name, type, value, onKeyDown, onChange, placeholder, className, iconProps } = props;
+  // prop destruction
+  const { label, required, type, onKeyDown, onChange, placeholder, className, iconProps } = props;
+  // lib hooks
+  const id = useId();
+  // state, ref hooks
+  // form hook
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
   return (
     <>
-      <Label label={label} required={required} />
+      <Label label={label} required={required} id={id} />
       <input
-        name={name}
         type={type}
-        value={value}
         onKeyDown={onKeyDown}
         onChange={onChange}
         placeholder={placeholder}

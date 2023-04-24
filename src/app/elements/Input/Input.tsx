@@ -1,63 +1,62 @@
-import { useId, forwardRef, useState } from 'react';
+import React, { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
-import { FieldError, FieldValues } from 'react-hook-form';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
+import { FieldError } from 'react-hook-form';
+import { FlexBox } from '../FlexBox';
+import { Label } from '../Label';
 
 const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      message?: string;
-      getValues?: string;
+      helperText?: string;
+      label?: string;
+      required?: boolean;
+      bottomLine?: boolean;
       iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, getValues, className, iconProps, ...rest } = props;
+    const {
+      error,
+      label,
+      type,
+      helperText,
+      className,
+      iconProps,
+      required = false,
+      bottomLine = false,
+      ...rest
+    } = props;
 
     // lib hooks
     const inputId = useId();
 
     // state, ref hooks
     const [isFocused, setIsFocused] = useState(false);
-    const [isShowPassword, setIsShowPassword] = useState(false);
+
     // form hook
     // query hooks
     // calculated values
     // effects
     // handlers
-    const onChangePasswordType = () => {
-      if (iconProps?.iconImage === IconPasswordShow) return isShowPassword ? 'text' : 'password';
-      return type;
-    };
-
-    const onSetIconImage = () => {
-      if (iconProps?.iconImage === IconPasswordShow) return isShowPassword ? IconPasswordShow : IconPasswordHide;
-      if (iconProps?.iconImage === IconCheckGreen) return IconCheckGreen;
-    };
 
     return (
-      <label
-        htmlFor={inputId}
-        className={className}
-        css={{
-          position: 'relative',
-        }}
-      >
+      <FlexBox direction='column'>
+        {label && <Label id={inputId} label={label} required={required} />}
         <input
           id={inputId}
-          type={onChangePasswordType()}
+          type={type}
+          className={className}
           css={(theme: Theme) => {
             return [
               {
                 width: '100%',
                 height: '50px',
                 fontSize: '20px',
-                borderRadius: 8,
-                border: `2px solid ${theme.palette.secondary.n60}`,
+                borderRadius: !bottomLine ? 8 : 0,
+                border: !bottomLine ? `2px solid ${theme.palette.secondary.n60}` : 'none',
+                borderBottom: `2px solid ${theme.palette.secondary.n60}`,
                 padding: '11px 16px 11px 16px',
                 outline: 'none',
                 '&::placeholder': {
@@ -73,7 +72,8 @@ const Input = forwardRef(
               isFocused && {
                 border: `2px solid ${theme.palette.secondary.n300}`,
                 '&:focus': {
-                  border: `2px solid ${theme.palette.primary.main}`,
+                  border: !bottomLine ? `2px solid ${theme.palette.primary.main}` : 'none',
+                  borderBottom: `2px solid ${theme.palette.primary.main}`,
                 },
               },
               error && {
@@ -95,8 +95,8 @@ const Input = forwardRef(
             tabIndex={-1}
             css={{
               position: 'absolute',
-              top: '0',
-              right: '8px',
+              top: bottomLine ? '23px' : '0',
+              right: bottomLine ? '95%' : '8px',
               display: 'flex',
               height: '50px',
               alignItems: 'center',
@@ -109,14 +109,11 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={() => {
-              setIsShowPassword(!isShowPassword);
-            }}
+            onClick={iconProps?.onClick}
           >
-            <img src={onSetIconImage()} alt={iconProps.alt ?? 'icon'} />
+            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
           </button>
         )}
-
         <span
           css={(theme: Theme) => [
             {
@@ -136,9 +133,9 @@ const Input = forwardRef(
             },
           ]}
         >
-          {message}
+          {helperText}
         </span>
-      </label>
+      </FlexBox>
     );
   }
 );

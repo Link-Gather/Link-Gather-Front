@@ -8,10 +8,11 @@ function Button(
     children: React.ReactNode;
     className?: string;
     isLoading?: boolean;
+    variant?: 'outlined' | 'filled';
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 ) {
   // prop destruction
-  const { color, children, className, isLoading, ...rest } = props;
+  const { color, children, className, isLoading, variant = 'outlined', ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -35,18 +36,29 @@ function Button(
 
   return (
     <button
-      css={(theme: Theme) => ({
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontWeight: '800',
-        color,
-        cursor: 'pointer',
-        ':disabled': {
-          backgroundColor: theme.palette.secondary.n40,
+      css={(theme: Theme) => [
+        {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          fontWeight: 700,
+          color: color || theme.palette.secondary.n300,
+          borderRadius: '6px',
+          padding: '6px 16px',
+          cursor: 'pointer',
+          ':disabled': {
+            backgroundColor: theme.palette.secondary.n40,
+          },
         },
-      })}
+        variant === 'outlined' && {
+          border: `2px solid ${theme.palette.secondary.n60}`,
+        },
+        variant === 'filled' && {
+          backgroundColor: theme.palette.primary.main,
+          color: '#fff',
+        },
+      ]}
       className={className}
       disabled={isLoading}
       {...rest}

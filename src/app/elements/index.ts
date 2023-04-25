@@ -13,6 +13,7 @@ export * from './Layout';
 export * from './RequestButton';
 export * from './Section';
 export * from './ShadowBox';
+export * from './SingleSelect';
 export * from './Slider';
 export * from './TextArea';
 export * from './Typography';

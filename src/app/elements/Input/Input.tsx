@@ -11,12 +11,23 @@ const Input = forwardRef(
       helperText?: string;
       label?: string;
       required?: boolean;
+      variant?: 'outlined' | 'underline';
       iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, label, type, helperText, className, iconProps, required = false, ...rest } = props;
+    const {
+      error,
+      label,
+      type,
+      helperText,
+      className,
+      iconProps,
+      required = false,
+      variant = 'outlined',
+      ...rest
+    } = props;
 
     // lib hooks
     const inputId = useId();
@@ -42,32 +53,60 @@ const Input = forwardRef(
                 width: '100%',
                 height: '50px',
                 fontSize: '20px',
-                borderRadius: 8,
-                border: `2px solid ${theme.palette.secondary.n60}`,
+                borderRadius: '8px',
                 padding: '11px 16px 11px 16px',
                 outline: 'none',
                 '&::placeholder': {
                   color: theme.palette.secondary.n60,
                 },
                 '&:focus': {
-                  border: `2px solid ${theme.palette.primary.main}`,
                   '& + button': {
                     opacity: 1,
                   },
                 },
               },
-              isFocused && {
-                border: `2px solid ${theme.palette.secondary.n300}`,
+              variant === 'outlined' && {
+                border: `2px solid ${theme.palette.secondary.n60}`,
                 '&:focus': {
                   border: `2px solid ${theme.palette.primary.main}`,
                 },
               },
-              error && {
-                border: `2px solid ${theme.palette.secondary.red}`,
-                '&:focus': {
+              variant === 'outlined' &&
+                isFocused && {
+                  border: `2px solid ${theme.palette.secondary.n300}`,
+                  '&:focus': {
+                    border: `2px solid ${theme.palette.primary.main}`,
+                  },
+                },
+              variant === 'outlined' &&
+                error && {
                   border: `2px solid ${theme.palette.secondary.red}`,
+                  '&:focus': {
+                    border: `2px solid ${theme.palette.secondary.red}`,
+                  },
+                },
+              variant === 'underline' && {
+                border: 'none',
+                borderRadius: 0,
+                borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                '&:focus': {
+                  borderBottom: `2px solid ${theme.palette.primary.main}`,
                 },
               },
+              variant === 'outlined' &&
+                isFocused && {
+                  borderBottom: `2px solid ${theme.palette.secondary.n300}`,
+                  '&:focus': {
+                    borderBottom: `2px solid ${theme.palette.primary.main}`,
+                  },
+                },
+              variant === 'outlined' &&
+                error && {
+                  borderBottom: `2px solid ${theme.palette.secondary.red}`,
+                  '&:focus': {
+                    borderBottom: `2px solid ${theme.palette.secondary.red}`,
+                  },
+                },
             ];
           }}
           ref={ref}

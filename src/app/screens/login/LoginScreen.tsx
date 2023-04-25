@@ -105,7 +105,7 @@ function LoginScreen() {
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
           </Stack>
           <LoginForm />
-          <Stack justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
+          <Stack direction='row' justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
             <KakaoLoginButton />
             <GoogleLoginButton />
             <GithubLoginButton />

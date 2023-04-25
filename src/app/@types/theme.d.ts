@@ -1,7 +1,8 @@
 import '@emotion/react';
+import { Theme as MuiTheme } from '@mui/material/styles';
 
 declare module '@emotion/react' {
-  interface Theme {
+  interface Theme extends MuiTheme {
     palette: {
       black: {
         main: string;
@@ -42,6 +43,5 @@ declare module '@emotion/react' {
       text: string;
       contrastText: string;
     };
-    spacing: (...args: number[]) => string;
   }
 }

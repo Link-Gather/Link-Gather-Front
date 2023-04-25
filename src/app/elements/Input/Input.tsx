@@ -1,7 +1,7 @@
 import { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
-import { FlexBox } from '../FlexBox';
+import { Stack } from '@mui/material';
 import { Label } from '../Label';
 
 const Input = forwardRef(
@@ -31,7 +31,7 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <FlexBox direction='column' className={className}>
+      <Stack direction='column' className={className}>
         {label && <Label id={inputId} label={label} required={required} />}
         <input
           id={inputId}
@@ -121,7 +121,7 @@ const Input = forwardRef(
         >
           {helperText}
         </span>
-      </FlexBox>
+      </Stack>
     );
   }
 );

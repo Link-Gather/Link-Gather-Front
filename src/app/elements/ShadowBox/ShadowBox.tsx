@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlexBox } from '@elements';
+import { Stack } from '@mui/material';
 import { Theme } from '@libs/theme';
 
 function ShadowBox(props: { children: React.ReactNode; className?: string }) {
@@ -15,7 +15,7 @@ function ShadowBox(props: { children: React.ReactNode; className?: string }) {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
       alignItems='center'
       direction='column'
       className={className}
@@ -30,7 +30,7 @@ function ShadowBox(props: { children: React.ReactNode; className?: string }) {
       })}
     >
       {children}
-    </FlexBox>
+    </Stack>
   );
 }
 

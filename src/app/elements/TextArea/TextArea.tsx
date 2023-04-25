@@ -1,7 +1,7 @@
 import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useId, useState } from 'react';
 import { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
-import { FlexBox } from '../FlexBox';
+import { Stack } from '@mui/material';
 import { Label } from '../Label';
 
 const TextArea = forwardRef(function TextArea(
@@ -26,7 +26,7 @@ const TextArea = forwardRef(function TextArea(
   // handlers
 
   return (
-    <FlexBox direction='column'>
+    <Stack direction='column'>
       {label && <Label id={id} label={label} required={required} />}
       <textarea
         id={id}
@@ -70,7 +70,7 @@ const TextArea = forwardRef(function TextArea(
         ref={ref}
         {...rest}
       />
-    </FlexBox>
+    </Stack>
   );
 });
 

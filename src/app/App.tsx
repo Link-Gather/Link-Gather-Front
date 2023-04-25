@@ -3,6 +3,7 @@ import { QueryClientProvider, QueryClient } from '@libs/query';
 import { ThemeProvider } from '@libs/theme';
 import { AppRouter } from './routes/routes';
 import { AuthProvider } from './libs/auth';
+import { CssBaseline } from '@mui/material';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <ThemeProvider>
+            <CssBaseline />
             <AppRouter />
           </ThemeProvider>
         </AuthProvider>

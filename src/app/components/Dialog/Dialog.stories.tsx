@@ -1,7 +1,8 @@
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dialog } from './Dialog';
-import { Button, DialogAction, DialogContent, DialogTitle, FlexBox } from '@elements';
+import { Button, DialogAction, DialogContent, DialogTitle } from '@elements';
+import { Stack } from '@mui/material';
 
 type ArgTypes = ComponentProps<typeof Dialog>;
 
@@ -12,7 +13,7 @@ export default {
     width: '300px',
     height: '200px',
     children: (
-      <FlexBox direction='column' height='100%'>
+      <Stack direction='column' height='100%'>
         <DialogTitle>dialog title</DialogTitle>
         <DialogContent>dialog content</DialogContent>
         <DialogAction>
@@ -23,7 +24,7 @@ export default {
             확인
           </Button>
         </DialogAction>
-      </FlexBox>
+      </Stack>
     ),
   },
 } as Meta<ArgTypes>;

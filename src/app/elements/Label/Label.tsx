@@ -16,10 +16,13 @@ function Label(props: { id: string; label: string; required: boolean; className?
       direction='row'
       alignContent='center'
       className={className}
+      spacing={1}
       css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '8px' })}
     >
       <label htmlFor={id}>
-        <Typography variant='h5'>{label}</Typography>
+        <Typography variant='h5' css={{ fontWeight: 600 }}>
+          {label}
+        </Typography>
       </label>
       {required && <span css={{ color: '#FF2626 ' }}>*</span>}
     </Stack>

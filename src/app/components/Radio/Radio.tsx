@@ -1,49 +1,29 @@
-import { FlexBox } from '@elements';
-import type { Theme } from '@libs/theme';
-import { useState } from 'react';
+import { Label } from '@elements';
+import { FormControl, RadioGroup, Radio as MuiRadio, FormControlLabel, RadioGroupProps } from '@mui/material';
+import { useId } from 'react';
 
-function Radio(props: {
-  label: string;
-  options: { value: string; label: string }[];
-  required?: boolean;
-  optionProps?: { spacing?: number };
-}) {
+function Radio(
+  props: { label: string; options: { value: string; label: string }[]; required?: boolean } & RadioGroupProps
+) {
   // prop destruction
-  const { label, options, required = false, optionProps } = props;
+  const { label, options, required = false, value, onChange } = props;
   // lib hooks
+  const id = useId();
   // state, ref hooks
-  const [isChecked, setIsChecked] = useState('');
   // form hook
   // query hooks
   // calculated values
   // effects
   // handlers
   return (
-    <fieldset css={{ border: 0 }}>
-      <legend css={(theme: Theme) => ({ fontSize: '16px', color: theme.palette.secondary.n500, marginBottom: '16px' })}>
-        {label}
-        {required && <span css={{ color: '#FF2626 ' }}> *</span>}
-      </legend>
-      <FlexBox direction='row' spacing={optionProps?.spacing}>
+    <FormControl>
+      {label && <Label id={id} required={required} label={label} />}
+      <RadioGroup row id={id} value={value} onChange={onChange}>
         {options.map((option) => (
-          <label css={(theme: Theme) => ({ color: theme.palette.secondary.n300 })}>
-            <input
-              css={(theme: Theme) => ({
-                '&::checked': {
-                  color: theme.palette.secondary.n300,
-                },
-              })}
-              type='radio'
-              name={option.value}
-              value={option.value}
-              checked={option.value === isChecked}
-              onChange={() => setIsChecked(option.value)}
-            />
-            {option.label}
-          </label>
+          <FormControlLabel key={option.value} value={option.value} control={<MuiRadio />} label={option.label} />
         ))}
-      </FlexBox>
-    </fieldset>
+      </RadioGroup>
+    </FormControl>
   );
 }
 

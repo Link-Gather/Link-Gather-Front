@@ -15,7 +15,6 @@ export default {
       { label: 'Option 2', value: '2' },
       { label: 'Option 3', value: '3' },
     ],
-    optionProps: { spacing: 4 },
   },
 } as Meta<ArgTypes>;
 

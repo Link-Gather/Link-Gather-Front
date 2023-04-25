@@ -1,15 +1,16 @@
-import { forwardRef, useId } from 'react';
-import { Typography } from '../Typography';
-import { FlexBox } from '../FlexBox';
+import { useId } from 'react';
+import { Stack } from '@mui/material';
 import { Label } from '../Label';
+import { Slider as MuiSlider, SliderProps, sliderClasses } from '@mui/material';
+import { Theme } from '../../libs/theme';
 
-const Slider = forwardRef(function Slider(
+function Slider(
   props: {
     label?: string;
     required?: boolean;
     className?: string;
-    marks?: string[];
-  } & React.InputHTMLAttributes<HTMLInputElement>,
+    marks?: { label: string; value: number }[];
+  } & SliderProps,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
   // prop destruction
@@ -24,20 +25,42 @@ const Slider = forwardRef(function Slider(
   // effects
   // handlers
   return (
-    <FlexBox direction='column' className={className}>
-      {label && <Label id={id} label={label} required={required} />}
-      <input id={id} ref={ref} type='range' min={min} max={max} step={step} defaultValue={defaultValue} {...rest} />
-      <FlexBox direction='row' justifyContent='space-between'>
-        {marks?.map((mark) => {
-          return (
-            <Typography variant='span' css={{ fontSize: '12px' }}>
-              {mark}
-            </Typography>
-          );
-        })}
-      </FlexBox>
-    </FlexBox>
+    <Stack direction='column' alignContent='center'>
+      {label && <Label id={id} required={required} label={label} />}
+      <Stack alignItems='center' justifyContent='center'>
+        <MuiSlider
+          css={(theme: Theme) => ({
+            width: '94%',
+            [`& .${sliderClasses.markLabel}`]: {
+              fontSize: '12px',
+              color: '#344054',
+            },
+            [`& .${sliderClasses.rail}`]: {
+              color: '#eaecf0',
+            },
+            [`& .${sliderClasses.track}`]: {
+              backgroundColor: theme.palette.primary.main,
+            },
+            [`& .${sliderClasses.thumb}`]: {
+              backgroundColor: '#fff',
+              border: '2px solid #000',
+              '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+                boxShadow: 'inherit',
+              },
+            },
+            [`& .${sliderClasses.mark}`]: {
+              display: 'none',
+            },
+          })}
+          min={min}
+          max={max}
+          defaultValue={defaultValue}
+          step={step}
+          marks={marks}
+        />
+      </Stack>
+    </Stack>
   );
-});
+}
 
 export { Slider };

@@ -2,9 +2,9 @@ import { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 import { Typography } from '../Typography';
 
-function Label(props: { id: string; label: string; required: boolean }) {
+function Label(props: { id: string; label: string; required: boolean; className?: string }) {
   // prop destruction
-  const { id, label, required } = props;
+  const { id, label, required, className } = props;
   // lib hooks
   // state, ref hooks
   // query hooks
@@ -15,7 +15,8 @@ function Label(props: { id: string; label: string; required: boolean }) {
     <Stack
       direction='row'
       alignContent='center'
-      css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
+      className={className}
+      css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '8px' })}
     >
       <label htmlFor={id}>
         <Typography variant='h5'>{label}</Typography>

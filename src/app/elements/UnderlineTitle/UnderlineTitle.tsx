@@ -16,9 +16,6 @@ function UnderlineTitle(props: { title: string; className?: string }) {
     <h3
       className={className}
       css={{
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'center',
         height: '32px',
         fontWeight: 700,
         fontSize: '32px',

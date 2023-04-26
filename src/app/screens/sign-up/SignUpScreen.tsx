@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
@@ -8,8 +8,8 @@ import palette from '@libs/theme/palettes';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DropDown, SkillDropdown } from '@components';
-import { BottomLineInput, FlexBox, UnderlineTitle, Input, SkillTab, ShadowBox, TextArea } from '@elements';
+import { DropDown } from '@components';
+import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -120,16 +120,6 @@ export const skills = [
   'AWS CodePipeline',
 ];
 
-export type ThirdStepData = {
-  searchSkill: string;
-  urlString: string;
-  selectedJob: string;
-  selectedExperience: string;
-  selectedSkills: string[];
-  urls: string[];
-  introduction: string;
-};
-
 type ValidationType = {
   email: string;
   code: string;
@@ -149,11 +139,6 @@ type MessageType = {
   emailMessage: string;
   codeMessage: string;
   confirmPasswordMessage: string;
-};
-
-type PrevValueType = {
-  prevEmailValue: string;
-  prevCodeValue: string;
 };
 
 type CharacterProps = {
@@ -222,16 +207,11 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
     confirmPasswordMessage: '',
-  });
-
-  const [prevValue, setPrevValue] = useState<PrevValueType>({
-    prevEmailValue: '',
-    prevCodeValue: '',
   });
 
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
@@ -243,6 +223,7 @@ function SignUpScreen() {
     getValues,
     watch,
     formState: { errors, dirtyFields, isValid },
+    setValue,
   } = useForm<ValidationType>({
     mode: 'onChange',
     defaultValues: {
@@ -294,15 +275,15 @@ function SignUpScreen() {
   // effects
   // handlers
 
-  // const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
-  //   if (e.key === 'Enter') {
-  //     setThirdStepState({
-  //       ...thirdStepState,
-  //       urls: [...thirdStepState.urls, thirdStepState.urlString],
-  //       urlString: '',
-  //     });
-  //   }
-  // };
+  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      const value = e.currentTarget.value;
+      const httpsValue = value.includes('https://') ? value : 'https://' + value;
+      const urls = getValues('urls') || [];
+      setValue('urls', [...urls, httpsValue]);
+      setValue('urlString', '');
+    }
+  };
 
   const moveNextStep = (): void => {
     if (step < 2) {
@@ -364,7 +345,9 @@ function SignUpScreen() {
               }}
             />
           </FlexBox>
-          <UnderlineTitle title='회원가입' />
+          <FlexBox width='492px' justifyContent='center'>
+            <UnderlineTitle title='회원가입' />
+          </FlexBox>
           <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
             {/* <-- step1 */}
             <FlexBox justifyContent='center' width='100%' height='447px' css={{ margin: '0 auto' }}>
@@ -373,29 +356,16 @@ function SignUpScreen() {
                   <Input
                     type='email'
                     placeholder='이메일'
-                    helperText={prevValue.prevEmailValue === watch('email') ? message.emailMessage : ''}
                     css={{ width: '288px', marginBottom: '16px' }}
                     {...register('email')}
                   />
-                  <RequestButton
-                    value={getValues('email')}
-                    onClick={() => {
-                      setMessage({
-                        ...message,
-                        emailMessage: '인증번호를 전송하였습니다.',
-                      });
-                      setPrevValue({ ...prevValue, prevEmailValue: watch('email') });
-                    }}
-                  >
-                    인증요청
-                  </RequestButton>
+                  <RequestButton value={getValues('email')}>인증요청</RequestButton>
                 </FlexBox>
                 <FlexBox>
                   <Input
                     type='text'
                     placeholder='코드입력'
                     maxLength={6}
-                    helperText={prevValue.prevCodeValue === watch('code') ? message.codeMessage : ''}
                     css={{ width: '288px', marginBottom: '16px' }}
                     {...register('code')}
                   />
@@ -406,7 +376,6 @@ function SignUpScreen() {
                         ...message,
                         codeMessage: '인증이 완료되었습니다.',
                       });
-                      // setPrevValue({ ...prevValue, prevCodeValue: watch('code') });
                     }}
                   >
                     확인
@@ -520,7 +489,7 @@ function SignUpScreen() {
                   placeholder='닉네임 입력'
                   {...register('nickname')}
                 />
-                <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '170px' }}>
+                <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '93px' }}>
                   중복확인
                 </RequestButton>
               </FlexBox>
@@ -531,8 +500,8 @@ function SignUpScreen() {
             {/* --> */}
 
             {/* <-- step3 */}
-            <FlexBox width='100%' direction='column' alignItems='center' css={{ gap: '25px', marginLeft: '90px' }}>
-              <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '25px' }}>
+            <FlexBox width='100%' direction='column' alignItems='center' spacing={6} css={{ marginLeft: '90px' }}>
+              <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                 <FlexBox width='212px' direction='column'>
                   <DropDown label='직무' options={jobsData} required {...register('selectedJob')} />
                 </FlexBox>
@@ -547,43 +516,17 @@ function SignUpScreen() {
                   required
                   type='text'
                   placeholder='기술 스택 검색'
-                  iconProps={{
-                    iconImage: IconSearch,
-                    alt: 'search',
-                  }}
-                  css={{ marginTop: '-16px', fontSize: '16px', paddingLeft: '25px' }}
+                  css={{ fontSize: '16px', paddingLeft: '30px' }}
                   {...register('searchSkill')}
                 />
-                <FlexBox
-                  css={{
-                    flexWrap: 'wrap',
-                    maxHeight: '30px',
-                    overflowY: 'auto',
-                  }}
-                >
-                  {!!getValues('selectedSkills').length &&
-                    getValues('selectedSkills').map((skill) => (
-                      <SkillTab
-                        css={[
-                          { width: '64px' },
-                          skill.length > 7 && skill.length < 14 && { width: '136px' },
-                          skill.length >= 14 && { width: '208px' },
-                        ]}
-                        key={skill}
-                        skill={skill}
-                      >
-                        {skill}
-                      </SkillTab>
-                    ))}
-                </FlexBox>
-                {/* {getValues('searchSkill') && <SkillDropdown skills={skills} />} */}
+                <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
               </FlexBox>
-              <FlexBox width='100%' height='125px' direction='column'>
+              <FlexBox width='100%' direction='column'>
                 <TextArea
                   label='자기소개'
                   required
                   placeholder='안녕하세욥!'
-                  css={{ fontSize: '16px', overflow: 'unset', marginTop: '-8px', height: '100px' }}
+                  css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
                   {...register('introduction')}
                 />
               </FlexBox>
@@ -593,22 +536,17 @@ function SignUpScreen() {
                   label='참고 링크'
                   type='text'
                   placeholder='URL을 입력해주세요.'
+                  onKeyDown={handlerKeyDown}
                   iconProps={{
                     iconImage: IconSearch,
                     alt: 'search',
                   }}
-                  css={{ marginTop: '-16px', fontSize: '16px' }}
+                  css={{ fontSize: '16px' }}
                   {...register('urlString')}
                 />
-                <FlexBox
-                  width='100%'
-                  height='50px'
-                  direction='column'
-                  css={{ overflowY: 'scroll', border: 'none' }}
-                  {...register('urls')}
-                >
-                  {getValues('urls').map((url) => (
-                    <FlexBox key={url} css={{ padding: '5px' }}>
+                <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
+                  {watch('urls').map((url) => (
+                    <FlexBox key={url} css={{ padding: '0px 5px' }}>
                       <a
                         css={{
                           color: palette.primary.main,
@@ -622,17 +560,7 @@ function SignUpScreen() {
                       >
                         {url.includes('https://') ? url : 'https://' + url}
                       </a>
-                      <img
-                        alt='delete-url'
-                        src={DeleteUrl}
-                        css={{ marginLeft: '10px', cursor: 'pointer' }}
-                        // onClick={() => {
-                        //   setThirdStepState({
-                        //     ...thirdStepState,
-                        //     urls: thirdStepState.urls?.filter((urlName) => urlName !== url),
-                        //   });
-                        // }}
-                      />
+                      <img alt='delete-url' src={DeleteUrl} css={{ marginLeft: '10px', cursor: 'pointer' }} />
                     </FlexBox>
                   ))}
                 </FlexBox>

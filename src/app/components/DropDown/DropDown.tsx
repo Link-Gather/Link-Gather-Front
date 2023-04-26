@@ -26,7 +26,7 @@ const DropDown = forwardRef(
 
     return (
       <>
-        <Label label={label} required={required} id={id}></Label>
+        <Label label={label} required={required} id={id} />
         <select
           className={className}
           css={{
@@ -35,7 +35,6 @@ const DropDown = forwardRef(
             border: `2px solid ${palette.secondary.n300}`,
             borderRadius: '8px',
             fontSize: '16px',
-            marginTop: '-8px',
           }}
         >
           {options.map((option) => (

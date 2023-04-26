@@ -15,7 +15,7 @@ function Label(props: { id: string; label: string; required: boolean }) {
     <FlexBox
       direction='row'
       alignContent='center'
-      css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '16px' })}
+      css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '8px' })}
     >
       <label htmlFor={id}>
         <Typography variant='h5'>{label}</Typography>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThirdStepData } from '@screens';
 import { FlexBox, SkillTab } from '@elements';
 import palette from '@libs/theme/palettes';
 

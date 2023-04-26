@@ -95,8 +95,8 @@ const Input = forwardRef(
             tabIndex={-1}
             css={{
               position: 'absolute',
-              top: bottomLine ? '23px' : '0',
-              right: bottomLine ? '95%' : '8px',
+              top: '0',
+              right: '8px',
               display: 'flex',
               height: '50px',
               alignItems: 'center',
@@ -119,7 +119,7 @@ const Input = forwardRef(
             {
               display: 'inline-block',
               width: '100%',
-              height: '20px',
+              height: bottomLine ? '0px' : '20px',
               fontSize: '12px',
               fontWeight: '400',
               lineHeight: '20px',

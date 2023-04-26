@@ -532,7 +532,7 @@ function SignUpScreen() {
                 {watch('selectedSkills').length !== 0 && (
                   <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                     {watch('selectedSkills').map((skill) => (
-                      <SkillTab skill={skill} key={skill}>
+                      <SkillTab skill={skill} key={skill} selected>
                         {skill}
                       </SkillTab>
                     ))}

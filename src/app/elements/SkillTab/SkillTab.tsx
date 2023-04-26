@@ -1,13 +1,15 @@
 import React, { MouseEventHandler } from 'react';
+import DeleteSkillTabButton from '@assets/images/icons/delete-skillTab.svg';
 
 const SkillTab = (props: {
   children: React.ReactNode;
   className?: string;
   skill: string;
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
+  selected?: boolean;
 }) => {
   // prop destruction
-  const { children, className, skill, onClick } = props;
+  const { children, className, skill, onClick, selected } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
@@ -20,6 +22,7 @@ const SkillTab = (props: {
     <div
       css={[
         {
+          position: 'relative',
           backgroundColor: '#EBECF0',
           border: '1px solid #000000',
           borderRadius: '20px',
@@ -28,7 +31,7 @@ const SkillTab = (props: {
           fontSize: '14px',
           fontWeight: '500',
           textAlign: 'center',
-          cursor: 'pointer',
+          cursor: !selected ? 'pointer' : 'null',
           margin: '4px',
           width: '64px',
         },
@@ -39,6 +42,15 @@ const SkillTab = (props: {
       onClick={onClick}
     >
       {children}
+
+      {selected && (
+        <button
+          css={{ position: 'absolute', top: '-5px', right: '-5px', cursor: 'pointer' }}
+          onClick={() => console.log('d')}
+        >
+          <img alt='delete-skiltab' src={DeleteSkillTabButton} />
+        </button>
+      )}
     </div>
   );
 };

@@ -9,15 +9,7 @@ export default {
   component: SkillDropdown,
   args: {
     skills: ['java', 'javascript', 'spring'],
-    thirdStepState: {
-      searchSkill: '',
-      urlString: '',
-      selectedJob: '',
-      selectedExperience: '',
-      selectedSkills: [],
-      urls: [],
-      introduction: '',
-    },
+    searchSkillValue: 'j',
   },
   onClick: { action: 'onClick' },
 } as Meta<ArgTypes>;

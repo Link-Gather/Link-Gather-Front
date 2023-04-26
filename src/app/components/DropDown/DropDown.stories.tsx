@@ -4,7 +4,7 @@ import type { DecoratorFn, Meta, StoryObj } from '@storybook/react';
 import { DropDown } from './DropDown';
 
 type ArgTypes = ComponentProps<typeof DropDown>;
-const wrapper: DecoratorFn = (storyFn) => <div style={{ width: '376px' }}>{storyFn()}</div>;
+const wrapper: DecoratorFn = (storyFn) => <div style={{ width: '50%' }}>{storyFn()}</div>;
 
 export default {
   title: 'components/DropDown',
@@ -17,15 +17,6 @@ export default {
       { label: '기획자', value: 'Product Manager' },
       { label: '기타', value: 'Other' },
     ],
-    thirdStepState: {
-      searchSkill: '',
-      urlString: '',
-      selectedJob: '',
-      selectedExperience: '',
-      selectedSkills: [],
-      urls: [],
-      introduction: '',
-    },
   },
   onClick: { action: 'onClick' },
   decorators: [wrapper],

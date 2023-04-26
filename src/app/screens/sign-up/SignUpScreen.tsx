@@ -292,8 +292,13 @@ function SignUpScreen() {
   };
 
   const handleDeleteSkill = (skill: string) => {
-    const updateSkills = getValues('selectedSkills').filter((item) => item !== skill);
-    setValue('selectedSkills', updateSkills);
+    const deletedSkills = getValues('selectedSkills').filter((item) => item !== skill);
+    setValue('selectedSkills', deletedSkills);
+  };
+
+  const handleDeleteUrl = (url: string) => {
+    const deletedUrls = getValues('urls').filter((item) => item !== url);
+    setValue('urls', deletedUrls);
   };
 
   const moveNextStep = (): void => {
@@ -583,7 +588,12 @@ function SignUpScreen() {
                       >
                         {url.includes('https://') ? url : 'https://' + url}
                       </a>
-                      <img alt='delete-url' src={DeleteUrl} css={{ marginLeft: '10px', cursor: 'pointer' }} />
+                      <img
+                        alt='delete-url'
+                        src={DeleteUrl}
+                        onClick={() => handleDeleteUrl(url)}
+                        css={{ marginLeft: '10px', cursor: 'pointer' }}
+                      />
                     </FlexBox>
                   ))}
                 </FlexBox>

@@ -129,11 +129,12 @@ type ValidationType = {
   nickname: string;
   searchSkill: string;
   urlString: string;
-  selectedJob: string;
-  selectedExperience: number;
-  selectedSkills: string[];
+  job: string;
+  career: number;
+  stacks: string[];
   urls: string[];
   introduction: string;
+  profileImage: string;
 };
 
 type CharacterProps = {
@@ -223,11 +224,12 @@ function SignUpScreen() {
       nickname: '',
       searchSkill: '',
       urlString: '',
-      selectedJob: 'Frontend Developer',
-      selectedExperience: 0,
-      selectedSkills: [],
+      job: 'Frontend Developer',
+      career: 0,
+      stacks: [],
       urls: [],
       introduction: '',
+      profileImage: '',
     },
     resolver: ((step: number) => {
       const resolver = (() => {
@@ -262,7 +264,6 @@ function SignUpScreen() {
   // calculated values
   // effects
   // handlers
-
   const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const value = e.currentTarget.value;
@@ -273,15 +274,19 @@ function SignUpScreen() {
     }
   };
 
+  const handleSelectProfileImage = (characterSrc: string) => {
+    setValue('profileImage', characterSrc);
+  };
+
   const handleSelectSkill = (skill: string) => {
-    const skills = getValues('selectedSkills') || [];
-    setValue('selectedSkills', [...skills, skill]);
+    const skills = getValues('stacks') || [];
+    setValue('stacks', [...skills, skill]);
     setValue('searchSkill', '');
   };
 
   const handleDeleteSkill = (skill: string) => {
-    const deletedSkills = getValues('selectedSkills').filter((item) => item !== skill);
-    setValue('selectedSkills', deletedSkills);
+    const deletedSkills = getValues('stacks').filter((item) => item !== skill);
+    setValue('stacks', deletedSkills);
   };
 
   const handleDeleteUrl = (url: string) => {
@@ -357,11 +362,23 @@ function SignUpScreen() {
             <FlexBox justifyContent='center' width='100%' height='447px'>
               <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
                 <FlexBox>
-                  <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
+                  <Input
+                    type='email'
+                    placeholder='이메일'
+                    value={getValues('email')}
+                    css={{ width: '288px' }}
+                    {...register('email')}
+                  />
                   <RequestButton value={watch('email')}>인증요청</RequestButton>
                 </FlexBox>
                 <FlexBox>
-                  <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
+                  <Input
+                    type='text'
+                    placeholder='코드입력'
+                    value={getValues('code')}
+                    css={{ width: '288px' }}
+                    {...register('code')}
+                  />
                   <RequestButton value={watch('code')}>확인</RequestButton>
                 </FlexBox>
                 <FlexBox css={{ position: 'relative' }}>
@@ -372,8 +389,8 @@ function SignUpScreen() {
                     autoComplete='off'
                     error={errors.password}
                     iconProps={{
-                      iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
                       alt: 'show password',
+                      iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
                       onClick: () => setIsShowPassword(!isShowPassword),
                     }}
                     css={{ width: '392px' }}
@@ -387,9 +404,9 @@ function SignUpScreen() {
                     autoComplete='off'
                     error={errors.confirmPassword}
                     iconProps={{
-                      onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
-                      iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
                       alt: 'show password',
+                      iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
+                      onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
                     }}
                     css={{ width: '392px' }}
                     {...register('confirmPassword')}
@@ -458,7 +475,7 @@ function SignUpScreen() {
                         }}
                       >
                         <img
-                          onClick={() => setCharacterState(character)}
+                          onClick={() => handleSelectProfileImage(character.src)}
                           alt='character'
                           src={character.src}
                           css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
@@ -488,10 +505,10 @@ function SignUpScreen() {
             <FlexBox width='100%' direction='column' alignItems='center' spacing={5} css={{ marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                 <FlexBox width='212px' direction='column'>
-                  <DropDown label='직무' options={jobs} required {...register('selectedJob')} />
+                  <DropDown label='직무' options={jobs} required {...register('job')} />
                 </FlexBox>
                 <FlexBox width='168px' direction='column'>
-                  <DropDown label='경력' options={careers} required {...register('selectedExperience')} />
+                  <DropDown label='경력' options={careers} required {...register('career')} />
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
@@ -508,9 +525,9 @@ function SignUpScreen() {
                 {watch('searchSkill') && (
                   <SkillDropdown skills={skills} searchSkillValue={watch('searchSkill')} onClick={handleSelectSkill} />
                 )}
-                {watch('selectedSkills').length !== 0 && (
+                {watch('stacks').length !== 0 && (
                   <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
-                    {watch('selectedSkills').map((skill) => (
+                    {watch('stacks').map((skill) => (
                       <SkillTab skill={skill} key={skill} selected onDeleteClick={handleDeleteSkill}>
                         {skill}
                       </SkillTab>

@@ -291,6 +291,11 @@ function SignUpScreen() {
     setValue('searchSkill', '');
   };
 
+  const handleDeleteSkill = (skill: string) => {
+    const updateSkills = getValues('selectedSkills').filter((item) => item !== skill);
+    setValue('selectedSkills', updateSkills);
+  };
+
   const moveNextStep = (): void => {
     if (step < 2) {
       setStep((prevState) => prevState + 1);
@@ -532,7 +537,7 @@ function SignUpScreen() {
                 {watch('selectedSkills').length !== 0 && (
                   <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                     {watch('selectedSkills').map((skill) => (
-                      <SkillTab skill={skill} key={skill} selected>
+                      <SkillTab skill={skill} key={skill} selected onDeleteClick={handleDeleteSkill}>
                         {skill}
                       </SkillTab>
                     ))}

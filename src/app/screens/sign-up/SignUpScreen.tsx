@@ -135,12 +135,6 @@ type ValidationType = {
   introduction: string;
 };
 
-type MessageType = {
-  emailMessage: string;
-  codeMessage: string;
-  confirmPasswordMessage: string;
-};
-
 type CharacterProps = {
   id: number;
   src: string;
@@ -186,7 +180,7 @@ const SignupButton = styled('button')<{ disabled?: boolean }>(
   })
 );
 
-const jobsData = [
+const jobs = [
   { label: '프론트엔드', value: 'Frontend Developer' },
   { label: '백엔드', value: 'Backend Developer' },
   { label: '디자이너', value: 'Designer' },
@@ -194,7 +188,7 @@ const jobsData = [
   { label: '기타', value: 'Other' },
 ];
 
-const careersData = [
+const careers = [
   { label: '학생/취준생', value: 0 },
   { label: '1~3년차', value: 1 },
   { label: '3~5년차', value: 3 },
@@ -207,13 +201,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
-  const [message, setMessage] = useState<MessageType>({
-    emailMessage: '',
-    codeMessage: '',
-    confirmPasswordMessage: '',
-  });
-
+  const [step, setStep] = useState(1);
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
 
   // form hooks
@@ -301,7 +289,7 @@ function SignUpScreen() {
     setValue('urls', deletedUrls);
   };
 
-  const moveNextStep = (): void => {
+  const handleNextStep = () => {
     if (step < 2) {
       setStep((prevState) => prevState + 1);
     }
@@ -366,36 +354,15 @@ function SignUpScreen() {
           </FlexBox>
           <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
             {/* <-- step1 */}
-            <FlexBox justifyContent='center' width='100%' height='447px' css={{ margin: '0 auto' }}>
-              <FlexBox direction='column' css={{ marginTop: '25px' }}>
+            <FlexBox justifyContent='center' width='100%' height='447px'>
+              <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
                 <FlexBox>
-                  <Input
-                    type='email'
-                    placeholder='이메일'
-                    css={{ width: '288px', marginBottom: '16px' }}
-                    {...register('email')}
-                  />
+                  <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
                   <RequestButton value={getValues('email')}>인증요청</RequestButton>
                 </FlexBox>
                 <FlexBox>
-                  <Input
-                    type='text'
-                    placeholder='코드입력'
-                    maxLength={6}
-                    css={{ width: '288px', marginBottom: '16px' }}
-                    {...register('code')}
-                  />
-                  <RequestButton
-                    value={watch('code')}
-                    onClick={() => {
-                      setMessage({
-                        ...message,
-                        codeMessage: '인증이 완료되었습니다.',
-                      });
-                    }}
-                  >
-                    확인
-                  </RequestButton>
+                  <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
+                  <RequestButton value={watch('code')}>확인</RequestButton>
                 </FlexBox>
                 <FlexBox css={{ position: 'relative' }}>
                   <Input
@@ -427,7 +394,7 @@ function SignUpScreen() {
                   />
                 </FlexBox>
               </FlexBox>
-              <SignupButton onClick={moveNextStep} disabled={!isValid}>
+              <SignupButton onClick={handleNextStep} disabled={!isValid}>
                 다음
               </SignupButton>
             </FlexBox>
@@ -509,7 +476,7 @@ function SignUpScreen() {
                   중복확인
                 </RequestButton>
               </FlexBox>
-              <SignupButton onClick={moveNextStep} disabled={!isValid}>
+              <SignupButton onClick={handleNextStep} disabled={!isValid}>
                 다음
               </SignupButton>
             </FlexBox>
@@ -519,10 +486,10 @@ function SignUpScreen() {
             <FlexBox width='100%' direction='column' alignItems='center' spacing={5} css={{ marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                 <FlexBox width='212px' direction='column'>
-                  <DropDown label='직무' options={jobsData} required {...register('selectedJob')} />
+                  <DropDown label='직무' options={jobs} required {...register('selectedJob')} />
                 </FlexBox>
                 <FlexBox width='168px' direction='column'>
-                  <DropDown label='경력' options={careersData} required {...register('selectedExperience')} />
+                  <DropDown label='경력' options={careers} required {...register('selectedExperience')} />
                 </FlexBox>
               </FlexBox>
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>

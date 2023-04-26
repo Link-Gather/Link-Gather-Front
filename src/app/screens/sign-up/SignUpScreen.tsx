@@ -129,7 +129,7 @@ type ValidationType = {
   searchSkill: string;
   urlString: string;
   selectedJob: string;
-  selectedExperience: string;
+  selectedExperience: number;
   selectedSkills: string[];
   urls: string[];
   introduction: string;
@@ -234,8 +234,8 @@ function SignUpScreen() {
       nickname: '',
       searchSkill: '',
       urlString: '',
-      selectedJob: '',
-      selectedExperience: '',
+      selectedJob: 'Frontend Developer',
+      selectedExperience: 0,
       selectedSkills: [],
       urls: [],
       introduction: '',
@@ -274,6 +274,7 @@ function SignUpScreen() {
   // calculated values
   // effects
   // handlers
+  console.log(watch());
 
   const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {

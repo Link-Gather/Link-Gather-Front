@@ -2,7 +2,7 @@ import { Theme } from '@libs/theme';
 import { FlexBox } from '../FlexBox';
 import { Typography } from '../Typography';
 
-function Label(props: { id: string; label: string; required: boolean }) {
+function Label(props: { id: string; label: string; required?: boolean }) {
   // prop destruction
   const { id, label, required } = props;
   // lib hooks

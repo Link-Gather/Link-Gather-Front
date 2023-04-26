@@ -201,11 +201,9 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
-
   // form hooks
-
   const {
     register,
     getValues,
@@ -257,7 +255,6 @@ function SignUpScreen() {
       return yupResolver(resolver);
     })(1),
   });
-  console.log(watch());
   // query hooks
   // calculated values
   // effects

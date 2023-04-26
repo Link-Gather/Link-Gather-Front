@@ -43,7 +43,6 @@ const SkillTab = (props: {
       onClick={onClick}
     >
       {children}
-
       {selected && (
         <button
           css={{ position: 'absolute', top: '-5px', right: '-5px', cursor: 'pointer' }}

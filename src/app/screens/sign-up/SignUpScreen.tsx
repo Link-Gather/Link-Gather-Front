@@ -8,8 +8,8 @@ import palette from '@libs/theme/palettes';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DropDown } from '@components';
-import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea } from '@elements';
+import { DropDown, SkillDropdown } from '@components';
+import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea, SkillTab } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -207,7 +207,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [message, setMessage] = useState<MessageType>({
     emailMessage: '',
     codeMessage: '',
@@ -269,14 +269,13 @@ function SignUpScreen() {
       return yupResolver(resolver);
     })(1),
   });
-
+  console.log(watch());
   // query hooks
   // calculated values
   // effects
   // handlers
-  console.log(watch());
 
-  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const value = e.currentTarget.value;
       const httpsValue = value.includes('https://') ? value : 'https://' + value;
@@ -284,6 +283,12 @@ function SignUpScreen() {
       setValue('urls', [...urls, httpsValue]);
       setValue('urlString', '');
     }
+  };
+
+  const handleSelectSkill = (skill: string) => {
+    const skills = getValues('selectedSkills') || [];
+    setValue('selectedSkills', [...skills, skill]);
+    setValue('searchSkill', '');
   };
 
   const moveNextStep = (): void => {
@@ -501,7 +506,7 @@ function SignUpScreen() {
             {/* --> */}
 
             {/* <-- step3 */}
-            <FlexBox width='100%' direction='column' alignItems='center' spacing={6} css={{ marginLeft: '90px' }}>
+            <FlexBox width='100%' direction='column' alignItems='center' spacing={5} css={{ marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                 <FlexBox width='212px' direction='column'>
                   <DropDown label='직무' options={jobsData} required {...register('selectedJob')} />
@@ -513,14 +518,26 @@ function SignUpScreen() {
               <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
                 <Input
                   bottomLine
-                  label='보유기술'
                   required
+                  label='보유기술'
                   type='text'
                   placeholder='기술 스택 검색'
                   css={{ fontSize: '16px', paddingLeft: '30px' }}
                   {...register('searchSkill')}
                 />
                 <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
+                {watch('searchSkill') && (
+                  <SkillDropdown skills={skills} searchSkillValue={watch('searchSkill')} onClick={handleSelectSkill} />
+                )}
+                {watch('selectedSkills').length !== 0 && (
+                  <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
+                    {watch('selectedSkills').map((skill) => (
+                      <SkillTab skill={skill} key={skill}>
+                        {skill}
+                      </SkillTab>
+                    ))}
+                  </FlexBox>
+                )}
               </FlexBox>
               <FlexBox width='100%' direction='column'>
                 <TextArea

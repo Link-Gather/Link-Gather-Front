@@ -16,6 +16,7 @@ import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
+import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import character1 from '@assets/images/icons/character/character1.svg';
 import character2 from '@assets/images/icons/character/character2.svg';
 import character3 from '@assets/images/icons/character/character3.svg';
@@ -202,6 +203,8 @@ function SignUpScreen() {
   const navigate = useNavigate();
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
   // form hooks
   const {
@@ -355,7 +358,7 @@ function SignUpScreen() {
               <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
                 <FlexBox>
                   <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
-                  <RequestButton value={getValues('email')}>인증요청</RequestButton>
+                  <RequestButton value={watch('email')}>인증요청</RequestButton>
                 </FlexBox>
                 <FlexBox>
                   <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
@@ -363,14 +366,15 @@ function SignUpScreen() {
                 </FlexBox>
                 <FlexBox css={{ position: 'relative' }}>
                   <Input
-                    type='password'
+                    type={isShowPassword ? 'text' : 'password'}
                     placeholder='비밀번호 입력'
                     helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                     autoComplete='off'
                     error={errors.password}
                     iconProps={{
-                      iconImage: IconPasswordShow,
+                      iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
                       alt: 'show password',
+                      onClick: () => setIsShowPassword(!isShowPassword),
                     }}
                     css={{ width: '392px' }}
                     {...register('password')}
@@ -378,12 +382,13 @@ function SignUpScreen() {
                 </FlexBox>
                 <FlexBox css={{ position: 'relative', marginTop: '16px' }}>
                   <Input
-                    type='passwrod'
+                    type={isShowPasswordConfirm ? 'text' : 'password'}
                     placeholder='비밀번호 확인'
                     autoComplete='off'
                     error={errors.confirmPassword}
                     iconProps={{
-                      iconImage: IconPasswordShow,
+                      onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
+                      iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
                       alt: 'show password',
                     }}
                     css={{ width: '392px' }}

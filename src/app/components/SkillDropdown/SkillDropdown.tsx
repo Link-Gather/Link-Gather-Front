@@ -2,15 +2,15 @@ import React from 'react';
 import { FlexBox, SkillTab } from '@elements';
 import palette from '@libs/theme/palettes';
 
-function SkillDropdown(props: { skills: string[]; searchSkillValue: string; onClick: (skill: string) => void }) {
+function SkillDropdown(props: { skills: string[]; keyword: string; onClick: (skill: string) => void }) {
   // prop destruction
-  const { skills, searchSkillValue, onClick } = props;
+  const { skills, keyword, onClick } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
   // query hooks
   // calculated values
-  const showSkills = skills.filter((skill) => skill.toLowerCase().includes(searchSkillValue.toLowerCase()));
+  const showSkills = skills.filter((skill) => skill.toLowerCase().includes(keyword.toLowerCase()));
   // effects
   // handlers
 

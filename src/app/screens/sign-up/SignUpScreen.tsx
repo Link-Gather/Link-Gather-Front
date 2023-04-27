@@ -137,7 +137,7 @@ type ValidationType = {
   profileImage: string;
 };
 
-type CharacterProps = {
+type CharacterType = {
   id: number;
   src: string;
   backgroundColor: string;
@@ -204,9 +204,10 @@ function SignUpScreen() {
   const navigate = useNavigate();
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
+  const [isCheckedCode, setIsCheckedCode] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
-  const [characterState, setCharacterState] = useState<CharacterProps>(characters[0]);
+  const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
   // form hooks
   const {
     register,
@@ -243,15 +244,16 @@ function SignUpScreen() {
             });
           case 2:
             return yup.object().shape({
+              profileImage: yup.string(),
               nickname: SCHEMA_NICKNAME,
             });
           case 3:
             return yup.object().shape({
               searchSkill: yup.string(),
               urlString: yup.string().url(),
-              selectedJob: yup.string(),
-              selectedExperience: yup.string(),
-              selectedSkills: yup.array().of(yup.string()),
+              job: yup.string(),
+              career: yup.string(),
+              stacks: yup.array().of(yup.string()),
               urls: yup.array().of(yup.string().url()),
               introduction: yup.string(),
             });
@@ -274,8 +276,9 @@ function SignUpScreen() {
     }
   };
 
-  const handleSelectProfileImage = (characterSrc: string) => {
-    setValue('profileImage', characterSrc);
+  const handleSelectProfileImage = (character: CharacterType) => {
+    setValue('profileImage', character.src);
+    setCharacterState(character);
   };
 
   const handleSelectSkill = (skill: string) => {
@@ -295,9 +298,7 @@ function SignUpScreen() {
   };
 
   const handleNextStep = () => {
-    if (step < 2) {
-      setStep((prevState) => prevState + 1);
-    }
+    if (step < 2) setStep((prevState) => prevState + 1);
   };
 
   return (
@@ -359,6 +360,7 @@ function SignUpScreen() {
           </FlexBox>
           <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
             {/* <-- step1 */}
+
             <FlexBox justifyContent='center' width='100%' height='447px'>
               <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
                 <FlexBox>
@@ -475,7 +477,7 @@ function SignUpScreen() {
                         }}
                       >
                         <img
-                          onClick={() => handleSelectProfileImage(character.src)}
+                          onClick={() => handleSelectProfileImage(character)}
                           alt='character'
                           src={character.src}
                           css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
@@ -500,7 +502,6 @@ function SignUpScreen() {
               </SignupButton>
             </FlexBox>
             {/* --> */}
-
             {/* <-- step3 */}
             <FlexBox width='100%' direction='column' alignItems='center' spacing={5} css={{ marginLeft: '90px' }}>
               <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
@@ -523,7 +524,7 @@ function SignUpScreen() {
                 />
                 <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
                 {watch('searchSkill') && (
-                  <SkillDropdown skills={skills} searchSkillValue={watch('searchSkill')} onClick={handleSelectSkill} />
+                  <SkillDropdown skills={skills} keyword={watch('searchSkill')} onClick={handleSelectSkill} />
                 )}
                 {watch('stacks').length !== 0 && (
                   <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>

@@ -4,6 +4,7 @@ import { Button, FlexBox } from '@elements';
 import palette from '@libs/theme/palettes';
 import LogoHeader from '@assets/images/logos/logo-header.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
 import ProfileDefault from '@assets/images/profiles/profile-default.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
+import styled from '@emotion/styled';
 
 function Header() {
   return (
@@ -42,70 +43,17 @@ function Header() {
           </h1>
         </Link>
         <FlexBox height='100%' spacing={4}>
-          <NavLink
-            to='/' // TODO: 프로젝트 찾기 페이지 만들면 해당 경로로 변경
-            css={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '215px',
-              height: '100%',
-              fontFamily: '"Noto Sans KR", sans-serif',
-              fontSize: '16px',
-              fontWeight: '700',
-              color: palette.black.main,
-              borderBottom: '4px solid transparent',
-              '&.active, &:hover': {
-                color: palette.primary.main,
-                borderBottom: `4px solid ${palette.primary.main}`,
-              },
-            }}
-            className={({ isActive }) => (isActive ? 'active' : '')}
-          >
-            프로젝트 찾기
-          </NavLink>
-          <NavLink
+          <Nav to='/projects'>프로젝트 찾기</Nav>
+          <Nav
             to='/find-co-workers' // TODO: 동료찾기 페이지 만들면 해당 경로로 변경
-            css={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '215px',
-              height: '100%',
-              fontFamily: '"Noto Sans KR", sans-serif',
-              fontSize: '16px',
-              fontWeight: '700',
-              color: palette.black.main,
-              borderBottom: '4px solid transparent',
-              '&.active, &:hover': {
-                color: palette.primary.main,
-                borderBottom: `4px solid ${palette.primary.main}`,
-              },
-            }}
           >
             동료 찾기
-          </NavLink>
-          <NavLink
+          </Nav>
+          <Nav
             to='/manage-projects' // TODO: 프로젝트 관리 페이지 만들면 해당 경로로 변경
-            css={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '215px',
-              height: '100%',
-              fontFamily: '"Noto Sans KR", sans-serif',
-              fontSize: '16px',
-              fontWeight: '700',
-              color: palette.black.main,
-              borderBottom: '4px solid transparent',
-              '&.active, &:hover': {
-                color: palette.primary.main,
-                borderBottom: `4px solid ${palette.primary.main}`,
-              },
-            }}
           >
             프로젝트 관리
-          </NavLink>
+          </Nav>
         </FlexBox>
         <FlexBox height='100%'>
           <Button
@@ -142,7 +90,7 @@ function Header() {
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                border: `2px solid ${palette.secondary.green}`,
+                border: `2px solid ${palette.black.main}`,
                 backgroundColor: palette.primary.main,
                 overflow: 'hidden',
               }}
@@ -166,3 +114,22 @@ function Header() {
 }
 
 export { Header };
+
+const Nav = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 215px;
+  height: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: ${palette.black.main};
+  border-bottom: 4px solid transparent;
+
+  &.active,
+  &:hover {
+    color: ${palette.primary.main};
+    border-bottom: 4px solid ${palette.primary.main};
+  }
+`;

@@ -1,6 +1,6 @@
 import React, { forwardRef, useId } from 'react';
 import { Label } from '@elements';
-import palette from '@libs/theme/palettes';
+import { Theme } from '@libs/theme';
 
 const DropDown = forwardRef(
   (
@@ -34,13 +34,13 @@ const DropDown = forwardRef(
           name={name}
           ref={ref}
           onChange={onChange}
-          css={{
+          css={(theme: Theme) => ({
             width: '100%',
             padding: '12px 12px 12px 16px',
-            border: `2px solid ${palette.secondary.n300}`,
+            border: `2px solid ${theme.palette.secondary.n300}`,
             borderRadius: '8px',
             fontSize: '16px',
-          }}
+          })}
         >
           {options.map((option) => (
             <option key={option.label} value={option.value}>

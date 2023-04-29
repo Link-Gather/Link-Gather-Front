@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { mq } from '@libs/theme';
-import palette from '@libs/theme/palettes';
+import { mq, Theme } from '@libs/theme';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -156,17 +155,16 @@ const RequestButton = styled('button')<{ value: string }>(
     borderRadius: '8px',
     marginLeft: '10px',
   },
-  (props) => ({
-    border: props.value ? `2px solid ${palette.secondary.n300}` : `2px solid ${palette.secondary.n60}`,
-    color: props.value ? palette.secondary.n300 : palette.secondary.n60,
-    backgroundColor: palette.contrastText,
-    cursor: props.value ? 'pointer' : 'null',
+  ({ value, theme }) => ({
+    border: value ? `2px solid ${theme.palette.secondary.n300}` : `2px solid ${theme.palette.secondary.n60}`,
+    color: value ? theme.palette.secondary.n300 : theme.palette.secondary.n60,
+    backgroundColor: theme.palette.contrastText,
+    cursor: value ? 'pointer' : 'null',
   })
 );
 
 const SignupButton = styled('button')<{ disabled?: boolean }>(
   {
-    color: palette.contrastText,
     position: 'absolute',
     bottom: '40px',
     borderRadius: '32px',
@@ -176,9 +174,10 @@ const SignupButton = styled('button')<{ disabled?: boolean }>(
     fontWeight: '600',
     letterSpacing: '0.6px',
   },
-  (props) => ({
-    backgroundColor: !props.disabled ? palette.primary.main : palette.secondary.n60,
-    cursor: !props.disabled ? 'pointer' : 'null',
+  ({ disabled, theme }) => ({
+    color: theme.palette.contrastText,
+    backgroundColor: !disabled ? theme.palette.primary.main : theme.palette.secondary.n60,
+    cursor: !disabled ? 'pointer' : 'null',
   })
 );
 
@@ -569,12 +568,12 @@ function SignUpScreen() {
                     {watch('urls').map((url) => (
                       <FlexBox key={url} css={{ padding: '0px 5px' }}>
                         <a
-                          css={{
-                            color: palette.primary.main,
+                          css={(theme: Theme) => ({
+                            color: theme.palette.primary.main,
                             textDecoration: 'underline',
                             fontWeight: '500',
                             display: 'inline-block',
-                          }}
+                          })}
                           href={url}
                           target='_blank'
                           rel='noreferrer'

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlexBox, SkillTab } from '@elements';
-import palette from '@libs/theme/palettes';
+import { Theme } from '@libs/theme';
 
 function SkillDropdown(props: { skills: string[]; searchKeyword: string; onClick: (skill: string) => void }) {
   // prop destruction
@@ -16,21 +16,21 @@ function SkillDropdown(props: { skills: string[]; searchKeyword: string; onClick
 
   return (
     <FlexBox
-      css={{
+      css={(theme: Theme) => ({
         width: '100%',
         minHeight: '68px',
         maxHeight: '98px',
-        border: `2px solid ${palette.black.main}`,
+        border: `2px solid ${theme.palette.black.main}`,
         position: 'absolute',
         top: '99%',
-        backgroundColor: palette.paper,
+        backgroundColor: theme.palette.paper,
         borderRadius: '8px',
-        boxShadow: `3px 5px 0px ${palette.black.main}`,
+        boxShadow: `3px 5px 0px ${theme.palette.black.main}`,
         zIndex: '2',
         display: 'flex',
         overflow: 'auto',
         padding: '4px',
-      }}
+      })}
     >
       <FlexBox css={{ flexWrap: 'wrap' }}>
         {!showSkills.length ? (

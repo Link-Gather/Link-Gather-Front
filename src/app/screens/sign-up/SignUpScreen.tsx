@@ -236,8 +236,8 @@ function SignUpScreen() {
         switch (step) {
           case 0:
             return yup.object().shape({
-              email: yup.string(),
-              code: yup.string(),
+              email: yup.string().required(),
+              code: yup.string().required(),
               password: SCHEMA_PASSWORD,
               confirmPassword: SCHEMA_CONFIRM_PASSWORD,
             });
@@ -249,9 +249,9 @@ function SignUpScreen() {
             return yup.object().shape({
               searchSkill: yup.string(),
               urlString: yup.string().url(),
-              selectedJob: yup.string(),
-              selectedExperience: yup.string(),
-              selectedSkills: yup.array().of(yup.string()),
+              job: yup.string(),
+              career: yup.string(),
+              stacks: yup.array().of(yup.string()),
               urls: yup.array().of(yup.string().url()),
               introduction: yup.string(),
             });

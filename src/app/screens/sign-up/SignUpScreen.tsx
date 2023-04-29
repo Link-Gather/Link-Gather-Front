@@ -203,7 +203,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const [isCheckedCode, setIsCheckedCode] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
@@ -232,36 +232,37 @@ function SignUpScreen() {
       introduction: '',
       profileImage: '',
     },
-    resolver: ((step: number) => {
-      const resolver = (() => {
+    resolver: yupResolver(
+      (() => {
         switch (step) {
-          case 1:
+          case 0:
             return yup.object().shape({
               email: yup.string(),
               code: yup.string(),
               password: SCHEMA_PASSWORD,
               confirmPassword: SCHEMA_CONFIRM_PASSWORD,
             });
-          case 2:
+          case 1:
             return yup.object().shape({
-              profileImage: yup.string(),
               nickname: SCHEMA_NICKNAME,
             });
-          case 3:
+          case 2:
             return yup.object().shape({
               searchSkill: yup.string(),
               urlString: yup.string().url(),
-              job: yup.string(),
-              career: yup.string(),
-              stacks: yup.array().of(yup.string()),
+              selectedJob: yup.string(),
+              selectedExperience: yup.string(),
+              selectedSkills: yup.array().of(yup.string()),
               urls: yup.array().of(yup.string().url()),
               introduction: yup.string(),
             });
+          default:
+            return yup.object();
         }
-      })();
-      return yupResolver(resolver);
-    })(1),
+      })()
+    ),
   });
+
   // query hooks
   // calculated values
   // effects

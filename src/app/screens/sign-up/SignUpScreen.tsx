@@ -203,7 +203,6 @@ function SignUpScreen() {
   const navigate = useNavigate();
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
-  const [isCheckedCode, setIsCheckedCode] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);

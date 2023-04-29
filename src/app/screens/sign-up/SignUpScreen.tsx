@@ -228,7 +228,7 @@ function SignUpScreen() {
       stacks: [],
       urls: [],
       introduction: '',
-      profileImage: '',
+      profileImage: '/e2142093cc89c41037a7.svg', //임시로 넣어놓은 초기 이미지 src
     },
     resolver: yupResolver(
       (() => {
@@ -237,22 +237,21 @@ function SignUpScreen() {
             return yup.object().shape({
               email: yup.string().required(),
               code: yup.string().required(),
-              password: SCHEMA_PASSWORD,
-              confirmPassword: SCHEMA_CONFIRM_PASSWORD,
+              password: SCHEMA_PASSWORD.required(),
+              confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
             });
           case 1:
             return yup.object().shape({
-              nickname: SCHEMA_NICKNAME,
+              profileImage: yup.string().required(),
+              nickname: SCHEMA_NICKNAME.required(),
             });
           case 2:
             return yup.object().shape({
-              searchSkill: yup.string(),
-              urlString: yup.string().url(),
-              job: yup.string(),
-              career: yup.string(),
-              stacks: yup.array().of(yup.string()),
+              job: yup.string().required(),
+              career: yup.string().required(),
+              stacks: yup.array().of(yup.string()).required(),
               urls: yup.array().of(yup.string().url()),
-              introduction: yup.string(),
+              introduction: yup.string().required(),
             });
           default:
             return yup.object();
@@ -260,6 +259,8 @@ function SignUpScreen() {
       })()
     ),
   });
+
+  console.log(watch());
   // query hooks
   // calculated values
   // effects
@@ -295,8 +296,10 @@ function SignUpScreen() {
     setValue('urls', deletedUrls);
   };
 
-  const handleNextStep = () => {
-    if (step < 2) setStep((prevState) => prevState + 1);
+  const handleMoveStep = (stepChange: number) => {
+    if (stepChange === 1 && step < 2) setStep((prevStep) => prevStep + 1);
+    if (stepChange === -1 && step > 0) setStep((prevStep) => prevStep - 1);
+    if (stepChange === -1 && step === 0) navigate('/login');
   };
 
   return (
@@ -348,8 +351,7 @@ function SignUpScreen() {
               src={IconArrowLeft}
               alt='go back'
               onClick={() => {
-                if (step) setStep((prevState) => prevState - 1);
-                else navigate('/login');
+                handleMoveStep(-1);
               }}
             />
           </FlexBox>
@@ -402,7 +404,12 @@ function SignUpScreen() {
                     />
                   </FlexBox>
                 </FlexBox>
-                <SignupButton onClick={handleNextStep} disabled={!isValid}>
+                <SignupButton
+                  onClick={() => {
+                    handleMoveStep(1);
+                  }}
+                  disabled={!isValid}
+                >
                   다음
                 </SignupButton>
               </FlexBox>
@@ -484,7 +491,12 @@ function SignUpScreen() {
                     중복확인
                   </RequestButton>
                 </FlexBox>
-                <SignupButton onClick={handleNextStep} disabled={!isValid}>
+                <SignupButton
+                  onClick={() => {
+                    handleMoveStep(1);
+                  }}
+                  disabled={!isValid}
+                >
                   다음
                 </SignupButton>
               </FlexBox>
@@ -492,6 +504,7 @@ function SignUpScreen() {
             {step === 2 && (
               <FlexBox
                 width='100%'
+                height='100%'
                 direction='column'
                 alignItems='center'
                 spacing={5}
@@ -578,7 +591,7 @@ function SignUpScreen() {
                     ))}
                   </FlexBox>
                 </FlexBox>
-                <SignupButton css={{ top: '529px' }}>회원가입</SignupButton>
+                <SignupButton>회원가입</SignupButton>
               </FlexBox>
             )}
           </FlexBox>

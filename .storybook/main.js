@@ -8,21 +8,15 @@ module.exports = {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: (config) => {
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      loader: require.resolve('babel-loader'),
-      options: {
-        presets: [['react-app', { flow: false, typescript: true }], require.resolve('@emotion/babel-preset-css-prop')],
-      },
-    });
     return {
       ...config,
       resolve: {
         ...config.resolve,
-        extensions: [...config.resolve.extensions, '.png'],
+        extensions: [...config.resolve.extensions, '.ts', '.tsx', '.js', '.png'],
         alias: {
           ...config.resolve.alias,
           ...webpackConfigResolve.alias,
+          app: path.resolve(__dirname, '../src', 'app'),
         },
       },
       module: {
@@ -35,6 +29,12 @@ module.exports = {
           {
             test: /\.(png|jpg|jpeg|gif|webp)$/,
             type: 'asset/resource',
+          },
+          // NOTE: svg raw data를 가져온다. https://webpack.js.org/guides/asset-modules/
+          {
+            test: /\.(svg)$/,
+            resourceQuery: /source/,
+            type: 'asset/source',
           },
           {
             test: /\.(svg)$/,

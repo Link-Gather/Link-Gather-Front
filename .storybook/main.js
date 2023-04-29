@@ -15,10 +15,6 @@ module.exports = {
         presets: [['react-app', { flow: false, typescript: true }], require.resolve('@emotion/babel-preset-css-prop')],
       },
     });
-    config.module.rules.push({
-      test: /\.(svg)$/,
-      use: [{ loader: '@svgr/webpack', options: { dimensions: false } }],
-    });
     return {
       ...config,
       resolve: {
@@ -28,6 +24,23 @@ module.exports = {
           ...config.resolve.alias,
           ...webpackConfigResolve.alias,
         },
+      },
+      module: {
+        ...config.module,
+        rules: [
+          {
+            test: /\.tsx?$/,
+            loader: 'ts-loader',
+          },
+          {
+            test: /\.(png|jpg|jpeg|gif|webp)$/,
+            type: 'asset/resource',
+          },
+          {
+            test: /\.(svg)$/,
+            use: [{ loader: '@svgr/webpack', options: { dimensions: false } }],
+          },
+        ],
       },
     };
   },

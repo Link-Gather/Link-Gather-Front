@@ -11,3 +11,4 @@ export { default as IconGoogle } from './icons/icon-google.svg';
 export { default as IconKakao } from './icons/icon-kakao.svg';
 export { default as IconPasswordHide } from './icons/icon-password-hide.svg';
 export { default as IconPasswordShow } from './icons/icon-password-show.svg';
+export { default as IconSendEmail } from './icons/icon-send-email.svg';

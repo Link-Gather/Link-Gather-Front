@@ -94,8 +94,8 @@ function ForgotPasswordScreen() {
           },
         }}
       >
-        {step === '1' && <ForgotPasswordEmailForm />}
-        {step === '2' && <ForgotPasswordForm />}
+        {step === 'email' && <ForgotPasswordEmailForm />}
+        {step === 'password' && <ForgotPasswordForm />}
       </ShadowBox>
     </FlexBox>
   );

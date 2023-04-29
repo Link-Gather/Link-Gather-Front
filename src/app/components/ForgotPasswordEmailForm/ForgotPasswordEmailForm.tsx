@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
+import { FlexBox, UnderlineTitle, Input, Button, Typography } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import { IconArrowRight, IconArrowLeft, IconCheckGreen } from '@assets/images';
+import { IconArrowRight, IconArrowLeft, IconCheckGreen, IconSendEmail } from '@assets/images';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
 
@@ -34,7 +34,7 @@ function ForgotPasswordEmailForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading } = useMutation(authRepository.emailVerification);
+  const { mutateAsync, isLoading, isSuccess } = useMutation(authRepository.emailVerification);
 
   // calculated values
   // effects
@@ -58,6 +58,22 @@ function ForgotPasswordEmailForm() {
           iconProps={{ iconImage: (isValid && IconCheckGreen) || undefined, alt: (isValid && 'valid email') || '' }}
           {...register('email')}
         />
+        {isSuccess && (
+          <FlexBox direction='column' alignItems='center' justifyContent='center' width='100%'>
+            <img src={IconSendEmail} alt='send email' />
+            <Typography
+              css={{
+                fontSize: '12px',
+                fontWeight: '700',
+                lineHeight: '34px',
+                color: palette.black.main,
+                marginTop: '16px',
+              }}
+            >
+              비밀번호 재설정 메일을 발송했어요!
+            </Typography>
+          </FlexBox>
+        )}
         <Button
           color={palette.contrastText}
           css={{

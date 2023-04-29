@@ -1,10 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
-import { FlexBox, ShadowBox } from '@elements';
+import { ShadowBox } from '@elements';
 import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import { mq } from '@libs/theme';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
+import { Stack } from '@mui/material';
 
 function ForgotPasswordScreen() {
   // prop destruction
@@ -22,7 +23,8 @@ function ForgotPasswordScreen() {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
+      direction='row'
       width='100%'
       height='100%'
       justifyContent='left'
@@ -96,7 +98,7 @@ function ForgotPasswordScreen() {
         {step === '1' && <ForgotPasswordEmailForm />}
         {step === '2' && <ForgotPasswordForm />}
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

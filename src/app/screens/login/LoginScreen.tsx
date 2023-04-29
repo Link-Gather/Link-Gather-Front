@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import {
-  FlexBox,
   UnderlineTitle,
   KakaoLoginButton,
   GoogleLoginButton,
@@ -15,6 +14,7 @@ import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-as
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { Stack } from '@mui/material';
 
 function LoginScreen() {
   // prop destruction
@@ -27,7 +27,8 @@ function LoginScreen() {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
+      direction='row'
       width='100%'
       height='100%'
       justifyContent='left'
@@ -96,20 +97,20 @@ function LoginScreen() {
           },
         }}
       >
-        <FlexBox width='320px' direction='column'>
-          <FlexBox direction='row' width='100%'>
+        <Stack width='320px' direction='column'>
+          <Stack direction='row' width='100%'>
             <Link to={PATH_HOME}>
               <img src={IconArrowLeft} alt='go home' />
             </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
-          </FlexBox>
+          </Stack>
           <LoginForm />
-          <FlexBox justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
+          <Stack direction='row' justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
             <KakaoLoginButton />
             <GoogleLoginButton />
             <GithubLoginButton />
-          </FlexBox>
-          <FlexBox direction='column' alignItems='center'>
+          </Stack>
+          <Stack direction='column' alignItems='center'>
             <Typography
               css={{
                 fontSize: '16px',
@@ -135,10 +136,10 @@ function LoginScreen() {
             >
               <Link to={`${PATH_FORGOT_PASSWORD}?step=1`}>비밀번호 찾기</Link>
             </Typography>
-          </FlexBox>
-        </FlexBox>
+          </Stack>
+        </Stack>
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

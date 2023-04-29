@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlexBox } from '@elements';
 import { Theme } from '@libs/theme';
+import { Stack } from '@mui/material';
 
 function ShadowBox(props: { children: React.ReactNode; className?: string }) {
   // prop destruction
@@ -15,7 +15,7 @@ function ShadowBox(props: { children: React.ReactNode; className?: string }) {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
       alignItems='center'
       direction='column'
       className={className}
@@ -30,7 +30,7 @@ function ShadowBox(props: { children: React.ReactNode; className?: string }) {
       })}
     >
       {children}
-    </FlexBox>
+    </Stack>
   );
 }
 

@@ -168,7 +168,7 @@ const SignupButton = styled('button')<{ disabled?: boolean }>(
   {
     color: palette.contrastText,
     position: 'absolute',
-    top: '400px',
+    bottom: '40px',
     borderRadius: '32px',
     width: '320px',
     height: '48px',
@@ -203,7 +203,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [isCheckedCode, setIsCheckedCode] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
@@ -338,7 +338,7 @@ function SignUpScreen() {
           height: step !== 2 ? '588px' : '718px',
         }}
       >
-        <FlexBox width='100%' height='100%' direction='column' css={{ gap: '25px' }}>
+        <FlexBox width='100%' height='100%' direction='column'>
           <FlexBox
             css={{
               position: 'absolute',
@@ -359,241 +359,241 @@ function SignUpScreen() {
           <FlexBox width='492px' justifyContent='center'>
             <UnderlineTitle title='회원가입' />
           </FlexBox>
-          <FlexBox width='392px' height='100%' css={{ margin: '0 auto', transform: `translateX(-${step * 482}px)` }}>
-            {/* <-- step1 */}
-
-            <FlexBox justifyContent='center' width='100%' height='447px'>
-              <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
-                <FlexBox>
-                  <Input
-                    type='email'
-                    placeholder='이메일'
-                    value={getValues('email')}
-                    css={{ width: '288px' }}
-                    {...register('email')}
-                  />
-                  <RequestButton value={watch('email')}>인증요청</RequestButton>
+          <FlexBox width='392px' height='100%' css={{ margin: '0 auto' }}>
+            {step === 0 && (
+              <FlexBox justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
+                <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
+                  <FlexBox>
+                    <Input
+                      type='email'
+                      placeholder='이메일'
+                      value={getValues('email')}
+                      css={{ width: '288px' }}
+                      {...register('email')}
+                    />
+                    <RequestButton value={watch('email')}>인증요청</RequestButton>
+                  </FlexBox>
+                  <FlexBox>
+                    <Input
+                      type='text'
+                      placeholder='코드입력'
+                      value={getValues('code')}
+                      css={{ width: '288px' }}
+                      {...register('code')}
+                    />
+                    <RequestButton value={watch('code')}>확인</RequestButton>
+                  </FlexBox>
+                  <FlexBox css={{ position: 'relative' }}>
+                    <Input
+                      type={isShowPassword ? 'text' : 'password'}
+                      placeholder='비밀번호 입력'
+                      helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                      autoComplete='off'
+                      error={errors.password}
+                      iconProps={{
+                        alt: 'show password',
+                        iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
+                        onClick: () => setIsShowPassword(!isShowPassword),
+                      }}
+                      css={{ width: '392px' }}
+                      {...register('password')}
+                    />
+                  </FlexBox>
+                  <FlexBox css={{ position: 'relative', marginTop: '16px' }}>
+                    <Input
+                      type={isShowPasswordConfirm ? 'text' : 'password'}
+                      placeholder='비밀번호 확인'
+                      autoComplete='off'
+                      error={errors.confirmPassword}
+                      iconProps={{
+                        alt: 'show password',
+                        iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
+                        onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
+                      }}
+                      css={{ width: '392px' }}
+                      {...register('confirmPassword')}
+                    />
+                  </FlexBox>
                 </FlexBox>
-                <FlexBox>
-                  <Input
-                    type='text'
-                    placeholder='코드입력'
-                    value={getValues('code')}
-                    css={{ width: '288px' }}
-                    {...register('code')}
-                  />
-                  <RequestButton value={watch('code')}>확인</RequestButton>
-                </FlexBox>
-                <FlexBox css={{ position: 'relative' }}>
-                  <Input
-                    type={isShowPassword ? 'text' : 'password'}
-                    placeholder='비밀번호 입력'
-                    helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
-                    autoComplete='off'
-                    error={errors.password}
-                    iconProps={{
-                      alt: 'show password',
-                      iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
-                      onClick: () => setIsShowPassword(!isShowPassword),
-                    }}
-                    css={{ width: '392px' }}
-                    {...register('password')}
-                  />
-                </FlexBox>
-                <FlexBox css={{ position: 'relative', marginTop: '16px' }}>
-                  <Input
-                    type={isShowPasswordConfirm ? 'text' : 'password'}
-                    placeholder='비밀번호 확인'
-                    autoComplete='off'
-                    error={errors.confirmPassword}
-                    iconProps={{
-                      alt: 'show password',
-                      iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
-                      onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
-                    }}
-                    css={{ width: '392px' }}
-                    {...register('confirmPassword')}
-                  />
-                </FlexBox>
+                <SignupButton onClick={handleNextStep} disabled={!isValid}>
+                  다음
+                </SignupButton>
               </FlexBox>
-              <SignupButton onClick={handleNextStep} disabled={!isValid}>
-                다음
-              </SignupButton>
-            </FlexBox>
-            {/* --> */}
-            {/* <-- step2 */}
-            <FlexBox
-              width='100%'
-              height='447px'
-              direction='column'
-              alignItems='center'
-              spacing={12}
-              css={{ marginLeft: '90px' }}
-            >
-              <FlexBox width='392px' justifyContent='center' css={{ marginTop: '20px' }}>
-                <FlexBox
-                  width='100px'
-                  height='100px'
-                  css={{
-                    backgroundColor: characterState.backgroundColor,
-                    borderRadius: '50%',
-                    border: '2px solid black',
-                    overflow: 'hidden',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <img
-                    src={characterState.src}
-                    alt='selectCharacter'
+            )}
+            {step === 1 && (
+              <FlexBox
+                width='100%'
+                height='447px'
+                direction='column'
+                alignItems='center'
+                spacing={12}
+                css={{ marginTop: '20px' }}
+              >
+                <FlexBox justifyContent='center' css={{ marginTop: '20px' }}>
+                  <FlexBox
+                    width='100px'
+                    height='100px'
                     css={{
-                      height: characterState.height,
-                      width: characterState.width,
-                      marginTop: characterState.marginTop,
+                      backgroundColor: characterState.backgroundColor,
+                      borderRadius: '50%',
+                      border: '2px solid black',
+                      overflow: 'hidden',
+                      justifyContent: 'center',
                     }}
+                  >
+                    <img
+                      src={characterState.src}
+                      alt='selectCharacter'
+                      css={{
+                        height: characterState.height,
+                        width: characterState.width,
+                        marginTop: characterState.marginTop,
+                      }}
+                    />
+                  </FlexBox>
+                  <FlexBox
+                    width='204px'
+                    alignContent='space-between'
+                    justifyContent='space-between'
+                    css={{ flexWrap: 'wrap', marginLeft: '16px' }}
+                  >
+                    {characters.map((character) => {
+                      return (
+                        <FlexBox
+                          key={character.id}
+                          width='48px'
+                          height='48px'
+                          justifyContent='center'
+                          alignItems='center'
+                          css={{
+                            border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
+                            borderRadius: '50%',
+                            overflow: 'hidden',
+                            backgroundColor: character.backgroundColor,
+                            cursor: 'pointer',
+                            '&:hover': {
+                              border: '2px solid #00CA20',
+                            },
+                          }}
+                        >
+                          <img
+                            onClick={() => handleSelectProfileImage(character)}
+                            alt='character'
+                            src={character.src}
+                            css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
+                          />
+                        </FlexBox>
+                      );
+                    })}
+                  </FlexBox>
+                </FlexBox>
+                <FlexBox width='324px' justifyContent='center'>
+                  <Input
+                    helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                    placeholder='닉네임 입력'
+                    {...register('nickname')}
+                  />
+                  <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '93px' }}>
+                    중복확인
+                  </RequestButton>
+                </FlexBox>
+                <SignupButton onClick={handleNextStep} disabled={!isValid}>
+                  다음
+                </SignupButton>
+              </FlexBox>
+            )}
+            {step === 2 && (
+              <FlexBox
+                width='100%'
+                direction='column'
+                alignItems='center'
+                spacing={5}
+                css={{ marginTop: '20px', position: 'relative' }}
+              >
+                <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
+                  <FlexBox width='212px' direction='column'>
+                    <DropDown label='직무' options={jobs} required {...register('job')} />
+                  </FlexBox>
+                  <FlexBox width='168px' direction='column'>
+                    <DropDown label='경력' options={careers} required {...register('career')} />
+                  </FlexBox>
+                </FlexBox>
+                <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
+                  <Input
+                    bottomLine
+                    required
+                    label='보유기술'
+                    type='text'
+                    placeholder='기술 스택 검색'
+                    css={{ fontSize: '16px', paddingLeft: '30px' }}
+                    {...register('searchSkill')}
+                  />
+                  <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
+                  {watch('searchSkill') && (
+                    <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
+                  )}
+                  {watch('stacks').length !== 0 && (
+                    <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
+                      {watch('stacks').map((skill) => (
+                        <SkillTab skill={skill} key={skill} selected onDeleteClick={handleDeleteSkill}>
+                          {skill}
+                        </SkillTab>
+                      ))}
+                    </FlexBox>
+                  )}
+                </FlexBox>
+                <FlexBox width='100%' direction='column'>
+                  <TextArea
+                    label='자기소개'
+                    required
+                    placeholder='안녕하세욥!'
+                    css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
+                    {...register('introduction')}
                   />
                 </FlexBox>
-                <FlexBox
-                  width='204px'
-                  alignContent='space-between'
-                  justifyContent='space-between'
-                  css={{ flexWrap: 'wrap', marginLeft: '16px' }}
-                >
-                  {characters.map((character) => {
-                    return (
-                      <FlexBox
-                        key={character.id}
-                        width='48px'
-                        height='48px'
-                        justifyContent='center'
-                        alignItems='center'
-                        css={{
-                          border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
-                          borderRadius: '50%',
-                          overflow: 'hidden',
-                          backgroundColor: character.backgroundColor,
-                          cursor: 'pointer',
-                          '&:hover': {
-                            border: '2px solid #00CA20',
-                          },
-                        }}
-                      >
+                <FlexBox width='100%' direction='column'>
+                  <Input
+                    bottomLine
+                    label='참고 링크'
+                    type='text'
+                    placeholder='URL을 입력해주세요.'
+                    onKeyDown={handlerKeyDown}
+                    iconProps={{
+                      iconImage: IconSearch,
+                      alt: 'search',
+                    }}
+                    css={{ fontSize: '16px' }}
+                    {...register('urlString')}
+                  />
+                  <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
+                    {watch('urls').map((url) => (
+                      <FlexBox key={url} css={{ padding: '0px 5px' }}>
+                        <a
+                          css={{
+                            color: palette.primary.main,
+                            textDecoration: 'underline',
+                            fontWeight: '500',
+                            display: 'inline-block',
+                          }}
+                          href={url}
+                          target='_blank'
+                          rel='noreferrer'
+                        >
+                          {url.includes('https://') ? url : 'https://' + url}
+                        </a>
                         <img
-                          onClick={() => handleSelectProfileImage(character)}
-                          alt='character'
-                          src={character.src}
-                          css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
+                          alt='delete-url'
+                          src={DeleteUrl}
+                          onClick={() => handleDeleteUrl(url)}
+                          css={{ marginLeft: '10px', cursor: 'pointer' }}
                         />
                       </FlexBox>
-                    );
-                  })}
-                </FlexBox>
-              </FlexBox>
-              <FlexBox width='324px' justifyContent='center'>
-                <Input
-                  helperText='8자이내, 한글, 영문 숫자 혼용 가능'
-                  placeholder='닉네임 입력'
-                  {...register('nickname')}
-                />
-                <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '93px' }}>
-                  중복확인
-                </RequestButton>
-              </FlexBox>
-              <SignupButton onClick={handleNextStep} disabled={!isValid}>
-                다음
-              </SignupButton>
-            </FlexBox>
-            {/* --> */}
-            {/* <-- step3 */}
-            <FlexBox width='100%' direction='column' alignItems='center' spacing={5} css={{ marginLeft: '90px' }}>
-              <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
-                <FlexBox width='212px' direction='column'>
-                  <DropDown label='직무' options={jobs} required {...register('job')} />
-                </FlexBox>
-                <FlexBox width='168px' direction='column'>
-                  <DropDown label='경력' options={careers} required {...register('career')} />
-                </FlexBox>
-              </FlexBox>
-              <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
-                <Input
-                  bottomLine
-                  required
-                  label='보유기술'
-                  type='text'
-                  placeholder='기술 스택 검색'
-                  css={{ fontSize: '16px', paddingLeft: '30px' }}
-                  {...register('searchSkill')}
-                />
-                <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
-                {watch('searchSkill') && (
-                  <SkillDropdown skills={skills} keyword={watch('searchSkill')} onClick={handleSelectSkill} />
-                )}
-                {watch('stacks').length !== 0 && (
-                  <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
-                    {watch('stacks').map((skill) => (
-                      <SkillTab skill={skill} key={skill} selected onDeleteClick={handleDeleteSkill}>
-                        {skill}
-                      </SkillTab>
                     ))}
                   </FlexBox>
-                )}
-              </FlexBox>
-              <FlexBox width='100%' direction='column'>
-                <TextArea
-                  label='자기소개'
-                  required
-                  placeholder='안녕하세욥!'
-                  css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
-                  {...register('introduction')}
-                />
-              </FlexBox>
-              <FlexBox width='100%' direction='column'>
-                <Input
-                  bottomLine
-                  label='참고 링크'
-                  type='text'
-                  placeholder='URL을 입력해주세요.'
-                  onKeyDown={handlerKeyDown}
-                  iconProps={{
-                    iconImage: IconSearch,
-                    alt: 'search',
-                  }}
-                  css={{ fontSize: '16px' }}
-                  {...register('urlString')}
-                />
-                <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
-                  {watch('urls').map((url) => (
-                    <FlexBox key={url} css={{ padding: '0px 5px' }}>
-                      <a
-                        css={{
-                          color: palette.primary.main,
-                          textDecoration: 'underline',
-                          fontWeight: '500',
-                          display: 'inline-block',
-                        }}
-                        href={url}
-                        target='_blank'
-                        rel='noreferrer'
-                      >
-                        {url.includes('https://') ? url : 'https://' + url}
-                      </a>
-                      <img
-                        alt='delete-url'
-                        src={DeleteUrl}
-                        onClick={() => handleDeleteUrl(url)}
-                        css={{ marginLeft: '10px', cursor: 'pointer' }}
-                      />
-                    </FlexBox>
-                  ))}
                 </FlexBox>
+                <SignupButton css={{ top: '529px' }}>회원가입</SignupButton>
               </FlexBox>
-              <SignupButton
-                css={{ top: '529px' }}
-                // Todo: api연결
-              >
-                회원가입
-              </SignupButton>
-              {/* --> */}
-            </FlexBox>
+            )}
           </FlexBox>
         </FlexBox>
       </ShadowBox>

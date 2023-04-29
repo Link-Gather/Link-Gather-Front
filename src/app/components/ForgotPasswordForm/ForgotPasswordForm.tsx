@@ -8,6 +8,8 @@ import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
 import palette from '@libs/theme/palettes';
+import { useMutation } from '@libs/query';
+import { authRepository } from '@repositories';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -20,7 +22,7 @@ function ForgotPasswordForm() {
   const [searchParams] = useSearchParams();
 
   // state, ref, querystring hooks
-  const verificationId = searchParams.get('verificationId');
+  const verificationId = searchParams.get('verificationId') ?? '';
 
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
@@ -38,9 +40,14 @@ function ForgotPasswordForm() {
       confirmPassword: '',
     },
   });
+
   // query hooks
+  const { mutateAsync, isLoading } = useMutation(authRepository.passwordChange);
+
   // calculated values
+
   // effects
+
   // handlers
 
   return (
@@ -83,7 +90,7 @@ function ForgotPasswordForm() {
         />
         <Button
           onClick={handleSubmit(async ({ password, confirmPassword }) => {
-            console.log(verificationId);
+            await mutateAsync({ id: verificationId, password, passwordConfirm: confirmPassword });
           })}
           color={palette.contrastText}
           css={{
@@ -94,6 +101,7 @@ function ForgotPasswordForm() {
             borderRadius: '32px',
             marginTop: '14px',
           }}
+          isLoading={isLoading}
           disabled={!isValid}
         >
           비밀번호 변경

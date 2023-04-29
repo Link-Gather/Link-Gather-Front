@@ -23,17 +23,17 @@ module.exports = {
         rules: [
           {
             test: /\.tsx?$/,
+            exclude: /node_modules/,
             loader: 'ts-loader',
+            options: { transpileOnly: true },
           },
           {
-            test: /\.(png|jpg|jpeg|gif|webp)$/,
+            test: /\.css?$/,
+            use: ['style-loader', 'css-loader'],
+          },
+          {
+            test: /\.(gif|jpg|png)$/,
             type: 'asset/resource',
-          },
-          // NOTE: svg raw data를 가져온다. https://webpack.js.org/guides/asset-modules/
-          {
-            test: /\.(svg)$/,
-            resourceQuery: /source/,
-            type: 'asset/source',
           },
           {
             test: /\.(svg)$/,

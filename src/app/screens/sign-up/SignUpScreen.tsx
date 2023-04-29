@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea, SkillTab } from '@elements';
+import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -145,12 +145,11 @@ type CharacterType = {
   marginTop: string;
 };
 
-const RequestButton = styled('button')<{ value: string }>(
+const RequestButton = styled(Button)<{ value: string }>(
   {
     width: '94px',
     height: '50px',
     fontSize: '14px',
-    textAlign: 'center',
     fontWeight: '600',
     borderRadius: '8px',
     marginLeft: '10px',
@@ -163,7 +162,7 @@ const RequestButton = styled('button')<{ value: string }>(
   })
 );
 
-const SignupButton = styled('button')<{ disabled?: boolean }>(
+const SignupButton = styled(Button)<{ disabled?: boolean }>(
   {
     position: 'absolute',
     bottom: '40px',
@@ -202,7 +201,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);

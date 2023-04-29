@@ -202,7 +202,8 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -361,23 +362,13 @@ function SignUpScreen() {
               <FlexBox justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
                 <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <FlexBox>
-                    <Input
-                      type='email'
-                      placeholder='이메일'
-                      value={getValues('email')}
-                      css={{ width: '288px' }}
-                      {...register('email')}
-                    />
-                    <RequestButton value={watch('email')}>인증요청</RequestButton>
+                    <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
+                    <RequestButton onClick={() => {}} value={watch('email')}>
+                      인증요청
+                    </RequestButton>
                   </FlexBox>
                   <FlexBox>
-                    <Input
-                      type='text'
-                      placeholder='코드입력'
-                      value={getValues('code')}
-                      css={{ width: '288px' }}
-                      {...register('code')}
-                    />
+                    <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
                     <RequestButton value={watch('code')}>확인</RequestButton>
                   </FlexBox>
                   <FlexBox css={{ position: 'relative' }}>

@@ -54,9 +54,8 @@ const Input = forwardRef(
                 width: '100%',
                 height: '50px',
                 fontSize: '20px',
-                borderRadius: !bottomLine ? 8 : 0,
-                border: !bottomLine ? `2px solid ${theme.palette.secondary.n60}` : 'none',
-                borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                borderRadius: 8,
+                border: `2px solid ${theme.palette.secondary.n60}`,
                 padding: '11px 16px 11px 16px',
                 outline: 'none',
                 '&::placeholder': {
@@ -68,6 +67,11 @@ const Input = forwardRef(
                     opacity: 1,
                   },
                 },
+              },
+              bottomLine && {
+                border: 'none',
+                borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                borderRadius: 0,
               },
               isFocused && {
                 border: `2px solid ${theme.palette.secondary.n300}`,

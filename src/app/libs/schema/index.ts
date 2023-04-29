@@ -6,7 +6,7 @@ export const SCHEMA_PASSWORD = yup
   .matches(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W)(?!.*\s).{8,16}$/, '영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.');
 export const SCHEMA_NICKNAME = yup
   .string()
-  .matches(/^[a-z0-9가-힣]$/)
+  .matches(/^[a-zA-Z0-9가-힣]+$/) // + 기호 추가
   .min(1)
   .max(8);
 /**

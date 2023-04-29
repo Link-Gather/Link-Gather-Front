@@ -260,7 +260,6 @@ function SignUpScreen() {
       })()
     ),
   });
-
   // query hooks
   // calculated values
   // effects

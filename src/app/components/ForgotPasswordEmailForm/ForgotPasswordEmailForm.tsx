@@ -42,7 +42,7 @@ function ForgotPasswordEmailForm() {
     <Stack width='320px' height='324px' direction='column'>
       <Stack direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' />
+          <IconArrowLeft css={{ width: '32px', height: '32px' }} />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
@@ -53,7 +53,7 @@ function ForgotPasswordEmailForm() {
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email}
           message={errors.email?.message}
-          iconProps={{ iconImage: (isValid && IconCheckGreen) || undefined, alt: (isValid && 'valid email') || '' }}
+          IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
           {...register('email')}
         />
         <Button
@@ -69,7 +69,7 @@ function ForgotPasswordEmailForm() {
           disabled={!isValid}
           onClick={handleSubmit(async ({ email }) => {})}
         >
-          인증하기 <img src={IconArrowRight} alt='go next' />
+          인증하기 <IconArrowRight css={{ width: '24px', height: '24px' }} />
         </Button>
       </Stack>
     </Stack>

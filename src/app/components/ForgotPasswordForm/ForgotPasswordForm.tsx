@@ -46,7 +46,7 @@ function ForgotPasswordForm() {
     <Stack width='320px' height='324px' direction='column'>
       <Stack direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' />
+          <IconArrowLeft css={{ width: '32px', height: '32px' }} />
         </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
@@ -59,10 +59,14 @@ function ForgotPasswordForm() {
           message={
             errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
           }
-          iconProps={{
+          IconProps={{
             onClick: () => setIsShowPassword(!isShowPassword),
-            iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+            Icon:
+              dirtyFields.password && !isShowPassword ? (
+                <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+              ) : (
+                <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+              ),
           }}
           {...register('password')}
         />
@@ -72,10 +76,14 @@ function ForgotPasswordForm() {
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
-          iconProps={{
+          IconProps={{
             onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
-            iconImage: dirtyFields.confirmPassword && !isShowConfirmPassword ? IconPasswordHide : IconPasswordShow,
-            alt: dirtyFields.confirmPassword && !isShowConfirmPassword ? 'hide password' : 'show password',
+            Icon:
+              dirtyFields.confirmPassword && !isShowConfirmPassword ? (
+                <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+              ) : (
+                <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+              ),
           }}
           {...register('confirmPassword')}
         />

@@ -52,9 +52,10 @@ function LoginForm() {
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
         message={errors.email?.message}
-        iconProps={{
-          iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
-          alt: (!errors.email && dirtyFields.email && 'valid email') || undefined,
+        IconProps={{
+          Icon:
+            (!errors.email && dirtyFields.email && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) ||
+            undefined,
         }}
         {...register('email')}
       />
@@ -64,10 +65,14 @@ function LoginForm() {
         css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
-        iconProps={{
+        IconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
-          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-          alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+          Icon:
+            dirtyFields.password && !isShowPassword ? (
+              <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+            ) : (
+              <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+            ),
         }}
         {...register('password')}
       />

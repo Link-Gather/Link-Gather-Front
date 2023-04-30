@@ -47,7 +47,7 @@ function SignUpScreen() {
               left: '40px',
             }}
           >
-            <img src={IconArrowLeft} alt='go back' />
+            <IconArrowLeft css={{ width: '24px', height: '24px' }} />
           </Link>
           <UnderlineTitle title='회원가입' />
           <Stack direction='row' width='100%' css={{ marginTop: '20px' }}>

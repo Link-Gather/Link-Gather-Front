@@ -31,7 +31,6 @@ export const decorators: DecoratorFn[] = [
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={['/']}>
         <ThemeProvider>
-          <ThemeSetter context={context} />
           <CssBaseline />
           {storyFn()}
         </ThemeProvider>
@@ -39,22 +38,3 @@ export const decorators: DecoratorFn[] = [
     </QueryClientProvider>
   ),
 ];
-
-const colorToTheme = {
-  '#F8F8F8': 'default',
-  '#333333': 'dark',
-};
-
-function ThemeSetter({ context }: { context: StoryContext<any> }) {
-  const [, setPalette] = useTheme();
-  useEffect(() => {
-    if (context.globals.backgrounds?.value) {
-      setPalette(colorToTheme[context.globals.backgrounds.value] || 'default');
-    } else if (context.parameters.backgrounds.default) {
-      setPalette(context.parameters.backgrounds.default === 'dark' ? 'dark' : 'default');
-    } else {
-      setPalette('default');
-    }
-  }, [context]);
-  return null;
-}

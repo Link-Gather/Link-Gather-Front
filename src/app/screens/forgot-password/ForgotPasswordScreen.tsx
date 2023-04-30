@@ -36,8 +36,7 @@ function ForgotPasswordScreen() {
         },
       }}
     >
-      <img
-        src={BackgroundStar}
+      <BackgroundStar
         css={{
           position: 'absolute',
           top: 0,
@@ -45,10 +44,8 @@ function ForgotPasswordScreen() {
           width: '100%',
           zIndex: 0,
         }}
-        alt='background star'
       />
-      <img
-        src={BackgroundPlanetPrimary}
+      <BackgroundPlanetPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 54vw)',
@@ -62,10 +59,8 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -50%)',
           },
         }}
-        alt='background planet'
       />
-      <img
-        src={BackgroundAstronautYellow}
+      <BackgroundAstronautYellow
         css={{
           position: 'absolute',
           left: 'calc(50% - 32vw)',
@@ -79,7 +74,6 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -220%)',
           },
         }}
-        alt='background astronaut'
       />
       <ShadowBox
         css={{

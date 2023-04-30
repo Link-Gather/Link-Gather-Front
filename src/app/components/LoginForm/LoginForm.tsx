@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Input, FlexBox } from '@elements';
+import { Button, Input } from '@elements';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
@@ -10,6 +10,7 @@ import { useMutation } from '@libs/query';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { Stack } from '@mui/material';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -44,7 +45,7 @@ function LoginForm() {
   // handlers
 
   return (
-    <FlexBox direction='column' css={{ marginBottom: '40px' }}>
+    <Stack direction='column' css={{ marginBottom: '40px' }}>
       <Input
         type='email'
         placeholder='이메일'
@@ -91,7 +92,7 @@ function LoginForm() {
       >
         로그인
       </Button>
-    </FlexBox>
+    </Stack>
   );
 }
 

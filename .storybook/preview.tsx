@@ -3,6 +3,7 @@ import { DecoratorFn, StoryContext } from '@storybook/react';
 import { ThemeProvider, useTheme } from '../src/app/libs/theme';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +30,10 @@ export const decorators: DecoratorFn[] = [
   (storyFn, context) => (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={['/']}>
-        <ThemeProvider>{storyFn()}</ThemeProvider>
+        <ThemeProvider>
+          <CssBaseline />
+          {storyFn()}
+        </ThemeProvider>
       </MemoryRouter>
     </QueryClientProvider>
   ),

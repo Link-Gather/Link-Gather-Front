@@ -2,7 +2,11 @@ import React from 'react';
 import { FlexBox, SkillTab } from '@elements';
 import { Theme } from '@libs/theme';
 
-function SkillDropdown(props: { skills: string[]; searchKeyword: string; onClick: (skill: string) => void }) {
+function SkillDropdown(props: {
+  skills: { value: string }[];
+  searchKeyword: string;
+  onClick: (skill: string) => void;
+}) {
   // prop destruction
   const { skills, searchKeyword, onClick } = props;
   // lib hooks
@@ -10,7 +14,7 @@ function SkillDropdown(props: { skills: string[]; searchKeyword: string; onClick
   // form hooks
   // query hooks
   // calculated values
-  const showSkills = skills.filter((skill) => skill.toLowerCase().includes(searchKeyword.toLowerCase()));
+  const showSkills = skills.filter((skill) => skill.value.toLowerCase().includes(searchKeyword.toLowerCase()));
   // effects
   // handlers
 
@@ -40,14 +44,14 @@ function SkillDropdown(props: { skills: string[]; searchKeyword: string; onClick
             <SkillTab
               css={[
                 { width: '64px' },
-                skill.length > 7 && skill.length < 14 && { width: '136px' },
-                skill.length >= 14 && { width: '208px' },
+                skill.value.length > 7 && skill.value.length < 14 && { width: '136px' },
+                skill.value.length >= 14 && { width: '208px' },
               ]}
-              skill={skill}
-              key={skill}
-              onClick={() => onClick(skill)}
+              value={skill.value}
+              key={skill.value}
+              onClick={() => onClick(skill.value)}
             >
-              {skill}
+              {skill.value}
             </SkillTab>
           ))
         )}

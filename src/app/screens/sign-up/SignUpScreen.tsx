@@ -5,7 +5,7 @@ import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-plan
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
 import { mq, Theme } from '@libs/theme';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
 import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
@@ -93,31 +93,31 @@ export const characters = [
 ];
 
 export const skills = [
-  'Figma',
-  'Java',
-  'Adobe Illustration',
-  'Spring',
-  'HTML',
-  'CSS',
-  'Spring Boot',
-  'Python',
-  'Node.js',
-  'React Native',
-  'PHP',
-  'C#',
-  'Vue.js',
-  'React.js',
-  'TypeScript',
-  'A Really Long Name Stack',
-  'Styled-Components',
-  'OpenGL',
-  'Storybook',
-  'Recoil',
-  'CassandraDB',
-  'Google Firebase',
-  'Google BigQuery',
-  'AWS DynamoDB',
-  'AWS CodePipeline',
+  { value: 'Figma' },
+  { value: 'Java' },
+  { value: 'Adobe Illustration' },
+  { value: 'Spring' },
+  { value: 'HTML' },
+  { value: 'CSS' },
+  { value: 'Spring Boot' },
+  { value: 'Python' },
+  { value: 'Node.js' },
+  { value: 'React Native' },
+  { value: 'PHP' },
+  { value: 'C#' },
+  { value: 'Vue.js' },
+  { value: 'React.js' },
+  { value: 'TypeScript' },
+  { value: 'A Really Long Name Stack' },
+  { value: 'Styled-Components' },
+  { value: 'OpenGL' },
+  { value: 'Storybook' },
+  { value: 'Recoil' },
+  { value: 'CassandraDB' },
+  { value: 'Google Firebase' },
+  { value: 'Google BigQuery' },
+  { value: 'AWS DynamoDB' },
+  { value: 'AWS CodePipeline' },
 ];
 
 type ValidationType = {
@@ -130,8 +130,8 @@ type ValidationType = {
   urlString: string;
   job: string;
   career: number;
-  stacks: string[];
-  urls: string[];
+  stacks: { value: string }[];
+  urls: { value: string }[];
   introduction: string;
   profileImage: string;
 };
@@ -201,8 +201,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [step, setStep] = useState(2);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -211,7 +210,8 @@ function SignUpScreen() {
     register,
     getValues,
     watch,
-    formState: { errors, dirtyFields, isValid },
+    control,
+    formState: { errors, isValid },
     setValue,
   } = useForm<ValidationType>({
     mode: 'onChange',
@@ -259,8 +259,13 @@ function SignUpScreen() {
       })()
     ),
   });
+  const {
+    fields: stacksFields,
+    append: stacksAppend,
+    remove: stacksRemove,
+  } = useFieldArray({ control, name: 'stacks' });
+  const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
 
-  console.log(watch());
   // query hooks
   // calculated values
   // effects
@@ -269,8 +274,7 @@ function SignUpScreen() {
     if (e.key === 'Enter') {
       const value = e.currentTarget.value;
       const httpsValue = value.includes('https://') ? value : 'https://' + value;
-      const urls = getValues('urls') || [];
-      setValue('urls', [...urls, httpsValue]);
+      urlsAppend({ value: httpsValue });
       setValue('urlString', '');
     }
   };
@@ -281,25 +285,23 @@ function SignUpScreen() {
   };
 
   const handleSelectSkill = (skill: string) => {
-    const skills = getValues('stacks') || [];
-    setValue('stacks', [...skills, skill]);
+    stacksAppend({ value: skill });
     setValue('searchSkill', '');
   };
 
   const handleDeleteSkill = (skill: string) => {
-    const deletedSkills = getValues('stacks').filter((item) => item !== skill);
-    setValue('stacks', deletedSkills);
+    stacksRemove(stacksFields.findIndex((item) => item.value === skill));
   };
 
   const handleDeleteUrl = (url: string) => {
-    const deletedUrls = getValues('urls').filter((item) => item !== url);
-    setValue('urls', deletedUrls);
+    urlsRemove(urlsFields.findIndex((item) => item.value === url));
   };
 
-  const handleMoveStep = (stepChange: number) => {
-    if (stepChange === 1 && step < 2) setStep((prevStep) => prevStep + 1);
-    if (stepChange === -1 && step > 0) setStep((prevStep) => prevStep - 1);
-    if (stepChange === -1 && step === 0) navigate('/login');
+  const handleMoveStep = (stepChangeNumber: number) => {
+    if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
+    if (stepChangeNumber === -1) {
+      step === 0 ? navigate('/login') : setStep((prevStep) => prevStep + stepChangeNumber);
+    }
   };
 
   return (
@@ -334,11 +336,11 @@ function SignUpScreen() {
         css={{
           padding: '40px',
           width: '576px',
-          margin: '0 auto',
           height: step !== 2 ? '588px' : '718px',
+          margin: '0 auto',
         }}
       >
-        <FlexBox width='100%' height='100%' direction='column'>
+        <FlexBox width='100%' direction='column'>
           <FlexBox
             css={{
               position: 'absolute',
@@ -508,7 +510,7 @@ function SignUpScreen() {
                 direction='column'
                 alignItems='center'
                 spacing={5}
-                css={{ marginTop: '20px', position: 'relative' }}
+                css={{ marginTop: '20px' }}
               >
                 <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                   <FlexBox width='212px' direction='column'>
@@ -532,11 +534,11 @@ function SignUpScreen() {
                   {watch('searchSkill') && (
                     <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
                   )}
-                  {watch('stacks').length !== 0 && (
+                  {stacksFields.length !== 0 && (
                     <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
-                      {watch('stacks').map((skill) => (
-                        <SkillTab skill={skill} key={skill} selected onDeleteClick={handleDeleteSkill}>
-                          {skill}
+                      {stacksFields.map((skill) => (
+                        <SkillTab value={skill.value} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
+                          {skill.value}
                         </SkillTab>
                       ))}
                     </FlexBox>
@@ -566,8 +568,8 @@ function SignUpScreen() {
                     {...register('urlString')}
                   />
                   <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
-                    {watch('urls').map((url) => (
-                      <FlexBox key={url} css={{ padding: '0px 5px' }}>
+                    {urlsFields.map((url) => (
+                      <FlexBox key={url.value} css={{ padding: '0px 5px' }}>
                         <a
                           css={(theme: Theme) => ({
                             color: theme.palette.primary.main,
@@ -575,16 +577,16 @@ function SignUpScreen() {
                             fontWeight: '500',
                             display: 'inline-block',
                           })}
-                          href={url}
+                          href={url.value}
                           target='_blank'
                           rel='noreferrer'
                         >
-                          {url.includes('https://') ? url : 'https://' + url}
+                          {url.value.includes('https://') ? url.value : 'https://' + url.value}
                         </a>
                         <img
                           alt='delete-url'
                           src={DeleteUrl}
-                          onClick={() => handleDeleteUrl(url)}
+                          onClick={() => handleDeleteUrl(url.value)}
                           css={{ marginLeft: '10px', cursor: 'pointer' }}
                         />
                       </FlexBox>

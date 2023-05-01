@@ -7,7 +7,6 @@ import {
   ShadowBox,
   Typography,
 } from '@elements';
-import { Stack } from '@mui/material';
 import { LoginForm } from '@components';
 import { mq, Theme } from '@libs/theme';
 import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';

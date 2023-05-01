@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { UnderlineTitle, RequestButton, Input, Button, ShadowBox } from '@elements';
-import { Stack } from '@mui/material';
 import palette from '@libs/theme/palettes/default';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import { mq } from '@libs/theme';
+import { Stack } from '@mui/material';
 
 function SignUpScreen() {
   // prop destruction
@@ -47,7 +47,7 @@ function SignUpScreen() {
               left: '40px',
             }}
           >
-            <img src={IconArrowLeft} alt='go back' />
+            <IconArrowLeft css={{ width: '24px', height: '24px' }} />
           </Link>
           <UnderlineTitle title='회원가입' />
           <Stack direction='row' width='100%' css={{ marginTop: '20px' }}>

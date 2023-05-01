@@ -36,7 +36,7 @@ function GoogleLoginButton() {
           cursor: 'pointer',
         })}
       >
-        <img src={IconGoogle} alt='google login' draggable={false} />
+        <IconGoogle css={{ width: '30px', height: '30px' }} />
       </button>
       <span
         css={{

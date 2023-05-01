@@ -32,7 +32,7 @@ function GithubLoginButton() {
           cursor: 'pointer',
         })}
       >
-        <img src={IconGithub} alt='github login' draggable={false} />
+        <IconGithub css={{ width: '24px', height: '24px' }} />
       </button>
       <span
         css={{

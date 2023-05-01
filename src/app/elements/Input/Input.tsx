@@ -6,13 +6,13 @@ const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      message?: { error?: string; help?: string };
-      iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
+      message?: string;
+      IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, className, iconProps, ...rest } = props;
+    const { error, type, message, className, IconProps, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -76,7 +76,7 @@ const Input = forwardRef(
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        {iconProps?.iconImage && (
+        {IconProps && (
           <button
             type='button'
             tabIndex={-1}
@@ -96,9 +96,9 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onClick}
+            onClick={IconProps.onClick}
           >
-            <img src={iconProps.iconImage} alt={iconProps.alt ?? 'icon'} draggable={false} />
+            {IconProps.Icon}
           </button>
         )}
 
@@ -121,7 +121,7 @@ const Input = forwardRef(
             },
           ]}
         >
-          {message?.error || message?.help}
+          {message}
         </span>
       </label>
     );

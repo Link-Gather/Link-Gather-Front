@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FlexBox, UnderlineTitle, Input, Button, Typography } from '@elements';
-import { PATH_LOGIN } from '@routes';
-import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
 import { IconArrowRight, IconArrowLeft, IconCheckGreen, IconSendEmail } from '@assets/images';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
+import { UnderlineTitle, Input, Button, Typography } from '@elements';
+import { PATH_LOGIN } from '@routes';
+import palette from '@libs/theme/palettes';
+import { Stack } from '@mui/material';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -41,26 +42,26 @@ function ForgotPasswordEmailForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' height='324px' direction='column'>
-      <FlexBox direction='row' width='100%'>
+    <Stack width='320px' height='324px' direction='column'>
+      <Stack direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' draggable={false} />
+          <IconArrowLeft css={{ width: '32px', height: '32px' }} />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
-      </FlexBox>
-      <FlexBox direction='column' justifyContent='space-between' css={{ flex: 1 }}>
+      </Stack>
+      <Stack direction='column' justifyContent='space-between' css={{ flex: 1 }}>
         <Input
           type='email'
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email}
-          message={{ error: errors.email?.message }}
-          iconProps={{ iconImage: (isValid && IconCheckGreen) || undefined, alt: (isValid && 'valid email') || '' }}
+          message={errors.email?.message}
+          IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
           {...register('email')}
         />
         {isSuccess && (
-          <FlexBox direction='column' alignItems='center' justifyContent='center' width='100%'>
-            <img src={IconSendEmail} alt='send email' />
+          <Stack direction='column' alignItems='center' justifyContent='center' width='100%'>
+            <IconSendEmail />
             <Typography
               css={{
                 fontSize: '12px',
@@ -72,7 +73,7 @@ function ForgotPasswordEmailForm() {
             >
               비밀번호 재설정 메일을 발송했어요!
             </Typography>
-          </FlexBox>
+          </Stack>
         )}
         <Button
           color={palette.contrastText}
@@ -88,10 +89,10 @@ function ForgotPasswordEmailForm() {
           isLoading={isLoading}
           onClick={handleSubmit(async ({ email }) => await mutateAsync({ email, type: 'password' }))}
         >
-          인증하기 <img src={IconArrowRight} alt='go next' draggable={false} />
+          인증하기 <IconArrowRight css={{ width: '24px', height: '24px' }} />
         </Button>
-      </FlexBox>
-    </FlexBox>
+      </Stack>
+    </Stack>
   );
 }
 

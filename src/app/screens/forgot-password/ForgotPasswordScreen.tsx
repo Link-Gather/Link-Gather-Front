@@ -1,8 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
-import { FlexBox, ShadowBox } from '@elements';
+import { ShadowBox } from '@elements';
 import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import { mq } from '@libs/theme';
 import { BackgroundAstronautYellow, BackgroundPlanetPrimary, BackgroundStar } from '@assets/images';
+import { Stack } from '@mui/material';
 
 function ForgotPasswordScreen() {
   // prop destruction
@@ -20,7 +21,8 @@ function ForgotPasswordScreen() {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
+      direction='row'
       width='100%'
       height='100%'
       justifyContent='left'
@@ -32,8 +34,7 @@ function ForgotPasswordScreen() {
         },
       }}
     >
-      <img
-        src={BackgroundStar}
+      <BackgroundStar
         css={{
           position: 'absolute',
           top: 0,
@@ -41,11 +42,8 @@ function ForgotPasswordScreen() {
           width: '100%',
           zIndex: 0,
         }}
-        alt='background star'
-        draggable={false}
       />
-      <img
-        src={BackgroundPlanetPrimary}
+      <BackgroundPlanetPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 54vw)',
@@ -59,11 +57,8 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -50%)',
           },
         }}
-        alt='background planet'
-        draggable={false}
       />
-      <img
-        src={BackgroundAstronautYellow}
+      <BackgroundAstronautYellow
         css={{
           position: 'absolute',
           left: 'calc(50% - 32vw)',
@@ -77,8 +72,6 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -220%)',
           },
         }}
-        alt='background astronaut'
-        draggable={false}
       />
       <ShadowBox
         css={{
@@ -97,7 +90,7 @@ function ForgotPasswordScreen() {
         {step === 'email' && <ForgotPasswordEmailForm />}
         {step === 'password' && <ForgotPasswordForm />}
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

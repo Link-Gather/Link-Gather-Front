@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import {
-  FlexBox,
   UnderlineTitle,
   KakaoLoginButton,
   GoogleLoginButton,
@@ -12,6 +11,7 @@ import { LoginForm } from '@components';
 import { mq, Theme } from '@libs/theme';
 import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';
 import { BackgroundAstronautPrimary, BackgroundPlanetPrimary, BackgroundStar, IconArrowLeft } from '@assets/images';
+import { Stack } from '@mui/material';
 
 function LoginScreen() {
   // prop destruction
@@ -24,7 +24,8 @@ function LoginScreen() {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
+      direction='row'
       width='100%'
       height='100%'
       justifyContent='left'
@@ -35,8 +36,7 @@ function LoginScreen() {
         },
       }}
     >
-      <img
-        src={BackgroundStar}
+      <BackgroundStar
         css={{
           position: 'absolute',
           top: 0,
@@ -44,11 +44,8 @@ function LoginScreen() {
           width: '100%',
           zIndex: 0,
         }}
-        alt='background star'
-        draggable={false}
       />
-      <img
-        src={BackgroundPlanetPrimary}
+      <BackgroundPlanetPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 54vw)',
@@ -62,11 +59,8 @@ function LoginScreen() {
             transform: 'translate(-50%, -50%)',
           },
         }}
-        alt='background planet'
-        draggable={false}
       />
-      <img
-        src={BackgroundAstronautPrimary}
+      <BackgroundAstronautPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 32vw)',
@@ -80,8 +74,6 @@ function LoginScreen() {
             transform: 'translate(-50%, -220%)',
           },
         }}
-        alt='background astronaut'
-        draggable={false}
       />
       <ShadowBox
         css={{
@@ -96,20 +88,20 @@ function LoginScreen() {
           },
         }}
       >
-        <FlexBox width='320px' direction='column'>
-          <FlexBox direction='row' width='100%'>
+        <Stack width='320px' direction='column'>
+          <Stack direction='row' width='100%'>
             <Link to={PATH_HOME}>
-              <img src={IconArrowLeft} alt='go home' draggable={false} />
+              <IconArrowLeft css={{ width: '32px', height: '32px' }} />
             </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
-          </FlexBox>
+          </Stack>
           <LoginForm />
-          <FlexBox justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
+          <Stack direction='row' justifyContent='space-around' css={{ padding: '0px 26px', marginBottom: '24px' }}>
             <KakaoLoginButton />
             <GoogleLoginButton />
             <GithubLoginButton />
-          </FlexBox>
-          <FlexBox direction='column' alignItems='center'>
+          </Stack>
+          <Stack direction='column' alignItems='center'>
             <Typography
               css={{
                 fontSize: '16px',
@@ -135,10 +127,10 @@ function LoginScreen() {
             >
               <Link to={`${PATH_FORGOT_PASSWORD}?step=email`}>비밀번호 찾기</Link>
             </Typography>
-          </FlexBox>
-        </FlexBox>
+          </Stack>
+        </Stack>
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

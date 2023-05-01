@@ -3,7 +3,4 @@ declare module '*.scss' {
   export = content;
 }
 
-declare module '*.svg' {
-  const value: string;
-  export default value;
-}
+declare module '*.svg';

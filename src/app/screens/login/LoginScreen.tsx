@@ -15,6 +15,7 @@ import BackgroundAstronautPrimary from '@assets/images/backgrounds/background-as
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
+import { Stack } from '@mui/material';
 
 function LoginScreen() {
   // prop destruction
@@ -39,8 +40,7 @@ function LoginScreen() {
         },
       }}
     >
-      <img
-        src={BackgroundStar}
+      <BackgroundStar
         css={{
           position: 'absolute',
           top: 0,
@@ -48,10 +48,8 @@ function LoginScreen() {
           width: '100%',
           zIndex: 0,
         }}
-        alt='background star'
       />
-      <img
-        src={BackgroundPlanetPrimary}
+      <BackgroundPlanetPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 54vw)',
@@ -65,10 +63,8 @@ function LoginScreen() {
             transform: 'translate(-50%, -50%)',
           },
         }}
-        alt='background planet'
       />
-      <img
-        src={BackgroundAstronautPrimary}
+      <BackgroundAstronautPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 32vw)',
@@ -82,7 +78,6 @@ function LoginScreen() {
             transform: 'translate(-50%, -220%)',
           },
         }}
-        alt='background astronaut'
       />
       <ShadowBox
         css={{
@@ -100,7 +95,7 @@ function LoginScreen() {
         <Stack width='320px' direction='column'>
           <Stack direction='row' width='100%'>
             <Link to={PATH_HOME}>
-              <img src={IconArrowLeft} alt='go home' />
+              <IconArrowLeft css={{ width: '32px', height: '32px' }} />
             </Link>
             <UnderlineTitle title='로그인' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
           </Stack>

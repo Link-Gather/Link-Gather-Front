@@ -12,7 +12,7 @@ const Input = forwardRef(
       label?: string;
       required?: boolean;
       variant?: 'outlined' | 'underline';
-      iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
+      IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
@@ -23,7 +23,7 @@ const Input = forwardRef(
       type,
       helperText,
       className,
-      iconProps,
+      IconProps,
       required = false,
       variant = 'outlined',
       ...rest
@@ -114,7 +114,7 @@ const Input = forwardRef(
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        {iconProps?.iconImage && (
+        {IconProps && (
           <button
             type='button'
             tabIndex={-1}
@@ -134,9 +134,9 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onClick}
+            onClick={IconProps.onClick}
           >
-            <img src={iconProps?.iconImage} alt={iconProps.alt ?? 'icon'} />
+            {IconProps.Icon}
           </button>
         )}
         <span

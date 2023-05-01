@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -21,6 +21,7 @@ function ForgotPasswordForm() {
   // prop destruction
   // lib hooks
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   // state, ref, querystring hooks
   const verificationId = searchParams.get('verificationId') ?? '';
@@ -43,7 +44,7 @@ function ForgotPasswordForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading } = useMutation(authRepository.passwordChange);
+  const { mutateAsync, isLoading, isSuccess } = useMutation(authRepository.passwordChange);
 
   // calculated values
 
@@ -51,6 +52,7 @@ function ForgotPasswordForm() {
 
   // handlers
 
+  if (isSuccess) navigate(PATH_LOGIN);
   return (
     <Stack width='320px' height='324px' direction='column'>
       <Stack direction='row' width='100%'>

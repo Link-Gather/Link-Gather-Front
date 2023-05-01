@@ -7,10 +7,10 @@ import { UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
-import palette from '@libs/theme/palettes';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
 import { Stack } from '@mui/material';
+import type { Theme } from '@libs/theme';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -100,15 +100,15 @@ function ForgotPasswordForm() {
           onClick={handleSubmit(async ({ password, confirmPassword }) => {
             await mutateAsync({ id: verificationId, password, passwordConfirm: confirmPassword });
           })}
-          color={palette.contrastText}
-          css={{
+          css={(theme: Theme) => ({
             width: '100%',
             height: '48px',
             fontSize: '20px',
-            backgroundColor: palette.primary.main,
+            color: theme.palette.contrastText,
+            backgroundColor: theme.palette.primary.main,
             borderRadius: '32px',
             marginTop: '14px',
-          }}
+          })}
           isLoading={isLoading}
           disabled={!isValid}
         >

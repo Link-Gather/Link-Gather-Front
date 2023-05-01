@@ -8,7 +8,7 @@ export default {
   title: 'components/ForgotPasswordEmailForm',
   component: ForgotPasswordEmailForm,
   args: {
-    step: 1,
+    step: 'email',
   },
 } as Meta<ArgTypes>;
 

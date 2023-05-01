@@ -4,12 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Input } from '@elements';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
-import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
 import { useMutation } from '@libs/query';
 import { IconCheckGreen, IconPasswordHide, IconPasswordShow } from '@assets/images';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
+import { Theme } from '@libs/theme';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -80,14 +80,14 @@ function LoginForm() {
       />
       <Button
         onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
-        color={palette.contrastText}
-        css={{
+        css={(theme: Theme) => ({
           width: '100%',
           height: '48px',
           fontSize: '20px',
+          color: theme.palette.contrastText,
           borderRadius: '32px',
-          backgroundColor: palette.primary.main,
-        }}
+          backgroundColor: theme.palette.primary.main,
+        })}
         isLoading={isLoading}
         disabled={!isValid}
       >

@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@elements';
 import { LoginForm } from '@components';
-import { mq, Theme } from '@libs/theme';
+import { mq, type Theme } from '@libs/theme';
 import { PATH_FORGOT_PASSWORD, PATH_HOME, PATH_SIGNUP } from '@routes';
 import { BackgroundAstronautPrimary, BackgroundPlanetPrimary, BackgroundStar, IconArrowLeft } from '@assets/images';
 import { Stack } from '@mui/material';
@@ -111,11 +111,9 @@ function LoginScreen() {
               계정이 없으신가요? &nbsp;
               <Link
                 to={PATH_SIGNUP}
-                css={(theme: Theme) => [
-                  {
-                    color: theme.palette.primary.main,
-                  },
-                ]}
+                css={(theme: Theme) => ({
+                  color: theme.palette.primary.main,
+                })}
               >
                 회원가입
               </Link>

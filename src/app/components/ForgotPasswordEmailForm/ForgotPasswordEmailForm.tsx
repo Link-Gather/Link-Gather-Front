@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { PATH_LOGIN } from '@routes';
 import * as yup from 'yup';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import { IconArrowRight, IconArrowLeft, IconCheckGreen, IconSendEmail } from '@assets/images';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
 import { UnderlineTitle, Input, Button, Typography } from '@elements';
-import { PATH_LOGIN } from '@routes';
-import palette from '@libs/theme/palettes';
 import { Stack } from '@mui/material';
+import { IconArrowRight, IconArrowLeft, IconCheckGreen, IconSendEmail } from '@assets/images';
+import type { Theme } from '@libs/theme';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -61,30 +61,30 @@ function ForgotPasswordEmailForm() {
         />
         {isSuccess && (
           <Stack direction='column' alignItems='center' justifyContent='center' width='100%'>
-            <IconSendEmail />
+            <IconSendEmail css={{ width: '120px', height: '40px' }} />
             <Typography
-              css={{
+              css={(theme) => ({
                 fontSize: '12px',
                 fontWeight: '700',
                 lineHeight: '34px',
-                color: palette.black.main,
+                color: theme.palette.black.main,
                 marginTop: '16px',
-              }}
+              })}
             >
               비밀번호 재설정 메일을 발송했어요!
             </Typography>
           </Stack>
         )}
         <Button
-          color={palette.contrastText}
-          css={{
+          css={(theme: Theme) => ({
             width: '100%',
             height: '48px',
             fontSize: '20px',
-            backgroundColor: palette.primary.main,
+            color: theme.palette.contrastText,
+            backgroundColor: theme.palette.primary.main,
             borderRadius: '32px',
             marginTop: '24px',
-          }}
+          })}
           disabled={!isValid}
           isLoading={isLoading}
           onClick={handleSubmit(async ({ email }) => await mutateAsync({ email, type: 'password' }))}

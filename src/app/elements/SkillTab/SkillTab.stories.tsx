@@ -10,7 +10,7 @@ export default {
   title: 'elements/SkillTab',
   component: SkillTab,
   args: {
-    skill: 'javascript',
+    skill: { value: 'javascript', length: 2 },
     children: <span>javascript</span>,
   },
   decorators: [wrapper],

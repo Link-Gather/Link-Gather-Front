@@ -110,7 +110,7 @@ export const skills = [
   { value: 'TypeScript', length: 2 },
   { value: 'Styled-Components', length: 3 },
   { value: 'OpenGL', length: 1 },
-  { value: 'Storybook', length: 1 },
+  { value: 'Storybook', length: 2 },
   { value: 'Recoil', length: 1 },
   { value: 'CassandraDB', length: 2 },
   { value: 'Google Firebase', length: 3 },
@@ -534,7 +534,7 @@ function SignUpScreen() {
                   {stacksFields.length !== 0 && (
                     <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
-                        <SkillTab value={skill.value} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
+                        <SkillTab skill={skill} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
                           {skill.value}
                         </SkillTab>
                       ))}

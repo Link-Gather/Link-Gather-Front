@@ -44,10 +44,10 @@ function SkillDropdown(props: {
             <SkillTab
               css={[
                 { width: '64px' },
-                skill.value.length > 7 && skill.value.length < 14 && { width: '136px' },
-                skill.value.length >= 14 && { width: '208px' },
+                skill.length === 2 && { width: '136px' },
+                skill.length === 3 && { width: '208px' },
               ]}
-              value={skill.value}
+              skill={skill}
               key={skill.value}
               onClick={() => onClick(skill)}
             >

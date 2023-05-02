@@ -4,13 +4,13 @@ import DeleteSkillTabButton from '@assets/images/icons/delete-skillTab.svg';
 const SkillTab = (props: {
   children: React.ReactNode;
   className?: string;
-  value: string;
+  skill: { value: string; length: number };
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
   onDeleteClick?: (skill: string) => void;
   selected?: boolean;
 }) => {
   // prop destruction
-  const { children, className, value, onClick, selected, onDeleteClick } = props;
+  const { children, className, skill, onClick, selected, onDeleteClick } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
@@ -36,8 +36,8 @@ const SkillTab = (props: {
           margin: '4px',
           width: '64px',
         },
-        value.length > 7 && { width: '136px' },
-        value.length >= 14 && { width: '208px' },
+        skill.length === 2 && { width: '136px' },
+        skill.length === 3 && { width: '208px' },
       ]}
       className={className}
       onClick={onClick}
@@ -46,7 +46,7 @@ const SkillTab = (props: {
       {selected && (
         <button
           css={{ position: 'absolute', top: '-5px', right: '-5px', cursor: 'pointer' }}
-          onClick={() => onDeleteClick?.(value)}
+          onClick={() => onDeleteClick?.(skill.value)}
         >
           <img alt='delete-skiltab' src={DeleteSkillTabButton} />
         </button>

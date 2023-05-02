@@ -540,7 +540,7 @@ function SignUpScreen() {
                   {stacksFields.length !== 0 && (
                     <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
-                        <SkillTab skill={skill} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
+                        <SkillTab skill={skill} key={skill.id} selected onDeleteClick={handleDeleteSkill}>
                           {skill.value}
                         </SkillTab>
                       ))}

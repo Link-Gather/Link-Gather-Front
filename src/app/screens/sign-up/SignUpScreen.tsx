@@ -195,6 +195,26 @@ const careers = [
   { label: '10년차이상', value: 10 },
 ];
 
+const schemaStep0 = yup.object().shape({
+  email: yup.string().required(),
+  code: yup.string().required(),
+  password: SCHEMA_PASSWORD.required(),
+  confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
+});
+
+const schemaStep1 = yup.object().shape({
+  profileImage: yup.string().required(),
+  nickname: SCHEMA_NICKNAME.required(),
+});
+
+const schemaStep2 = yup.object().shape({
+  job: yup.string().required(),
+  career: yup.string().required(),
+  stacks: yup.array().of(yup.string()).required(),
+  urls: yup.array().of(yup.string().url()),
+  introduction: yup.string().required(),
+});
+
 function SignUpScreen() {
   // prop destruction
   // lib hooks
@@ -233,25 +253,11 @@ function SignUpScreen() {
       (() => {
         switch (step) {
           case 0:
-            return yup.object().shape({
-              email: yup.string().required(),
-              code: yup.string().required(),
-              password: SCHEMA_PASSWORD.required(),
-              confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
-            });
+            return schemaStep0;
           case 1:
-            return yup.object().shape({
-              profileImage: yup.string().required(),
-              nickname: SCHEMA_NICKNAME.required(),
-            });
+            return schemaStep1;
           case 2:
-            return yup.object().shape({
-              job: yup.string().required(),
-              career: yup.string().required(),
-              stacks: yup.array().of(yup.string()).required(),
-              urls: yup.array().of(yup.string().url()),
-              introduction: yup.string().required(),
-            });
+            return schemaStep2;
           default:
             return yup.object();
         }

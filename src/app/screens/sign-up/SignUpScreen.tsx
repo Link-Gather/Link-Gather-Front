@@ -93,31 +93,30 @@ export const characters = [
 ];
 
 export const skills = [
-  { value: 'Figma' },
-  { value: 'Java' },
-  { value: 'Adobe Illustration' },
-  { value: 'Spring' },
-  { value: 'HTML' },
-  { value: 'CSS' },
-  { value: 'Spring Boot' },
-  { value: 'Python' },
-  { value: 'Node.js' },
-  { value: 'React Native' },
-  { value: 'PHP' },
-  { value: 'C#' },
-  { value: 'Vue.js' },
-  { value: 'React.js' },
-  { value: 'TypeScript' },
-  { value: 'A Really Long Name Stack' },
-  { value: 'Styled-Components' },
-  { value: 'OpenGL' },
-  { value: 'Storybook' },
-  { value: 'Recoil' },
-  { value: 'CassandraDB' },
-  { value: 'Google Firebase' },
-  { value: 'Google BigQuery' },
-  { value: 'AWS DynamoDB' },
-  { value: 'AWS CodePipeline' },
+  { value: 'Figma', length: 1 },
+  { value: 'Java', length: 1 },
+  { value: 'Adobe Illustration', length: 3 },
+  { value: 'Spring', length: 1 },
+  { value: 'HTML', length: 1 },
+  { value: 'CSS', length: 1 },
+  { value: 'Spring Boot', length: 2 },
+  { value: 'Python', length: 1 },
+  { value: 'Node.js', length: 2 },
+  { value: 'React Native', length: 2 },
+  { value: 'PHP', length: 1 },
+  { value: 'C#', length: 1 },
+  { value: 'Vue.js', length: 1 },
+  { value: 'React.js', length: 2 },
+  { value: 'TypeScript', length: 2 },
+  { value: 'Styled-Components', length: 3 },
+  { value: 'OpenGL', length: 1 },
+  { value: 'Storybook', length: 1 },
+  { value: 'Recoil', length: 1 },
+  { value: 'CassandraDB', length: 2 },
+  { value: 'Google Firebase', length: 3 },
+  { value: 'Google BigQuery', length: 3 },
+  { value: 'AWS DynamoDB', length: 2 },
+  { value: 'AWS CodePipeline', length: 3 },
 ];
 
 type ValidationType = {
@@ -130,7 +129,7 @@ type ValidationType = {
   urlString: string;
   job: string;
   career: number;
-  stacks: { value: string }[];
+  stacks: { value: string; length: number }[];
   urls: { value: string }[];
   introduction: string;
   profileImage: string;
@@ -201,7 +200,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -284,18 +283,16 @@ function SignUpScreen() {
     setCharacterState(character);
   };
 
-  const handleSelectSkill = (skill: string) => {
-    stacksAppend({ value: skill });
+  const handleSelectSkill = (skill: { value: string; length: number }) => {
+    stacksAppend({ value: skill.value, length: skill.length });
     setValue('searchSkill', '');
   };
 
   const handleDeleteSkill = (skill: string) => {
     stacksRemove(stacksFields.findIndex((item) => item.value === skill));
   };
-
-  const handleDeleteUrl = (url: string) => {
-    urlsRemove(urlsFields.findIndex((item) => item.value === url));
-  };
+  // useFieldArray remove함수는 index(number)를 파라미터로 받아야하는데
+  // handleDeleteSkill를 SkillTab컴포넌트에 props로 넘기고있어서 index를 같이넘기는게 나을까요?
 
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
@@ -568,8 +565,8 @@ function SignUpScreen() {
                     {...register('urlString')}
                   />
                   <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
-                    {urlsFields.map((url) => (
-                      <FlexBox key={url.value} css={{ padding: '0px 5px' }}>
+                    {urlsFields.map((url, index) => (
+                      <FlexBox key={url.id} css={{ padding: '0px 5px' }}>
                         <a
                           css={(theme: Theme) => ({
                             color: theme.palette.primary.main,
@@ -586,7 +583,7 @@ function SignUpScreen() {
                         <img
                           alt='delete-url'
                           src={DeleteUrl}
-                          onClick={() => handleDeleteUrl(url.value)}
+                          onClick={() => urlsRemove(index)}
                           css={{ marginLeft: '10px', cursor: 'pointer' }}
                         />
                       </FlexBox>

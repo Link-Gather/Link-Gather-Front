@@ -3,9 +3,9 @@ import { FlexBox, SkillTab } from '@elements';
 import { Theme } from '@libs/theme';
 
 function SkillDropdown(props: {
-  skills: { value: string }[];
+  skills: { value: string; length: number }[];
   searchKeyword: string;
-  onClick: (skill: string) => void;
+  onClick: (skill: { value: string; length: number }) => void;
 }) {
   // prop destruction
   const { skills, searchKeyword, onClick } = props;
@@ -49,7 +49,7 @@ function SkillDropdown(props: {
               ]}
               value={skill.value}
               key={skill.value}
-              onClick={() => onClick(skill.value)}
+              onClick={() => onClick(skill)}
             >
               {skill.value}
             </SkillTab>

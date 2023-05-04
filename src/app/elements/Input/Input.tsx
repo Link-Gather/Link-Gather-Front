@@ -1,33 +1,23 @@
 import React, { useId, forwardRef, useState } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
-import { FlexBox } from '../FlexBox';
 import { Label } from '../Label';
+import { Stack } from '@mui/system';
 
 const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      helperText?: string;
+      message?: string;
       label?: string;
       required?: boolean;
       bottomLine?: boolean;
-      iconProps?: { onClick?: () => void; iconImage?: string; alt?: string };
+      IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const {
-      error,
-      label,
-      type,
-      helperText,
-      className,
-      iconProps,
-      required = false,
-      bottomLine = false,
-      ...rest
-    } = props;
+    const { error, label, type, message, className, IconProps, required = false, bottomLine = false, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -42,7 +32,7 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <FlexBox direction='column'>
+      <Stack direction='column'>
         {label && <Label id={inputId} label={label} required={required} />}
         <input
           id={inputId}
@@ -93,7 +83,7 @@ const Input = forwardRef(
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        {iconProps?.iconImage && (
+        {IconProps && (
           <button
             type='button'
             tabIndex={-1}
@@ -102,6 +92,7 @@ const Input = forwardRef(
               top: '0',
               right: '8px',
               display: 'flex',
+              width: '24px',
               height: '50px',
               alignItems: 'center',
               border: 'none',
@@ -113,9 +104,9 @@ const Input = forwardRef(
                 opacity: 1,
               },
             }}
-            onClick={iconProps?.onClick}
+            onClick={IconProps.onClick}
           >
-            <img src={iconProps?.iconImage} alt={iconProps.alt || 'icon'} />
+            {IconProps.Icon}
           </button>
         )}
         <span
@@ -137,9 +128,9 @@ const Input = forwardRef(
             },
           ]}
         >
-          {helperText}
+          {message}
         </span>
-      </FlexBox>
+      </Stack>
     );
   }
 );

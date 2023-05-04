@@ -1,6 +1,6 @@
 import { Theme } from '@libs/theme';
-import { FlexBox } from '../FlexBox';
 import { Typography } from '../Typography';
+import { Stack } from '@mui/material';
 
 function Label(props: { id: string; label: string; required?: boolean }) {
   // prop destruction
@@ -12,7 +12,7 @@ function Label(props: { id: string; label: string; required?: boolean }) {
   // effects
   // handlers
   return (
-    <FlexBox
+    <Stack
       direction='row'
       alignContent='center'
       css={(theme: Theme) => ({ color: theme.palette.secondary.n500, marginBottom: '8px' })}
@@ -21,7 +21,7 @@ function Label(props: { id: string; label: string; required?: boolean }) {
         <Typography variant='h5'>{label}</Typography>
       </label>
       {required && <span css={{ color: '#FF2626 ' }}>*</span>}
-    </FlexBox>
+    </Stack>
   );
 }
 

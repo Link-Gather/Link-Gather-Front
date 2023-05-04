@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlexBox, SkillTab } from '@elements';
+import { SkillTab } from '@elements';
 import { Theme } from '@libs/theme';
+import { Stack } from '@mui/material';
 
 function SkillDropdown(props: {
   skills: { value: string; length: number }[];
@@ -19,7 +20,7 @@ function SkillDropdown(props: {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
       css={(theme: Theme) => ({
         width: '100%',
         minHeight: '68px',
@@ -36,7 +37,7 @@ function SkillDropdown(props: {
         padding: '4px',
       })}
     >
-      <FlexBox css={{ flexWrap: 'wrap' }}>
+      <Stack css={{ flexWrap: 'wrap' }}>
         {!showSkills.length ? (
           <p>해당하는 스킬이 없습니다.</p>
         ) : (
@@ -55,8 +56,8 @@ function SkillDropdown(props: {
             </SkillTab>
           ))
         )}
-      </FlexBox>
-    </FlexBox>
+      </Stack>
+    </Stack>
   );
 }
 

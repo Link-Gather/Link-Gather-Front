@@ -4,11 +4,12 @@ import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-a
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
 import { mq, Theme } from '@libs/theme';
+import { Stack } from '@mui/material';
 import * as yup from 'yup';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
-import { FlexBox, UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
+import { UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -16,19 +17,19 @@ import IconSearch from '@assets/images/icons/icon-search.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import character1 from '@assets/images/icons/character/character1.svg';
-import character2 from '@assets/images/icons/character/character2.svg';
-import character3 from '@assets/images/icons/character/character3.svg';
-import character4 from '@assets/images/icons/character/character4.svg';
-import character5 from '@assets/images/icons/character/character5.svg';
-import character6 from '@assets/images/icons/character/character6.svg';
-import character7 from '@assets/images/icons/character/character7.svg';
-import character8 from '@assets/images/icons/character/character8.svg';
+import Character1 from '@assets/images/icons/character/character1.svg';
+import Character2 from '@assets/images/icons/character/character2.svg';
+import Character3 from '@assets/images/icons/character/character3.svg';
+import Character4 from '@assets/images/icons/character/character4.svg';
+import Character5 from '@assets/images/icons/character/character5.svg';
+import Character6 from '@assets/images/icons/character/character6.svg';
+import Character7 from '@assets/images/icons/character/character7.svg';
+import Character8 from '@assets/images/icons/character/character8.svg';
 
 export const characters = [
   {
     id: 1,
-    src: character1,
+    src: Character1,
     backgroundColor: '#F4F75F',
     width: '50%',
     height: '100%',
@@ -36,7 +37,7 @@ export const characters = [
   },
   {
     id: 2,
-    src: character2,
+    src: Character2,
     backgroundColor: '#F75F5F',
     width: '60%',
     height: '100%',
@@ -44,7 +45,7 @@ export const characters = [
   },
   {
     id: 3,
-    src: character3,
+    src: Character3,
     backgroundColor: '#74F75F',
     width: '80%',
     height: '100%',
@@ -52,7 +53,7 @@ export const characters = [
   },
   {
     id: 4,
-    src: character4,
+    src: Character4,
     backgroundColor: '#F7D65F',
     width: '75%',
     height: '100%',
@@ -60,7 +61,7 @@ export const characters = [
   },
   {
     id: 5,
-    src: character5,
+    src: Character5,
     backgroundColor: '#5FA5F7',
     width: '90%',
     height: '100%',
@@ -68,7 +69,7 @@ export const characters = [
   },
   {
     id: 6,
-    src: character6,
+    src: Character6,
     backgroundColor: '#BD5FF7',
     width: '50%',
     height: '100%',
@@ -76,7 +77,7 @@ export const characters = [
   },
   {
     id: 7,
-    src: character7,
+    src: Character7,
     backgroundColor: '#F75FA8',
     width: '50%',
     height: '100%',
@@ -84,7 +85,7 @@ export const characters = [
   },
   {
     id: 8,
-    src: character8,
+    src: Character8,
     backgroundColor: '#5555FF',
     width: '50%',
     height: '100%',
@@ -220,7 +221,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -230,7 +231,7 @@ function SignUpScreen() {
     getValues,
     watch,
     control,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
     setValue,
   } = useForm<ValidationType>({
     mode: 'onChange',
@@ -308,10 +309,11 @@ function SignUpScreen() {
   };
 
   return (
-    <FlexBox
+    <Stack
       width='100%'
       height='100vh'
       alignItems='center'
+      direction='row'
       css={{
         backgroundColor: '#2E558E',
         [mq[2]]: {
@@ -320,19 +322,13 @@ function SignUpScreen() {
         },
       }}
     >
-      <img
-        alt='BackgroundAstronaut1'
-        src={BackgroundAstronaut1}
+      <BackgroundAstronaut1
         css={{ position: 'fixed', top: '28%', left: '27%', width: '100px', height: '150px', zIndex: '1' }}
       />
-      <img
-        alt='BackgroundPlanet1'
-        src={BackgroundPlanet1}
+      <BackgroundPlanet1
         css={{ position: 'fixed', top: '40%', left: '10%', width: '700px', height: '700px', zIndex: '0' }}
       />
-      <img
-        alt='BackgroundPlanet2'
-        src={BackgroundPlanet2}
+      <BackgroundPlanet2
         css={{ position: 'fixed', top: '-13%', left: '70%', width: '300px', height: '500px', zIndex: '0' }}
       />
       <ShadowBox
@@ -343,72 +339,73 @@ function SignUpScreen() {
           margin: '0 auto',
         }}
       >
-        <FlexBox width='100%' direction='column'>
-          <FlexBox
+        <Stack width='100%' direction='column'>
+          <IconArrowLeft
+            onClick={() => {
+              handleMoveStep(-1);
+            }}
             css={{
               position: 'absolute',
               top: '40px',
               left: '40px',
               cursor: 'pointer',
+              width: '35px',
+              height: '35px',
             }}
-          >
-            <img
-              src={IconArrowLeft}
-              alt='go back'
-              onClick={() => {
-                handleMoveStep(-1);
-              }}
-            />
-          </FlexBox>
-          <FlexBox width='492px' justifyContent='center'>
+          />
+
+          <Stack width='492px' direction='row' justifyContent='center'>
             <UnderlineTitle title='회원가입' />
-          </FlexBox>
-          <FlexBox width='392px' height='100%' css={{ margin: '0 auto' }}>
+          </Stack>
+          <Stack width='392px' height='100%' direction='row' css={{ margin: '0 auto' }}>
             {step === 0 && (
-              <FlexBox justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
-                <FlexBox direction='column' spacing={4} css={{ marginTop: '25px' }}>
-                  <FlexBox>
+              <Stack direction='row' justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
+                <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
+                  <Stack direction='row'>
                     <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
                     <RequestButton onClick={() => {}} value={watch('email')}>
                       인증요청
                     </RequestButton>
-                  </FlexBox>
-                  <FlexBox>
+                  </Stack>
+                  <Stack direction='row'>
                     <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
                     <RequestButton value={watch('code')}>확인</RequestButton>
-                  </FlexBox>
-                  <FlexBox css={{ position: 'relative' }}>
+                  </Stack>
+                  <Stack direction='row' css={{ position: 'relative' }}>
                     <Input
                       type={isShowPassword ? 'text' : 'password'}
                       placeholder='비밀번호 입력'
-                      helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                      message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                       autoComplete='off'
                       error={errors.password}
-                      iconProps={{
-                        alt: 'show password',
-                        iconImage: isShowPassword ? IconPasswordShow : IconPasswordHide,
+                      IconProps={{
+                        Icon: dirtyFields.password && isShowPassword ? <IconPasswordHide /> : <IconPasswordShow />,
                         onClick: () => setIsShowPassword(!isShowPassword),
                       }}
                       css={{ width: '392px' }}
                       {...register('password')}
                     />
-                  </FlexBox>
-                  <FlexBox css={{ position: 'relative', marginTop: '16px' }}>
+                  </Stack>
+                  <Stack direction='row' css={{ position: 'relative', marginTop: '16px' }}>
                     <Input
                       type={isShowPasswordConfirm ? 'text' : 'password'}
                       placeholder='비밀번호 확인'
                       autoComplete='off'
                       error={errors.confirmPassword}
-                      iconProps={{
-                        alt: 'show password',
-                        iconImage: isShowPasswordConfirm ? IconPasswordShow : IconPasswordHide,
+                      IconProps={{
                         onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
+                        Icon:
+                          dirtyFields.confirmPassword && isShowPasswordConfirm ? (
+                            <IconPasswordHide />
+                          ) : (
+                            <IconPasswordShow />
+                          ),
                       }}
                       css={{ width: '392px' }}
                       {...register('confirmPassword')}
                     />
-                  </FlexBox>
-                </FlexBox>
+                  </Stack>
+                </Stack>
                 <SignupButton
                   onClick={() => {
                     handleMoveStep(1);
@@ -417,10 +414,10 @@ function SignUpScreen() {
                 >
                   다음
                 </SignupButton>
-              </FlexBox>
+              </Stack>
             )}
             {step === 1 && (
-              <FlexBox
+              <Stack
                 width='100%'
                 height='447px'
                 direction='column'
@@ -428,10 +425,11 @@ function SignUpScreen() {
                 spacing={12}
                 css={{ marginTop: '20px' }}
               >
-                <FlexBox justifyContent='center' css={{ marginTop: '20px' }}>
-                  <FlexBox
+                <Stack direction='row' justifyContent='center' css={{ marginTop: '20px' }}>
+                  <Stack
                     width='100px'
                     height='100px'
+                    direction='row'
                     css={{
                       backgroundColor: characterState.backgroundColor,
                       borderRadius: '50%',
@@ -440,26 +438,36 @@ function SignUpScreen() {
                       justifyContent: 'center',
                     }}
                   >
-                    <img
-                      src={characterState.src}
-                      alt='selectCharacter'
+                    <Character1
                       css={{
                         height: characterState.height,
                         width: characterState.width,
                         marginTop: characterState.marginTop,
                       }}
                     />
-                  </FlexBox>
-                  <FlexBox
+                  </Stack>
+                  <Stack
                     width='204px'
+                    direction='row'
                     alignContent='space-between'
                     justifyContent='space-between'
                     css={{ flexWrap: 'wrap', marginLeft: '16px' }}
                   >
-                    {characters.map((character) => {
+                    {characters.map((character, index) => {
+                      const CharacterComponent = [
+                        Character1,
+                        Character2,
+                        Character3,
+                        Character4,
+                        Character5,
+                        Character6,
+                        Character7,
+                        Character8,
+                      ][index];
                       return (
-                        <FlexBox
+                        <Stack
                           key={character.id}
+                          direction='row'
                           width='48px'
                           height='48px'
                           justifyContent='center'
@@ -475,27 +483,25 @@ function SignUpScreen() {
                             },
                           }}
                         >
-                          <img
+                          <CharacterComponent
                             onClick={() => handleSelectProfileImage(character)}
-                            alt='character'
-                            src={character.src}
                             css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
                           />
-                        </FlexBox>
+                        </Stack>
                       );
                     })}
-                  </FlexBox>
-                </FlexBox>
-                <FlexBox width='324px' justifyContent='center'>
+                  </Stack>
+                </Stack>
+                <Stack direction='row' width='324px' justifyContent='center'>
                   <Input
-                    helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                    message='8자이내, 한글, 영문 숫자 혼용 가능'
                     placeholder='닉네임 입력'
                     {...register('nickname')}
                   />
                   <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '93px' }}>
                     중복확인
                   </RequestButton>
-                </FlexBox>
+                </Stack>
                 <SignupButton
                   onClick={() => {
                     handleMoveStep(1);
@@ -504,10 +510,10 @@ function SignUpScreen() {
                 >
                   다음
                 </SignupButton>
-              </FlexBox>
+              </Stack>
             )}
             {step === 2 && (
-              <FlexBox
+              <Stack
                 width='100%'
                 height='100%'
                 direction='column'
@@ -515,15 +521,15 @@ function SignUpScreen() {
                 spacing={5}
                 css={{ marginTop: '20px' }}
               >
-                <FlexBox width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
-                  <FlexBox width='212px' direction='column'>
+                <Stack direction='row' width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
+                  <Stack width='212px' direction='column'>
                     <DropDown label='직무' options={jobs} required {...register('job')} />
-                  </FlexBox>
-                  <FlexBox width='168px' direction='column'>
+                  </Stack>
+                  <Stack width='168px' direction='column'>
                     <DropDown label='경력' options={careers} required {...register('career')} />
-                  </FlexBox>
-                </FlexBox>
-                <FlexBox width='100%' direction='column' css={{ position: 'relative' }}>
+                  </Stack>
+                </Stack>
+                <Stack width='100%' direction='column' css={{ position: 'relative' }}>
                   <Input
                     bottomLine
                     required
@@ -533,21 +539,21 @@ function SignUpScreen() {
                     css={{ fontSize: '16px', paddingLeft: '30px' }}
                     {...register('searchSkill')}
                   />
-                  <img src={IconSearch} alt='search' css={{ position: 'absolute', top: '44px' }} />
+                  <IconSearch css={{ position: 'absolute', top: '44px' }} />
                   {watch('searchSkill') && (
                     <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
                   )}
                   {stacksFields.length !== 0 && (
-                    <FlexBox css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
+                    <Stack direction='row' css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
-                        <SkillTab skill={skill} key={skill.id} selected onDeleteClick={handleDeleteSkill}>
+                        <SkillTab skill={skill} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
                           {skill.value}
                         </SkillTab>
                       ))}
-                    </FlexBox>
+                    </Stack>
                   )}
-                </FlexBox>
-                <FlexBox width='100%' direction='column'>
+                </Stack>
+                <Stack width='100%' direction='column'>
                   <TextArea
                     label='자기소개'
                     required
@@ -555,24 +561,23 @@ function SignUpScreen() {
                     css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
                     {...register('introduction')}
                   />
-                </FlexBox>
-                <FlexBox width='100%' direction='column'>
+                </Stack>
+                <Stack width='100%' direction='column'>
                   <Input
                     bottomLine
                     label='참고 링크'
                     type='text'
                     placeholder='URL을 입력해주세요.'
                     onKeyDown={handlerKeyDown}
-                    iconProps={{
-                      iconImage: IconSearch,
-                      alt: 'search',
+                    IconProps={{
+                      Icon: <IconSearch />,
                     }}
                     css={{ fontSize: '16px' }}
                     {...register('urlString')}
                   />
-                  <FlexBox width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
+                  <Stack width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
                     {urlsFields.map((url, index) => (
-                      <FlexBox key={url.id} css={{ padding: '0px 5px' }}>
+                      <Stack key={url.id} css={{ padding: '0px 5px' }}>
                         <a
                           css={(theme: Theme) => ({
                             color: theme.palette.primary.main,
@@ -586,23 +591,18 @@ function SignUpScreen() {
                         >
                           {url.value.includes('https://') ? url.value : 'https://' + url.value}
                         </a>
-                        <img
-                          alt='delete-url'
-                          src={DeleteUrl}
-                          onClick={() => urlsRemove(index)}
-                          css={{ marginLeft: '10px', cursor: 'pointer' }}
-                        />
-                      </FlexBox>
+                        <DeleteUrl onClick={() => urlsRemove(index)} css={{ marginLeft: '10px', cursor: 'pointer' }} />
+                      </Stack>
                     ))}
-                  </FlexBox>
-                </FlexBox>
+                  </Stack>
+                </Stack>
                 <SignupButton>회원가입</SignupButton>
-              </FlexBox>
+              </Stack>
             )}
-          </FlexBox>
-        </FlexBox>
+          </Stack>
+        </Stack>
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

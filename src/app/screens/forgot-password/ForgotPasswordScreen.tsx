@@ -1,10 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
-import { FlexBox, ShadowBox } from '@elements';
+import { ShadowBox } from '@elements';
 import { ForgotPasswordForm, ForgotPasswordEmailForm } from '@components';
 import { mq } from '@libs/theme';
 import BackgroundPlanetPrimary from '@assets/images/backgrounds/background-planet-primary.svg';
 import BackgroundAstronautYellow from '@assets/images/backgrounds/background-astronaut-yellow.svg';
 import BackgroundStar from '@assets/images/backgrounds/background-star.svg';
+import { Stack } from '@mui/material';
 
 function ForgotPasswordScreen() {
   // prop destruction
@@ -22,7 +23,8 @@ function ForgotPasswordScreen() {
   // handlers
 
   return (
-    <FlexBox
+    <Stack
+      direction='row'
       width='100%'
       height='100%'
       justifyContent='left'
@@ -34,8 +36,7 @@ function ForgotPasswordScreen() {
         },
       }}
     >
-      <img
-        src={BackgroundStar}
+      <BackgroundStar
         css={{
           position: 'absolute',
           top: 0,
@@ -43,10 +44,8 @@ function ForgotPasswordScreen() {
           width: '100%',
           zIndex: 0,
         }}
-        alt='background star'
       />
-      <img
-        src={BackgroundPlanetPrimary}
+      <BackgroundPlanetPrimary
         css={{
           position: 'absolute',
           left: 'calc(50% - 54vw)',
@@ -60,10 +59,8 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -50%)',
           },
         }}
-        alt='background planet'
       />
-      <img
-        src={BackgroundAstronautYellow}
+      <BackgroundAstronautYellow
         css={{
           position: 'absolute',
           left: 'calc(50% - 32vw)',
@@ -77,7 +74,6 @@ function ForgotPasswordScreen() {
             transform: 'translate(-50%, -220%)',
           },
         }}
-        alt='background astronaut'
       />
       <ShadowBox
         css={{
@@ -96,7 +92,7 @@ function ForgotPasswordScreen() {
         {step === '1' && <ForgotPasswordEmailForm />}
         {step === '2' && <ForgotPasswordForm />}
       </ShadowBox>
-    </FlexBox>
+    </Stack>
   );
 }
 

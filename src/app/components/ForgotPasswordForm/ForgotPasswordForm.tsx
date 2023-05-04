@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FlexBox, UnderlineTitle, Input, Button } from '@elements';
+import { UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { Stack } from '@mui/material';
 
 const schema = yup.object({
   password: SCHEMA_PASSWORD.required('비밀번호를 다시 확인해주세요.'),
@@ -43,24 +44,31 @@ function ForgotPasswordForm() {
   // handlers
 
   return (
-    <FlexBox width='320px' height='324px' direction='column'>
-      <FlexBox direction='row' width='100%'>
+    <Stack width='320px' height='324px' direction='column'>
+      <Stack direction='row' width='100%'>
         <Link to={PATH_LOGIN}>
-          <img src={IconArrowLeft} alt='go back' />
+          <IconArrowLeft css={{ width: '32px', height: '32px' }} />
         </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
-      </FlexBox>
-      <FlexBox direction='column'>
+      </Stack>
+      <Stack direction='column'>
         <Input
           type='password'
           placeholder='비밀번호 입력'
           autoComplete='off'
           getValues={getValues('password')}
           error={errors.password}
-          message={errors.password?.message}
-          iconProps={{
-            iconImage: IconPasswordShow,
-            alt: 'show password',
+          message={
+            errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
+          }
+          IconProps={{
+            onClick: () => setIsShowPassword(!isShowPassword),
+            Icon:
+              dirtyFields.password && !isShowPassword ? (
+                <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+              ) : (
+                <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+              ),
           }}
           css={{ width: '100%', marginBottom: '16px' }}
           {...register('password')}
@@ -71,9 +79,14 @@ function ForgotPasswordForm() {
           getValues={getValues('password')}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
-          iconProps={{
-            iconImage: IconPasswordShow,
-            alt: 'show password',
+          IconProps={{
+            onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
+            Icon:
+              dirtyFields.confirmPassword && !isShowConfirmPassword ? (
+                <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+              ) : (
+                <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+              ),
           }}
           css={{ width: '100%', marginBottom: '16px' }}
           {...register('confirmPassword')}
@@ -93,8 +106,8 @@ function ForgotPasswordForm() {
         >
           비밀번호 변경
         </Button>
-      </FlexBox>
-    </FlexBox>
+      </Stack>
+    </Stack>
   );
 }
 

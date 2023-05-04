@@ -145,7 +145,7 @@ type CharacterType = {
   marginTop: string;
 };
 
-const RequestButton = styled(Button)<{ value: string }>(
+const RequestButton = styled(Button)(
   {
     width: '94px',
     height: '50px',
@@ -154,11 +154,11 @@ const RequestButton = styled(Button)<{ value: string }>(
     borderRadius: '8px',
     marginLeft: '10px',
   },
-  ({ value, theme }) => ({
-    border: value ? `2px solid ${theme.palette.secondary.n300}` : `2px solid ${theme.palette.secondary.n60}`,
-    color: value ? theme.palette.secondary.n300 : theme.palette.secondary.n60,
+  ({ theme }) => ({
+    border: `2px solid ${theme.palette.secondary.n60}`,
+    color: theme.palette.secondary.n60,
     backgroundColor: theme.palette.contrastText,
-    cursor: value ? 'pointer' : 'null',
+    cursor: 'pointer',
   })
 );
 
@@ -221,7 +221,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -271,7 +271,6 @@ function SignUpScreen() {
     remove: stacksRemove,
   } = useFieldArray({ control, name: 'stacks' });
   const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
-
   // query hooks
   // calculated values
   // effects
@@ -363,13 +362,11 @@ function SignUpScreen() {
                 <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <Stack direction='row'>
                     <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
-                    <RequestButton onClick={() => {}} value={watch('email')}>
-                      인증요청
-                    </RequestButton>
+                    <RequestButton onClick={() => {}}>인증요청</RequestButton>
                   </Stack>
                   <Stack direction='row'>
                     <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
-                    <RequestButton value={watch('code')}>확인</RequestButton>
+                    <RequestButton>확인</RequestButton>
                   </Stack>
                   <Stack direction='row' css={{ position: 'relative' }}>
                     <Input
@@ -531,22 +528,24 @@ function SignUpScreen() {
                 </Stack>
                 <Stack width='100%' direction='column' css={{ position: 'relative' }}>
                   <Input
-                    bottomLine
+                    variant='underline'
                     required
                     label='보유기술'
                     type='text'
                     placeholder='기술 스택 검색'
+                    IconProps={{
+                      Icon: <IconSearch css={{ position: 'absolute', top: '44px' }} />,
+                    }}
                     css={{ fontSize: '16px', paddingLeft: '30px' }}
                     {...register('searchSkill')}
                   />
-                  <IconSearch css={{ position: 'absolute', top: '44px' }} />
                   {watch('searchSkill') && (
                     <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
                   )}
                   {stacksFields.length !== 0 && (
                     <Stack direction='row' css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
-                        <SkillTab skill={skill} key={skill.value} selected onDeleteClick={handleDeleteSkill}>
+                        <SkillTab skill={skill} key={skill.id} selected onDeleteClick={handleDeleteSkill}>
                           {skill.value}
                         </SkillTab>
                       ))}
@@ -564,20 +563,17 @@ function SignUpScreen() {
                 </Stack>
                 <Stack width='100%' direction='column'>
                   <Input
-                    bottomLine
+                    variant='underline'
                     label='참고 링크'
                     type='text'
                     placeholder='URL을 입력해주세요.'
                     onKeyDown={handlerKeyDown}
-                    IconProps={{
-                      Icon: <IconSearch />,
-                    }}
                     css={{ fontSize: '16px' }}
                     {...register('urlString')}
                   />
                   <Stack width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
                     {urlsFields.map((url, index) => (
-                      <Stack key={url.id} css={{ padding: '0px 5px' }}>
+                      <Stack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
                         <a
                           css={(theme: Theme) => ({
                             color: theme.palette.primary.main,
@@ -591,7 +587,10 @@ function SignUpScreen() {
                         >
                           {url.value.includes('https://') ? url.value : 'https://' + url.value}
                         </a>
-                        <DeleteUrl onClick={() => urlsRemove(index)} css={{ marginLeft: '10px', cursor: 'pointer' }} />
+                        <DeleteUrl
+                          onClick={() => urlsRemove(index)}
+                          css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
+                        />
                       </Stack>
                     ))}
                   </Stack>

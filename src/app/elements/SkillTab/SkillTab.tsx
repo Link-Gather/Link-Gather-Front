@@ -45,10 +45,10 @@ const SkillTab = (props: {
       {children}
       {selected && (
         <button
-          css={{ position: 'absolute', top: '-5px', right: '-5px', cursor: 'pointer' }}
+          css={{ position: 'absolute', top: '-5px', right: '-5px', width: '13px', height: '10px', cursor: 'pointer' }}
           onClick={() => onDeleteClick?.(skill.value)}
         >
-          <img alt='delete-skiltab' src={DeleteSkillTabButton} />
+          <DeleteSkillTabButton />
         </button>
       )}
     </div>

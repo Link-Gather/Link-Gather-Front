@@ -37,7 +37,7 @@ function SkillDropdown(props: {
         padding: '4px',
       })}
     >
-      <Stack css={{ flexWrap: 'wrap' }}>
+      <Stack direction='row' css={{ flexWrap: 'wrap' }}>
         {!showSkills.length ? (
           <p>해당하는 스킬이 없습니다.</p>
         ) : (

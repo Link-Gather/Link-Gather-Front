@@ -7,6 +7,7 @@ import { Stack } from '@mui/system';
 const Input = forwardRef(
   (
     props: {
+      variant?: 'underline' | 'default';
       error?: FieldError;
       message?: string;
       label?: string;
@@ -17,7 +18,7 @@ const Input = forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, label, type, message, className, IconProps, required = false, bottomLine = false, ...rest } = props;
+    const { error, label, type, message, className, IconProps, required = false, variant = 'default', ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -58,7 +59,7 @@ const Input = forwardRef(
                   },
                 },
               },
-              bottomLine && {
+              variant === 'underline' && {
                 border: 'none',
                 borderBottom: `2px solid ${theme.palette.secondary.n60}`,
                 borderRadius: 0,
@@ -66,7 +67,7 @@ const Input = forwardRef(
               isFocused && {
                 border: `2px solid ${theme.palette.secondary.n300}`,
                 '&:focus': {
-                  border: !bottomLine ? `2px solid ${theme.palette.primary.main}` : 'none',
+                  border: variant !== 'underline' ? `2px solid ${theme.palette.primary.main}` : 'none',
                   borderBottom: `2px solid ${theme.palette.primary.main}`,
                 },
               },
@@ -90,7 +91,7 @@ const Input = forwardRef(
             css={{
               position: 'absolute',
               top: '0',
-              right: '8px',
+              right: variant !== 'underline' ? '8px' : 'null',
               display: 'flex',
               width: '24px',
               height: '50px',
@@ -114,7 +115,7 @@ const Input = forwardRef(
             {
               display: 'inline-block',
               width: '100%',
-              height: bottomLine ? '0px' : '20px',
+              height: variant === 'underline' ? '0px' : '20px',
               fontSize: '12px',
               fontWeight: '400',
               lineHeight: '20px',

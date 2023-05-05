@@ -9,7 +9,7 @@ const DropDown = forwardRef(
       label: string;
       required?: boolean;
       name: string;
-      onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+      onChange: (event?: React.ChangeEvent<HTMLSelectElement>) => void;
       options: { label: string; value: string | number }[];
     },
     ref: React.ForwardedRef<HTMLSelectElement>

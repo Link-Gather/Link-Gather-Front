@@ -28,7 +28,6 @@ function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors, dirtyFields, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -56,7 +55,6 @@ function ForgotPasswordForm() {
           type='password'
           placeholder='비밀번호 입력'
           autoComplete='off'
-          getValues={getValues('password')}
           error={errors.password}
           message={
             errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
@@ -76,7 +74,6 @@ function ForgotPasswordForm() {
         <Input
           type='password'
           placeholder='비밀번호 확인'
-          getValues={getValues('password')}
           error={errors.confirmPassword}
           message={errors.confirmPassword?.message}
           IconProps={{

@@ -1,5 +1,5 @@
 import { SkillTab } from '@elements';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 
 function SkillDropdown(props: {

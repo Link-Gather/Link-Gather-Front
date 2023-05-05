@@ -12,7 +12,6 @@ const Input = forwardRef(
       message?: string;
       label?: string;
       required?: boolean;
-      bottomLine?: boolean;
       IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & React.InputHTMLAttributes<HTMLInputElement>,
     ref: React.ForwardedRef<HTMLInputElement>

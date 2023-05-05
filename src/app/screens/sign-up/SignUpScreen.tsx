@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { mq, Theme } from '@libs/theme';
+import { mq } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 import * as yup from 'yup';
 import { useFieldArray, useForm } from 'react-hook-form';
@@ -228,7 +229,6 @@ function SignUpScreen() {
   // form hooks
   const {
     register,
-    getValues,
     watch,
     control,
     formState: { errors, isValid, dirtyFields },
@@ -495,7 +495,7 @@ function SignUpScreen() {
                     placeholder='닉네임 입력'
                     {...register('nickname')}
                   />
-                  <RequestButton onClick={() => {}} value={getValues('nickname')} css={{ width: '93px' }}>
+                  <RequestButton onClick={() => {}} css={{ width: '93px' }}>
                     중복확인
                   </RequestButton>
                 </Stack>

@@ -7,7 +7,7 @@ import { UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
-import { useMutation } from '@libs/query';
+import { useMutation, useQuery } from '@libs/query';
 import { authRepository } from '@repositories';
 import { Stack } from '@mui/material';
 import type { Theme } from '@libs/theme';
@@ -44,7 +44,10 @@ function ForgotPasswordForm() {
   });
 
   // query hooks
+  const { data } = useQuery(authRepository.checkedVerificationId);
   const { mutateAsync, isLoading, isSuccess } = useMutation(authRepository.passwordChange);
+
+  console.log(data);
 
   // calculated values
 

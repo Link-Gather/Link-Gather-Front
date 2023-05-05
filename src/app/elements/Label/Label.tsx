@@ -1,4 +1,4 @@
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 import { Typography } from '../Typography';
 import { Stack } from '@mui/material';
 

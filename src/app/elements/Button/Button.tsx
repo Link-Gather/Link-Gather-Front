@@ -1,6 +1,6 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Dimmer } from '@elements';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 
 function Button(
   props: {

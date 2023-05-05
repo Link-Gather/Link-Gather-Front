@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 
 function Chip(props: {
   label: React.ReactNode;

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { DecoratorFn, StoryContext } from '@storybook/react';
-import { ThemeProvider, useTheme } from '../src/app/libs/theme';
+import React from 'react';
+import { DecoratorFn } from '@storybook/react';
+import { ThemeProvider } from '../src/app/libs/theme';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import CssBaseline from '@mui/material/CssBaseline';

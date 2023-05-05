@@ -1,4 +1,3 @@
-import React from 'react';
 import { SkillTab } from '@elements';
 import { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';

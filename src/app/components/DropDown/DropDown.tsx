@@ -1,6 +1,6 @@
 import React, { forwardRef, useId } from 'react';
 import { Label } from '@elements';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 
 const DropDown = forwardRef(
   (

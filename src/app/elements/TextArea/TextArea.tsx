@@ -1,5 +1,5 @@
 import { ForwardedRef, TextareaHTMLAttributes, forwardRef, useId, useState } from 'react';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
 import { Label } from '../Label';
 import { Stack } from '@mui/material';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -35,7 +34,7 @@ function ForgotPasswordEmailForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading, isSuccess } = useMutation(authRepository.emailVerification);
+  const { mutateAsync, isLoading, isSuccess, isError } = useMutation(authRepository.emailVerification);
 
   // calculated values
   // effects
@@ -54,8 +53,8 @@ function ForgotPasswordEmailForm() {
           type='email'
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
-          error={errors.email}
-          message={errors.email?.message}
+          error={errors.email || isError}
+          message={errors.email?.message || (isError && '일치하는 이메일이 없습니다.') || ''}
           IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
           {...register('email')}
         />
@@ -85,7 +84,7 @@ function ForgotPasswordEmailForm() {
             borderRadius: '32px',
             marginTop: '24px',
           })}
-          disabled={!isValid}
+          disabled={!isValid || isError}
           isLoading={isLoading}
           onClick={handleSubmit(async ({ email }) => await mutateAsync({ email, type: 'password' }))}
         >

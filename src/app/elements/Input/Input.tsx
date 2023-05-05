@@ -5,7 +5,7 @@ import { FieldError } from 'react-hook-form';
 const Input = forwardRef(
   (
     props: {
-      error?: FieldError;
+      error?: FieldError | boolean;
       message?: string;
       IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & React.InputHTMLAttributes<HTMLInputElement>,

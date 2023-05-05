@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,7 +7,7 @@ import { UnderlineTitle, Input, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { IconArrowLeft, IconPasswordHide, IconPasswordShow } from '@assets/images';
-import { useMutation, useQuery } from '@libs/query';
+import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
 import { Stack } from '@mui/material';
 import type { Theme } from '@libs/theme';
@@ -44,16 +44,32 @@ function ForgotPasswordForm() {
   });
 
   // query hooks
-  const { data } = useQuery(authRepository.checkedVerificationId);
   const { mutateAsync, isLoading, isSuccess } = useMutation(authRepository.passwordChange);
-
-  console.log(data);
 
   // calculated values
 
   // effects
 
   // handlers
+  useEffect(() => {
+    // TODO: verificationId 유효하지 않은 경우 에러 처리
+    const goToLoginPage = async () => {
+      alert('유효하지 않은 접근입니다.');
+      navigate(PATH_LOGIN);
+    };
+
+    if (verificationId) {
+      const checkingVerificationId = async () => {
+        try {
+          await authRepository.checkedVerificationId({ id: verificationId });
+        } catch (error) {
+          goToLoginPage();
+        }
+      };
+      checkingVerificationId();
+    }
+    goToLoginPage();
+  }, [verificationId, navigate]);
 
   if (isSuccess) navigate(PATH_LOGIN);
   return (

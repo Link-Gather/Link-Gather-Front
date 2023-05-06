@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Theme } from '@libs/theme';
 
 import { REDIRECT_URI, GITHUB_CLIENT_ID } from '@configs';

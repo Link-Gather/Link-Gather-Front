@@ -1,22 +1,22 @@
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type ButtonHTMLAttributes } from 'react';
 import { Dimmer } from '@elements';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 
 function Button(
   props: {
-    color?: CSSProperties['color'];
-    children: React.ReactNode;
+    children: ReactNode;
     className?: string;
     isLoading?: boolean;
-  } & React.ButtonHTMLAttributes<HTMLButtonElement>
+    loadingColor?: CSSProperties['color'];
+  } & ButtonHTMLAttributes<HTMLButtonElement>
 ) {
   // prop destruction
-  const { color, children, className, isLoading, ...rest } = props;
+  const { loadingColor, children, className, isLoading, ...rest } = props;
 
   // lib hooks
   // state, ref hooks
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [size, setSize] = useState(0);
+  const [size, setSize] = useState(30);
 
   // form hook
   // query hooks
@@ -41,7 +41,6 @@ function Button(
         justifyContent: 'center',
         textAlign: 'center',
         fontWeight: '800',
-        color,
         cursor: 'pointer',
         ':disabled': {
           backgroundColor: !isLoading ? theme.palette.secondary.n40 : undefined,
@@ -52,7 +51,7 @@ function Button(
       {...rest}
       ref={buttonRef}
     >
-      {isLoading ? <Dimmer size={size} color={color} /> : children}
+      {isLoading ? <Dimmer size={size} color={loadingColor} /> : children}
     </button>
   );
 }

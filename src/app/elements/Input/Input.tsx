@@ -1,6 +1,6 @@
-import { useId, forwardRef, useState } from 'react';
+import { useId, forwardRef, useState, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
-import { FieldError } from 'react-hook-form';
+import type { FieldError } from 'react-hook-form';
 
 const Input = forwardRef(
   (
@@ -8,8 +8,8 @@ const Input = forwardRef(
       error?: FieldError | boolean;
       message?: string;
       IconProps?: { onClick?: () => void; Icon?: JSX.Element };
-    } & React.InputHTMLAttributes<HTMLInputElement>,
-    ref: React.ForwardedRef<HTMLInputElement>
+    } & InputHTMLAttributes<HTMLInputElement>,
+    ref: ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
     const { error, type, message, className, IconProps, ...rest } = props;

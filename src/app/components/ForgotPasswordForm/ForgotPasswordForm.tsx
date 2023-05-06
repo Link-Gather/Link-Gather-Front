@@ -130,6 +130,7 @@ function ForgotPasswordForm() {
             borderRadius: '32px',
             marginTop: '14px',
           })}
+          loadingColor='#ffffff'
           isLoading={isLoading}
           disabled={!isValid}
         >

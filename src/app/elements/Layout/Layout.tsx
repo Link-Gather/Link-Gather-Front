@@ -1,6 +1,6 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 
-function Layout(props: { children: React.ReactNode; componentStyle: 'contents' | 'full' }) {
+function Layout(props: { children: ReactNode; componentStyle: 'contents' | 'full' }) {
   // prop destruction
   const { children, componentStyle } = props;
 

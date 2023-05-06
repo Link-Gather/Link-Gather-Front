@@ -54,7 +54,7 @@ function ForgotPasswordEmailForm() {
           placeholder='이메일'
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email || isError}
-          message={errors.email?.message || (isError && '일치하는 이메일이 없습니다.') || ''}
+          message={errors.email?.message || (isError && '정확한 이메일을 입력 했는지 다시 확인해주세요.') || ''}
           IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
           {...register('email')}
         />
@@ -84,6 +84,7 @@ function ForgotPasswordEmailForm() {
             borderRadius: '32px',
             marginTop: '24px',
           })}
+          loadingColor='#ffffff'
           disabled={!isValid || isError}
           isLoading={isLoading}
           onClick={handleSubmit(async ({ email }) => await mutateAsync({ email, type: 'password' }))}

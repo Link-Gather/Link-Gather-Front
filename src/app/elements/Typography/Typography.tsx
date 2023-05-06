@@ -1,9 +1,9 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import type { Theme } from '@libs/theme';
 
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
 
-function Typography(props: { variant?: Variant; className?: string; children: React.ReactNode }) {
+function Typography(props: { variant?: Variant; className?: string; children: ReactNode }) {
   // prop destruction
   const { variant = 'span', className, children } = props;
 

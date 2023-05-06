@@ -88,6 +88,7 @@ function LoginForm() {
           borderRadius: '32px',
           backgroundColor: theme.palette.primary.main,
         })}
+        loadingColor='#ffffff'
         isLoading={isLoading}
         disabled={!isValid}
       >

@@ -48,7 +48,6 @@ function LoginForm() {
       <Input
         type='email'
         placeholder='이메일'
-        css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
         helperText={errors.email?.message}
         IconProps={{
@@ -61,7 +60,6 @@ function LoginForm() {
       <Input
         type='password'
         placeholder='비밀번호'
-        css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
         helperText={errors.password?.message}
         IconProps={{

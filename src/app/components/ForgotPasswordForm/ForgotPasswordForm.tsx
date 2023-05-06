@@ -68,7 +68,6 @@ function ForgotPasswordForm() {
                 <IconPasswordShow css={{ width: '24px', height: '24px' }} />
               ),
           }}
-          css={{ width: '100%', marginBottom: '16px' }}
           {...register('password')}
         />
         <Input
@@ -85,7 +84,6 @@ function ForgotPasswordForm() {
                 <IconPasswordShow css={{ width: '24px', height: '24px' }} />
               ),
           }}
-          css={{ width: '100%', marginBottom: '16px' }}
           {...register('confirmPassword')}
         />
         <Button

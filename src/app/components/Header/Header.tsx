@@ -1,25 +1,26 @@
-import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Button, FlexBox } from '@elements';
-import palette from '@libs/theme/palettes';
+import { Button } from '@elements';
 import LogoHeader from '@assets/images/logos/logo-header.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
 import ProfileDefault from '@assets/images/profiles/profile-default.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
 import styled from '@emotion/styled';
+import { Stack } from '@mui/material';
+import type { Theme } from '@libs/theme';
 
 function Header() {
   return (
-    <FlexBox
+    <Stack
       width='100%'
       height='70px'
       alignItems='center'
       justifyContent='center'
-      css={{
-        borderBottom: `2px solid ${palette.black.main}`,
-      }}
+      css={(theme: Theme) => ({
+        borderBottom: `2px solid ${theme.palette.black.main}`,
+      })}
     >
-      <FlexBox
+      <Stack
         width='100%'
         height='100%'
+        flexDirection='row'
         alignItems='center'
         justifyContent='space-between'
         css={{
@@ -39,65 +40,55 @@ function Header() {
               height: '100%',
             }}
           >
-            <img src={LogoHeader} alt='link gather' />
+            <LogoHeader css={{ height: '44px' }} />
           </h1>
         </Link>
-        <FlexBox height='100%' spacing={4}>
+        <Stack height='100%' flexDirection='row' alignItems='center' gap='16px'>
           <Nav to='/projects'>프로젝트 찾기</Nav>
-          <Nav
-            to='/find-co-workers' // TODO: 동료찾기 페이지 만들면 해당 경로로 변경
-          >
-            동료 찾기
-          </Nav>
-          <Nav
-            to='/manage-projects' // TODO: 프로젝트 관리 페이지 만들면 해당 경로로 변경
-          >
-            프로젝트 관리
-          </Nav>
-        </FlexBox>
-        <FlexBox height='100%'>
+          <Nav to='/find-co-workers'>동료 찾기</Nav>
+          <Nav to='/manage-projects'>프로젝트 관리</Nav>
+        </Stack>
+        <Stack height='100%' flexDirection='row' alignItems='center'>
           <Button
-            // TODO: onClick event 생성 / 로그인 여부에 따라 로그인 안내 alert or 프로젝트 생성 페이지로 이동
-            css={{
+            css={(theme: Theme) => ({
               width: '212px',
               height: '100%',
               fontFamily: '"Noto Sans KR", sans-serif',
               fontSize: '16px',
               fontWeight: '700',
-              color: palette.paper,
-              borderLeft: `2px solid ${palette.black.main}`,
-              borderRight: `2px solid ${palette.black.main}`,
-              backgroundColor: palette.primary.main,
+              color: theme.palette.paper,
+              borderLeft: `2px solid ${theme.palette.black.main}`,
+              borderRight: `2px solid ${theme.palette.black.main}`,
+              backgroundColor: theme.palette.primary.main,
               '&:hover': {
                 textDecoration: 'underline',
-                backgroundColor: palette.black.main,
+                backgroundColor: theme.palette.black.main,
               },
-            }}
+            })}
           >
             프로젝트생성
           </Button>
-          <FlexBox
+          <Stack
             width='112px'
             height='100%'
+            flexDirection='row'
             alignItems='center'
             justifyContent='center'
-            css={{
-              borderRight: `2px solid ${palette.black.main}`,
-            }}
+            css={(theme: Theme) => ({
+              borderRight: `2px solid ${theme.palette.black.main}`,
+            })}
           >
             <Button
-              css={{
+              css={(theme: Theme) => ({
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                border: `2px solid ${palette.black.main}`,
-                backgroundColor: palette.primary.main,
+                border: `2px solid ${theme.palette.black.main}`,
+                backgroundColor: theme.palette.primary.main,
                 overflow: 'hidden',
-              }}
+              })}
             >
-              <img
-                src={ProfileDefault} // TODO: User Image에 맞게 가져오도록 수정
-                alt='profile'
+              <ProfileDefault
                 css={{
                   width: '200%',
                   height: '200%',
@@ -106,10 +97,10 @@ function Header() {
                 }}
               />
             </Button>
-          </FlexBox>
-        </FlexBox>
-      </FlexBox>
-    </FlexBox>
+          </Stack>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 }
 
@@ -124,12 +115,12 @@ const Nav = styled(NavLink)`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: ${palette.black.main};
+  color: ${({ theme }) => theme.palette.black.main};
   border-bottom: 4px solid transparent;
 
   &.active,
   &:hover {
-    color: ${palette.primary.main};
-    border-bottom: 4px solid ${palette.primary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
+    border-bottom: 4px solid ${({ theme }) => theme.palette.primary.main};
   }
 `;

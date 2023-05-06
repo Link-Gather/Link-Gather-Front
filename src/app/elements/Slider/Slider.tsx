@@ -1,8 +1,7 @@
 import { useId } from 'react';
-import { Stack } from '@mui/material';
 import { Label } from '../Label';
-import { Slider as MuiSlider, SliderProps, sliderClasses } from '@mui/material';
-import { Theme } from '../../libs/theme';
+import { Slider as MuiSlider, type SliderProps, sliderClasses, Stack } from '@mui/material';
+import type { Theme } from '@libs/theme';
 
 function Slider(
   props: {

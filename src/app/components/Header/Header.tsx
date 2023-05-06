@@ -4,12 +4,23 @@ import LogoHeader from '@assets/images/logos/logo-header.svg';
 import ProfileDefault from '@assets/images/profiles/profile-default.svg';
 import ProfileNoUser from '@assets/images/profiles/profile-no-user.svg';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { isToken } from '@libs/util';
 import { PATH_LOGIN, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_SIGNUP } from '@routes';
 import type { Theme } from '@libs/theme';
 
 function Header() {
+  // prop destruction
+  // lib hooks
+  // state, ref hooks
+  const [isToggleNav, setIsToggleNav] = useState(false);
+
+  // form hooks
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
   return (
     <Stack
       width='100%'
@@ -93,6 +104,7 @@ function Header() {
                 backgroundColor: isToken() ? theme.palette.primary.main : theme.palette.secondary.n30,
                 overflow: 'hidden',
               })}
+              onMouseOver={() => setIsToggleNav(true)}
             >
               {isToken() ? (
                 <ProfileDefault
@@ -112,7 +124,7 @@ function Header() {
                 />
               )}
             </Button>
-            {!isToken() && (
+            {!isToken() && isToggleNav && (
               <ul
                 css={(theme: Theme) => ({
                   position: 'absolute',
@@ -123,12 +135,12 @@ function Header() {
                   borderBottom: `2px solid ${theme.palette.black.main}`,
                 })}
               >
-                <DropDownNav>
+                <ToggleNav>
                   <Link to={PATH_LOGIN}>로그인</Link>
-                </DropDownNav>
-                <DropDownNav>
+                </ToggleNav>
+                <ToggleNav>
                   <Link to={PATH_SIGNUP}>회원가입</Link>
-                </DropDownNav>
+                </ToggleNav>
               </ul>
             )}
           </Stack>
@@ -159,7 +171,7 @@ const Nav = styled(NavLink)`
   }
 `;
 
-const DropDownNav = styled.li`
+const ToggleNav = styled.li`
   display: flex;
   align-items: center;
   width: 182px;

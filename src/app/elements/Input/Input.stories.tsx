@@ -10,7 +10,9 @@ export default {
   args: {
     type: 'text',
     placeholder: 'placeholder',
-    message: 'validation check message',
+    helperText: 'validation check message',
+    label: 'input label',
+    required: true,
     style: { width: '350px', height: '50px' },
   },
 } as Meta<ArgTypes>;

@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
-import { mq } from '@libs/theme';
-import type { Theme } from '@libs/theme';
+import { mq, type Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 import * as yup from 'yup';
 import { useFieldArray, useForm } from 'react-hook-form';
@@ -222,7 +221,7 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -542,10 +541,10 @@ function SignUpScreen() {
                   {watch('searchSkill') && (
                     <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
                   )}
-                  {stacksFields.length !== 0 && (
+                  {stacksFields.length > 0 && (
                     <Stack direction='row' css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
-                        <SkillTab skill={skill} key={skill.id} selected onDeleteClick={handleDeleteSkill}>
+                        <SkillTab skill={skill} key={skill.id} selected onDelete={handleDeleteSkill}>
                           {skill.value}
                         </SkillTab>
                       ))}
@@ -571,29 +570,35 @@ function SignUpScreen() {
                     css={{ fontSize: '16px' }}
                     {...register('urlString')}
                   />
-                  <Stack width='100%' height='50px' direction='column' css={{ overflowY: 'scroll', border: 'none' }}>
-                    {urlsFields.map((url, index) => (
-                      <Stack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
-                        <a
-                          css={(theme: Theme) => ({
-                            color: theme.palette.primary.main,
-                            textDecoration: 'underline',
-                            fontWeight: '500',
-                            display: 'inline-block',
-                          })}
-                          href={url.value}
-                          target='_blank'
-                          rel='noreferrer'
-                        >
-                          {url.value.includes('https://') ? url.value : 'https://' + url.value}
-                        </a>
-                        <DeleteUrl
-                          onClick={() => urlsRemove(index)}
-                          css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
-                        />
-                      </Stack>
-                    ))}
-                  </Stack>
+                  {urlsFields.length > 0 && (
+                    <Stack
+                      width='100%'
+                      direction='column'
+                      css={{ height: '50px', overflowY: 'scroll', border: 'none' }}
+                    >
+                      {urlsFields.map((url, index) => (
+                        <Stack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
+                          <a
+                            css={(theme: Theme) => ({
+                              color: theme.palette.primary.main,
+                              textDecoration: 'underline',
+                              fontWeight: '500',
+                              display: 'inline-block',
+                            })}
+                            href={url.value}
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            {url.value.includes('https://') ? url.value : `https://${url.value}`}
+                          </a>
+                          <DeleteUrl
+                            onClick={() => urlsRemove(index)}
+                            css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
+                          />
+                        </Stack>
+                      ))}
+                    </Stack>
+                  )}
                 </Stack>
                 <SignupButton>회원가입</SignupButton>
               </Stack>

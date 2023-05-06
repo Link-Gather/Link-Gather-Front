@@ -1,8 +1,9 @@
 import type { ComponentProps } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { DecoratorFn, Meta, StoryObj } from '@storybook/react';
 import { SkillDropdown } from './SkillDropdown';
 
 type ArgTypes = ComponentProps<typeof SkillDropdown>;
+const wrapper: DecoratorFn = (storyFn) => <div style={{ position: 'relative', width: '500px' }}>{storyFn()}</div>;
 
 export default {
   title: 'components/SkillDropdown',
@@ -37,10 +38,7 @@ export default {
     searchKeyword: 'j',
   },
   onClick: { action: 'onClick' },
+  decorators: [wrapper],
 } as Meta<ArgTypes>;
 
-export const Default = (args: ArgTypes) => (
-  <div style={{ position: 'fixed', top: '0', width: '500px' }}>
-    <SkillDropdown skills={args.skills} searchKeyword={args.searchKeyword} onClick={args.onClick} />
-  </div>
-);
+export const Default: StoryObj<ArgTypes> = {};

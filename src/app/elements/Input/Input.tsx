@@ -7,7 +7,7 @@ import { Stack } from '@mui/system';
 const Input = forwardRef(
   (
     props: {
-      variant?: 'underline' | 'default';
+      variant?: 'underline' | 'outlined';
       error?: FieldError;
       message?: string;
       label?: string;
@@ -17,7 +17,17 @@ const Input = forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, label, type, message, className, IconProps, required = false, variant = 'default', ...rest } = props;
+    const {
+      error,
+      label,
+      type,
+      message,
+      className,
+      IconProps,
+      required = false,
+      variant = 'outlined',
+      ...rest
+    } = props;
 
     // lib hooks
     const inputId = useId();
@@ -90,7 +100,7 @@ const Input = forwardRef(
             css={{
               position: 'absolute',
               top: '0',
-              right: variant !== 'underline' ? '8px' : 'null',
+              right: variant !== 'underline' ? '8px' : undefined,
               display: 'flex',
               width: '24px',
               height: '50px',
@@ -109,27 +119,29 @@ const Input = forwardRef(
             {IconProps.Icon}
           </button>
         )}
-        <span
-          css={(theme: Theme) => [
-            {
-              display: 'inline-block',
-              width: '100%',
-              height: variant === 'underline' ? '0px' : '20px',
-              fontSize: '12px',
-              fontWeight: '400',
-              lineHeight: '20px',
-              color: theme.palette.secondary.n60,
-            },
-            isFocused && {
-              color: theme.palette.secondary.n300,
-            },
-            error && {
-              color: theme.palette.secondary.red,
-            },
-          ]}
-        >
-          {message}
-        </span>
+        {variant !== 'underline' && (
+          <span
+            css={(theme: Theme) => [
+              {
+                display: 'inline-block',
+                width: '100%',
+                height: '20px',
+                fontSize: '12px',
+                fontWeight: '400',
+                lineHeight: '20px',
+                color: theme.palette.secondary.n60,
+              },
+              isFocused && {
+                color: theme.palette.secondary.n300,
+              },
+              error && {
+                color: theme.palette.secondary.red,
+              },
+            ]}
+          >
+            {message}
+          </span>
+        )}
       </Stack>
     );
   }

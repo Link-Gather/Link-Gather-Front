@@ -1,4 +1,3 @@
-import React from 'react';
 import type { ComponentProps } from 'react';
 import type { DecoratorFn, Meta, StoryObj } from '@storybook/react';
 import { DropDown } from './DropDown';

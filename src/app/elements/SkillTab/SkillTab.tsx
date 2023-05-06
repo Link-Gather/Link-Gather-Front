@@ -6,11 +6,11 @@ const SkillTab = (props: {
   className?: string;
   skill: { value: string; length: number };
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
-  onDeleteClick?: (skill: string) => void;
+  onDelete?: (skill: string) => void;
   selected?: boolean;
 }) => {
   // prop destruction
-  const { children, className, skill, onClick, selected, onDeleteClick } = props;
+  const { children, className, skill, onClick, selected, onDelete } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
@@ -46,7 +46,7 @@ const SkillTab = (props: {
       {selected && (
         <button
           css={{ position: 'absolute', top: '-5px', right: '-5px', width: '13px', height: '10px', cursor: 'pointer' }}
-          onClick={() => onDeleteClick?.(skill.value)}
+          onClick={() => onDelete?.(skill.value)}
         >
           <DeleteSkillTabButton />
         </button>

@@ -3,23 +3,25 @@ import type { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 
 function SkillDropdown(props: {
+  className?: string;
   skills: { value: string; length: number }[];
   searchKeyword: string;
   onClick: (skill: { value: string; length: number }) => void;
 }) {
   // prop destruction
-  const { skills, searchKeyword, onClick } = props;
+  const { className, skills, searchKeyword, onClick } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
   // query hooks
   // calculated values
-  const showSkills = skills.filter((skill) => skill.value.toLowerCase().includes(searchKeyword.toLowerCase()));
+  const searchedSkills = skills.filter((skill) => skill.value.toLowerCase().includes(searchKeyword.toLowerCase()));
   // effects
   // handlers
 
   return (
     <Stack
+      className={className}
       css={(theme: Theme) => ({
         width: '100%',
         minHeight: '68px',
@@ -37,10 +39,10 @@ function SkillDropdown(props: {
       })}
     >
       <Stack direction='row' css={{ flexWrap: 'wrap' }}>
-        {!showSkills.length ? (
+        {!searchedSkills.length ? (
           <p>해당하는 스킬이 없습니다.</p>
         ) : (
-          showSkills.map((skill) => (
+          searchedSkills.map((skill) => (
             <SkillTab
               css={[
                 { width: '64px' },

@@ -20,7 +20,7 @@ function Label(props: { id: string; label: string; required?: boolean }) {
       <label htmlFor={id}>
         <Typography variant='h5'>{label}</Typography>
       </label>
-      {required && <span css={{ color: '#FF2626 ' }}>*</span>}
+      {required && <span css={{ color: '#FF2626' }}>*</span>}
     </Stack>
   );
 }

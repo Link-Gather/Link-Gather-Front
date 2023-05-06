@@ -50,7 +50,6 @@ function ForgotPasswordEmailForm() {
         <Input
           type='email'
           placeholder='이메일'
-          css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email}
           message={errors.email?.message}
           IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}

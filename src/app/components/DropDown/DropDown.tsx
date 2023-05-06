@@ -6,10 +6,10 @@ const DropDown = forwardRef(
   (
     props: {
       className?: string;
-      label: string;
+      label?: string;
       required?: boolean;
       name: string;
-      onChange: (event?: React.ChangeEvent<HTMLSelectElement>) => void;
+      onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
       options: { label: string; value: string | number }[];
     },
     ref: React.ForwardedRef<HTMLSelectElement>
@@ -18,7 +18,7 @@ const DropDown = forwardRef(
     const { className, label, required, name, onChange, options } = props;
 
     // lib hooks
-    const id = useId();
+    const selectId = useId();
     // state, ref hooks
     // form hook
     // query hooks
@@ -28,10 +28,11 @@ const DropDown = forwardRef(
 
     return (
       <>
-        <Label label={label} required={required} id={id} />
+        {label && <Label id={selectId} label={label} required={required} />}
         <select
           className={className}
           name={name}
+          id={selectId}
           ref={ref}
           onChange={onChange}
           css={(theme: Theme) => ({

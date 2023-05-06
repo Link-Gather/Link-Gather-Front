@@ -9,7 +9,7 @@ export default {
   component: Typography,
   args: {
     children: 'Typography',
-    variant: 'body',
+    variant: 'span',
   },
 } as Meta<ArgTypes>;
 

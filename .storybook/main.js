@@ -2,32 +2,44 @@ const webpackConfigResolve = require('../webpack.config.resolve');
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-interactions'],
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: (config) => {
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      loader: require.resolve('babel-loader'),
-      options: {
-        presets: [['react-app', { flow: false, typescript: true }], require.resolve('@emotion/babel-preset-css-prop')],
-      },
-    });
     return {
       ...config,
       resolve: {
         ...config.resolve,
-        extensions: [...config.resolve.extensions, '.png'],
+        extensions: [...config.resolve.extensions, '.ts', '.tsx', '.js', '.png'],
         alias: {
           ...config.resolve.alias,
           ...webpackConfigResolve.alias,
         },
+      },
+      module: {
+        ...config.module,
+        rules: [
+          {
+            test: /\.tsx?$/,
+            exclude: /node_modules/,
+            loader: 'ts-loader',
+            options: { transpileOnly: true },
+          },
+          {
+            test: /\.css?$/,
+            use: ['style-loader', 'css-loader'],
+          },
+          {
+            test: /\.(gif|jpg|png)$/,
+            type: 'asset/resource',
+          },
+          {
+            test: /\.(svg)$/,
+            use: [{ loader: '@svgr/webpack', options: { dimensions: false } }],
+          },
+        ],
       },
     };
   },

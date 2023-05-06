@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Input, FlexBox } from '@elements';
+import { Button, Input } from '@elements';
 import { SCHEMA_EMAIL, SCHEMA_PASSWORD } from '@libs/schema';
 import palette from '@libs/theme/palettes';
 import { userRepository } from '@repositories';
@@ -10,6 +10,7 @@ import { useMutation } from '@libs/query';
 import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
+import { Stack } from '@mui/material';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -44,16 +45,17 @@ function LoginForm() {
   // handlers
 
   return (
-    <FlexBox direction='column' css={{ marginBottom: '40px' }}>
+    <Stack direction='column' css={{ marginBottom: '40px' }}>
       <Input
         type='email'
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
         message={errors.email?.message}
-        iconProps={{
-          iconImage: (!errors.email && dirtyFields.email && IconCheckGreen) || undefined,
-          alt: (!errors.email && dirtyFields.email && 'valid email') || undefined,
+        IconProps={{
+          Icon:
+            (!errors.email && dirtyFields.email && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) ||
+            undefined,
         }}
         {...register('email')}
       />
@@ -63,10 +65,14 @@ function LoginForm() {
         css={{ width: '100%', height: '88px', marginBottom: '16px' }}
         error={errors.password}
         message={errors.password?.message}
-        iconProps={{
+        IconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
-          iconImage: dirtyFields.password && !isShowPassword ? IconPasswordHide : IconPasswordShow,
-          alt: dirtyFields.password && !isShowPassword ? 'hide password' : 'show password',
+          Icon:
+            dirtyFields.password && !isShowPassword ? (
+              <IconPasswordHide css={{ width: '24px', height: '24px' }} />
+            ) : (
+              <IconPasswordShow css={{ width: '24px', height: '24px' }} />
+            ),
         }}
         {...register('password')}
       />
@@ -86,7 +92,7 @@ function LoginForm() {
       >
         로그인
       </Button>
-    </FlexBox>
+    </Stack>
   );
 }
 

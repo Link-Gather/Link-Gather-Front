@@ -1,13 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Button } from '@elements';
-import LogoHeader from '@assets/images/logos/logo-header.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
-import ProfileDefault from '@assets/images/profiles/profile-default.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
-import ProfileNoUser from '@assets/images/profiles/profile-no-user.svg'; // TODO: 이미지 경로 SW-90에서 수정 될 예정
+import LogoHeader from '@assets/images/logos/logo-header.svg';
+import ProfileDefault from '@assets/images/profiles/profile-default.svg';
+import ProfileNoUser from '@assets/images/profiles/profile-no-user.svg';
 import styled from '@emotion/styled';
 import { Stack } from '@mui/material';
 import { isToken } from '@libs/util';
+import { PATH_LOGIN, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_SIGNUP } from '@routes';
 import type { Theme } from '@libs/theme';
-import { PATH_LOGIN, PATH_PROJECTS, PATH_PROJECTS_ADD } from '@routes';
 
 function Header() {
   return (
@@ -80,6 +80,7 @@ function Header() {
             alignItems='center'
             justifyContent='center'
             css={(theme: Theme) => ({
+              position: 'relative',
               borderRight: `2px solid ${theme.palette.black.main}`,
             })}
           >
@@ -111,6 +112,25 @@ function Header() {
                 />
               )}
             </Button>
+            {!isToken() && (
+              <ul
+                css={(theme: Theme) => ({
+                  position: 'absolute',
+                  top: '100%',
+                  right: '-2px',
+                  borderLeft: `2px solid ${theme.palette.black.main}`,
+                  borderRight: `2px solid ${theme.palette.black.main}`,
+                  borderBottom: `2px solid ${theme.palette.black.main}`,
+                })}
+              >
+                <DropDownNav>
+                  <Link to={PATH_LOGIN}>로그인</Link>
+                </DropDownNav>
+                <DropDownNav>
+                  <Link to={PATH_SIGNUP}>회원가입</Link>
+                </DropDownNav>
+              </ul>
+            )}
           </Stack>
         </Stack>
       </Stack>
@@ -136,5 +156,30 @@ const Nav = styled(NavLink)`
   &:hover {
     color: ${({ theme }) => theme.palette.primary.main};
     border-bottom: 4px solid ${({ theme }) => theme.palette.primary.main};
+  }
+`;
+
+const DropDownNav = styled.li`
+  display: flex;
+  align-items: center;
+  width: 182px;
+  height: 52px;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.black.main};
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  & > a {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.palette.black.main};
+    padding: 0 1.6rem;
+  }
+
+  &:hover > a {
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 `;

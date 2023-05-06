@@ -1,5 +1,5 @@
 import { Label } from '@elements';
-import { FormControl, RadioGroup, Radio as MuiRadio, FormControlLabel, RadioGroupProps } from '@mui/material';
+import { FormControl, RadioGroup, Radio as MuiRadio, FormControlLabel, type RadioGroupProps } from '@mui/material';
 import { useId } from 'react';
 
 function Radio(

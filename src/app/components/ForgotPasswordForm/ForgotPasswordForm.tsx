@@ -56,7 +56,7 @@ function ForgotPasswordForm() {
           placeholder='비밀번호'
           css={{ width: '100%', height: '88px', marginBottom: '16px' }}
           error={errors.password}
-          message={
+          helperText={
             errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
           }
           IconProps={{
@@ -75,7 +75,7 @@ function ForgotPasswordForm() {
           placeholder='비밀번호 확인'
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.confirmPassword}
-          message={errors.confirmPassword?.message}
+          helperText={errors.confirmPassword?.message}
           IconProps={{
             onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
             Icon:

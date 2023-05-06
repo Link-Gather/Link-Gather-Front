@@ -53,7 +53,7 @@ function LoginForm() {
         placeholder='이메일'
         css={{ width: '100%', marginBottom: '16px' }}
         error={errors.email}
-        message={errors.email?.message}
+        helperText={errors.email?.message}
         IconProps={{
           Icon:
             (!errors.email && dirtyFields.email && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) ||
@@ -64,9 +64,9 @@ function LoginForm() {
       <Input
         type={!isShowPassword ? 'password' : 'text'}
         placeholder='비밀번호'
-        css={{ width: '100%', height: '88px', marginBottom: '16px' }}
+        css={{ width: '100%', marginBottom: '16px' }}
         error={errors.password}
-        message={errors.password?.message}
+        helperText={errors.password?.message}
         IconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
           Icon:

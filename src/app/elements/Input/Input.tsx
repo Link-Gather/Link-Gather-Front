@@ -1,18 +1,22 @@
 import { useId, forwardRef, useState, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
 import type { FieldError } from 'react-hook-form';
+import { Stack } from '@mui/material';
+import { Label } from '../Label';
 
 const Input = forwardRef(
   (
     props: {
       error?: FieldError | boolean;
-      message?: string;
+      helperText?: string;
+      label?: string;
+      required?: boolean;
       IconProps?: { onClick?: () => void; Icon?: JSX.Element };
     } & InputHTMLAttributes<HTMLInputElement>,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
-    const { error, type, message, className, IconProps, ...rest } = props;
+    const { error, label, type, helperText, className, IconProps, required = false, ...rest } = props;
 
     // lib hooks
     const inputId = useId();
@@ -27,13 +31,8 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <label
-        htmlFor={inputId}
-        className={className}
-        css={{
-          position: 'relative',
-        }}
-      >
+      <Stack direction='column' className={className}>
+        {label && <Label id={inputId} label={label} required={required} />}
         <input
           id={inputId}
           type={type}
@@ -101,7 +100,6 @@ const Input = forwardRef(
             {IconProps.Icon}
           </button>
         )}
-
         <span
           css={(theme: Theme) => [
             {
@@ -121,9 +119,9 @@ const Input = forwardRef(
             },
           ]}
         >
-          {message}
+          {helperText}
         </span>
-      </label>
+      </Stack>
     );
   }
 );

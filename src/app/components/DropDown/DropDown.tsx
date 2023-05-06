@@ -15,7 +15,7 @@ const DropDown = forwardRef(
     ref: React.ForwardedRef<HTMLSelectElement>
   ) => {
     // prop destruction
-    const { className, label, required, name, onChange, options } = props;
+    const { className, label, required = false, name, onChange, options } = props;
 
     // lib hooks
     const selectId = useId();

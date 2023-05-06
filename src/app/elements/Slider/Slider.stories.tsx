@@ -1,16 +1,19 @@
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { TextArea } from './TextArea';
+import { Slider } from './Slider';
 
-type ArgTypes = ComponentProps<typeof TextArea>;
+type ArgTypes = ComponentProps<typeof Slider>;
 
 export default {
-  title: 'components/TextArea',
-  component: TextArea,
+  title: 'components/Slider',
+  component: Slider,
   args: {
-    label: 'TextArea',
+    label: 'Slider',
     required: true,
-    placeholder: 'placeholder',
+    min: 0,
+    max: 100,
+    step: 1,
+    defaultValue: 50,
   },
 } as Meta<ArgTypes>;
 

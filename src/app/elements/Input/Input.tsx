@@ -1,27 +1,27 @@
-import React, { useId, forwardRef, useState } from 'react';
+import { useId, forwardRef, useState, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
+import { Stack } from '@mui/material';
 import { Label } from '../Label';
-import { Stack } from '@mui/system';
 
 const Input = forwardRef(
   (
     props: {
       variant?: 'underline' | 'outlined';
       error?: FieldError;
-      message?: string;
+      helperText?: string;
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; Icon?: JSX.Element };
-    } & React.InputHTMLAttributes<HTMLInputElement>,
-    ref: React.ForwardedRef<HTMLInputElement>
+    } & InputHTMLAttributes<HTMLInputElement>,
+    ref: ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
     const {
       error,
       label,
       type,
-      message,
+      helperText,
       className,
       IconProps,
       required = false,
@@ -139,7 +139,7 @@ const Input = forwardRef(
               },
             ]}
           >
-            {message}
+            {helperText}
           </span>
         )}
       </Stack>

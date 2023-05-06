@@ -371,7 +371,7 @@ function SignUpScreen() {
                     <Input
                       type={isShowPassword ? 'text' : 'password'}
                       placeholder='비밀번호 입력'
-                      message='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                      helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                       autoComplete='off'
                       error={errors.password}
                       IconProps={{
@@ -490,7 +490,7 @@ function SignUpScreen() {
                 </Stack>
                 <Stack direction='row' width='324px' justifyContent='center'>
                   <Input
-                    message='8자이내, 한글, 영문 숫자 혼용 가능'
+                    helperText='8자이내, 한글, 영문 숫자 혼용 가능'
                     placeholder='닉네임 입력'
                     {...register('nickname')}
                   />
@@ -533,7 +533,7 @@ function SignUpScreen() {
                     type='text'
                     placeholder='기술 스택 검색'
                     IconProps={{
-                      Icon: <IconSearch css={{ position: 'absolute', top: '44px' }} />,
+                      Icon: <IconSearch css={{ position: 'absolute', top: '43px' }} />,
                     }}
                     css={{ fontSize: '16px', paddingLeft: '30px' }}
                     {...register('searchSkill')}
@@ -541,7 +541,7 @@ function SignUpScreen() {
                   {watch('searchSkill') && (
                     <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
                   )}
-                  {stacksFields.length > 0 && (
+                  {!!stacksFields.length && (
                     <Stack direction='row' css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
                       {stacksFields.map((skill) => (
                         <SkillTab skill={skill} key={skill.id} selected onDelete={handleDeleteSkill}>
@@ -570,7 +570,7 @@ function SignUpScreen() {
                     css={{ fontSize: '16px' }}
                     {...register('urlString')}
                   />
-                  {urlsFields.length > 0 && (
+                  {!!urlsFields.length && (
                     <Stack
                       width='100%'
                       direction='column'

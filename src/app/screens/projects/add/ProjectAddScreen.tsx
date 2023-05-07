@@ -16,7 +16,7 @@ const schema = yup.object({
   recruitMember: yup.array().of(
     yup.object({
       job: yup.string().required(),
-      number: yup.number().max(5).required(),
+      number: yup.number().min(1).max(5).required(),
     })
   ),
   leaderJob: yup.mixed<JobType>().required(),

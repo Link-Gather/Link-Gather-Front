@@ -1,8 +1,7 @@
 import React, { forwardRef, useId } from 'react';
-import { FormControl, FormHelperText, InputLabel, Select, SelectProps, MenuItem, SvgIcon } from '@mui/material';
+import { FormControl, InputLabel, Select, SelectProps, MenuItem } from '@mui/material';
 import { Theme } from '../../libs/theme';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
-import IconGoogle from '@assets/images/icons/icon-google.svg';
 
 const SingleSelect = forwardRef(function SingleSelect(
   props: {
@@ -13,7 +12,6 @@ const SingleSelect = forwardRef(function SingleSelect(
   } & Omit<SelectProps, 'onChange' | 'placeholder'>,
   ref: React.ForwardedRef<any>
 ) {
-  console.log('!!!', ArrowDownIcon, IconGoogle);
   // prop destruction
   const {
     className,
@@ -62,25 +60,29 @@ const SingleSelect = forwardRef(function SingleSelect(
   return (
     <FormControl className={className} required={required} error={error} disabled={disabled}>
       {label && !Object.values(values).filter(Boolean).length && (
-        <InputLabel id={id} variant={variant}>
+        //HACK: inputLabel 위치가 너무 이상해서 조정해줘야한다...
+        <InputLabel css={{ top: '-6px' }} id={id} variant={variant}>
           {label}
         </InputLabel>
       )}
       <Select
+        labelId={id}
         label={label && !Object.values(values).filter(Boolean).length ? label : undefined}
         {...values}
         onChange={onChange}
-        SelectDisplayProps={{
-          'aria-labelledby': id,
-        }}
         variant={variant}
         inputRef={ref}
         {...selectProps}
-        IconComponent={() => <ArrowDownIcon />}
+        IconComponent={() => <ArrowDownIcon css={{ width: '24px', height: '24px' }} />}
         css={(theme: Theme) => ({
           border: `2px solid ${theme.palette.secondary.n300}`,
           color: theme.palette.secondary.n300,
+          fontSize: '16px',
+          fontWeight: 600,
           borderRadius: '8px',
+          maxHeight: '40px',
+          alignItems: 'center',
+          '.MuiOutlinedInput-notchedOutline': { border: 0 },
         })}
       >
         {options.map(({ label, value }) => (
@@ -89,7 +91,6 @@ const SingleSelect = forwardRef(function SingleSelect(
           </MenuItem>
         ))}
       </Select>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 });

@@ -1,7 +1,6 @@
 import { Input, TextArea, Typography, Slider, Section, Label, Button, SingleSelect } from '@elements';
 import { Radio } from '@components';
 import { IconButton, Stack } from '@mui/material';
-import type { Theme } from '@libs/theme';
 import * as yup from 'yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,20 +10,22 @@ const schema = yup.object({
   title: yup.string().required(),
   description: yup.string().required(),
   period: yup.number().required(),
-  compositions: yup.array().of(
+  recruitMember: yup.array().of(
     yup.object({
       job: yup.string().required(),
       number: yup.number().max(5).required(),
     })
   ),
+  leaderJob: yup.string().required(),
+  stacks: yup.array().of(yup.string().required()).min(0),
 });
 
 const maxCompositionLength = 4;
 const compositionOptions = [
-  { label: '프론트엔드', value: 'front' },
-  { label: '백엔드', value: 'back' },
-  { label: '디자인', value: 'design' },
-  { label: '기획', value: 'pm' },
+  { label: '프론트엔드', value: 'FrontendDeveloper' },
+  { label: '백엔드', value: 'BackendDeveloper' },
+  { label: '디자인', value: 'designer' },
+  { label: '기획', value: 'productManager' },
 ];
 
 function ProjectAddScreen() {
@@ -38,7 +39,7 @@ function ProjectAddScreen() {
     getValues,
     control,
     watch,
-    formState: { errors, dirtyFields, isValid },
+    formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -47,17 +48,17 @@ function ProjectAddScreen() {
       title: '',
       description: '',
       period: 1,
-      compositions: [{ job: '', number: 0 }],
+      recruitMember: [{ job: '', number: 0 }],
     },
   });
 
   const {
-    fields: compositions,
-    remove: removeCompositions,
-    append: appendCompositions,
+    fields: recruitMember,
+    remove: removeRecruitMember,
+    append: appendRecruitMember,
   } = useFieldArray({
     control,
-    name: 'compositions',
+    name: 'recruitMember',
   });
   // query hooks
   // calculated values
@@ -92,6 +93,8 @@ function ProjectAddScreen() {
             label='프로젝트 제목'
             required
             placeholder='인적 기술적 자원의 공유 커뮤니티'
+            error={errors.title}
+            helperText={errors.title?.message}
           />
           <TextArea
             {...register('description')}
@@ -113,6 +116,7 @@ function ProjectAddScreen() {
 · 달성하고 싶은 목표 
   프로젝트를 통해 달성하고 싶은 목표와 마일스톤 및 일정이 있다면 설명해주세요. 팀원들과 함께 만들어가
   고 싶다면 해당 내용을 작성해주세요.`}
+            error={errors.description}
           />
           <Controller
             control={control}
@@ -145,48 +149,62 @@ function ProjectAddScreen() {
           />
           <Stack direction='column' spacing={4}>
             <Stack direction='row' justifyContent='space-between' alignItems='center'>
-              <Label css={{ marginBottom: 0 }} id='TeamCompositionSection' label='팀 구성' required />
+              <Label css={{ marginBottom: 0 }} id='RecruitMember' label='멤버 구성' required />
               <Button
                 css={{
                   fontWeight: 700,
                   fontSize: '16px',
                 }}
-                onClick={() => appendCompositions({ job: '', number: 0 })}
-                disabled={maxCompositionLength <= compositions.length}
+                onClick={() => appendRecruitMember({ job: '', number: 0 })}
+                disabled={maxCompositionLength <= recruitMember.length}
               >
                 추가
               </Button>
             </Stack>
             <hr css={{ border: '1px solid #000' }} />
-            <SingleSelect
-              label='리더 직무 선택'
-              css={{ width: '326px' }}
-              options={[
-                { label: '프론트엔드', value: 'front' },
-                { label: '백엔드', value: 'back' },
-                { label: '디자인', value: 'design' },
-                { label: '기획', value: 'pm' },
-              ]}
+            <Controller
+              control={control}
+              name={`leaderJob`}
+              render={({ field: { value, onChange } }) => (
+                <SingleSelect
+                  label='리더 직무 선택'
+                  css={{ width: '326px' }}
+                  value={value}
+                  onChange={onChange}
+                  options={compositionOptions}
+                />
+              )}
             />
-            {compositions.map((composition, idx) => (
-              <Stack key={composition.id} direction='row' justifyContent='space-between'>
+
+            {recruitMember.map((member, idx) => (
+              <Stack key={member.id} direction='row' justifyContent='space-between'>
                 <Stack direction='row' spacing={4}>
                   <Controller
                     control={control}
-                    name={`compositions.${idx}.job`}
-                    render={({ field: { value, onChange } }) => (
-                      <SingleSelect
-                        css={{ width: '326px' }}
-                        onChange={onChange}
-                        label='직무 선택'
-                        value={value}
-                        options={compositionOptions}
-                      />
-                    )}
+                    name={`recruitMember.${idx}.job`}
+                    render={({ field: { value, onChange } }) => {
+                      const selectedMap: { [key: string]: number } = {};
+                      watch(`recruitMember`)?.forEach((member, i) => {
+                        selectedMap[member.job] = i;
+                      });
+                      const options = compositionOptions.filter(
+                        (option) => selectedMap[option.value] === idx || selectedMap[option.value] === undefined
+                      );
+
+                      return (
+                        <SingleSelect
+                          css={{ width: '326px' }}
+                          onChange={onChange}
+                          label='직무 선택'
+                          value={value}
+                          options={options}
+                        />
+                      );
+                    }}
                   />
                   <Controller
                     control={control}
-                    name={`compositions.${idx}.number`}
+                    name={`recruitMember.${idx}.number`}
                     render={({ field: { value, onChange } }) => (
                       <SingleSelect
                         css={{ width: '326px' }}
@@ -204,7 +222,7 @@ function ProjectAddScreen() {
                     )}
                   />
                 </Stack>
-                {compositions.length !== 1 && <IconButton onClick={() => removeCompositions(idx)}>-</IconButton>}
+                {recruitMember.length !== 1 && <IconButton onClick={() => removeRecruitMember(idx)}>-</IconButton>}
               </Stack>
             ))}
           </Stack>
@@ -217,7 +235,7 @@ function ProjectAddScreen() {
         <Button
           variant='filled'
           onClick={() => {
-            handleSubmit(({ title, description, period, purpose, compositions }) => {
+            handleSubmit(({ title, description, period, purpose, recruitMember, stacks, leaderJob }) => {
               //TODO: api연결필요
             });
           }}

@@ -88,7 +88,7 @@ function LoginForm() {
           marginTop: '8px',
           fontWeight: 800,
         }}
-        isLoading={isLoading}
+        loading={isLoading}
         disabled={!isValid}
       >
         로그인

@@ -73,7 +73,7 @@ const SingleSelect = forwardRef(function SingleSelect(
         variant={variant}
         inputRef={ref}
         {...selectProps}
-        IconComponent={() => <ArrowDownIcon css={{ width: '24px', height: '24px' }} />}
+        IconComponent={() => <ArrowDownIcon css={{ width: '24px', height: '24px', marginRight: '12px' }} />}
         css={(theme: Theme) => ({
           border: `2px solid ${theme.palette.secondary.n300}`,
           color: theme.palette.secondary.n300,

@@ -7,12 +7,12 @@ function Button(
     color?: CSSProperties['color'];
     children: React.ReactNode;
     className?: string;
-    isLoading?: boolean;
+    loading?: boolean;
     variant?: 'outlined' | 'filled';
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 ) {
   // prop destruction
-  const { color, children, className, isLoading, variant = 'outlined', ...rest } = props;
+  const { color, children, className, loading, variant = 'outlined', ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -60,11 +60,11 @@ function Button(
         },
       ]}
       className={className}
-      disabled={isLoading}
+      disabled={loading}
       {...rest}
       ref={buttonRef}
     >
-      {isLoading ? <Dimmer size={size} color={color} /> : children}
+      {loading ? <Dimmer size={size} color={color} /> : children}
     </button>
   );
 }

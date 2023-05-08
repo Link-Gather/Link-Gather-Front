@@ -47,16 +47,19 @@ function Button(
           borderRadius: '6px',
           padding: '6px 16px',
           cursor: 'pointer',
-          ':disabled': {
-            backgroundColor: theme.palette.secondary.n40,
-          },
         },
         variant === 'outlined' && {
           border: `2px solid ${theme.palette.secondary.n60}`,
+          ':disabled': {
+            color: theme.palette.secondary.n60,
+          },
         },
         variant === 'filled' && {
           backgroundColor: theme.palette.primary.main,
           color: '#fff',
+          ':disabled': {
+            backgroundColor: theme.palette.secondary.n40,
+          },
         },
       ]}
       className={className}

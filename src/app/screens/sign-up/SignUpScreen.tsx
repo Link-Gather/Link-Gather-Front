@@ -145,7 +145,7 @@ type CharacterType = {
   marginTop: string;
 };
 
-const RequestButton = styled(Button)(
+const RequestButton = styled('button')(
   {
     width: '94px',
     height: '50px',
@@ -154,15 +154,18 @@ const RequestButton = styled(Button)(
     borderRadius: '8px',
     marginLeft: '10px',
   },
-  ({ theme }) => ({
+  ({ disabled, theme }) => ({
     border: `2px solid ${theme.palette.secondary.n60}`,
-    color: theme.palette.secondary.n60,
+    color: !disabled ? theme.palette.secondary.n300 : theme.palette.secondary.n60,
     backgroundColor: theme.palette.contrastText,
-    cursor: 'pointer',
+    cursor: !disabled ? 'pointer' : undefined,
+    ':hover': {
+      border: !disabled ? `2px solid ${theme.palette.secondary.n300}` : undefined,
+    },
   })
 );
 
-const SignupButton = styled(Button)<{ disabled?: boolean }>(
+const SignupButton = styled(Button)(
   {
     position: 'absolute',
     bottom: '40px',
@@ -176,7 +179,7 @@ const SignupButton = styled(Button)<{ disabled?: boolean }>(
   ({ disabled, theme }) => ({
     color: theme.palette.contrastText,
     backgroundColor: !disabled ? theme.palette.primary.main : theme.palette.secondary.n60,
-    cursor: !disabled ? 'pointer' : 'null',
+    cursor: !disabled ? 'pointer' : 'default',
   })
 );
 
@@ -196,25 +199,45 @@ const careers = [
   { label: '10년차이상', value: 10 },
 ];
 
-const schemaStep0 = yup.object().shape({
-  email: yup.string().required(),
-  code: yup.string().required(),
-  password: SCHEMA_PASSWORD.required(),
-  confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
-});
+const schema = [
+  yup.object().shape({
+    email: yup.string().required(),
+    code: yup.string().required(),
+    password: SCHEMA_PASSWORD.required(),
+    confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
+  }),
+  yup.object().shape({
+    profileImage: yup.string().required(),
+    nickname: SCHEMA_NICKNAME.required(),
+  }),
+  yup.object().shape({
+    job: yup.string().required(),
+    career: yup.string().required(),
+    stacks: yup.array().of(yup.string()).required(),
+    urls: yup.array().of(yup.string().url()),
+    introduction: yup.string().required(),
+  }),
+];
 
-const schemaStep1 = yup.object().shape({
-  profileImage: yup.string().required(),
-  nickname: SCHEMA_NICKNAME.required(),
-});
+// const schemaStep0 = yup.object().shape({
+//   email: yup.string().required(),
+//   code: yup.string().required(),
+//   password: SCHEMA_PASSWORD.required(),
+//   confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
+// });
 
-const schemaStep2 = yup.object().shape({
-  job: yup.string().required(),
-  career: yup.string().required(),
-  stacks: yup.array().of(yup.string()).required(),
-  urls: yup.array().of(yup.string().url()),
-  introduction: yup.string().required(),
-});
+// const schemaStep1 = yup.object().shape({
+//   profileImage: yup.string().required(),
+//   nickname: SCHEMA_NICKNAME.required(),
+// });
+
+// const schemaStep2 = yup.object().shape({
+//   job: yup.string().required(),
+//   career: yup.string().required(),
+//   stacks: yup.array().of(yup.string()).required(),
+//   urls: yup.array().of(yup.string().url()),
+//   introduction: yup.string().required(),
+// });
 
 function SignUpScreen() {
   // prop destruction
@@ -253,11 +276,11 @@ function SignUpScreen() {
       (() => {
         switch (step) {
           case 0:
-            return schemaStep0;
+            return schema[step];
           case 1:
-            return schemaStep1;
+            return schema[step];
           case 2:
-            return schemaStep2;
+            return schema[step];
           default:
             return yup.object();
         }
@@ -361,13 +384,13 @@ function SignUpScreen() {
                 <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <Stack direction='row'>
                     <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
-                    <RequestButton onClick={() => {}}>인증요청</RequestButton>
+                    <RequestButton disabled={!watch('email')}>인증요청</RequestButton>
                   </Stack>
                   <Stack direction='row'>
                     <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
-                    <RequestButton>확인</RequestButton>
+                    <RequestButton disabled={!watch('code')}>확인</RequestButton>
                   </Stack>
-                  <Stack direction='row' css={{ position: 'relative' }}>
+                  <Stack direction='row'>
                     <Input
                       type={isShowPassword ? 'text' : 'password'}
                       placeholder='비밀번호 입력'
@@ -382,7 +405,7 @@ function SignUpScreen() {
                       {...register('password')}
                     />
                   </Stack>
-                  <Stack direction='row' css={{ position: 'relative', marginTop: '16px' }}>
+                  <Stack direction='row' css={{ marginTop: '16px' }}>
                     <Input
                       type={isShowPasswordConfirm ? 'text' : 'password'}
                       placeholder='비밀번호 확인'
@@ -491,10 +514,11 @@ function SignUpScreen() {
                 <Stack direction='row' width='324px' justifyContent='center'>
                   <Input
                     helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                    error={errors.nickname}
                     placeholder='닉네임 입력'
                     {...register('nickname')}
                   />
-                  <RequestButton onClick={() => {}} css={{ width: '93px' }}>
+                  <RequestButton disabled={!isValid} css={{ width: '93px' }}>
                     중복확인
                   </RequestButton>
                 </Stack>

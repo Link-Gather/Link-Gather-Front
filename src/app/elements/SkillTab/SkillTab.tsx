@@ -32,7 +32,7 @@ const SkillTab = (props: {
           fontSize: '14px',
           fontWeight: '500',
           textAlign: 'center',
-          cursor: !selected ? 'pointer' : 'null',
+          cursor: !selected ? 'pointer' : undefined,
           margin: '4px',
           width: '64px',
         },

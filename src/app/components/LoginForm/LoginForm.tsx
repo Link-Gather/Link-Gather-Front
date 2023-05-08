@@ -44,7 +44,7 @@ function LoginForm() {
   // effects
   // handlers
   return (
-    <Stack direction='column' css={{ marginBottom: '40px' }}>
+    <Stack direction='column' css={{ marginBottom: '40px' }} spacing={4}>
       <Input
         type='email'
         placeholder='이메일'

@@ -50,7 +50,7 @@ function ForgotPasswordForm() {
         </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
-      <Stack direction='column'>
+      <Stack direction='column' spacing={7}>
         <Input
           type='password'
           placeholder='비밀번호 입력'

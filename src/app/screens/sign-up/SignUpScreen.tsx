@@ -11,6 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { DropDown, SkillDropdown } from '@components';
 import { UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
+import { userRepository, authRepository } from '@repositories';
+import { useMutation, useQuery } from '@libs/query';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
@@ -234,6 +236,7 @@ function SignUpScreen() {
     watch,
     control,
     getValues,
+    handleSubmit,
     formState: { errors, isValid, dirtyFields },
     setValue,
   } = useForm<ValidationType>({
@@ -274,7 +277,22 @@ function SignUpScreen() {
     remove: stacksRemove,
   } = useFieldArray({ control, name: 'stacks' });
   const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
+
   // query hooks
+  const { mutateAsync: verifyEmailMutation } = useMutation(authRepository.emailVerification);
+  // const { mutateAsync: verifyCodeMutation } = useMutation(authRepository.checkedVerificationCode);
+
+  // const { data, isLoading, isError, error, refetch } = useQuery(userRepository.checkNickname, {
+  //   variables: 'windy',
+  //   skip: false,
+  //   onSuccess: (result) => {
+  //     console.log(result);
+  //   },
+  //   onError: (err) => {
+  //     console.log(err);
+  //   },
+  // });
+
   // calculated values
   // effects
   // handlers
@@ -365,11 +383,21 @@ function SignUpScreen() {
                 <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <Stack direction='row'>
                     <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
-                    <RequestButton disabled={!watch('email')}>인증요청</RequestButton>
+                    <RequestButton
+                      disabled={!watch('email')}
+                      onClick={async () => await verifyEmailMutation({ email: getValues('email'), type: 'signup' })}
+                    >
+                      인증요청
+                    </RequestButton>
                   </Stack>
                   <Stack direction='row'>
                     <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
-                    <RequestButton disabled={!watch('code')}>확인</RequestButton>
+                    <RequestButton
+                      disabled={!watch('code')}
+                      // onClick={handleSubmit(async ({ code }) => await verifyCodeMutation({ code }))}
+                    >
+                      확인
+                    </RequestButton>
                   </Stack>
                   <Stack direction='row'>
                     <Input
@@ -499,7 +527,11 @@ function SignUpScreen() {
                     placeholder='닉네임 입력'
                     {...register('nickname')}
                   />
-                  <RequestButton disabled={!isValid} css={{ width: '93px' }}>
+                  <RequestButton
+                    disabled={!isValid}
+                    css={{ width: '93px' }}
+                    onClick={() => userRepository.checkNickname(getValues('nickname'))}
+                  >
                     중복확인
                   </RequestButton>
                 </Stack>

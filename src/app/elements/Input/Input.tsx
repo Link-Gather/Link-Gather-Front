@@ -42,7 +42,7 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <Stack direction='column'>
+      <Stack direction='column' position='relative'>
         {label && <Label id={inputId} label={label} required={required} />}
         <input
           id={inputId}

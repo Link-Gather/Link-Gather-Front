@@ -11,7 +11,4 @@ export const SCHEMA_NICKNAME = yup
   .matches(/^[a-zA-Z0-9가-힣]+$/)
   .min(1)
   .max(8);
-/**
- * NOTE: password key값을 무조건 password로 해야한다.
- */
 export const SCHEMA_CONFIRM_PASSWORD = yup.string().oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다 :(');

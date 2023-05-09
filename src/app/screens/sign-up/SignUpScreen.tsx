@@ -219,26 +219,6 @@ const schema = [
   }),
 ];
 
-// const schemaStep0 = yup.object().shape({
-//   email: yup.string().required(),
-//   code: yup.string().required(),
-//   password: SCHEMA_PASSWORD.required(),
-//   confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
-// });
-
-// const schemaStep1 = yup.object().shape({
-//   profileImage: yup.string().required(),
-//   nickname: SCHEMA_NICKNAME.required(),
-// });
-
-// const schemaStep2 = yup.object().shape({
-//   job: yup.string().required(),
-//   career: yup.string().required(),
-//   stacks: yup.array().of(yup.string()).required(),
-//   urls: yup.array().of(yup.string().url()),
-//   introduction: yup.string().required(),
-// });
-
 function SignUpScreen() {
   // prop destruction
   // lib hooks
@@ -253,6 +233,7 @@ function SignUpScreen() {
     register,
     watch,
     control,
+    getValues,
     formState: { errors, isValid, dirtyFields },
     setValue,
   } = useForm<ValidationType>({
@@ -624,7 +605,7 @@ function SignUpScreen() {
                     </Stack>
                   )}
                 </Stack>
-                <SignupButton>회원가입</SignupButton>
+                <SignupButton onClick={() => console.log(getValues())}>회원가입</SignupButton>
               </Stack>
             )}
           </Stack>

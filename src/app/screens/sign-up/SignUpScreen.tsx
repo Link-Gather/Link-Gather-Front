@@ -280,7 +280,7 @@ function SignUpScreen() {
 
   // query hooks
   const { mutateAsync: verifyEmailMutation } = useMutation(authRepository.emailVerification);
-  // const { mutateAsync: verifyCodeMutation } = useMutation(authRepository.checkedVerificationCode);
+  const { mutateAsync: verifyCodeMutation } = useMutation(authRepository.checkedVerificationCode);
 
   // const { data, isLoading, isError, error, refetch } = useQuery(userRepository.checkNickname, {
   //   variables: 'windy',
@@ -394,7 +394,9 @@ function SignUpScreen() {
                     <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
                     <RequestButton
                       disabled={!watch('code')}
-                      // onClick={handleSubmit(async ({ code }) => await verifyCodeMutation({ code }))}
+                      onClick={async () =>
+                        await verifyCodeMutation({ code: getValues('code'), id: getValues('email') })
+                      }
                     >
                       확인
                     </RequestButton>

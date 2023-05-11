@@ -229,6 +229,7 @@ function SignUpScreen() {
   const [step, setStep] = useState(0);
   const [authVerification, setAuthVerification] = useState({
     isCheckedEmail: false,
+    checkedId: '',
     checkedEmailHelperText: '',
     checkedCodeHelperText: '',
   });
@@ -285,15 +286,27 @@ function SignUpScreen() {
   const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
   // query hooks
   const { mutateAsync: verifyEmailMutation, isLoading: EmailLoading } = useMutation(authRepository.emailVerification, {
+    onSuccess: (data: any) => {
+      setAuthVerification({
+        ...authVerification,
+        isCheckedEmail: false,
+        checkedEmailHelperText: '인증번호를 전송하였습니다.',
+        checkedId: data.data.id,
+      });
+    },
     onError: (error: any) => {
       setError('email', { message: error.response.data.errorMessage });
     },
   });
   const { mutateAsync: verifyCodeMutation, isLoading: codeLoading } = useMutation(authRepository.codeVerification, {
+    onSuccess: () => {
+      setAuthVerification({ ...authVerification, isCheckedEmail: true });
+    },
     onError: (error: any) => {
       setError('code', { message: error.response.data.errorMessage });
     },
   });
+
   const { mutateAsync: signupMutation } = useMutation(userRepository.signUp);
   // calculated values
   // effects
@@ -396,11 +409,6 @@ function SignUpScreen() {
                       isLoading={EmailLoading}
                       onClick={async () => {
                         await verifyEmailMutation({ email: getValues('email'), type: 'signup' });
-                        setAuthVerification({
-                          ...authVerification,
-                          isCheckedEmail: false,
-                          checkedEmailHelperText: '인증번호를 전송하였습니다.',
-                        });
                       }}
                     >
                       인증요청
@@ -421,8 +429,7 @@ function SignUpScreen() {
                       disabled={!watch('code') || authVerification.isCheckedEmail}
                       isLoading={codeLoading}
                       onClick={async () => {
-                        await verifyCodeMutation({ code: getValues('code'), id: getValues('email') });
-                        setAuthVerification({ ...authVerification, isCheckedEmail: true });
+                        await verifyCodeMutation({ code: getValues('code'), id: authVerification.checkedId });
                       }}
                     >
                       확인
@@ -559,7 +566,7 @@ function SignUpScreen() {
                   <RequestButton
                     disabled={!isValid}
                     css={{ width: '93px' }}
-                    onClick={handleSubmit(async ({ nickname }) => await userRepository.checkNickname(nickname))}
+                    onClick={handleSubmit(async ({ nickname }) => userRepository.checkNickname(nickname))}
                   >
                     중복확인
                   </RequestButton>
@@ -667,7 +674,7 @@ function SignUpScreen() {
                   )}
                 </Stack>
                 <SignupButton
-                  onClick={async () =>
+                  onClick={async () => {
                     await signupMutation({
                       email: getValues('email'),
                       password: getValues('password'),
@@ -679,8 +686,9 @@ function SignUpScreen() {
                       stacks: getValues('stacks').map((stack) => stack.value),
                       urls: getValues('urls').map((url) => url.value),
                       profileImage: '/e2142093cc89c41037a7.svg',
-                    })
-                  }
+                    });
+                    alert('회원가입이 완료되었습니다.');
+                  }}
                 >
                   회원가입
                 </SignupButton>

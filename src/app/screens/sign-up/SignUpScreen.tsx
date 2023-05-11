@@ -12,7 +12,7 @@ import { DropDown, SkillDropdown } from '@components';
 import { UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
 import { userRepository, authRepository } from '@repositories';
-import { useMutation, useQuery } from '@libs/query';
+import { useMutation } from '@libs/query';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import IconSearch from '@assets/images/icons/icon-search.svg';
@@ -147,7 +147,7 @@ type CharacterType = {
   marginTop: string;
 };
 
-const RequestButton = styled('button')(
+const RequestButton = styled(Button)(
   {
     width: '94px',
     height: '50px',
@@ -227,6 +227,11 @@ function SignUpScreen() {
   const navigate = useNavigate();
   // state, ref, querystring hooks
   const [step, setStep] = useState(0);
+  const [authVerification, setAuthVerification] = useState({
+    isCheckedEmail: false,
+    checkedEmailHelperText: '',
+    checkedCodeHelperText: '',
+  });
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
@@ -237,6 +242,7 @@ function SignUpScreen() {
     control,
     getValues,
     handleSubmit,
+    setError,
     formState: { errors, isValid, dirtyFields },
     setValue,
   } = useForm<ValidationType>({
@@ -254,7 +260,7 @@ function SignUpScreen() {
       stacks: [],
       urls: [],
       introduction: '',
-      profileImage: '/e2142093cc89c41037a7.svg', //임시로 넣어놓은 초기 이미지 src
+      profileImage: '/e2142093cc89c41037a7.svg',
     },
     resolver: yupResolver(
       (() => {
@@ -277,22 +283,18 @@ function SignUpScreen() {
     remove: stacksRemove,
   } = useFieldArray({ control, name: 'stacks' });
   const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
-
   // query hooks
-  const { mutateAsync: verifyEmailMutation } = useMutation(authRepository.emailVerification);
-  const { mutateAsync: verifyCodeMutation } = useMutation(authRepository.checkedVerificationCode);
-
-  // const { data, isLoading, isError, error, refetch } = useQuery(userRepository.checkNickname, {
-  //   variables: 'windy',
-  //   skip: false,
-  //   onSuccess: (result) => {
-  //     console.log(result);
-  //   },
-  //   onError: (err) => {
-  //     console.log(err);
-  //   },
-  // });
-
+  const { mutateAsync: verifyEmailMutation, isLoading: EmailLoading } = useMutation(authRepository.emailVerification, {
+    onError: (error: any) => {
+      setError('email', { message: error.response.data.errorMessage });
+    },
+  });
+  const { mutateAsync: verifyCodeMutation, isLoading: codeLoading } = useMutation(authRepository.codeVerification, {
+    onError: (error: any) => {
+      setError('code', { message: error.response.data.errorMessage });
+    },
+  });
+  const { mutateAsync: signupMutation } = useMutation(userRepository.signUp);
   // calculated values
   // effects
   // handlers
@@ -318,8 +320,6 @@ function SignUpScreen() {
   const handleDeleteSkill = (skill: string) => {
     stacksRemove(stacksFields.findIndex((item) => item.value === skill));
   };
-  // useFieldArray remove함수는 index(number)를 파라미터로 받아야하는데
-  // handleDeleteSkill를 SkillTab컴포넌트에 props로 넘기고있어서 index를 같이넘기는게 나을까요?
 
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
@@ -382,21 +382,48 @@ function SignUpScreen() {
               <Stack direction='row' justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
                 <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <Stack direction='row'>
-                    <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
+                    <Input
+                      type='email'
+                      placeholder='이메일'
+                      error={errors.email}
+                      helperText={errors.email ? errors.email.message : authVerification.checkedEmailHelperText}
+                      css={{ width: '288px' }}
+                      {...register('email')}
+                    />
                     <RequestButton
-                      disabled={!watch('email')}
-                      onClick={async () => await verifyEmailMutation({ email: getValues('email'), type: 'signup' })}
+                      color='black'
+                      disabled={!watch('email') || authVerification.isCheckedEmail}
+                      isLoading={EmailLoading}
+                      onClick={async () => {
+                        await verifyEmailMutation({ email: getValues('email'), type: 'signup' });
+                        setAuthVerification({
+                          ...authVerification,
+                          isCheckedEmail: false,
+                          checkedEmailHelperText: '인증번호를 전송하였습니다.',
+                        });
+                      }}
                     >
                       인증요청
                     </RequestButton>
                   </Stack>
                   <Stack direction='row'>
-                    <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
+                    <Input
+                      type='text'
+                      placeholder='코드입력'
+                      disabled={authVerification.isCheckedEmail}
+                      error={errors.code}
+                      helperText={errors.code ? errors.code.message : authVerification.checkedCodeHelperText}
+                      css={{ width: '288px' }}
+                      {...register('code')}
+                    />
                     <RequestButton
-                      disabled={!watch('code')}
-                      onClick={async () =>
-                        await verifyCodeMutation({ code: getValues('code'), id: getValues('email') })
-                      }
+                      color='black'
+                      disabled={!watch('code') || authVerification.isCheckedEmail}
+                      isLoading={codeLoading}
+                      onClick={async () => {
+                        await verifyCodeMutation({ code: getValues('code'), id: getValues('email') });
+                        setAuthVerification({ ...authVerification, isCheckedEmail: true });
+                      }}
                     >
                       확인
                     </RequestButton>
@@ -406,8 +433,8 @@ function SignUpScreen() {
                       type={isShowPassword ? 'text' : 'password'}
                       placeholder='비밀번호 입력'
                       helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
-                      autoComplete='off'
                       error={errors.password}
+                      autoComplete='off'
                       IconProps={{
                         Icon: dirtyFields.password && isShowPassword ? <IconPasswordHide /> : <IconPasswordShow />,
                         onClick: () => setIsShowPassword(!isShowPassword),
@@ -440,7 +467,7 @@ function SignUpScreen() {
                   onClick={() => {
                     handleMoveStep(1);
                   }}
-                  disabled={!isValid}
+                  disabled={!isValid || !authVerification.isCheckedEmail}
                 >
                   다음
                 </SignupButton>
@@ -532,7 +559,7 @@ function SignUpScreen() {
                   <RequestButton
                     disabled={!isValid}
                     css={{ width: '93px' }}
-                    onClick={() => userRepository.checkNickname(getValues('nickname'))}
+                    onClick={handleSubmit(async ({ nickname }) => await userRepository.checkNickname(nickname))}
                   >
                     중복확인
                   </RequestButton>
@@ -639,7 +666,24 @@ function SignUpScreen() {
                     </Stack>
                   )}
                 </Stack>
-                <SignupButton onClick={() => console.log(getValues())}>회원가입</SignupButton>
+                <SignupButton
+                  onClick={async () =>
+                    await signupMutation({
+                      email: getValues('email'),
+                      password: getValues('password'),
+                      nickname: getValues('nickname'),
+                      provider: 'kakao',
+                      career: getValues('career'),
+                      job: getValues('job'),
+                      introduction: getValues('introduction'),
+                      stacks: getValues('stacks').map((stack) => stack.value),
+                      urls: getValues('urls').map((url) => url.value),
+                      profileImage: '/e2142093cc89c41037a7.svg',
+                    })
+                  }
+                >
+                  회원가입
+                </SignupButton>
               </Stack>
             )}
           </Stack>

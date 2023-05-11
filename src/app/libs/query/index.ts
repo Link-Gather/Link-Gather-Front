@@ -49,6 +49,7 @@ export const useMutation = <Variables, Result>(
   mutateFn: (variables: Variables) => Promise<Result>,
   options?: {
     disableRefetch?: boolean;
+    onError?: (error: unknown) => void;
   }
 ) => {
   const queryClient = useQueryClient();
@@ -64,5 +65,7 @@ export const useMutation = <Variables, Result>(
     onSuccess: () => {
       !options?.disableRefetch && queryClient.refetchQueries(queryKey, { exact: false });
     },
+    onError: options?.onError ?? ((error) => console.log(error)),
+    // 에러가 떴는데 에러핸들링을 안했을 경우 콘솔로 찍히게끔.
   });
 };

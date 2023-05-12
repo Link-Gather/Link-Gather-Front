@@ -127,7 +127,7 @@ type ValidationType = {
   confirmPassword: string;
   nickname: string;
   searchSkill: string;
-  urlString: string;
+  enterUrl: string;
   job: string;
   career: number;
   stacks: { value: string; length: number }[];
@@ -245,13 +245,13 @@ function SignUpScreen() {
       confirmPassword: '',
       nickname: '',
       searchSkill: '',
-      urlString: '',
+      enterUrl: '',
       job: 'Frontend Developer',
       career: 0,
       stacks: [],
       urls: [],
       introduction: '',
-      profileImage: '/e2142093cc89c41037a7.svg', //임시로 넣어놓은 초기 이미지 src
+      profileImage: '/e2142093cc89c41037a7.svg',
     },
     resolver: yupResolver(
       (() => {
@@ -283,7 +283,7 @@ function SignUpScreen() {
       const value = e.currentTarget.value;
       const httpsValue = value.includes('https://') ? value : 'https://' + value;
       urlsAppend({ value: httpsValue });
-      setValue('urlString', '');
+      setValue('enterUrl', '');
     }
   };
 
@@ -300,8 +300,6 @@ function SignUpScreen() {
   const handleDeleteSkill = (skill: string) => {
     stacksRemove(stacksFields.findIndex((item) => item.value === skill));
   };
-  // useFieldArray remove함수는 index(number)를 파라미터로 받아야하는데
-  // handleDeleteSkill를 SkillTab컴포넌트에 props로 넘기고있어서 index를 같이넘기는게 나을까요?
 
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
@@ -364,11 +362,23 @@ function SignUpScreen() {
               <Stack direction='row' justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
                 <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
                   <Stack direction='row'>
-                    <Input type='email' placeholder='이메일' css={{ width: '288px' }} {...register('email')} />
+                    <Input
+                      type='email'
+                      placeholder='이메일'
+                      defaultValue={getValues('email')}
+                      css={{ width: '288px' }}
+                      {...register('email')}
+                    />
                     <RequestButton disabled={!watch('email')}>인증요청</RequestButton>
                   </Stack>
                   <Stack direction='row'>
-                    <Input type='text' placeholder='코드입력' css={{ width: '288px' }} {...register('code')} />
+                    <Input
+                      type='text'
+                      placeholder='코드입력'
+                      defaultValue={getValues('code')}
+                      css={{ width: '288px' }}
+                      {...register('code')}
+                    />
                     <RequestButton disabled={!watch('code')}>확인</RequestButton>
                   </Stack>
                   <Stack direction='row'>
@@ -377,6 +387,7 @@ function SignUpScreen() {
                       placeholder='비밀번호 입력'
                       helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
                       autoComplete='off'
+                      defaultValue={getValues('password')}
                       error={errors.password}
                       IconProps={{
                         Icon: dirtyFields.password && isShowPassword ? <IconPasswordHide /> : <IconPasswordShow />,
@@ -391,6 +402,7 @@ function SignUpScreen() {
                       type={isShowPasswordConfirm ? 'text' : 'password'}
                       placeholder='비밀번호 확인'
                       autoComplete='off'
+                      defaultValue={getValues('confirmPassword')}
                       error={errors.confirmPassword}
                       IconProps={{
                         onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
@@ -495,6 +507,7 @@ function SignUpScreen() {
                 <Stack direction='row' width='324px' justifyContent='center'>
                   <Input
                     helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                    defaultValue={getValues('nickname')}
                     error={errors.nickname}
                     placeholder='닉네임 입력'
                     {...register('nickname')}
@@ -524,10 +537,22 @@ function SignUpScreen() {
               >
                 <Stack direction='row' width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
                   <Stack width='212px' direction='column'>
-                    <DropDown label='직무' options={jobs} required {...register('job')} />
+                    <DropDown
+                      label='직무'
+                      options={jobs}
+                      defaultValue={getValues('job')}
+                      required
+                      {...register('job')}
+                    />
                   </Stack>
                   <Stack width='168px' direction='column'>
-                    <DropDown label='경력' options={careers} required {...register('career')} />
+                    <DropDown
+                      label='경력'
+                      options={careers}
+                      defaultValue={getValues('career')}
+                      required
+                      {...register('career')}
+                    />
                   </Stack>
                 </Stack>
                 <Stack width='100%' direction='column' css={{ position: 'relative' }}>
@@ -537,6 +562,7 @@ function SignUpScreen() {
                     label='보유기술'
                     type='text'
                     placeholder='기술 스택 검색'
+                    defaultValue={getValues('searchSkill')}
                     IconProps={{
                       Icon: <IconSearch css={{ position: 'absolute', top: '43px' }} />,
                     }}
@@ -561,6 +587,7 @@ function SignUpScreen() {
                     label='자기소개'
                     required
                     placeholder='안녕하세욥!'
+                    defaultValue={getValues('introduction')}
                     css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
                     {...register('introduction')}
                   />
@@ -571,9 +598,10 @@ function SignUpScreen() {
                     label='참고 링크'
                     type='text'
                     placeholder='URL을 입력해주세요.'
+                    defaultValue={getValues('enterUrl')}
                     onKeyDown={handlerKeyDown}
                     css={{ fontSize: '16px' }}
-                    {...register('urlString')}
+                    {...register('enterUrl')}
                   />
                   {!!urlsFields.length && (
                     <Stack

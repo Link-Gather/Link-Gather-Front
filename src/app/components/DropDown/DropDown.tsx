@@ -1,4 +1,4 @@
-import React, { forwardRef, useId } from 'react';
+import React, { forwardRef, SelectHTMLAttributes, useId } from 'react';
 import { Label } from '@elements';
 import type { Theme } from '@libs/theme';
 
@@ -11,7 +11,7 @@ const DropDown = forwardRef(
       name: string;
       onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
       options: { label: string; value: string | number }[];
-    },
+    } & SelectHTMLAttributes<HTMLSelectElement>,
     ref: React.ForwardedRef<HTMLSelectElement>
   ) => {
     // prop destruction

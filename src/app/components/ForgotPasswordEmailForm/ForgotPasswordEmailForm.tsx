@@ -25,6 +25,7 @@ function ForgotPasswordEmailForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -50,6 +51,7 @@ function ForgotPasswordEmailForm() {
         <Input
           type='email'
           placeholder='이메일'
+          defaultValue={getValues('email')}
           error={errors.email}
           helperText={errors.email?.message}
           IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}

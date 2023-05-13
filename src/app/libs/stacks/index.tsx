@@ -66,9 +66,11 @@ function StackProvider(props: { children?: ReactNode }) {
 const useStacks: () => Stack[] = () => {
   const { getStacks } = useContext(StackContext);
   const stacks = getStacks();
-  if (!stacks) {
+
+  if (!stacks?.length) {
     throw new Error('Not initialized');
   }
+
   return stacks;
 };
 

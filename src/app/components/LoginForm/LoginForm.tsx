@@ -53,7 +53,7 @@ function LoginForm() {
         error={errors.email}
         helperText={errors.email?.message}
         IconProps={{
-          Icon:
+          EndIcon:
             (!errors.email && dirtyFields.email && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) ||
             undefined,
         }}
@@ -67,7 +67,7 @@ function LoginForm() {
         helperText={errors.password?.message}
         IconProps={{
           onClick: () => setIsShowPassword(!isShowPassword),
-          Icon:
+          EndIcon:
             dirtyFields.password && !isShowPassword ? (
               <IconPasswordHide css={{ width: '24px', height: '24px' }} />
             ) : (

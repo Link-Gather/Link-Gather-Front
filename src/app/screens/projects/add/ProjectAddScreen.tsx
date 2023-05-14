@@ -193,7 +193,7 @@ function ProjectAddScreen() {
                         selectedMap[member.job] = i;
                       });
                       const options = compositionOptions.filter(
-                        (option) => selectedMap[option.value] === idx || selectedMap[option.value] === undefined
+                        (option) => selectedMap[option.value] === idx || !selectedMap[option.value]
                       );
 
                       return (

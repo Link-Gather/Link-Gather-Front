@@ -41,12 +41,13 @@ function SearchStackInput(props: {
   required?: boolean;
   type: 'project' | 'signup';
   value: Stack['id'][];
-  onAdd: () => {};
-  onDelete: () => {};
-  onChange: () => {};
+  onAdd: (id: number) => void;
+  onDelete: () => void;
+  onChange: () => void;
+  className?: string;
 }) {
   // prop destruction
-  const { label, required, type, onAdd, onDelete, value, onChange } = props;
+  const { label, required, type, onAdd, onDelete, value, onChange, className } = props;
   // lib hooks
   const stacks = useStacks();
   // state, ref hooks
@@ -83,14 +84,14 @@ function SearchStackInput(props: {
   // handlers
   return (
     <MuiStack spacing={2}>
-      <MuiStack css={{ position: 'relative' }}>
+      <MuiStack css={{ position: 'relative', maxWidth: '652px' }} className={className}>
         <Input
           variant='underline'
           required={required}
           label={label}
           type='text'
           placeholder='기술 스택 검색'
-          css={{ fontSize: '16px' }}
+          css={{ fontSize: '14px', height: '40px' }}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={() => setIsHide(false)}
@@ -121,10 +122,17 @@ function SearchStackInput(props: {
             {!searchedStacks.length ? (
               <p>해당하는 스킬이 없습니다.</p>
             ) : (
-              <Grid container rowSpacing={2} css={{ width: '640px' }}>
+              <Grid container rowSpacing={2}>
                 {searchedStacks.map((stack) => (
-                  <Grid key={stack.id} item xs={(stack.length * 12) / 9}>
-                    <StackChip name={stack.name} length={stack.length} onClick={onAdd} />
+                  <Grid key={stack.id} item xs={4} md={(stack.length * 12) / (type === 'project' ? 9 : 6)}>
+                    <StackChip
+                      name={stack.name}
+                      length={stack.length}
+                      onClick={() => {
+                        onAdd(stack.id);
+                        setIsHide(true);
+                      }}
+                    />
                   </Grid>
                 ))}
               </Grid>

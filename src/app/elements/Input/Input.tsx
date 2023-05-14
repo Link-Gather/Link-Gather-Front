@@ -57,7 +57,7 @@ const Input = forwardRef(
                   fontSize: '20px',
                   borderRadius: '8px',
                   border: `2px solid ${theme.palette.secondary.n60}`,
-                  padding: '11px 16px 11px 16px',
+                  padding: type === 'outlined' ? '11px 16px 11px 16px' : '6px',
                   outline: 'none',
                   paddingLeft: IconProps?.StartIcon ? '44px' : '0',
                   '&::placeholder': {
@@ -120,10 +120,9 @@ const Input = forwardRef(
               tabIndex={-1}
               css={{
                 position: 'absolute',
-                top: '0',
+                top: type === 'outlined' ? '11px' : '8px',
                 left: '8px',
                 display: 'flex',
-                height: '50px',
                 alignItems: 'center',
                 border: 'none',
                 background: 'none',

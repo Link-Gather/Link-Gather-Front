@@ -65,7 +65,7 @@ function ProjectAddScreen() {
     name: 'recruitMember',
   });
   // query hooks
-  const { mutateAsync: addProject, isLoading } = useMutation(projectRepository.add);
+  const { mutateAsync: createProject, isLoading } = useMutation(projectRepository.create);
   // calculated values
   // effects
   // handlers
@@ -245,7 +245,7 @@ function ProjectAddScreen() {
           variant='filled'
           loading={isLoading}
           onClick={handleSubmit(async ({ title, description, period, purpose, recruitMember, stacks, leaderJob }) => {
-            await addProject({
+            await createProject({
               title,
               description,
               period,

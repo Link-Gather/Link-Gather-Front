@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '../../../libs/query';
 import { projectRepository } from '../../../repositories/project-repository';
 import MinusIcon from '@assets/images/icons/icon-minus.svg';
+import { Project } from '../../../models';
 
 const schema = yup.object({
   purpose: yup.mixed<PurposeType>().required(),
@@ -30,6 +31,8 @@ const compositionOptions = [
   { label: '디자인', value: 'Designer' },
   { label: '기획', value: 'ProductManager' },
 ];
+
+const purposeOptions = Project.getPurposeOptions();
 
 function ProjectAddScreen() {
   // prop destruction
@@ -78,18 +81,7 @@ function ProjectAddScreen() {
             control={control}
             name='purpose'
             render={({ field: { value, onChange } }) => (
-              <Radio
-                label='프로젝트 목적'
-                required
-                onChange={onChange}
-                value={value}
-                options={[
-                  { label: '역량 강화/포트폴리오', value: 'Improvement' },
-                  { label: '수입 창출/사업', value: 'Business' },
-                  { label: '재미', value: 'Fun' },
-                  { label: '스터디', value: 'Study' },
-                ]}
-              />
+              <Radio label='프로젝트 목적' required onChange={onChange} value={value} options={purposeOptions} />
             )}
           />
           <Input

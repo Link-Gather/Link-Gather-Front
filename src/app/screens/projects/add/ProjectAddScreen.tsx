@@ -185,7 +185,8 @@ function ProjectAddScreen() {
                         selectedMap[member.job] = i;
                       });
                       const options = compositionOptions.filter(
-                        (option) => selectedMap[option.value] === idx || !selectedMap[option.value]
+                        //NOTE: index는 0일 수 있기때문에 undefined를 조건으로해야한다.
+                        (option) => selectedMap[option.value] === idx || selectedMap[option.value] === undefined
                       );
 
                       return (

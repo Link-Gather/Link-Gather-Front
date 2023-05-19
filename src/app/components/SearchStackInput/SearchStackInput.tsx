@@ -17,17 +17,15 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
   const sortedStacks = [];
   let queue: Stack[] = [];
   while (filteredStacks.length) {
+    const hasOne = filteredStacks.some((stack) => Stack.getLength(stack.name) === 1);
     //NOTE: 5가 총길이면 스택 길이가 모두 같을때 넣어준다.
-    if (
-      max === 5 &&
-      !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1) &&
-      new Set(filteredStacks.map((stack) => Stack.getLength(stack.name))).size === 1
-    ) {
+    if (max === 5 && !hasOne && new Set(filteredStacks.map((stack) => Stack.getLength(stack.name))).size === 1) {
       sortedStacks.push(filteredStacks);
       break;
     }
 
-    if (max !== 5 && !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1)) {
+    //NOTE: 12가 총길이면 스택 길이 1이 없을때 길이순으로 넣어준다.
+    if (max !== 5 && !hasOne) {
       const lastStacks = filteredStacks.sort((a, b) => Stack.getLength(b.name) - Stack.getLength(a.name));
       sortedStacks.push(lastStacks);
       break;
@@ -37,12 +35,8 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
     const queueLength = queue.reduce((acc, cur) => acc + Stack.getLength(cur.name), 0);
     if (queueLength + Stack.getLength(stack!.name) <= max) {
       queue.push(stack!);
-    } else if (
-      !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1) &&
-      queueLength + Stack.getLength(stack!.name) > max
-    ) {
-      filteredStacks.unshift(stack!);
-      filteredStacks.unshift(queue.pop()!);
+    } else if (!hasOne && queueLength === max - 1) {
+      filteredStacks.unshift(stack!, queue.pop()!);
     } else if (queueLength + Stack.getLength(stack!.name) > max) {
       filteredStacks.unshift(stack!);
     }

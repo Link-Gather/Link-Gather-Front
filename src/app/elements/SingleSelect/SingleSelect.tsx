@@ -2,6 +2,7 @@ import React, { forwardRef, useId } from 'react';
 import { FormControl, InputLabel, Select, SelectProps, MenuItem } from '@mui/material';
 import { Theme } from '../../libs/theme';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
+import { Label } from '../Label';
 
 const SingleSelect = forwardRef(function SingleSelect(
   props: {
@@ -15,13 +16,14 @@ const SingleSelect = forwardRef(function SingleSelect(
   // prop destruction
   const {
     className,
-    required,
+    required = false,
     variant,
     label,
     value,
     onChange,
     defaultValue,
     helperText,
+    placeholder,
     options,
     error,
     disabled,
@@ -59,15 +61,16 @@ const SingleSelect = forwardRef(function SingleSelect(
 
   return (
     <FormControl className={className} required={required} error={error} disabled={disabled}>
-      {label && !Object.values(values).filter(Boolean).length && (
+      {label && <Label id={id} label={label} required={required} />}
+      {placeholder && !Object.values(values).filter(Boolean).length && (
         //HACK: inputLabel 위치가 너무 이상해서 조정해줘야한다...
-        <InputLabel css={{ top: '-6px' }} id={id} variant={variant}>
-          {label}
+        <InputLabel css={{ top: '-6px' }} variant={variant}>
+          {placeholder}
         </InputLabel>
       )}
       <Select
         labelId={id}
-        label={label && !Object.values(values).filter(Boolean).length ? label : undefined}
+        label={placeholder && !Object.values(values).filter(Boolean).length ? placeholder : undefined}
         {...values}
         onChange={onChange}
         variant={variant}

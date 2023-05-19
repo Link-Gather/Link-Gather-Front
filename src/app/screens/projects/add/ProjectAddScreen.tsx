@@ -164,7 +164,7 @@ function ProjectAddScreen() {
               name={`leaderJob`}
               render={({ field: { value, onChange } }) => (
                 <SingleSelect
-                  label='리더 직무 선택'
+                  placeholder='리더 직무 선택'
                   css={{ width: '326px' }}
                   value={value}
                   onChange={onChange}
@@ -192,7 +192,7 @@ function ProjectAddScreen() {
                         <SingleSelect
                           css={{ width: '326px' }}
                           onChange={onChange}
-                          label='직무 선택'
+                          placeholder='직무 선택'
                           value={value}
                           options={options}
                         />
@@ -205,7 +205,7 @@ function ProjectAddScreen() {
                     render={({ field: { value, onChange } }) => (
                       <SingleSelect
                         css={{ width: '326px' }}
-                        label='인원 수'
+                        placeholder='인원 수'
                         value={value}
                         onChange={onChange}
                         options={[

@@ -14,15 +14,15 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
   const sortedStacks = [];
   let queue: Stack[] = [];
   while (filteredStacks.length) {
-    if (filteredStacks.every((stack) => stack.length !== 1)) {
-      const lastStacks = filteredStacks.sort((a, b) => b.length - a.length);
+    if (filteredStacks.every((stack) => Stack.getLength(stack.name) !== 1)) {
+      const lastStacks = filteredStacks.sort((a, b) => Stack.getLength(b.name) - Stack.getLength(a.name));
       sortedStacks.push(lastStacks);
       break;
     }
 
     const stack = filteredStacks.pop();
-    const queueLength = queue.reduce((acc, cur) => acc + cur.length, 0);
-    if (queueLength + stack!.length <= max) {
+    const queueLength = queue.reduce((acc, cur) => acc + Stack.getLength(cur.name), 0);
+    if (queueLength + Stack.getLength(stack!.name) <= max) {
       queue.push(stack!);
     } else {
       filteredStacks.unshift(stack!);
@@ -124,10 +124,15 @@ function SearchStackInput(props: {
             ) : (
               <Grid container rowSpacing={2}>
                 {searchedStacks.map((stack) => (
-                  <Grid key={stack.id} item xs={4} md={(stack.length * 12) / (type === 'project' ? 9 : 6)}>
+                  <Grid
+                    key={stack.id}
+                    item
+                    xs={4}
+                    md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 9 : 6)}
+                  >
                     <StackChip
                       name={stack.name}
-                      length={stack.length}
+                      length={Stack.getLength(stack.name)}
                       onClick={() => {
                         onAdd(stack.id);
                         setIsHide(true);
@@ -143,7 +148,13 @@ function SearchStackInput(props: {
       <MuiStack direction='row' spacing={3}>
         {selectedStacks.length > 0 &&
           selectedStacks.map((stack) => (
-            <StackChip key={stack.id} name={stack.name} length={stack.length} selected onClick={onDelete} />
+            <StackChip
+              key={stack.id}
+              name={stack.name}
+              length={Stack.getLength(stack.name)}
+              selected
+              onClick={onDelete}
+            />
           ))}
       </MuiStack>
       {/* NOTE: select value는 number배열을 받지 못한다. */}

@@ -41,9 +41,9 @@ function StackChip(props: {
             backgroundColor: theme.palette.secondary.n60,
           },
         },
-        length === 1 && { width: '64px' },
+        length === 1 && { width: '68px' },
         length === 2 && { width: '136px' },
-        length === 3 && { width: '212px' },
+        length === 3 && { width: '204px' },
       ]}
       onClick={onClick}
     >

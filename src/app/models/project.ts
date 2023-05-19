@@ -4,9 +4,8 @@ enum PurposeEnum {
   Fun = '재미',
   Study = '공부',
 }
-function getPurposes(): PurposeType[] {
-  return ['Improvement', 'Business', 'Fun', 'Study'];
-}
+
+const purposes = ['Improvement', 'Business', 'Fun', 'Study'] as const;
 
 export class Project {
   id!: string;
@@ -24,6 +23,6 @@ export class Project {
   };
 
   static getPurposeOptions(): { label: PurposeEnum; value: PurposeType }[] {
-    return getPurposes().map((purpose) => ({ label: PurposeEnum[purpose], value: purpose }));
+    return purposes.map((purpose) => ({ label: PurposeEnum[purpose], value: purpose }));
   }
 }

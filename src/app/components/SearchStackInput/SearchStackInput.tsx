@@ -154,18 +154,6 @@ function SearchStackInput(props: {
           </MuiStack>
         )}
       </MuiStack>
-      <MuiStack direction='row' spacing={3}>
-        {selectedStacks.length > 0 &&
-          selectedStacks.map((stack) => (
-            <StackChip
-              key={stack.id}
-              name={stack.name}
-              length={Stack.getLength(stack.name)}
-              selected
-              onClick={onDelete}
-            />
-          ))}
-      </MuiStack>
       {/* NOTE: select value는 number배열을 받지 못한다. */}
       <select hidden multiple value={value.map((value) => String(value))} onChange={onChange} />
     </MuiStack>

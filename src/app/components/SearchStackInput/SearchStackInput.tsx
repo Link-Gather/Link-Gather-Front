@@ -6,15 +6,28 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Stack } from '@models';
 import SearchIcon from '@assets/images/icons/icon-Search.svg';
 
+/**
+ * TODO: 최적화해야한다.
+ */
 function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'signup'): Array<Stack> {
   const filteredStacks = stacks
     .filter((stack) => stack.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
     .sort((a, b) => a.name.indexOf(search) - b.name.indexOf(search));
-  const max = type === 'project' ? 9 : 6;
+  const max = type === 'project' ? 12 : 5;
   const sortedStacks = [];
   let queue: Stack[] = [];
   while (filteredStacks.length) {
-    if (filteredStacks.every((stack) => Stack.getLength(stack.name) !== 1)) {
+    //NOTE: 5가 총길이면 스택 길이가 모두 같을때 넣어준다.
+    if (
+      max === 5 &&
+      !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1) &&
+      new Set(filteredStacks.map((stack) => Stack.getLength(stack.name))).size === 1
+    ) {
+      sortedStacks.push(filteredStacks);
+      break;
+    }
+
+    if (max !== 5 && !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1)) {
       const lastStacks = filteredStacks.sort((a, b) => Stack.getLength(b.name) - Stack.getLength(a.name));
       sortedStacks.push(lastStacks);
       break;
@@ -24,7 +37,13 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
     const queueLength = queue.reduce((acc, cur) => acc + Stack.getLength(cur.name), 0);
     if (queueLength + Stack.getLength(stack!.name) <= max) {
       queue.push(stack!);
-    } else {
+    } else if (
+      !filteredStacks.some((stack) => Stack.getLength(stack.name) === 1) &&
+      queueLength + Stack.getLength(stack!.name) > max
+    ) {
+      filteredStacks.unshift(stack!);
+      filteredStacks.unshift(queue.pop()!);
+    } else if (queueLength + Stack.getLength(stack!.name) > max) {
       filteredStacks.unshift(stack!);
     }
     if (queueLength === max || !filteredStacks.length) {
@@ -84,7 +103,7 @@ function SearchStackInput(props: {
   // handlers
   return (
     <MuiStack spacing={2}>
-      <MuiStack css={{ position: 'relative', maxWidth: '652px' }} className={className}>
+      <MuiStack css={{ position: 'relative', maxWidth: '896px' }} className={className}>
         <Input
           variant='underline'
           required={required}
@@ -122,19 +141,15 @@ function SearchStackInput(props: {
             {!searchedStacks.length ? (
               <p>해당하는 스킬이 없습니다.</p>
             ) : (
-              <Grid container rowSpacing={2}>
+              <Grid container rowSpacing='8px'>
                 {searchedStacks.map((stack) => (
-                  <Grid
-                    key={stack.id}
-                    item
-                    xs={4}
-                    md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 9 : 6)}
-                  >
+                  <Grid key={stack.id} item md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 12 : 5)}>
                     <StackChip
                       name={stack.name}
                       length={Stack.getLength(stack.name)}
                       onClick={() => {
                         onAdd(stack.id);
+                        setSearch('');
                         setIsHide(true);
                       }}
                     />

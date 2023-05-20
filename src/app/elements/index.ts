@@ -10,6 +10,7 @@ export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Label';
 export * from './Layout';
+export * from './ProfileImage';
 export * from './RequestButton';
 export * from './Section';
 export * from './ShadowBox';

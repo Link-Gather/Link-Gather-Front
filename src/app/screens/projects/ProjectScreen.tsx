@@ -1,6 +1,6 @@
 import { Grid, Stack } from '@mui/material';
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard';
-import { SingleSelect } from '@elements';
+import { SingleSelect, Pagination } from '@elements';
 import { CSSProperties, useState } from 'react';
 import { Project } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
@@ -249,6 +249,7 @@ function ProjectScreen(props: {}) {
   // prop destruction
   // lib hooks
   // state, ref hooks
+  const [page, setPage] = useState(1);
   const [filterModel, setFilterModel] = useState<{
     purpose: PurposeType | '';
     status: ProjectStatus | '';
@@ -373,6 +374,12 @@ function ProjectScreen(props: {}) {
             );
           })}
         </Grid>
+        <Pagination
+          page={page}
+          //FIXME:
+          count={200}
+          onChange={setPage}
+        />
       </Stack>
     </Stack>
   );

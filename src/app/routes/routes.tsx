@@ -7,7 +7,7 @@ import {
   OauthCallbackScreen,
   ForgotPasswordScreen,
   ProjectAddScreen,
-  ProjectsScreen,
+  ProjectScreen,
 } from '@screens';
 import {
   PATH_HOME,
@@ -17,7 +17,6 @@ import {
   PATH_SIGNUP,
   PATH_PROJECT_ADD,
   PATH_PROJECT,
-  PATH_PROJECTS,
 } from '@routes';
 
 function AppRouter() {
@@ -56,10 +55,18 @@ function AppRouter() {
         }
       />
       <Route
+        path={PATH_FORGOT_PASSWORD}
+        element={
+          <Layout componentStyle='full'>
+            <ForgotPasswordScreen />
+          </Layout>
+        }
+      />
+      <Route
         path={PATH_PROJECT}
         element={
           <Layout componentStyle='contents'>
-            <ProjectsScreen />
+            <ProjectScreen />
           </Layout>
         }
       />

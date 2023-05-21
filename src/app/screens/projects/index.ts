@@ -1,2 +1,2 @@
 export * from './add';
-export * from './ProjectsScreen';
+export * from './ProjectScreen';

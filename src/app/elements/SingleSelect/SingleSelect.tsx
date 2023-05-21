@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useId, useRef, useState } from 'react';
+import React, { CSSProperties, forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { FormControl, SelectProps, MenuItem, Stack } from '@mui/material';
 import { Theme } from '../../libs/theme';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
@@ -8,7 +8,7 @@ const SingleSelect = forwardRef(function SingleSelect(
   props: {
     onChange?: (value: any) => void;
     helperText?: string;
-    options: { label: string; value: string | number }[];
+    options: { label: string; value: string | number; style?: CSSProperties; Icon?: React.ReactNode }[];
     placeholder?: string;
     value?: string | number;
     defaultValue?: string | number;
@@ -76,13 +76,16 @@ const SingleSelect = forwardRef(function SingleSelect(
   // handlers
 
   return (
-    <>
-      <FormControl className={className} required={required} error={error} disabled={disabled}>
+    <div>
+      <FormControl required={required} error={error} disabled={disabled}>
         {label && <Label id={id} label={label} required={required} />}
-        <div ref={divRef}>
-          <div
+        <div css={{ position: 'relative' }} ref={divRef}>
+          <Stack
+            className={className}
+            direction='row'
             css={(theme: Theme) => [
               {
+                justifyContent: 'space-between',
                 maxHeight: '40px',
                 fontSize: '16px',
                 fontWeight: 600,
@@ -97,21 +100,26 @@ const SingleSelect = forwardRef(function SingleSelect(
                 padding: '6px 16px',
                 alignItems: 'center',
                 '.MuiOutlinedInput-notchedOutline': { border: 0 },
-                position: 'relative',
               },
               variant === 'text' && {
                 border: 'none',
+                color: open ? theme.palette.primary.main : theme.palette.black.main,
               },
             ]}
             onClick={() => setOpen((prev) => !prev)}
           >
             {!(value || defaultValue) && placeholder && (
               <span
-                css={(theme: Theme) => ({
-                  fontFamily: 'Noto Sans',
-                  fontWeight: 600,
-                  color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
-                })}
+                css={(theme: Theme) => [
+                  {
+                    fontFamily: 'Noto Sans',
+                    fontWeight: 600,
+                    color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
+                  },
+                  variant === 'text' && {
+                    color: open ? theme.palette.primary.main : theme.palette.black.main,
+                  },
+                ]}
               >
                 {placeholder}
               </span>
@@ -120,11 +128,16 @@ const SingleSelect = forwardRef(function SingleSelect(
               //@ts-ignore
               (value || defaultValue) && (
                 <span
-                  css={(theme: Theme) => ({
-                    fontFamily: 'Noto Sans',
-                    fontWeight: 600,
-                    color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
-                  })}
+                  css={(theme: Theme) => [
+                    {
+                      fontFamily: 'Noto Sans',
+                      fontWeight: 600,
+                      color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
+                    },
+                    variant === 'text' && {
+                      color: open ? theme.palette.primary.main : theme.palette.black.main,
+                    },
+                  ]}
                 >
                   {options.find((option) => option.value === value || option.value === defaultValue)?.label}
                 </span>
@@ -134,20 +147,18 @@ const SingleSelect = forwardRef(function SingleSelect(
               css={(theme: Theme) => ({
                 width: '24px',
                 height: '24px',
-                position: 'absolute',
-                right: variant === 'outlined' ? '12px' : 0,
-                top: 'calc(50% - 12px)',
-                color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
+                '& path': { fill: open ? theme.palette.primary.main : theme.palette.secondary.n300 },
               })}
             />
             <input hidden id={id} ref={ref} value={value} defaultValue={defaultValue} onChange={onChange} />
-          </div>
+          </Stack>
           {open && (
             <Stack
               css={{
                 position: 'absolute',
                 top: '100%',
-                width: '100%',
+                width: 'max-content',
+                minWidth: '100%',
                 fontFamily: 'Noto Sans',
                 left: 0,
                 border: `2px solid #000`,
@@ -157,9 +168,13 @@ const SingleSelect = forwardRef(function SingleSelect(
                 zIndex: 10,
               }}
             >
-              {options.map(({ label, value }) => (
+              {options.map(({ label, value, style, Icon }) => (
                 <MenuItem
-                  css={(theme: Theme) => ({ '&:hover': { color: theme.palette.primary.main } })}
+                  css={(theme: Theme) => ({
+                    gap: '8px',
+                    '&:hover': { color: theme.palette.primary.main },
+                    ...style,
+                  })}
                   key={value}
                   value={value}
                   onClick={() => {
@@ -167,6 +182,7 @@ const SingleSelect = forwardRef(function SingleSelect(
                     setOpen(false);
                   }}
                 >
+                  {Icon}
                   {label}
                 </MenuItem>
               ))}
@@ -174,7 +190,7 @@ const SingleSelect = forwardRef(function SingleSelect(
           )}
         </div>
       </FormControl>
-    </>
+    </div>
   );
 });
 

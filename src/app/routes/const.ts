@@ -7,6 +7,5 @@ export const PATH_SIGNUP = '/sign-up';
 export const PATH_FORGOT_PASSWORD = '/forgot-password';
 
 // Projects
-export const PATH_PROJECTS = '/projects';
 export const PATH_PROJECT = '/project';
 export const PATH_PROJECT_ADD = `${PATH_PROJECT}/add`;

@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProjectsScreen } from './ProjectsScreen';
+import { ProjectsScreen } from './ProjectScreen';
 
 type ArgTypes = ComponentProps<typeof ProjectsScreen>;
 

@@ -1,6 +1,12 @@
 import palette from '@libs/theme/palettes/default';
-import { Box, Stack } from '@mui/material';
-import { ProjectCard } from './ProjectCard';
+import { Grid, Stack } from '@mui/material';
+import { ProjectCard } from '../../components/ProjectCard/ProjectCard';
+import { SingleSelect } from '@elements';
+import { CSSProperties, useState } from 'react';
+import { Project } from '../../models';
+import HeartIcon from '@assets/images/icons/icon-heart.svg';
+import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
+import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
 
 // TODO: 실데이터로 교체필요 - 목데이터 일단 여따 둡니다
 export type ProjectListType = {
@@ -12,23 +18,6 @@ export type ProjectListType = {
   members: { label: string; target: number; capacity: number }[];
   technology: string[];
 };
-
-const filterList = [
-  {
-    placeHolder: '프로젝트 목적',
-    options: ['역량 강화/포트폴리오', '수익 창출/사업', '재미', '스터디'],
-  },
-  {
-    placeHolder: '직무',
-    options: ['프론트엔드 개발', '백엔드 개발', '디자인', '기획'],
-  },
-  {
-    placeHolder: '진행상태',
-    options: ['모집 중', '진행 중', '추가 모집 중', '완료'],
-  },
-];
-
-const sortingOptions = ['최신순', '인기순', '오래된 순'];
 
 const projectList = [
   {
@@ -254,9 +243,27 @@ const projectList = [
   },
 ];
 
-function ProjectsScreen() {
+const purposeOptions = Project.getPurposeOptions();
+
+function ProjectScreen(props: {}) {
+  // prop destruction
+  // lib hooks
+  // state, ref hooks
+  const [filterModel, setFilterModel] = useState<{
+    purpose: PurposeType | '';
+    status: ProjectStatus | '';
+    job: JobType | '';
+  }>({
+    purpose: '',
+    status: '',
+    job: '',
+  });
+  const [order, setOrder] = useState<'recent' | 'hot' | 'old'>('recent');
+  // query hooks
+  // calculated values
+  // effects
+  // handlers
   return (
-    // TODO: project list api 뚫리면 corsor 기반 무한스크롤 적용
     <Stack
       width={'100%'}
       direction={'row'}
@@ -274,50 +281,101 @@ function ProjectsScreen() {
           maxWidth: '1352px',
         }}
       >
-        <Stack
-          width={'100%'}
-          direction={'row'}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          marginBottom={'48px'}
-        >
-          <Stack direction={'row'} spacing={'24px'}>
-            {/* 개발된 내용이 있는 것으로 알아서 힘들이지 않고 이대로 둡니다. */}
+        <Stack width='100%' direction='row' justifyContent='space-between' alignItems='center' marginBottom='48px'>
+          <Stack direction='row' spacing='16px'>
+            {/* TODO:변경 필요 */}
             <input style={{ width: '100%' }} placeholder={'기술 스택 검색'} />
-            {filterList.map((filter) => {
-              return (
-                <select>
-                  <option value='' selected>
-                    {filter.placeHolder}
-                  </option>
-                  {filter.options.map((option) => {
-                    return <option>{option}</option>;
-                  })}
-                </select>
-              );
-            })}
+            <SingleSelect
+              css={{ width: '166px', backgroundColor: '#fff' }}
+              placeholder='프로젝트 목적'
+              options={[
+                { label: '전체', value: '' },
+                { label: '역량 강화/포트폴리오', value: 'Improvement' },
+                { label: '수익 창출/사업', value: 'Business' },
+                { label: '재미', value: 'Fun' },
+                { label: '스터디', value: 'Study' },
+              ]}
+              value={filterModel.purpose}
+              onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
+            />
+            <SingleSelect
+              css={{ width: '166px', backgroundColor: '#fff' }}
+              placeholder='직무'
+              options={[{ label: '전체', value: '' }, ...purposeOptions]}
+              value={filterModel.purpose}
+              onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
+            />
+            <SingleSelect
+              css={{ width: '166px', backgroundColor: '#fff' }}
+              placeholder='진행상태'
+              options={[
+                { label: '전체', value: '' },
+                { label: '프론트엔드 개발', value: 'Back' },
+                { label: '백엔드 개발', value: 'Business' },
+                { label: '디자인', value: 'Fun' },
+                { label: '기획', value: 'Study' },
+              ]}
+              value={filterModel.purpose}
+              onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
+            />
           </Stack>
           <Stack direction={'row'} alignItems={'center'}>
-            <select>
-              {sortingOptions.map((option) => {
-                return <option defaultChecked={option === '최신순' ? true : false}>{option}</option>;
-              })}
-            </select>
+            <SingleSelect
+              variant='text'
+              css={{ width: '90px' }}
+              options={[
+                //HACK: hover는 타입에러가 난다. svg 구조가 지멋대로라 일일이 하드코딩해줘야한다...
+                {
+                  label: '최신순',
+                  value: 'recent',
+                  Icon: <OrderNewIcon css={{ width: '20px' }} />,
+                  style: {
+                    '&:hover': {
+                      color: '#5555FF',
+                      '& > svg > g > path': { fill: '#5555FF' },
+                    },
+                  } as CSSProperties,
+                },
+                {
+                  label: '인기순',
+                  value: 'hot',
+                  style: {
+                    '&:hover': {
+                      color: '#FF2626',
+                      '& > svg > path': { stroke: '#FF2626' },
+                    },
+                  } as CSSProperties,
+                  Icon: <HeartIcon css={{ width: '20px' }} />,
+                },
+                {
+                  label: '오래된 순',
+                  value: 'old',
+                  style: {
+                    '&:hover': {
+                      color: '#8993A3',
+                      '& > svg > g > path': { fill: '#8993A3' },
+                    },
+                  } as CSSProperties,
+                  Icon: <OrderOldIcon css={{ width: '20px' }} />,
+                },
+              ]}
+              value={order}
+              onChange={(value) => setOrder(value)}
+            />
           </Stack>
         </Stack>
-        <Box
-          display={'grid'}
-          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
-          columnGap={'16px'}
-          rowGap={'48px'}
-        >
+        <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
           {projectList.map((projectInfo, projectIdx) => {
-            return <ProjectCard projectInfo={projectInfo} projectIdx={projectIdx} />;
+            return (
+              <Grid item xs={12} sm={6} lg={4} xl={3}>
+                <ProjectCard projectInfo={projectInfo} projectIdx={projectIdx} />
+              </Grid>
+            );
           })}
-        </Box>
+        </Grid>
       </Stack>
     </Stack>
   );
 }
 
-export { ProjectsScreen };
+export { ProjectScreen };

@@ -6,7 +6,7 @@ import palette from '@libs/theme/palettes';
 import LikeIcon from '@assets/images/icons/icon-like.svg';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
 import ArrowUpIcon from '@assets/images/icons/icon-arrow-up.svg';
-import { ProjectListType } from './ProjectsScreen';
+import { ProjectListType } from '../../screens/projects/ProjectScreen';
 
 const MemberProfile = ({
   member,

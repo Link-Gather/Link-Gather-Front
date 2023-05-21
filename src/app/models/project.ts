@@ -14,6 +14,7 @@ export class Project {
   period!: number;
   purpose!: PurposeType;
   stacks!: string[];
+  status!: ProjectStatus;
   leaderJob!: JobType;
   recruitMember!: {
     frontendDeveloper: number;

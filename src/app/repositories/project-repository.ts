@@ -2,7 +2,7 @@ import { httpClient } from '../libs/http-client';
 import { queryKeyMap } from '../libs/query';
 
 export const projectRepository = {
-  add(params: {
+  create(params: {
     title: string;
     description: string;
     period: number;
@@ -20,4 +20,4 @@ export const projectRepository = {
   },
 };
 
-queryKeyMap.set(projectRepository.add, ['Project']);
+queryKeyMap.set(projectRepository.create, ['Project']);

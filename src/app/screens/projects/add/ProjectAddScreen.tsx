@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '../../../libs/query';
 import { projectRepository } from '../../../repositories/project-repository';
 import MinusIcon from '@assets/images/icons/icon-minus.svg';
+import { Project } from '../../../models';
 
 const schema = yup.object({
   purpose: yup.mixed<PurposeType>().required(),
@@ -30,6 +31,8 @@ const compositionOptions = [
   { label: '디자인', value: 'Designer' },
   { label: '기획', value: 'ProductManager' },
 ];
+
+const purposeOptions = Project.getPurposeOptions();
 
 function ProjectAddScreen() {
   // prop destruction
@@ -65,7 +68,7 @@ function ProjectAddScreen() {
     name: 'recruitMember',
   });
   // query hooks
-  const { mutateAsync: addProject, isLoading } = useMutation(projectRepository.add);
+  const { mutateAsync: createProject, isLoading } = useMutation(projectRepository.create);
   // calculated values
   // effects
   // handlers
@@ -78,18 +81,7 @@ function ProjectAddScreen() {
             control={control}
             name='purpose'
             render={({ field: { value, onChange } }) => (
-              <Radio
-                label='프로젝트 목적'
-                required
-                onChange={onChange}
-                value={value}
-                options={[
-                  { label: '역량 강화/포트폴리오', value: 'Improvement' },
-                  { label: '수입 창출/사업', value: 'Business' },
-                  { label: '재미', value: 'Fun' },
-                  { label: '스터디', value: 'Study' },
-                ]}
-              />
+              <Radio label='프로젝트 목적' required onChange={onChange} value={value} options={purposeOptions} />
             )}
           />
           <Input
@@ -172,7 +164,7 @@ function ProjectAddScreen() {
               name={`leaderJob`}
               render={({ field: { value, onChange } }) => (
                 <SingleSelect
-                  label='리더 직무 선택'
+                  placeholder='리더 직무 선택'
                   css={{ width: '326px' }}
                   value={value}
                   onChange={onChange}
@@ -193,6 +185,7 @@ function ProjectAddScreen() {
                         selectedMap[member.job] = i;
                       });
                       const options = compositionOptions.filter(
+                        //NOTE: index는 0일 수 있기때문에 undefined를 조건으로해야한다.
                         (option) => selectedMap[option.value] === idx || selectedMap[option.value] === undefined
                       );
 
@@ -200,7 +193,7 @@ function ProjectAddScreen() {
                         <SingleSelect
                           css={{ width: '326px' }}
                           onChange={onChange}
-                          label='직무 선택'
+                          placeholder='직무 선택'
                           value={value}
                           options={options}
                         />
@@ -213,7 +206,7 @@ function ProjectAddScreen() {
                     render={({ field: { value, onChange } }) => (
                       <SingleSelect
                         css={{ width: '326px' }}
-                        label='인원 수'
+                        placeholder='인원 수'
                         value={value}
                         onChange={onChange}
                         options={[
@@ -245,7 +238,7 @@ function ProjectAddScreen() {
           variant='filled'
           loading={isLoading}
           onClick={handleSubmit(async ({ title, description, period, purpose, recruitMember, stacks, leaderJob }) => {
-            await addProject({
+            await createProject({
               title,
               description,
               period,

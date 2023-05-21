@@ -1,12 +1,12 @@
-import palette from '@libs/theme/palettes/default';
 import { Grid, Stack } from '@mui/material';
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard';
 import { SingleSelect } from '@elements';
 import { CSSProperties, useState } from 'react';
-import { Project } from '../../models';
+import { Project } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
 import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
 import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
+import { Theme } from '@libs/theme';
 
 // TODO: 실데이터로 교체필요 - 목데이터 일단 여따 둡니다
 export type ProjectListType = {
@@ -268,11 +268,11 @@ function ProjectScreen(props: {}) {
       width={'100%'}
       direction={'row'}
       justifyContent={'center'}
-      css={{
-        backgroundColor: `${palette.secondary.n20}`,
+      css={(theme: Theme) => ({
+        backgroundColor: `${theme.palette.secondary.n20}`,
         padding: '82px 0',
         minHeight: '100vh',
-      }}
+      })}
     >
       <Stack
         width={'100%'}

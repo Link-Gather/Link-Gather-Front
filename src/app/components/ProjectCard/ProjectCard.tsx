@@ -2,11 +2,12 @@ import { Typography } from '@elements';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Stack } from '@mui/material';
-import palette from '@libs/theme/palettes';
+import type { Theme } from '@libs/theme';
 import LikeIcon from '@assets/images/icons/icon-like.svg';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
 import ArrowUpIcon from '@assets/images/icons/icon-arrow-up.svg';
 import { ProjectListType } from '../../screens/projects/ProjectScreen';
+import { Project } from '../../models';
 
 const MemberProfile = ({
   member,
@@ -26,7 +27,11 @@ const MemberProfile = ({
           direction={'row'}
           width={'24px'}
           height={'24px'}
-          css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+          css={(theme: Theme) => ({
+            border: `1px solid ${theme.palette.black.main}`,
+            borderRadius: '50%',
+            backgroundColor: 'white',
+          })}
         />
       );
     case 2:
@@ -36,7 +41,11 @@ const MemberProfile = ({
             direction={'row'}
             width={'24px'}
             height={'24px'}
-            css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
+              borderRadius: '50%',
+              backgroundColor: 'white',
+            })}
           />
           <Stack
             direction={'row'}
@@ -44,7 +53,11 @@ const MemberProfile = ({
             height={'24px'}
             position='absolute'
             left={'12px'}
-            css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
+              borderRadius: '50%',
+              backgroundColor: 'white',
+            })}
           />
         </Stack>
       );
@@ -55,7 +68,11 @@ const MemberProfile = ({
             direction={'row'}
             width={'24px'}
             height={'24px'}
-            css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
+              borderRadius: '50%',
+              backgroundColor: 'white',
+            })}
           />
           <Stack
             direction={'row'}
@@ -63,7 +80,11 @@ const MemberProfile = ({
             height={'24px'}
             position='absolute'
             left={'12px'}
-            css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
+              borderRadius: '50%',
+              backgroundColor: 'white',
+            })}
           />
           <Stack
             direction={'row'}
@@ -73,9 +94,16 @@ const MemberProfile = ({
             left={'24px'}
             alignItems={'center'}
             justifyContent={'center'}
-            css={{ border: `1px solid ${palette.black.main}`, borderRadius: '50%', backgroundColor: 'white' }}
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
+              borderRadius: '50%',
+              backgroundColor: 'white',
+            })}
           >
-            <Typography variant='span' css={{ fontWeight: '400', color: `${palette.black.main}` }}>
+            <Typography
+              variant='span'
+              css={(theme: Theme) => ({ fontWeight: '400', color: `${theme.palette.black.main}` })}
+            >
               {member.target > 3 ? `+${member.target - 2}` : ''}
             </Typography>
           </Stack>
@@ -102,13 +130,13 @@ const TechStacksModal = ({ techStacks }: { techStacks: string[] }) => {
         columnGap={'4px'}
         rowGap={'8px'}
         zIndex={30}
-        css={{
-          border: `1px solid ${palette.black.main}`,
+        css={(theme: Theme) => ({
+          border: `1px solid ${theme.palette.black.main}`,
           borderRadius: '4px',
           padding: '8px 12px',
-          background: palette.contrastText,
+          background: theme.palette.contrastText,
           overflow: 'scroll',
-        }}
+        })}
       >
         {techStacks.map((techStack) => {
           return (
@@ -118,12 +146,12 @@ const TechStacksModal = ({ techStacks }: { techStacks: string[] }) => {
               height={'22px'}
               justifyContent={'center'}
               alignItems={'center'}
-              css={{
-                border: `1px solid ${palette.black.main}`,
+              css={(theme: Theme) => ({
+                border: `1px solid ${theme.palette.black.main}`,
                 borderRadius: '20px',
                 padding: '0 8px',
-                backgroundColor: `${palette.secondary.n30}`,
-              }}
+                backgroundColor: `${theme.palette.secondary.n30}`,
+              })}
             >
               <Typography
                 variant='h6'
@@ -148,11 +176,11 @@ const TechStacksModal = ({ techStacks }: { techStacks: string[] }) => {
         height={'100%'}
         left={'4px'}
         top={'4px'}
-        css={{
+        css={(theme: Theme) => ({
           borderRadius: '4px',
           padding: '8px 12px',
-          background: palette.black.main,
-        }}
+          background: theme.palette.black.main,
+        })}
       />
     </Stack>
   );
@@ -179,12 +207,12 @@ const TechStack = ({
                 height={'22px'}
                 justifyContent={'center'}
                 alignItems={'center'}
-                css={{
-                  border: `1px solid ${palette.black.main}`,
+                css={(theme: Theme) => ({
+                  border: `1px solid ${theme.palette.black.main}`,
                   borderRadius: '20px',
                   padding: '0 8px',
-                  backgroundColor: `${palette.secondary.n30}`,
-                }}
+                  backgroundColor: `${theme.palette.secondary.n30}`,
+                })}
               >
                 <Typography
                   variant='h6'
@@ -213,12 +241,12 @@ const TechStack = ({
                 height={'22px'}
                 justifyContent={'center'}
                 alignItems={'center'}
-                css={{
-                  border: `1px solid ${palette.black.main}`,
+                css={(theme: Theme) => ({
+                  border: `1px solid ${theme.palette.black.main}`,
                   borderRadius: '20px',
                   padding: '0 8px',
-                  backgroundColor: `${palette.secondary.n30}`,
-                }}
+                  backgroundColor: `${theme.palette.secondary.n30}`,
+                })}
               >
                 <Typography
                   variant='h6'
@@ -241,13 +269,13 @@ const TechStack = ({
             height={'22px'}
             justifyContent={'center'}
             alignItems={'center'}
-            css={{
-              border: `1px solid ${palette.black.main}`,
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
               borderRadius: '20px',
               padding: '0 8px',
-              backgroundColor: `${palette.secondary.n30}`,
+              backgroundColor: `${theme.palette.secondary.n30}`,
               cursor: 'pointer',
-            }}
+            })}
             onClick={() => setTechStacksModal(techStacksModal ? false : true)}
           >
             <Typography
@@ -274,19 +302,6 @@ function ProjectCard(props: { projectInfo: ProjectListType; projectIdx: number }
   const [isLike, setIsLike] = useState<boolean>(false);
   const [techStacksModal, setTechStacksModal] = useState<boolean>(false);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case '진행 중':
-        return palette.primary.p20;
-      case '추가 모집 중':
-        return palette.secondary.beige;
-      case '완료':
-        return palette.secondary.n60;
-      default:
-        return palette.primary.main;
-    }
-  };
-
   return (
     <Stack
       direction={'column'}
@@ -299,23 +314,26 @@ function ProjectCard(props: { projectInfo: ProjectListType; projectIdx: number }
         <Stack direction={'row'} spacing={'8px'}>
           <Typography
             variant='h6'
-            css={{
-              border: `1px solid ${palette.black.main}`,
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
               borderRadius: '16px',
               padding: '4px 16px',
-            }}
+            })}
           >
             {props.projectInfo.purpose}
           </Typography>
           <Typography
             variant='h6'
-            css={{
-              border: `1px solid ${palette.black.main}`,
+            css={(theme: Theme) => ({
+              border: `1px solid ${theme.palette.black.main}`,
               borderRadius: '16px',
               padding: '4px 16px',
-              backgroundColor: `${getStatusColor(props.projectInfo.status)}`,
-              color: `${props.projectInfo.status === '모집 중' ? palette.contrastText : palette.black.main}`,
-            }}
+              //@ts-expect-error TODO:
+              backgroundColor: `${Project.getStatusColor(props.projectInfo.status)}`,
+              color: `${
+                props.projectInfo.status === '모집 중' ? theme.palette.contrastText : theme.palette.black.main
+              }`,
+            })}
           >
             {props.projectInfo.status}
           </Typography>
@@ -327,11 +345,11 @@ function ProjectCard(props: { projectInfo: ProjectListType; projectIdx: number }
           onClick={() => setIsLike(isLike ? false : true)}
         >
           <LikeIcon
-            fill={isLike ? palette.secondary.red : 'none'}
-            css={{
+            css={(theme: Theme) => ({
               width: '20px',
               marginRight: '4px',
-            }}
+              fill: isLike ? theme.palette.secondary.red : 'none',
+            })}
           />
           <Typography
             variant='h5'
@@ -382,7 +400,10 @@ function ProjectCard(props: { projectInfo: ProjectListType; projectIdx: number }
           {props.projectInfo.members.map((member) => {
             return (
               <Stack direction={'row'} spacing={'8px'}>
-                <Typography variant='span' css={{ fontWeight: '400', color: `${palette.black.main}` }}>
+                <Typography
+                  variant='span'
+                  css={(theme: Theme) => ({ fontWeight: '400', color: `${theme.palette.black.main}` })}
+                >
                   {member.label}: {member.target}/{member.capacity}
                 </Typography>
                 <MemberProfile member={member} />

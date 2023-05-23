@@ -15,6 +15,7 @@ export * from './RequestButton';
 export * from './Section';
 export * from './ShadowBox';
 export * from './Slider';
+export * from './StackChip';
 export * from './TextArea';
 export * from './Typography';
 export * from './UnderlineTitle';

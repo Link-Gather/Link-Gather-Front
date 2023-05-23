@@ -9,9 +9,10 @@ function Chip(props: {
   onClick: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  className?: string;
 }) {
   // prop destruction
-  const { label, variant = 'outlined', color = 'primary', selected, onClick, startIcon, endIcon } = props;
+  const { label, variant = 'outlined', color = 'primary', selected, onClick, startIcon, endIcon, className } = props;
   // lib hooks
   // state, ref, querystring hooks
   // form hook
@@ -22,6 +23,7 @@ function Chip(props: {
 
   return (
     <div
+      className={className}
       css={(theme: Theme) => [
         {
           height: '32px',
@@ -29,10 +31,13 @@ function Chip(props: {
           display: 'inline-flex',
           flexDirection: 'row',
           alignItems: 'center',
-          borderRadius: '16px',
+          justifyContent: 'center',
+          fontWeight: 500,
+          borderRadius: '20px',
           '&>:not(:first-of-type)': {
             marginLeft: '4px',
           },
+          cursor: 'pointer',
         },
         variant === 'outlined'
           ? {
@@ -61,9 +66,7 @@ function Chip(props: {
       ]}
     >
       {startIcon}
-      <span css={{ cursor: 'pointer' }} onClick={onClick}>
-        {label}
-      </span>
+      <span onClick={onClick}>{label}</span>
       {endIcon}
     </div>
   );

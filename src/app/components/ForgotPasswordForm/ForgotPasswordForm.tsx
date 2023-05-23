@@ -61,7 +61,7 @@ function ForgotPasswordForm() {
           }
           IconProps={{
             onClick: () => setIsShowPassword(!isShowPassword),
-            Icon:
+            EndIcon:
               dirtyFields.password && !isShowPassword ? (
                 <IconPasswordHide css={{ width: '24px', height: '24px' }} />
               ) : (
@@ -78,7 +78,7 @@ function ForgotPasswordForm() {
           helperText={errors.confirmPassword?.message}
           IconProps={{
             onClick: () => setIsShowConfirmPassword(!isShowConfirmPassword),
-            Icon:
+            EndIcon:
               dirtyFields.confirmPassword && !isShowConfirmPassword ? (
                 <IconPasswordHide css={{ width: '24px', height: '24px' }} />
               ) : (

@@ -25,11 +25,11 @@ const schema = yup.object({
 });
 
 const maxCompositionLength = 4;
-const compositionOptions = [
-  { label: '프론트엔드', value: 'FrontendDeveloper' },
-  { label: '백엔드', value: 'BackendDeveloper' },
-  { label: '디자인', value: 'Designer' },
-  { label: '기획', value: 'ProductManager' },
+const compositionOptions: { label: string; value: JobType }[] = [
+  { label: '프론트엔드', value: 'frontendDeveloper' },
+  { label: '백엔드', value: 'backendDeveloper' },
+  { label: '디자인', value: 'designer' },
+  { label: '기획', value: 'productManager' },
 ];
 
 const purposeOptions = Project.getPurposeOptions();
@@ -50,7 +50,7 @@ function ProjectAddScreen() {
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      purpose: 'Improvement',
+      purpose: 'improvement',
       title: '',
       description: '',
       period: 1,
@@ -283,10 +283,10 @@ function ProjectAddScreen() {
               stacks: stacks?.map(({ id }) => id) ?? [],
               leaderJob,
               recruitMember: {
-                frontendDeveloper: recruitMember?.find((member) => member.job === 'FrontendDeveloper')?.number ?? 0,
-                backendDeveloper: recruitMember?.find((member) => member.job === 'BackendDeveloper')?.number ?? 0,
-                designer: recruitMember?.find((member) => member.job === 'Designer')?.number ?? 0,
-                productManager: recruitMember?.find((member) => member.job === 'ProductManager')?.number ?? 0,
+                frontendDeveloper: recruitMember?.find((member) => member.job === 'frontendDeveloper')?.number ?? 0,
+                backendDeveloper: recruitMember?.find((member) => member.job === 'backendDeveloper')?.number ?? 0,
+                designer: recruitMember?.find((member) => member.job === 'designer')?.number ?? 0,
+                productManager: recruitMember?.find((member) => member.job === 'productManager')?.number ?? 0,
               },
             });
           })}

@@ -55,12 +55,11 @@ function SearchStackInput(props: {
   type: 'project' | 'signup';
   value: Stack['id'][];
   onAdd: (id: number) => void;
-  onDelete: () => void;
   onChange: () => void;
   className?: string;
 }) {
   // prop destruction
-  const { label, required, type, onAdd, onDelete, value, onChange, className } = props;
+  const { label, required, type, onAdd, value, onChange, className } = props;
   // lib hooks
   const stacks = useStacks();
   // state, ref hooks
@@ -79,7 +78,6 @@ function SearchStackInput(props: {
       ),
     [stacks, search, type, selectedStackIds]
   );
-  const selectedStacks = stacks.filter((stack) => selectedStackIds.has(stack.id));
   // effects
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -3,7 +3,7 @@ import DeleteIcon from '@assets/images/icons/icon-close.svg';
 
 function StackChip(props: {
   name: string;
-  length: number;
+  length: 1 | 2 | 3;
   onClick: () => void;
   className?: string;
   selected?: boolean;

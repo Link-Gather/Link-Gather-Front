@@ -23,7 +23,7 @@ function ProjectRole(props: { user: User; role: Role; className?: string }) {
       {/* TODO: 링크 수정 */}
       <Stack component='a' href={`/user/${user.id}`} css={{ position: 'relative' }}>
         <ProfileImage src={user.profileImage} />
-        {role.type === 'Leader' && (
+        {role.type === 'leader' && (
           <CrownIcon css={{ position: 'absolute', bottom: '100%', left: 'calc(50% - 6px)', width: '12px' }} />
         )}
       </Stack>

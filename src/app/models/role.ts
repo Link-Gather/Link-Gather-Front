@@ -11,13 +11,13 @@ export class Role {
 
   static getFormattedJob(job: JobType) {
     switch (job) {
-      case 'BackendDeveloper':
+      case 'backendDeveloper':
         return '백엔드';
-      case 'FrontendDeveloper':
+      case 'frontendDeveloper':
         return '프론트엔드';
-      case 'Designer':
+      case 'designer':
         return '디자인';
-      case 'ProductManager':
+      case 'productManager':
         return '기획';
       default:
         return undefined as never;
@@ -26,13 +26,13 @@ export class Role {
 
   static getBackgroundColor(job: JobType) {
     switch (job) {
-      case 'BackendDeveloper':
+      case 'backendDeveloper':
         return '#ACE0FF';
-      case 'FrontendDeveloper':
+      case 'frontendDeveloper':
         return '#21C982';
-      case 'Designer':
+      case 'designer':
         return '#FF7E55';
-      case 'ProductManager':
+      case 'productManager':
         return '#F7D35F';
       default:
         return undefined as never;

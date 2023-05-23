@@ -13,8 +13,8 @@ export default {
   decorators: [(storyFn) => <div css={{ width: '220px' }}>{storyFn()}</div>],
   args: {
     role: {
-      type: 'Leader',
-      job: 'BackendDeveloper',
+      type: 'leader',
+      job: 'backendDeveloper',
     },
     user: {
       id: 'uuid',

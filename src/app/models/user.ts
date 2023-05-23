@@ -7,6 +7,6 @@ export type User = {
   introduction: string;
   stacks: string[];
   career: any; // TODO:
-  job: 'Developer' | 'Designer' | 'Product Manager' | 'Other';
+  job: JobType;
   urls: string[];
 };

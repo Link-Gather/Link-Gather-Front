@@ -2,6 +2,6 @@ type Provider = 'kakao' | 'github' | 'google' | 'link-gather';
 
 type OauthProvider = Exclude<Provider, 'link-gather'>;
 
-type JobType = 'FrontendDeveloper' | 'BackendDeveloper' | 'Designer' | 'ProductManager';
+type JobType = 'frontendDeveloper' | 'backendDeveloper' | 'designer' | 'productManager';
 
-type RoleType = 'Leader' | 'Member';
+type RoleType = 'leader' | 'member';

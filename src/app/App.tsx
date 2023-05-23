@@ -2,7 +2,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@libs/query';
 import { ThemeProvider } from '@libs/theme';
 import { AppRouter } from './routes/routes';
-import { AuthProvider } from './libs/auth';
+import { AuthProvider } from '@libs/auth';
+import { StackProvider } from '@libs/stacks';
 import { CssBaseline } from '@mui/material';
 
 const queryClient = new QueryClient({
@@ -21,10 +22,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
-          <ThemeProvider>
-            <CssBaseline />
-            <AppRouter />
-          </ThemeProvider>
+          <StackProvider>
+            <ThemeProvider>
+              <CssBaseline />
+              <AppRouter />
+            </ThemeProvider>
+          </StackProvider>
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>

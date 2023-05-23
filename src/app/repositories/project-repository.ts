@@ -7,7 +7,7 @@ export const projectRepository = {
     description: string;
     period: number;
     purpose: PurposeType;
-    stacks: string[];
+    stacks: number[];
     leaderJob: JobType;
     recruitMember: {
       frontendDeveloper: number;

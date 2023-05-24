@@ -7,12 +7,12 @@ import { Label } from '../Label';
 const Input = forwardRef(
   (
     props: {
-      variant?: 'underline' | 'outlined';
       error?: FieldError;
       helperText?: string;
       label?: string;
       required?: boolean;
-      IconProps?: { onClick?: () => void; Icon?: JSX.Element };
+      IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };
+      variant?: 'outlined' | 'underline';
     } & InputHTMLAttributes<HTMLInputElement>,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
@@ -42,83 +42,124 @@ const Input = forwardRef(
     // handlers
 
     return (
-      <Stack direction='column' position='relative'>
+      <Stack direction='column'>
         {label && <Label id={inputId} label={label} required={required} />}
-        <input
-          id={inputId}
-          type={type}
-          className={className}
-          css={(theme: Theme) => {
-            return [
-              {
-                width: '100%',
-                height: '50px',
-                fontSize: '20px',
-                borderRadius: 8,
-                border: `2px solid ${theme.palette.secondary.n60}`,
-                padding: '11px 16px 11px 16px',
-                outline: 'none',
-                '&::placeholder': {
-                  color: theme.palette.secondary.n60,
+        <div css={{ position: 'relative' }}>
+          <input
+            className={className}
+            id={inputId}
+            type={type}
+            css={(theme: Theme) => {
+              return [
+                {
+                  width: '100%',
+                  height: '50px',
+                  fontSize: '20px',
+                  borderRadius: '8px',
+                  border: `2px solid ${theme.palette.secondary.n60}`,
+                  padding: type === 'outlined' ? '11px 16px 11px 16px' : '6px',
+                  outline: 'none',
+                  paddingLeft: IconProps?.StartIcon ? '44px' : '0',
+                  '&::placeholder': {
+                    color: theme.palette.secondary.n60,
+                  },
+                  '&::value': {},
                 },
-                '&:focus': {
-                  border: `2px solid ${theme.palette.primary.main}`,
-                  '& + button': {
-                    opacity: 1,
+                variant === 'outlined' && {
+                  border: `2px solid ${theme.palette.secondary.n60}`,
+                  '&:focus': {
+                    border: `2px solid ${theme.palette.primary.main}`,
                   },
                 },
-              },
-              variant === 'underline' && {
-                border: 'none',
-                borderBottom: `2px solid ${theme.palette.secondary.n60}`,
-                borderRadius: 0,
-              },
-              isFocused && {
-                border: `2px solid ${theme.palette.secondary.n300}`,
-                '&:focus': {
-                  border: variant !== 'underline' ? `2px solid ${theme.palette.primary.main}` : 'none',
-                  borderBottom: `2px solid ${theme.palette.primary.main}`,
+                variant === 'outlined' &&
+                  isFocused && {
+                    border: `2px solid ${theme.palette.secondary.n300}`,
+                    '&:focus': {
+                      border: `2px solid ${theme.palette.primary.main}`,
+                    },
+                  },
+                variant === 'outlined' &&
+                  error && {
+                    border: `2px solid ${theme.palette.secondary.red}`,
+                    '&:focus': {
+                      border: `2px solid ${theme.palette.secondary.red}`,
+                    },
+                  },
+                variant === 'underline' && {
+                  border: 'none',
+                  borderRadius: 0,
+                  borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                  '&:focus': {
+                    borderBottom: `2px solid ${theme.palette.primary.main}`,
+                  },
                 },
-              },
-              error && {
-                border: `2px solid ${theme.palette.secondary.red}`,
-                '&:focus': {
-                  border: `2px solid ${theme.palette.secondary.red}`,
-                },
-              },
-            ];
-          }}
-          ref={ref}
-          {...rest}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-        {IconProps && (
-          <button
-            type='button'
-            tabIndex={-1}
-            css={{
-              position: 'absolute',
-              top: '0',
-              right: variant !== 'underline' ? '8px' : undefined,
-              display: 'flex',
-              width: '24px',
-              height: '50px',
-              alignItems: 'center',
-              border: 'none',
-              background: 'none',
-              cursor: 'pointer',
-              outline: 'none',
-              opacity: 0,
-              '&:focus': {
-                opacity: 1,
-              },
+                variant === 'underline' &&
+                  isFocused && {
+                    borderBottom: `2px solid ${theme.palette.secondary.n300}`,
+                    '&:focus': {
+                      borderBottom: `2px solid ${theme.palette.primary.main}`,
+                    },
+                  },
+                variant === 'underline' &&
+                  error && {
+                    borderBottom: `2px solid ${theme.palette.secondary.red}`,
+                    '&:focus': {
+                      borderBottom: `2px solid ${theme.palette.secondary.red}`,
+                    },
+                  },
+              ];
             }}
-            onClick={IconProps.onClick}
-          >
-            {IconProps.Icon}
-          </button>
-        )}
+            ref={ref}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            {...rest}
+          />
+          {IconProps?.StartIcon && (
+            <button
+              type='button'
+              tabIndex={-1}
+              css={{
+                position: 'absolute',
+                top: type === 'outlined' ? '11px' : '8px',
+                left: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                outline: 'none',
+              }}
+              onClick={IconProps.onClick}
+            >
+              {IconProps.StartIcon}
+            </button>
+          )}
+          {IconProps?.EndIcon && (
+            <button
+              type='button'
+              tabIndex={-1}
+              css={{
+                position: 'absolute',
+                top: '0',
+                right: '8px',
+                display: 'flex',
+                height: '50px',
+                alignItems: 'center',
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                outline: 'none',
+                opacity: 0,
+                '&:focus': {
+                  opacity: 1,
+                },
+              }}
+              onClick={IconProps.onClick}
+            >
+              {IconProps.EndIcon}
+            </button>
+          )}
+        </div>
         {variant !== 'underline' && (
           <span
             css={(theme: Theme) => [

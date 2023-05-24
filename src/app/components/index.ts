@@ -5,4 +5,5 @@ export * from './ForgotPasswordEmailForm';
 export * from './ForgotPasswordForm';
 export * from './LoginForm';
 export * from './Radio';
+export * from './SearchStackInput';
 export * from './SkillDropdown';

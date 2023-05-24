@@ -1,8 +1,9 @@
 import type { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 import { Typography } from '../Typography';
+import { ReactNode } from 'react';
 
-function Label(props: { id: string; label: string; required: boolean; className?: string }) {
+function Label(props: { id: string; label: ReactNode; required: boolean; className?: string }) {
   // prop destruction
   const { id, label, required, className } = props;
   // lib hooks

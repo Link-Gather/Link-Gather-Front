@@ -13,6 +13,7 @@ export * from './Layout';
 export * from './Section';
 export * from './ShadowBox';
 export * from './SkillTab';
+export * from './SingleSelect';
 export * from './Slider';
 export * from './StackChip';
 export * from './TextArea';

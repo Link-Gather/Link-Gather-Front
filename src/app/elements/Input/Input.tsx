@@ -57,13 +57,12 @@ const Input = forwardRef(
                   fontSize: '20px',
                   borderRadius: '8px',
                   border: `2px solid ${theme.palette.secondary.n60}`,
-                  padding: type === 'outlined' ? '11px 16px 11px 16px' : '6px',
+                  padding: variant === 'outlined' ? '11px 16px 11px 16px' : '6px',
                   outline: 'none',
-                  paddingLeft: IconProps?.StartIcon ? '44px' : '0',
+                  paddingLeft: IconProps?.StartIcon ? '44px' : undefined,
                   '&::placeholder': {
                     color: theme.palette.secondary.n60,
                   },
-                  '&::value': {},
                 },
                 variant === 'outlined' && {
                   border: `2px solid ${theme.palette.secondary.n60}`,

@@ -86,8 +86,9 @@ function LoginForm() {
           borderRadius: '32px',
           backgroundColor: palette.primary.main,
           marginTop: '8px',
+          fontWeight: 800,
         }}
-        isLoading={isLoading}
+        loading={isLoading}
         disabled={!isValid}
       >
         로그인

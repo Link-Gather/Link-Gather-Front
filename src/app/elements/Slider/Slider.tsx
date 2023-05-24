@@ -9,11 +9,10 @@ function Slider(
     required?: boolean;
     className?: string;
     marks?: { label: string; value: number }[];
-  } & SliderProps,
-  ref: React.ForwardedRef<HTMLInputElement>
+  } & SliderProps
 ) {
   // prop destruction
-  const { label, className, required = false, min, max, step, defaultValue, marks, ...rest } = props;
+  const { label, className, required = false, min, max, step, value, marks, ...rest } = props;
 
   // lib hooks
   const id = useId();
@@ -28,6 +27,7 @@ function Slider(
       {label && <Label id={id} required={required} label={label} />}
       <Stack alignItems='center' justifyContent='center'>
         <MuiSlider
+          {...rest}
           css={(theme: Theme) => ({
             width: '94%',
             [`& .${sliderClasses.markLabel}`]: {
@@ -53,7 +53,6 @@ function Slider(
           })}
           min={min}
           max={max}
-          defaultValue={defaultValue}
           step={step}
           marks={marks}
         />

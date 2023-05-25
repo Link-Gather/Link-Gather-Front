@@ -2,7 +2,7 @@ import { useStacks } from '@libs/stacks';
 import { Input, StackChip } from '@elements';
 import { Grid, Stack as MuiStack } from '@mui/material';
 import { Theme } from '@libs/theme';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Stack } from '@models';
 import SearchIcon from '@assets/images/icons/icon-Search.svg';
 
@@ -79,19 +79,6 @@ function SearchStackInput(props: {
     [stacks, search, type, selectedStackIds]
   );
   // effects
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsHide(true);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
   // handlers
   return (
     <MuiStack spacing={2}>
@@ -111,45 +98,51 @@ function SearchStackInput(props: {
           }}
         />
         {search && !isHide && (
-          <MuiStack
-            ref={ref}
-            css={(theme: Theme) => ({
-              width: '100%',
-              minHeight: '68px',
-              maxHeight: '98px',
-              border: `1px solid ${theme.palette.black.main}`,
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              backgroundColor: theme.palette.paper,
-              borderRadius: '8px',
-              boxShadow: `4px 4px 0px ${theme.palette.black.main}`,
-              zIndex: '2',
-              display: 'flex',
-              padding: '4px',
-              overflow: 'auto',
-            })}
-          >
-            {!searchedStacks.length ? (
-              <p>해당하는 스킬이 없습니다.</p>
-            ) : (
-              <Grid container rowSpacing='8px'>
-                {searchedStacks.map((stack) => (
-                  <Grid key={stack.id} item md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 12 : 5)}>
-                    <StackChip
-                      name={stack.name}
-                      length={Stack.getLength(stack.name)}
-                      onClick={() => {
-                        onAdd(stack);
-                        setSearch('');
-                        setIsHide(true);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </MuiStack>
+          <>
+            <div
+              css={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, zIndex: 1 }}
+              onClick={() => setIsHide(true)}
+            />
+            <MuiStack
+              ref={ref}
+              css={(theme: Theme) => ({
+                width: '100%',
+                minHeight: '68px',
+                maxHeight: '98px',
+                border: `1px solid ${theme.palette.black.main}`,
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                backgroundColor: theme.palette.paper,
+                borderRadius: '8px',
+                boxShadow: `4px 4px 0px ${theme.palette.black.main}`,
+                zIndex: 2,
+                display: 'flex',
+                padding: '4px',
+                overflow: 'auto',
+              })}
+            >
+              {!searchedStacks.length ? (
+                <p>해당하는 스킬이 없습니다.</p>
+              ) : (
+                <Grid container rowSpacing='8px'>
+                  {searchedStacks.map((stack) => (
+                    <Grid key={stack.id} item md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 12 : 5)}>
+                      <StackChip
+                        name={stack.name}
+                        length={Stack.getLength(stack.name)}
+                        onClick={() => {
+                          onAdd(stack);
+                          setSearch('');
+                          setIsHide(true);
+                        }}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </MuiStack>
+          </>
         )}
       </MuiStack>
       {/* NOTE: select value는 number배열을 받지 못한다. */}

@@ -1,5 +1,6 @@
 export * from './Button';
 export * from './Chip';
+export * from './ClickAway';
 export * from './DialogAction';
 export * from './DialogContent';
 export * from './DialogTitle';
@@ -12,7 +13,6 @@ export * from './Label';
 export * from './Layout';
 export * from './Section';
 export * from './ShadowBox';
-export * from './SkillTab';
 export * from './SingleSelect';
 export * from './Slider';
 export * from './StackChip';

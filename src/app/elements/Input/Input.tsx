@@ -119,7 +119,7 @@ const Input = forwardRef(
               tabIndex={-1}
               css={{
                 position: 'absolute',
-                top: type === 'outlined' ? '11px' : '8px',
+                top: variant === 'outlined' ? '11px' : '8px',
                 left: '8px',
                 display: 'flex',
                 alignItems: 'center',

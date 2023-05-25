@@ -4,16 +4,15 @@ import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-a
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
 import BackgroundPlanet2 from '@assets/images/backgrounds/signup/background-planet2.svg';
 import { mq, type Theme } from '@libs/theme';
-import { Stack } from '@mui/material';
+import { Grid, Stack as MuiStack, Tooltip } from '@mui/material';
 import * as yup from 'yup';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DropDown, SkillDropdown } from '@components';
-import { UnderlineTitle, Input, ShadowBox, TextArea, SkillTab, Button } from '@elements';
-import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD } from '@libs/schema';
+import { SearchStackInput } from '@components';
+import { UnderlineTitle, Input, ShadowBox, TextArea, Button, StackChip, SingleSelect, ClickAway } from '@elements';
+import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD, SCHEMA_EMAIL } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
-import IconSearch from '@assets/images/icons/icon-search.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
@@ -25,6 +24,8 @@ import Character5 from '@assets/images/icons/character/character5.svg';
 import Character6 from '@assets/images/icons/character/character6.svg';
 import Character7 from '@assets/images/icons/character/character7.svg';
 import Character8 from '@assets/images/icons/character/character8.svg';
+import { Stack } from '@models';
+import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 
 export const characters = [
   {
@@ -93,33 +94,6 @@ export const characters = [
   },
 ];
 
-export const skills = [
-  { value: 'Figma', length: 1 },
-  { value: 'Java', length: 1 },
-  { value: 'Adobe Illustration', length: 3 },
-  { value: 'Spring', length: 1 },
-  { value: 'HTML', length: 1 },
-  { value: 'CSS', length: 1 },
-  { value: 'Spring Boot', length: 2 },
-  { value: 'Python', length: 1 },
-  { value: 'Node.js', length: 2 },
-  { value: 'React Native', length: 2 },
-  { value: 'PHP', length: 1 },
-  { value: 'C#', length: 1 },
-  { value: 'Vue.js', length: 1 },
-  { value: 'React.js', length: 2 },
-  { value: 'TypeScript', length: 2 },
-  { value: 'Styled-Components', length: 3 },
-  { value: 'OpenGL', length: 1 },
-  { value: 'Storybook', length: 2 },
-  { value: 'Recoil', length: 1 },
-  { value: 'CassandraDB', length: 2 },
-  { value: 'Google Firebase', length: 3 },
-  { value: 'Google BigQuery', length: 3 },
-  { value: 'AWS DynamoDB', length: 2 },
-  { value: 'AWS CodePipeline', length: 3 },
-];
-
 type ValidationType = {
   email: string;
   code: string;
@@ -130,7 +104,7 @@ type ValidationType = {
   enterUrl: string;
   job: string;
   career: number;
-  stacks: { value: string; length: number }[];
+  stacks: Stack[];
   urls: { value: string }[];
   introduction: string;
   profileImage: string;
@@ -150,9 +124,10 @@ const RequestButton = styled('button')(
     width: '94px',
     height: '50px',
     fontSize: '14px',
-    fontWeight: '600',
+    fontWeight: '800',
     borderRadius: '8px',
-    marginLeft: '10px',
+    padding: '15px',
+    fontFamily: 'Montserrat',
   },
   ({ disabled, theme }) => ({
     border: `2px solid ${theme.palette.secondary.n60}`,
@@ -167,19 +142,17 @@ const RequestButton = styled('button')(
 
 const SignupButton = styled(Button)(
   {
-    position: 'absolute',
-    bottom: '40px',
     borderRadius: '32px',
     width: '320px',
     height: '48px',
     fontSize: '20px',
     fontWeight: '600',
     letterSpacing: '0.6px',
+    color: '#fff',
   },
   ({ disabled, theme }) => ({
-    color: theme.palette.contrastText,
-    backgroundColor: !disabled ? theme.palette.primary.main : theme.palette.secondary.n60,
-    cursor: !disabled ? 'pointer' : 'default',
+    backgroundColor: disabled ? theme.palette.secondary.n40 : theme.palette.primary.main,
+    cursor: disabled ? 'default' : 'pointer',
   })
 );
 
@@ -200,20 +173,23 @@ const careers = [
 ];
 
 const schema = [
+  // step 1
   yup.object().shape({
-    email: yup.string().required(),
+    email: SCHEMA_EMAIL.required(),
     code: yup.string().required(),
     password: SCHEMA_PASSWORD.required(),
     confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
   }),
+  // step 2
   yup.object().shape({
     profileImage: yup.string().required(),
     nickname: SCHEMA_NICKNAME.required(),
   }),
+  // step 3
   yup.object().shape({
     job: yup.string().required(),
     career: yup.string().required(),
-    stacks: yup.array().of(yup.string()).required(),
+    stacks: yup.array().of(yup.mixed<Stack>().required()).min(0),
     urls: yup.array().of(yup.string().url()),
     introduction: yup.string().required(),
   }),
@@ -224,10 +200,11 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
+  const [isExpand, setIsExpand] = useState(false);
   // form hooks
   const {
     register,
@@ -236,6 +213,7 @@ function SignUpScreen() {
     getValues,
     formState: { errors, isValid, dirtyFields },
     setValue,
+    setError,
   } = useForm<ValidationType>({
     mode: 'onChange',
     defaultValues: {
@@ -253,26 +231,9 @@ function SignUpScreen() {
       introduction: '',
       profileImage: '/e2142093cc89c41037a7.svg',
     },
-    resolver: yupResolver(
-      (() => {
-        switch (step) {
-          case 0:
-            return schema[step];
-          case 1:
-            return schema[step];
-          case 2:
-            return schema[step];
-          default:
-            return yup.object();
-        }
-      })()
-    ),
+    resolver: yupResolver(schema[step]),
   });
-  const {
-    fields: stacksFields,
-    append: stacksAppend,
-    remove: stacksRemove,
-  } = useFieldArray({ control, name: 'stacks' });
+  const { fields: stacks, append: appendStack, remove: removeStack } = useFieldArray({ control, name: 'stacks' });
   const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
   // query hooks
   // calculated values
@@ -292,15 +253,6 @@ function SignUpScreen() {
     setCharacterState(character);
   };
 
-  const handleSelectSkill = (skill: { value: string; length: number }) => {
-    stacksAppend({ value: skill.value, length: skill.length });
-    setValue('searchSkill', '');
-  };
-
-  const handleDeleteSkill = (skill: string) => {
-    stacksRemove(stacksFields.findIndex((item) => item.value === skill));
-  };
-
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
     if (stepChangeNumber === -1) {
@@ -309,7 +261,7 @@ function SignUpScreen() {
   };
 
   return (
-    <Stack
+    <MuiStack
       width='100%'
       height='100vh'
       alignItems='center'
@@ -335,11 +287,13 @@ function SignUpScreen() {
         css={{
           padding: '40px',
           width: '576px',
-          height: step !== 2 ? '588px' : '718px',
           margin: '0 auto',
+          justifyContent: 'space-between',
         }}
       >
-        <Stack width='100%' direction='column'>
+        {/* Header */}
+        <MuiStack width='492px' direction='row' justifyContent='center'>
+          <UnderlineTitle title='회원가입' />
           <IconArrowLeft
             onClick={() => {
               handleMoveStep(-1);
@@ -353,293 +307,316 @@ function SignUpScreen() {
               height: '35px',
             }}
           />
-
-          <Stack width='492px' direction='row' justifyContent='center'>
-            <UnderlineTitle title='회원가입' />
-          </Stack>
-          <Stack width='392px' height='100%' direction='row' css={{ margin: '0 auto' }}>
-            {step === 0 && (
-              <Stack direction='row' justifyContent='center' width='100%' height='447px' css={{ marginTop: '20px' }}>
-                <Stack direction='column' spacing={4} css={{ marginTop: '25px' }}>
-                  <Stack direction='row'>
-                    <Input
-                      type='email'
-                      placeholder='이메일'
-                      defaultValue={getValues('email')}
-                      css={{ width: '288px' }}
-                      {...register('email')}
-                    />
-                    <RequestButton disabled={!watch('email')}>인증요청</RequestButton>
-                  </Stack>
-                  <Stack direction='row'>
-                    <Input
-                      type='text'
-                      placeholder='코드입력'
-                      defaultValue={getValues('code')}
-                      css={{ width: '288px' }}
-                      {...register('code')}
-                    />
-                    <RequestButton disabled={!watch('code')}>확인</RequestButton>
-                  </Stack>
-                  <Stack direction='row'>
-                    <Input
-                      type={isShowPassword ? 'text' : 'password'}
-                      placeholder='비밀번호 입력'
-                      helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
-                      autoComplete='off'
-                      defaultValue={getValues('password')}
-                      error={errors.password}
-                      IconProps={{
-                        Icon: dirtyFields.password && isShowPassword ? <IconPasswordHide /> : <IconPasswordShow />,
-                        onClick: () => setIsShowPassword(!isShowPassword),
-                      }}
-                      css={{ width: '392px' }}
-                      {...register('password')}
-                    />
-                  </Stack>
-                  <Stack direction='row' css={{ marginTop: '16px' }}>
-                    <Input
-                      type={isShowPasswordConfirm ? 'text' : 'password'}
-                      placeholder='비밀번호 확인'
-                      autoComplete='off'
-                      defaultValue={getValues('confirmPassword')}
-                      error={errors.confirmPassword}
-                      IconProps={{
-                        onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
-                        Icon:
-                          dirtyFields.confirmPassword && isShowPasswordConfirm ? (
-                            <IconPasswordHide />
-                          ) : (
-                            <IconPasswordShow />
-                          ),
-                      }}
-                      css={{ width: '392px' }}
-                      {...register('confirmPassword')}
-                    />
-                  </Stack>
-                </Stack>
-                <SignupButton
-                  onClick={() => {
-                    handleMoveStep(1);
-                  }}
-                  disabled={!isValid}
-                >
-                  다음
-                </SignupButton>
-              </Stack>
-            )}
-            {step === 1 && (
-              <Stack
-                width='100%'
-                height='447px'
-                direction='column'
-                alignItems='center'
-                spacing={12}
-                css={{ marginTop: '20px' }}
-              >
-                <Stack direction='row' justifyContent='center' css={{ marginTop: '20px' }}>
-                  <Stack
-                    width='100px'
-                    height='100px'
-                    direction='row'
-                    css={{
-                      backgroundColor: characterState.backgroundColor,
-                      borderRadius: '50%',
-                      border: '2px solid black',
-                      overflow: 'hidden',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Character1
-                      css={{
-                        height: characterState.height,
-                        width: characterState.width,
-                        marginTop: characterState.marginTop,
-                      }}
-                    />
-                  </Stack>
-                  <Stack
-                    width='204px'
-                    direction='row'
-                    alignContent='space-between'
-                    justifyContent='space-between'
-                    css={{ flexWrap: 'wrap', marginLeft: '16px' }}
-                  >
-                    {characters.map((character, index) => {
-                      const CharacterComponent = [
-                        Character1,
-                        Character2,
-                        Character3,
-                        Character4,
-                        Character5,
-                        Character6,
-                        Character7,
-                        Character8,
-                      ][index];
-                      return (
-                        <Stack
-                          key={character.id}
-                          direction='row'
-                          width='48px'
-                          height='48px'
-                          justifyContent='center'
-                          alignItems='center'
-                          css={{
-                            border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
-                            borderRadius: '50%',
-                            overflow: 'hidden',
-                            backgroundColor: character.backgroundColor,
-                            cursor: 'pointer',
-                            '&:hover': {
-                              border: '2px solid #00CA20',
-                            },
-                          }}
-                        >
-                          <CharacterComponent
-                            onClick={() => handleSelectProfileImage(character)}
-                            css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
-                          />
-                        </Stack>
-                      );
-                    })}
-                  </Stack>
-                </Stack>
-                <Stack direction='row' width='324px' justifyContent='center'>
+        </MuiStack>
+        {/* Content */}
+        <MuiStack direction='row'>
+          {step === 0 && (
+            <MuiStack
+              direction='row'
+              justifyContent='center'
+              width='100%'
+              height='447px'
+              css={{ padding: '40px 52px' }}
+            >
+              <MuiStack direction='column' spacing='16px'>
+                <MuiStack direction='row' spacing='8px'>
                   <Input
-                    helperText='8자이내, 한글, 영문 숫자 혼용 가능'
-                    defaultValue={getValues('nickname')}
-                    error={errors.nickname}
-                    placeholder='닉네임 입력'
-                    {...register('nickname')}
+                    type='email'
+                    placeholder='이메일'
+                    defaultValue={getValues('email')}
+                    css={{ width: '288px' }}
+                    error={errors.email}
+                    {...register('email')}
                   />
-                  <RequestButton disabled={!isValid} css={{ width: '93px' }}>
-                    중복확인
-                  </RequestButton>
-                </Stack>
-                <SignupButton
-                  onClick={() => {
-                    handleMoveStep(1);
-                  }}
-                  disabled={!isValid}
-                >
-                  다음
-                </SignupButton>
-              </Stack>
-            )}
-            {step === 2 && (
-              <Stack
-                width='100%'
-                height='100%'
-                direction='column'
-                alignItems='center'
-                spacing={5}
-                css={{ marginTop: '20px' }}
-              >
-                <Stack direction='row' width='392px' justifyContent='space-between' css={{ marginTop: '15px' }}>
-                  <Stack width='212px' direction='column'>
-                    <DropDown
-                      label='직무'
-                      options={jobs}
-                      defaultValue={getValues('job')}
-                      required
-                      {...register('job')}
-                    />
-                  </Stack>
-                  <Stack width='168px' direction='column'>
-                    <DropDown
-                      label='경력'
-                      options={careers}
-                      defaultValue={getValues('career')}
-                      required
-                      {...register('career')}
-                    />
-                  </Stack>
-                </Stack>
-                <Stack width='100%' direction='column' css={{ position: 'relative' }}>
+                  <RequestButton disabled={!!errors.email || dirtyFields.email}>인증요청</RequestButton>
+                </MuiStack>
+                <MuiStack direction='row' spacing='8px'>
                   <Input
-                    variant='underline'
-                    required
-                    label='보유기술'
                     type='text'
-                    placeholder='기술 스택 검색'
-                    defaultValue={getValues('searchSkill')}
+                    placeholder='코드입력'
+                    defaultValue={getValues('code')}
+                    css={{ width: '288px' }}
+                    {...register('code')}
+                    error={errors.code}
+                  />
+                  <RequestButton disabled={!!errors.code || dirtyFields.code}>확인</RequestButton>
+                </MuiStack>
+                <MuiStack direction='row'>
+                  <Input
+                    type={isShowPassword ? 'text' : 'password'}
+                    placeholder='비밀번호 입력'
+                    helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                    autoComplete='off'
+                    defaultValue={getValues('password')}
+                    error={errors.password}
                     IconProps={{
-                      Icon: <IconSearch css={{ position: 'absolute', top: '43px' }} />,
+                      EndIcon: dirtyFields.password && isShowPassword ? <IconPasswordHide /> : <IconPasswordShow />,
+                      onClick: () => setIsShowPassword(!isShowPassword),
                     }}
-                    css={{ fontSize: '16px', paddingLeft: '30px' }}
-                    {...register('searchSkill')}
+                    css={{ width: '392px' }}
+                    {...register('password')}
                   />
-                  {watch('searchSkill') && (
-                    <SkillDropdown skills={skills} searchKeyword={watch('searchSkill')} onClick={handleSelectSkill} />
-                  )}
-                  {!!stacksFields.length && (
-                    <Stack direction='row' css={{ height: '30px', flexWrap: 'wrap', overflowY: 'scroll' }}>
-                      {stacksFields.map((skill) => (
-                        <SkillTab skill={skill} key={skill.id} selected onDelete={handleDeleteSkill}>
-                          {skill.value}
-                        </SkillTab>
-                      ))}
-                    </Stack>
-                  )}
-                </Stack>
-                <Stack width='100%' direction='column'>
-                  <TextArea
-                    label='자기소개'
-                    required
-                    placeholder='안녕하세욥!'
-                    defaultValue={getValues('introduction')}
-                    css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
-                    {...register('introduction')}
-                  />
-                </Stack>
-                <Stack width='100%' direction='column'>
+                </MuiStack>
+                <MuiStack direction='row'>
                   <Input
-                    variant='underline'
-                    label='참고 링크'
-                    type='text'
-                    placeholder='URL을 입력해주세요.'
-                    defaultValue={getValues('enterUrl')}
-                    onKeyDown={handlerKeyDown}
-                    css={{ fontSize: '16px' }}
-                    {...register('enterUrl')}
+                    type={isShowPasswordConfirm ? 'text' : 'password'}
+                    placeholder='비밀번호 확인'
+                    autoComplete='off'
+                    defaultValue={getValues('confirmPassword')}
+                    error={errors.confirmPassword}
+                    IconProps={{
+                      onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
+                      EndIcon:
+                        dirtyFields.confirmPassword && isShowPasswordConfirm ? (
+                          <IconPasswordHide />
+                        ) : (
+                          <IconPasswordShow />
+                        ),
+                    }}
+                    css={{ width: '392px' }}
+                    {...register('confirmPassword')}
                   />
-                  {!!urlsFields.length && (
-                    <Stack
-                      width='100%'
-                      direction='column'
-                      css={{ height: '50px', overflowY: 'scroll', border: 'none' }}
-                    >
-                      {urlsFields.map((url, index) => (
-                        <Stack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
-                          <a
-                            css={(theme: Theme) => ({
-                              color: theme.palette.primary.main,
-                              textDecoration: 'underline',
-                              fontWeight: '500',
-                              display: 'inline-block',
-                            })}
-                            href={url.value}
-                            target='_blank'
-                            rel='noreferrer'
-                          >
-                            {url.value.includes('https://') ? url.value : `https://${url.value}`}
-                          </a>
-                          <DeleteUrl
-                            onClick={() => urlsRemove(index)}
-                            css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
-                          />
-                        </Stack>
-                      ))}
-                    </Stack>
+                </MuiStack>
+              </MuiStack>
+            </MuiStack>
+          )}
+
+          {step === 1 && (
+            <MuiStack direction='column' spacing={12} css={{ padding: '40px 86px' }}>
+              {/* FIXME: 컴포넌트 교체 필요 */}
+              <MuiStack direction='row' justifyContent='center'>
+                <MuiStack
+                  width='100px'
+                  direction='row'
+                  css={{
+                    backgroundColor: characterState.backgroundColor,
+                    borderRadius: '50%',
+                    border: '2px solid black',
+                    overflow: 'hidden',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Character1
+                    css={{
+                      height: characterState.height,
+                      width: characterState.width,
+                      marginTop: characterState.marginTop,
+                    }}
+                  />
+                </MuiStack>
+                <MuiStack
+                  direction='row'
+                  alignContent='space-between'
+                  justifyContent='space-between'
+                  css={{ flexWrap: 'wrap', marginLeft: '16px' }}
+                >
+                  {characters.map((character, index) => {
+                    const CharacterComponent = [
+                      Character1,
+                      Character2,
+                      Character3,
+                      Character4,
+                      Character5,
+                      Character6,
+                      Character7,
+                      Character8,
+                    ][index];
+                    return (
+                      <MuiStack
+                        key={character.id}
+                        direction='row'
+                        width='48px'
+                        height='48px'
+                        justifyContent='center'
+                        alignItems='center'
+                        css={{
+                          border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
+                          borderRadius: '50%',
+                          overflow: 'hidden',
+                          backgroundColor: character.backgroundColor,
+                          cursor: 'pointer',
+                          '&:hover': {
+                            border: '2px solid #00CA20',
+                          },
+                        }}
+                      >
+                        <CharacterComponent
+                          onClick={() => handleSelectProfileImage(character)}
+                          css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
+                        />
+                      </MuiStack>
+                    );
+                  })}
+                </MuiStack>
+              </MuiStack>
+              <MuiStack direction='row' width='324px' spacing='8px'>
+                <Input
+                  helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                  defaultValue={getValues('nickname')}
+                  error={errors.nickname}
+                  placeholder='닉네임 입력'
+                  {...register('nickname')}
+                />
+                <RequestButton disabled={!isValid} css={{ width: '93px' }}>
+                  중복확인
+                </RequestButton>
+              </MuiStack>
+            </MuiStack>
+          )}
+          {step === 2 && (
+            <MuiStack direction='column' alignItems='center' spacing={5} css={{ padding: '40px 52px' }}>
+              <MuiStack direction='row' width='392px' spacing='12px'>
+                <SingleSelect
+                  css={{ flex: 1 }}
+                  label='직무'
+                  options={jobs}
+                  defaultValue={getValues('job')}
+                  required
+                  {...register('job')}
+                />
+                <SingleSelect
+                  css={{ flex: 0.79 }}
+                  label='경력'
+                  options={careers}
+                  defaultValue={getValues('career')}
+                  required
+                  {...register('career')}
+                />
+              </MuiStack>
+              <MuiStack direction='column' spacing='8px' css={{ width: '100%' }}>
+                <Controller
+                  control={control}
+                  name='stacks'
+                  render={({ field: { value, onChange } }) => (
+                    <SearchStackInput
+                      type='signup'
+                      label='기술 스택'
+                      required
+                      value={value}
+                      onAdd={appendStack}
+                      onChange={onChange}
+                    />
                   )}
-                </Stack>
-                <SignupButton onClick={() => console.log(getValues())}>회원가입</SignupButton>
-              </Stack>
-            )}
-          </Stack>
-        </Stack>
+                />
+                {stacks.length <= 5 ? (
+                  <MuiStack direction='row' spacing='4px'>
+                    {stacks.map((stack, i) => (
+                      <StackChip selected key={stack.id} length={1} name={stack.name} onClick={() => removeStack(i)} />
+                    ))}
+                  </MuiStack>
+                ) : (
+                  <MuiStack direction='row' spacing='4px' css={{ position: 'relative' }}>
+                    {stacks.slice(0, 5).map((stack, i) => (
+                      <StackChip selected key={stack.id} length={1} name={stack.name} onClick={() => removeStack(i)} />
+                    ))}
+                    <IconArrowDown
+                      css={(theme: Theme) => [
+                        { width: '24px', cursor: 'pointer' },
+                        isExpand && {
+                          transform: 'rotate(180deg)',
+                          '& > path': { stroke: `${theme.palette.primary.main}` },
+                        },
+                      ]}
+                      onClick={() => setIsExpand((prev) => !prev)}
+                    />
+                    {isExpand && (
+                      <>
+                        <ClickAway onClick={() => setIsExpand(false)} />
+                        <Grid
+                          container
+                          css={(theme: Theme) => ({
+                            border: `1px solid ${theme.palette.black.main}`,
+                            borderRadius: '8px',
+                            boxShadow: '4px 4px 0px #000',
+                            position: 'absolute',
+                            top: '100%',
+                            marginLeft: '0 !important',
+                            padding: '8px',
+                            left: 0,
+                            zIndex: 2,
+                            backgroundColor: theme.palette.paper,
+                          })}
+                          rowSpacing='8px'
+                          columnSpacing='4px'
+                        >
+                          {stacks.map((stack, i) => (
+                            <Grid item key={stack.id}>
+                              <Tooltip title={stack.name}>
+                                <div>
+                                  <StackChip selected name={stack.name} length={1} onClick={() => removeStack(i)} />
+                                </div>
+                              </Tooltip>
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </>
+                    )}
+                  </MuiStack>
+                )}
+              </MuiStack>
+              <MuiStack width='100%' direction='column'>
+                <TextArea
+                  label='자기소개'
+                  required
+                  placeholder='안녕하세욥!'
+                  defaultValue={getValues('introduction')}
+                  css={{ fontSize: '14px', overflow: 'unset', height: '98px' }}
+                  {...register('introduction')}
+                />
+              </MuiStack>
+              <MuiStack width='100%' direction='column'>
+                <Input
+                  variant='underline'
+                  label='참고 링크'
+                  type='text'
+                  placeholder='URL을 입력해주세요.'
+                  defaultValue={getValues('enterUrl')}
+                  onKeyDown={handlerKeyDown}
+                  css={{ fontSize: '16px' }}
+                  {...register('enterUrl')}
+                />
+                {!!urlsFields.length && (
+                  <MuiStack
+                    width='100%'
+                    direction='column'
+                    css={{ height: '50px', overflowY: 'scroll', border: 'none' }}
+                  >
+                    {urlsFields.map((url, index) => (
+                      <MuiStack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
+                        <a
+                          css={(theme: Theme) => ({
+                            color: theme.palette.primary.main,
+                            textDecoration: 'underline',
+                            fontWeight: '500',
+                            display: 'inline-block',
+                          })}
+                          href={url.value}
+                          target='_blank'
+                          rel='noreferrer'
+                        >
+                          {url.value.includes('https://') ? url.value : `https://${url.value}`}
+                        </a>
+                        <DeleteUrl
+                          onClick={() => urlsRemove(index)}
+                          css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
+                        />
+                      </MuiStack>
+                    ))}
+                  </MuiStack>
+                )}
+              </MuiStack>
+            </MuiStack>
+          )}
+        </MuiStack>
+
+        {/* Action */}
+        <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
+          <SignupButton disabled={!isValid} onClick={() => console.log(getValues())}>
+            {step === 2 ? '회원가입' : '다음'}
+          </SignupButton>
+        </MuiStack>
       </ShadowBox>
-    </Stack>
+    </MuiStack>
   );
 }
 

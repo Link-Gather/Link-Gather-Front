@@ -1,5 +1,5 @@
 import { useStacks } from '@libs/stacks';
-import { Input, StackChip } from '@elements';
+import { ClickAway, Input, StackChip } from '@elements';
 import { Grid, Stack as MuiStack } from '@mui/material';
 import { Theme } from '@libs/theme';
 import { useMemo, useRef, useState } from 'react';
@@ -104,10 +104,7 @@ function SearchStackInput(props: {
         />
         {search && !isHide && (
           <>
-            <div
-              css={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, zIndex: 1 }}
-              onClick={() => setIsHide(true)}
-            />
+            <ClickAway onClick={() => setIsHide(true)} />
             <MuiStack
               ref={ref}
               css={(theme: Theme) => ({

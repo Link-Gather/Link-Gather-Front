@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
@@ -24,7 +24,7 @@ import Character5 from '@assets/images/icons/character/character5.svg';
 import Character6 from '@assets/images/icons/character/character6.svg';
 import Character7 from '@assets/images/icons/character/character7.svg';
 import Character8 from '@assets/images/icons/character/character8.svg';
-import { Stack } from '@models';
+import { Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 
 export const characters = [
@@ -100,8 +100,6 @@ type ValidationType = {
   password: string;
   confirmPassword: string;
   nickname: string;
-  searchSkill: string;
-  enterUrl: string;
   job: string;
   career: number;
   stacks: Stack[];
@@ -156,6 +154,7 @@ const SignupButton = styled(Button)(
   })
 );
 
+//TODO: 수정 필요
 const jobs = [
   { label: '프론트엔드', value: 'Frontend Developer' },
   { label: '백엔드', value: 'Backend Developer' },
@@ -164,13 +163,7 @@ const jobs = [
   { label: '기타', value: 'Other' },
 ];
 
-const careers = [
-  { label: '학생/취준생', value: 0 },
-  { label: '1~3년차', value: 1 },
-  { label: '3~5년차', value: 3 },
-  { label: '5~10년차', value: 5 },
-  { label: '10년차이상', value: 10 },
-];
+const careerOptions = User.getJobOptions();
 
 const schema = [
   // step 1
@@ -200,19 +193,21 @@ function SignUpScreen() {
   // lib hooks
   const navigate = useNavigate();
   // state, ref, querystring hooks
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
   const [isExpand, setIsExpand] = useState(false);
+  const [url, setUrl] = useState('');
   // form hooks
   const {
     register,
-    watch,
     control,
     getValues,
     formState: { errors, isValid, dirtyFields },
     setValue,
+    handleSubmit,
+    //TODO: api연결 후 에러 시 사용할 수 있다.
     setError,
   } = useForm<ValidationType>({
     mode: 'onChange',
@@ -222,10 +217,8 @@ function SignUpScreen() {
       password: '',
       confirmPassword: '',
       nickname: '',
-      searchSkill: '',
-      enterUrl: '',
       job: 'Frontend Developer',
-      career: 0,
+      career: 100,
       stacks: [],
       urls: [],
       introduction: '',
@@ -234,19 +227,11 @@ function SignUpScreen() {
     resolver: yupResolver(schema[step]),
   });
   const { fields: stacks, append: appendStack, remove: removeStack } = useFieldArray({ control, name: 'stacks' });
-  const { fields: urlsFields, append: urlsAppend, remove: urlsRemove } = useFieldArray({ control, name: 'urls' });
+  const { fields: urls, append: appendUrl, remove: removeUrl } = useFieldArray({ control, name: 'urls' });
   // query hooks
   // calculated values
   // effects
   // handlers
-  const handlerKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const value = e.currentTarget.value;
-      const httpsValue = value.includes('https://') ? value : 'https://' + value;
-      urlsAppend({ value: httpsValue });
-      setValue('enterUrl', '');
-    }
-  };
 
   const handleSelectProfileImage = (character: CharacterType) => {
     setValue('profileImage', character.src);
@@ -328,7 +313,7 @@ function SignUpScreen() {
                     error={errors.email}
                     {...register('email')}
                   />
-                  <RequestButton disabled={!!errors.email || dirtyFields.email}>인증요청</RequestButton>
+                  <RequestButton disabled={!!errors.email || !dirtyFields.email}>인증요청</RequestButton>
                 </MuiStack>
                 <MuiStack direction='row' spacing='8px'>
                   <Input
@@ -339,7 +324,7 @@ function SignUpScreen() {
                     {...register('code')}
                     error={errors.code}
                   />
-                  <RequestButton disabled={!!errors.code || dirtyFields.code}>확인</RequestButton>
+                  <RequestButton disabled={!!errors.code || !dirtyFields.code}>확인</RequestButton>
                 </MuiStack>
                 <MuiStack direction='row'>
                   <Input
@@ -466,21 +451,33 @@ function SignUpScreen() {
           {step === 2 && (
             <MuiStack direction='column' alignItems='center' spacing={5} css={{ padding: '40px 52px' }}>
               <MuiStack direction='row' width='392px' spacing='12px'>
-                <SingleSelect
-                  css={{ flex: 1 }}
-                  label='직무'
-                  options={jobs}
-                  defaultValue={getValues('job')}
-                  required
-                  {...register('job')}
+                <Controller
+                  control={control}
+                  name='job'
+                  render={({ field: { value, onChange } }) => (
+                    <SingleSelect
+                      css={{ flex: 1 }}
+                      label='직무'
+                      options={jobs}
+                      required
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
                 />
-                <SingleSelect
-                  css={{ flex: 0.79 }}
-                  label='경력'
-                  options={careers}
-                  defaultValue={getValues('career')}
-                  required
-                  {...register('career')}
+                <Controller
+                  control={control}
+                  name='career'
+                  render={({ field: { value, onChange } }) => (
+                    <SingleSelect
+                      css={{ flex: 0.79 }}
+                      label='경력'
+                      options={careerOptions}
+                      required
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
                 />
               </MuiStack>
               <MuiStack direction='column' spacing='8px' css={{ width: '100%' }}>
@@ -564,46 +561,44 @@ function SignUpScreen() {
                   {...register('introduction')}
                 />
               </MuiStack>
-              <MuiStack width='100%' direction='column'>
+              <MuiStack width='100%' direction='column' spacing='8px'>
                 <Input
                   variant='underline'
                   label='참고 링크'
                   type='text'
                   placeholder='URL을 입력해주세요.'
-                  defaultValue={getValues('enterUrl')}
-                  onKeyDown={handlerKeyDown}
                   css={{ fontSize: '16px' }}
-                  {...register('enterUrl')}
+                  onChange={(e) => setUrl(e.target.value)}
+                  value={url}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      if (url.slice(0, 9).includes('https://') || url.slice(0, 8).includes('http://')) {
+                        appendUrl({ value: url });
+                      } else {
+                        appendUrl({ value: `https://${url}` });
+                      }
+                      setUrl('');
+                    }
+                  }}
                 />
-                {!!urlsFields.length && (
-                  <MuiStack
-                    width='100%'
-                    direction='column'
-                    css={{ height: '50px', overflowY: 'scroll', border: 'none' }}
-                  >
-                    {urlsFields.map((url, index) => (
-                      <MuiStack key={url.id} direction='row' css={{ padding: '0px 5px' }}>
-                        <a
-                          css={(theme: Theme) => ({
-                            color: theme.palette.primary.main,
-                            textDecoration: 'underline',
-                            fontWeight: '500',
-                            display: 'inline-block',
-                          })}
-                          href={url.value}
-                          target='_blank'
-                          rel='noreferrer'
-                        >
-                          {url.value.includes('https://') ? url.value : `https://${url.value}`}
-                        </a>
-                        <DeleteUrl
-                          onClick={() => urlsRemove(index)}
-                          css={{ width: '15px', marginLeft: '5px', cursor: 'pointer' }}
-                        />
-                      </MuiStack>
-                    ))}
-                  </MuiStack>
-                )}
+                <MuiStack direction='column' spacing='4px'>
+                  {urls.map((url, i) => (
+                    <MuiStack key={url.value} direction='row'>
+                      <a
+                        href={url.value}
+                        css={(theme: Theme) => ({
+                          color: theme.palette.primary.main,
+                          cursor: 'pointer',
+                        })}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        {url.value}
+                      </a>
+                      <DeleteUrl css={{ width: '20px', cursor: 'pointer' }} onClick={() => removeUrl(i)} />
+                    </MuiStack>
+                  ))}
+                </MuiStack>
               </MuiStack>
             </MuiStack>
           )}
@@ -611,7 +606,14 @@ function SignUpScreen() {
 
         {/* Action */}
         <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
-          <SignupButton disabled={!isValid} onClick={() => console.log(getValues())}>
+          <SignupButton
+            disabled={!isValid}
+            onClick={() => {
+              step === 2 //TODO: 회원가입 api 연결
+                ? handleSubmit(() => {})
+                : handleMoveStep(1);
+            }}
+          >
             {step === 2 ? '회원가입' : '다음'}
           </SignupButton>
         </MuiStack>

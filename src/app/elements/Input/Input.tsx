@@ -53,7 +53,6 @@ const Input = forwardRef(
               return [
                 {
                   width: '100%',
-                  height: '50px',
                   fontSize: '20px',
                   borderRadius: '8px',
                   border: `2px solid ${theme.palette.secondary.n60}`,

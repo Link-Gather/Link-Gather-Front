@@ -1,4 +1,4 @@
-import { useId, forwardRef, useState, type InputHTMLAttributes, type ForwardedRef } from 'react';
+import { useId, forwardRef, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
 import { Stack } from '@mui/material';
@@ -12,8 +12,10 @@ const Input = forwardRef(
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };
+      value?: string | number;
+      defaultValue?: string | number;
       variant?: 'outlined' | 'underline';
-    } & InputHTMLAttributes<HTMLInputElement>,
+    } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue'>,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
@@ -26,6 +28,8 @@ const Input = forwardRef(
       IconProps,
       required = false,
       variant = 'outlined',
+      value,
+      defaultValue,
       ...rest
     } = props;
 
@@ -33,11 +37,23 @@ const Input = forwardRef(
     const inputId = useId();
 
     // state, ref hooks
-    const [isFocused, setIsFocused] = useState(false);
-
     // form hook
     // query hooks
     // calculated values
+    const values: { value?: string | number; defaultValue?: string | number } = {};
+    if (Object.prototype.hasOwnProperty.call(props, 'value')) {
+      values.value = value ?? ('' as string | number);
+    }
+    if (Object.prototype.hasOwnProperty.call(props, 'defaultValue')) {
+      values.defaultValue = defaultValue ?? ('' as string | number);
+    }
+    if (
+      !Object.prototype.hasOwnProperty.call(props, 'value') &&
+      !Object.prototype.hasOwnProperty.call(props, 'defaultValue')
+    ) {
+      // value, defaultValue 둘 다 prop 으로 전달하지 않으면 uncontrolled 로 가정 한다.
+      values.defaultValue = '' as string | number;
+    }
     // effects
     // handlers
 
@@ -70,7 +86,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'outlined' &&
-                  isFocused && {
+                  Object.values(values).some(Boolean) && {
                     border: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       border: `2px solid ${theme.palette.primary.main}`,
@@ -92,7 +108,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'underline' &&
-                  isFocused && {
+                  Object.values(values).some(Boolean) && {
                     borderBottom: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       borderBottom: `2px solid ${theme.palette.primary.main}`,
@@ -107,9 +123,8 @@ const Input = forwardRef(
                   },
               ];
             }}
+            {...values}
             ref={ref}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             {...rest}
           />
           {IconProps?.StartIcon && (
@@ -169,9 +184,6 @@ const Input = forwardRef(
                 fontWeight: '400',
                 lineHeight: '20px',
                 color: theme.palette.secondary.n60,
-              },
-              isFocused && {
-                color: theme.palette.secondary.n300,
               },
               error && {
                 color: theme.palette.secondary.red,

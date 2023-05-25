@@ -36,7 +36,12 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
     if (queueLength + Stack.getLength(stack!.name) <= max) {
       queue.push(stack!);
     } else if (!hasOne && queueLength === max - 1) {
-      filteredStacks.unshift(stack!, queue.pop()!);
+      filteredStacks.unshift(queue.pop()!);
+      if (queue.reduce((acc, cur) => acc + Stack.getLength(cur.name), 0) + Stack.getLength(stack!.name) === max) {
+        queue.push(stack!);
+      } else {
+        filteredStacks.unshift(stack!);
+      }
     } else if (queueLength + Stack.getLength(stack!.name) > max) {
       filteredStacks.unshift(stack!);
     }
@@ -66,9 +71,9 @@ function SearchStackInput(props: {
   const [search, setSearch] = useState('');
   const [isHide, setIsHide] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
-  const [selectedStackIds] = useState<Set<number>>(new Set(value?.map((stack) => stack.id)));
   // query hooks
   // calculated values
+  const selectedStackIds = useMemo(() => new Set(value?.map((stack) => stack.id)), [value]);
   const searchedStacks = useMemo(
     () =>
       sortSearchStack(

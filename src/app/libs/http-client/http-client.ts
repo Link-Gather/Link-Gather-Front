@@ -14,6 +14,17 @@ export const httpClient = (() => {
     config.headers.Authorization = `Bearer ${getToken()}`;
     return config;
   });
+
+  axios.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      if (err?.response?.data?.errorMessage) {
+        err.message = err?.response?.data?.errorMessage || err.message;
+      }
+      return Promise.reject(err);
+    }
+  );
+
   return {
     async get<T>(url: string, config?: { params?: Record<string, any> }): Promise<T> {
       const res = await axios.get(url, config);

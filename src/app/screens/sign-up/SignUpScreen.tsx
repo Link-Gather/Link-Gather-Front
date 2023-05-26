@@ -26,6 +26,8 @@ import Character7 from '@assets/images/icons/character/character7.svg';
 import Character8 from '@assets/images/icons/character/character8.svg';
 import { Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
+import { useMutation } from '@libs/query';
+import { AuthRepository } from '@repositories';
 
 export const characters = [
   {
@@ -117,7 +119,7 @@ type CharacterType = {
   marginTop: string;
 };
 
-const RequestButton = styled('button')(
+const RequestButton = styled(Button)(
   {
     width: '94px',
     height: '50px',
@@ -199,6 +201,8 @@ function SignUpScreen() {
   const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
   const [isExpand, setIsExpand] = useState(false);
   const [url, setUrl] = useState('');
+  const [lastVerificationId, setLastVerificationId] = useState('');
+  const [isVerified, setIsVerified] = useState(false);
   // form hooks
   const {
     register,
@@ -229,6 +233,27 @@ function SignUpScreen() {
   const { fields: stacks, append: appendStack, remove: removeStack } = useFieldArray({ control, name: 'stacks' });
   const { fields: urls, append: appendUrl, remove: removeUrl } = useFieldArray({ control, name: 'urls' });
   // query hooks
+  const { mutateAsync: emailVerification, isLoading: isEmailVerificationLoading } = useMutation(
+    AuthRepository.emailVerification,
+    {
+      onCompleted: (data) => {
+        //@ts-expect-error
+        setLastVerificationId(data.data.id);
+        // setLastVerificationId(data.id);
+      },
+      onError: (err) => {
+        setError('email', { message: err.message });
+      },
+    }
+  );
+  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(AuthRepository.verify, {
+    onCompleted: () => {
+      setIsVerified(true);
+    },
+    onError: (err) => {
+      setError('code', { message: err.message });
+    },
+  });
   // calculated values
   // effects
   // handlers
@@ -312,8 +337,24 @@ function SignUpScreen() {
                     css={{ width: '288px' }}
                     error={errors.email}
                     {...register('email')}
+                    onChange={(e) => {
+                      register('email').onChange(e);
+                      setIsVerified(false);
+                    }}
+                    helperText={lastVerificationId ? '인증번호를 전송하였습니다.' : errors.code?.message}
                   />
-                  <RequestButton disabled={!!errors.email || !dirtyFields.email}>인증요청</RequestButton>
+                  <RequestButton
+                    loading={isEmailVerificationLoading}
+                    disabled={!!errors.email || !dirtyFields.email || isVerified}
+                    onClick={async () =>
+                      await emailVerification({
+                        email: getValues('email'),
+                        type: 'signup',
+                      })
+                    }
+                  >
+                    인증요청
+                  </RequestButton>
                 </MuiStack>
                 <MuiStack direction='row' spacing='8px'>
                   <Input
@@ -323,8 +364,18 @@ function SignUpScreen() {
                     css={{ width: '288px' }}
                     {...register('code')}
                     error={errors.code}
+                    disabled={isVerified}
+                    helperText={errors.code?.message}
                   />
-                  <RequestButton disabled={!!errors.code || !dirtyFields.code}>확인</RequestButton>
+                  <RequestButton
+                    disabled={!!errors.code || !dirtyFields.code || isVerified}
+                    loading={isVerifyLoading}
+                    onClick={async () => {
+                      await verify({ id: lastVerificationId, code: getValues('code') });
+                    }}
+                  >
+                    확인
+                  </RequestButton>
                 </MuiStack>
                 <MuiStack direction='row'>
                   <Input
@@ -607,7 +658,7 @@ function SignUpScreen() {
         {/* Action */}
         <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
           <SignupButton
-            disabled={!isValid}
+            disabled={!isValid || !isVerified}
             onClick={() => {
               step === 2 //TODO: 회원가입 api 연결
                 ? handleSubmit(() => {})

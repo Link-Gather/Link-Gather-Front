@@ -30,6 +30,7 @@ const Input = forwardRef(
       variant = 'outlined',
       value,
       defaultValue,
+      disabled,
       ...rest
     } = props;
 
@@ -62,6 +63,7 @@ const Input = forwardRef(
         {label && <Label id={inputId} label={label} required={required} />}
         <div css={{ position: 'relative' }}>
           <input
+            disabled={disabled}
             className={className}
             id={inputId}
             type={type}
@@ -99,6 +101,11 @@ const Input = forwardRef(
                       border: `2px solid ${theme.palette.secondary.red}`,
                     },
                   },
+                variant === 'outlined' &&
+                  disabled && {
+                    borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                    color: theme.palette.secondary.n60,
+                  },
                 variant === 'underline' && {
                   border: 'none',
                   borderRadius: 0,
@@ -120,6 +127,11 @@ const Input = forwardRef(
                     '&:focus': {
                       borderBottom: `2px solid ${theme.palette.secondary.red}`,
                     },
+                  },
+                variant === 'underline' &&
+                  disabled && {
+                    borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                    color: theme.palette.secondary.n60,
                   },
               ];
             }}
@@ -184,6 +196,9 @@ const Input = forwardRef(
                 fontWeight: '400',
                 lineHeight: '20px',
                 color: theme.palette.secondary.n60,
+              },
+              Object.values(values).some(Boolean) && {
+                color: theme.palette.secondary.n300,
               },
               error && {
                 color: theme.palette.secondary.red,

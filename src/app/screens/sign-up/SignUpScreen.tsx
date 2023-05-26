@@ -9,7 +9,17 @@ import * as yup from 'yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchStackInput } from '@components';
-import { UnderlineTitle, Input, ShadowBox, TextArea, Button, StackChip, SingleSelect, ClickAway } from '@elements';
+import {
+  UnderlineTitle,
+  Input,
+  ShadowBox,
+  TextArea,
+  Button,
+  StackChip,
+  SingleSelect,
+  ClickAway,
+  Timer,
+} from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD, SCHEMA_EMAIL } from '@libs/schema';
 import styled from '@emotion/styled';
 import DeleteUrl from '@assets/images/icons/delete-url.svg';
@@ -203,6 +213,7 @@ function SignUpScreen() {
   const [url, setUrl] = useState('');
   const [lastVerificationId, setLastVerificationId] = useState('');
   const [isVerified, setIsVerified] = useState(false);
+  const [time, setTime] = useState<number>();
   // form hooks
   const {
     register,
@@ -240,6 +251,7 @@ function SignUpScreen() {
         //@ts-expect-error
         setLastVerificationId(data.data.id);
         // setLastVerificationId(data.id);
+        setTime(180);
       },
       onError: (err) => {
         setError('email', { message: err.message });
@@ -377,6 +389,8 @@ function SignUpScreen() {
                     확인
                   </RequestButton>
                 </MuiStack>
+                {/* TODO: 위치 수정 필요 */}
+                {time && <Timer seconds={time} onChange={setTime} />}
                 <MuiStack direction='row'>
                   <Input
                     type={isShowPassword ? 'text' : 'password'}

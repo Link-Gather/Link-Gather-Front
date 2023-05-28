@@ -55,37 +55,38 @@ function Header() {
             <NoMemberProfileIcon css={{ height: '50px', width: '50px' }} />
           )}
         </IconButton>
-        <Menu
-          open={open}
-          anchorEl={anchorEl}
-          onClick={() => setAnchorEl(null)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          css={{
-            '& .MuiMenu-paper': {
-              borderRadius: '0px',
-              border: '2px solid #000',
-            },
-            '& .MuiMenu-list': {
-              padding: 0,
-            },
-          }}
-        >
-          <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_LOGIN)}>
-            <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
-              로그인
-            </Typography>
-          </MenuItem>
-          <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_SIGNUP)}>
-            <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
-              회원가입
-            </Typography>
-          </MenuItem>
-        </Menu>
       </div>
+      <Menu
+        open={open}
+        anchorEl={anchorEl}
+        onClick={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        css={{
+          '& .MuiMenu-paper': {
+            borderRadius: '0px',
+            border: '2px solid #000',
+            boxShadow: 'none',
+          },
+          '& .MuiMenu-list': {
+            padding: 0,
+          },
+        }}
+      >
+        <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_LOGIN)}>
+          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
+            로그인
+          </Typography>
+        </MenuItem>
+        <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_SIGNUP)}>
+          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
+            회원가입
+          </Typography>
+        </MenuItem>
+      </Menu>
     </header>
   );
 }

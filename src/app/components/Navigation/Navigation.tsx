@@ -38,17 +38,13 @@ function Navigation(props: { className?: string }) {
   return (
     <Stack direction='row' className={className}>
       <Stack direction='row' spacing='16px'>
-        <MenuItem disableRipple selected={location.pathname === PATH_PROJECTS} onClick={() => navigate(PATH_PROJECTS)}>
+        <MenuItem selected={location.pathname === PATH_PROJECTS} onClick={() => navigate(PATH_PROJECTS)}>
           프로젝트 찾기
         </MenuItem>
-        <MenuItem disableRipple selected={location.pathname === PATH_PARTNERS} onClick={() => navigate(PATH_PARTNERS)}>
+        <MenuItem selected={location.pathname === PATH_PARTNERS} onClick={() => navigate(PATH_PARTNERS)}>
           동료 찾기
         </MenuItem>
-        <MenuItem
-          disableRipple
-          selected={location.pathname === PATH_PROJECTS_MANAGE}
-          onClick={() => navigate(PATH_PROJECTS_MANAGE)}
-        >
+        <MenuItem selected={location.pathname === PATH_PROJECTS_MANAGE} onClick={() => navigate(PATH_PROJECTS_MANAGE)}>
           프로젝트 관리
         </MenuItem>
       </Stack>

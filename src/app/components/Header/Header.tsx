@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import LogoLinkGather from '@assets/logos/logo-link-gather.svg';
-import KakaoIcon from '@assets/images/icons/icon-kakao.svg';
-import { Menu, MenuItem, Typography } from '@mui/material';
+import MemberProfileIcon from '@assets/images/icons/icon-member-profile.svg';
+import NoMemberProfileIcon from '@assets/images/icons/icon-no-member-profile.svg';
+import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { Navigation } from '../Navigation';
 import { useState } from 'react';
 import { PATH_HOME, PATH_LOGIN, PATH_SIGNUP } from '@routes';
+import { isToken } from '@libs/util';
 
 function Header() {
   // prop destruction
@@ -46,9 +48,13 @@ function Header() {
         css={{ padding: '10px 33px 8px 31px', borderRight: '2px solid' }}
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
-        <div css={{ height: '50px', width: '50px' }}>
-          <KakaoIcon css={{ height: '50px', width: '50px' }} />
-        </div>
+        <IconButton disableRipple css={{ padding: '0', height: '50px', width: '50px' }}>
+          {isToken() ? (
+            <MemberProfileIcon css={{ height: '50px', width: '50px' }} />
+          ) : (
+            <NoMemberProfileIcon css={{ height: '50px', width: '50px' }} />
+          )}
+        </IconButton>
         <Menu
           open={open}
           anchorEl={anchorEl}

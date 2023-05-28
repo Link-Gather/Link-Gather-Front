@@ -33,12 +33,15 @@ function Header() {
         borderBottom: '2px solid #000',
       }}
     >
+      {/* Link Gather Logo*/}
       <Link to={PATH_HOME}>
         <LogoLinkGather css={{ height: '44px' }} />
       </Link>
 
+      {/* Navigation */}
       <Navigation css={{ marginLeft: '114px' }} />
 
+      {/* Profile */}
       <div
         css={{ padding: '10px 33px 8px 31px', borderRight: '2px solid' }}
         onClick={(e) => setAnchorEl(e.currentTarget)}
@@ -65,13 +68,7 @@ function Header() {
             },
           }}
         >
-          <MenuItem
-            css={{ padding: '16px', width: '162px' }}
-            onClick={() => {
-              navigate(PATH_LOGIN);
-              handleClose();
-            }}
-          >
+          <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_LOGIN)}>
             <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
               로그인
             </Typography>

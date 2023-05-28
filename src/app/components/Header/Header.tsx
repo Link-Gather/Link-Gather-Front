@@ -39,7 +39,7 @@ function Header() {
       </Link>
 
       {/* Navigation */}
-      <Navigation css={{ marginLeft: '114px' }} />
+      <Navigation css={{ marginLeft: '114px', height: '68px' }} />
 
       {/* Profile */}
       <div

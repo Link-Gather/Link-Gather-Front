@@ -11,11 +11,20 @@ export default {
     label: '스택',
     required: true,
     type: 'project',
-    value: [1, 2, 3, 5, 7, 8, 9],
+    value: [
+      { id: 1, name: 'React' },
+      { id: 2, name: 'TypeScript' },
+      { id: 3, name: 'JavaScript' },
+      { id: 4, name: 'HTML' },
+      { id: 5, name: 'CSS' },
+      { id: 6, name: 'Java' },
+      { id: 7, name: 'Python' },
+      { id: 8, name: 'Mysql' },
+      { id: 9, name: 'MongoDB' },
+    ],
   },
   argTypes: {
     onAdd: { action: 'onAdd' },
-    onDelete: { action: 'onDelete' },
     onChange: { action: 'onChange' },
   },
 } as Meta<ArgTypes>;

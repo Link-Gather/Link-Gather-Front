@@ -57,6 +57,8 @@ function Navigation(props: { className?: string }) {
           backgroundColor: theme.palette.primary.main,
           marginLeft: '130px',
           color: '#FFFFFF',
+          borderRight: '2px solid #000',
+          borderLeft: '2px solid #000',
           '&:hover': {
             backgroundColor: theme.palette.primary.main,
           },

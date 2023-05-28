@@ -20,9 +20,7 @@ function Header() {
 
   // effects
   // handlers
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
   return (
     <header
       css={{
@@ -34,9 +32,11 @@ function Header() {
       }}
     >
       {/* Link Gather Logo*/}
-      <Link to={PATH_HOME}>
-        <LogoLinkGather css={{ height: '44px' }} />
-      </Link>
+      <div css={{ paddingTop: '8px' }}>
+        <Link to={PATH_HOME}>
+          <LogoLinkGather css={{ height: '44px' }} />
+        </Link>
+      </div>
 
       {/* Navigation */}
       <Navigation css={{ marginLeft: '114px', height: '68px' }} />
@@ -52,7 +52,7 @@ function Header() {
         <Menu
           open={open}
           anchorEl={anchorEl}
-          onClick={handleClose}
+          onClick={() => setAnchorEl(null)}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',

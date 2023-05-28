@@ -1,7 +1,7 @@
 import { MenuItem as MuiMenuItem, Stack } from '@mui/material';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { PATH_PROJECTS } from '@routes';
+import { PATH_PARTNERS, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_PROJECTS_MANAGE } from '@routes';
 
 const MenuItem = styled(MuiMenuItem)({
   padding: '25px 59px 24px 59px',
@@ -33,9 +33,12 @@ function Navigation(props: { className?: string }) {
         <MenuItem disableRipple onClick={() => navigate(PATH_PROJECTS)}>
           프로젝트 찾기
         </MenuItem>
-        {/* TODO: 어느 경로로 가야하는가 ? */}
-        <MenuItem disableRipple>동료 찾기</MenuItem>
-        <MenuItem disableRipple>프로젝트 관리</MenuItem>
+        <MenuItem disableRipple onClick={() => navigate(PATH_PARTNERS)}>
+          동료 찾기
+        </MenuItem>
+        <MenuItem disableRipple onClick={() => navigate(PATH_PROJECTS_MANAGE)}>
+          프로젝트 관리
+        </MenuItem>
       </Stack>
       <MenuItem
         css={(theme) => ({
@@ -43,6 +46,7 @@ function Navigation(props: { className?: string }) {
           marginLeft: '130px',
           color: '#FFFFFF',
         })}
+        onClick={() => navigate(PATH_PROJECTS_ADD)}
       >
         프로젝트 생성
       </MenuItem>

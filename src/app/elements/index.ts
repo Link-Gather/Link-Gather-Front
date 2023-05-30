@@ -14,6 +14,7 @@ export * from './ProfileImage';
 export * from './RequestButton';
 export * from './Section';
 export * from './ShadowBox';
+export * from './SingleSelect';
 export * from './Slider';
 export * from './StackChip';
 export * from './TextArea';

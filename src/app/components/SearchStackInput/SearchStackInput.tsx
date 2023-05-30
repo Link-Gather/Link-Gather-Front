@@ -53,8 +53,8 @@ function SearchStackInput(props: {
   label?: string;
   required?: boolean;
   type: 'project' | 'signup';
-  value: Stack['id'][];
-  onAdd: (id: number) => void;
+  value?: Stack[];
+  onAdd: (stack: Stack) => void;
   onChange: () => void;
   className?: string;
 }) {
@@ -66,7 +66,7 @@ function SearchStackInput(props: {
   const [search, setSearch] = useState('');
   const [isHide, setIsHide] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
-  const [selectedStackIds] = useState<Set<number>>(new Set(value));
+  const [selectedStackIds] = useState<Set<number>>(new Set(value?.map((stack) => stack.id)));
   // query hooks
   // calculated values
   const searchedStacks = useMemo(
@@ -140,7 +140,7 @@ function SearchStackInput(props: {
                       name={stack.name}
                       length={Stack.getLength(stack.name)}
                       onClick={() => {
-                        onAdd(stack.id);
+                        onAdd(stack);
                         setSearch('');
                         setIsHide(true);
                       }}
@@ -153,7 +153,7 @@ function SearchStackInput(props: {
         )}
       </MuiStack>
       {/* NOTE: select value는 number배열을 받지 못한다. */}
-      <select hidden multiple value={value.map((value) => String(value))} onChange={onChange} />
+      <select hidden multiple value={value?.map((value) => String(value))} onChange={onChange} />
     </MuiStack>
   );
 }

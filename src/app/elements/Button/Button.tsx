@@ -7,11 +7,12 @@ function Button(
     color?: CSSProperties['color'];
     children: React.ReactNode;
     className?: string;
-    isLoading?: boolean;
+    loading?: boolean;
+    variant?: 'outlined' | 'filled';
   } & React.ButtonHTMLAttributes<HTMLButtonElement>
 ) {
   // prop destruction
-  const { color, children, className, isLoading, ...rest } = props;
+  const { color, children, className, loading, variant = 'outlined', ...rest } = props;
 
   // lib hooks
   // state, ref hooks
@@ -35,24 +36,38 @@ function Button(
 
   return (
     <button
-      css={(theme: Theme) => ({
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontWeight: '800',
-        color,
-        cursor: 'pointer',
-        ':disabled': {
-          backgroundColor: theme.palette.secondary.n40,
+      css={(theme: Theme) => [
+        {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          fontWeight: 700,
+          color: color || theme.palette.secondary.n300,
+          borderRadius: '6px',
+          padding: '6px 16px',
+          cursor: 'pointer',
         },
-      })}
+        variant === 'outlined' && {
+          border: `2px solid ${theme.palette.secondary.n60}`,
+          ':disabled': {
+            color: theme.palette.secondary.n60,
+          },
+        },
+        variant === 'filled' && {
+          backgroundColor: theme.palette.primary.main,
+          color: '#fff',
+          ':disabled': {
+            backgroundColor: theme.palette.secondary.n40,
+          },
+        },
+      ]}
       className={className}
-      disabled={isLoading}
+      disabled={loading}
       {...rest}
       ref={buttonRef}
     >
-      {isLoading ? <Dimmer size={size} color={color} /> : children}
+      {loading ? <Dimmer size={size} color={color} /> : children}
     </button>
   );
 }

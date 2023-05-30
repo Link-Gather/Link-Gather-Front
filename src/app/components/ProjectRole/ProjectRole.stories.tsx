@@ -18,7 +18,7 @@ export default {
     },
     user: {
       id: 'uuid',
-      profileImage: `${S3_IMAGE_BUCKET}/grey.svg`,
+      profileImage: `${S3_IMAGE_BUCKET}/arthur.svg`,
       nickname: 'arthur',
     },
   },

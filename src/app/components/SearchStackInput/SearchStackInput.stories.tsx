@@ -11,7 +11,12 @@ export default {
     label: '스택',
     required: true,
     type: 'project',
-    value: [1, 2, 3, 5, 7, 8, 9],
+    value: [
+      {
+        id: 1,
+        name: 'react',
+      },
+    ],
   },
   argTypes: {
     onAdd: { action: 'onAdd' },

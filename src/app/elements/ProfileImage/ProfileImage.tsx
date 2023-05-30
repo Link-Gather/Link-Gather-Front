@@ -23,7 +23,7 @@ function ProfileImage(props: { src: string; className?: string; onClick?: () => 
       case 'umshe':
         return ['#F75FA8', { width: '41.3%', top: '13.04%', left: '32.61%' }];
       case 'duhong':
-        return ['#5555FF', { width: '41.3%', top: '13.04%', left: '30.43%' }];
+        return ['#5555FF', { width: '43.48%', top: '13.04%', left: '30.43%' }];
       default:
         return undefined as never;
     }

@@ -1,7 +1,7 @@
 import { httpClient } from '@libs/http-client';
 import { queryKeyMap } from '@libs/query';
 
-export const AuthRepository = {
+export const authRepository = {
   async emailVerification(params: { email: string; type: 'signup' | 'password' }) {
     return httpClient.post<{ id: string }>('/auth/email-verification', params);
   },
@@ -11,5 +11,5 @@ export const AuthRepository = {
   },
 };
 
-queryKeyMap.set(AuthRepository.emailVerification, ['Verification']);
-queryKeyMap.set(AuthRepository.verify, ['Verification']);
+queryKeyMap.set(authRepository.emailVerification, ['Verification']);
+queryKeyMap.set(authRepository.verify, ['Verification']);

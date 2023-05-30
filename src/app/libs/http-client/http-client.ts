@@ -26,7 +26,10 @@ export const httpClient = (() => {
   );
 
   return {
-    async get<T>(url: string, config?: { params?: Record<string, any> }): Promise<T> {
+    async get<T>(
+      url: string,
+      config?: { params?: Record<string, any>; paramsSerializer?: (param: Record<string, any>) => any }
+    ): Promise<T> {
       const res = await axios.get(url, config);
       return res?.data.data;
     },

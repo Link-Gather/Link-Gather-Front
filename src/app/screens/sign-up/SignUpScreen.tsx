@@ -37,7 +37,7 @@ import Character8 from '@assets/images/icons/character/character8.svg';
 import { Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 import { useMutation } from '@libs/query';
-import { AuthRepository } from '@repositories';
+import { authRepository, userRepository } from '@repositories';
 
 export const characters = [
   {
@@ -212,7 +212,10 @@ function SignUpScreen() {
   const [isExpand, setIsExpand] = useState(false);
   const [url, setUrl] = useState('');
   const [lastVerificationId, setLastVerificationId] = useState('');
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState({
+    email: false,
+    nickname: false,
+  });
   const [time, setTime] = useState<number>();
   // form hooks
   const {
@@ -245,7 +248,7 @@ function SignUpScreen() {
   const { fields: urls, append: appendUrl, remove: removeUrl } = useFieldArray({ control, name: 'urls' });
   // query hooks
   const { mutateAsync: emailVerification, isLoading: isEmailVerificationLoading } = useMutation(
-    AuthRepository.emailVerification,
+    authRepository.emailVerification,
     {
       onCompleted: (data) => {
         //@ts-expect-error
@@ -258,14 +261,25 @@ function SignUpScreen() {
       },
     }
   );
-  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(AuthRepository.verify, {
+  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verify, {
     onCompleted: () => {
-      setIsVerified(true);
+      setIsVerified((prev) => ({ ...prev, email: true }));
     },
     onError: (err) => {
       setError('code', { message: err.message });
     },
   });
+  const { mutateAsync: checkDuplicateNickname, isLoading: isCheckDuplicateNicknameLoading } = useMutation(
+    userRepository.checkDuplicateNickname,
+    {
+      onCompleted: () => {
+        setIsVerified((prev) => ({ ...prev, nickname: true }));
+      },
+      onError: (err) => {
+        setError('nickname', { message: err.message });
+      },
+    }
+  );
   // calculated values
   // effects
   // handlers
@@ -351,13 +365,13 @@ function SignUpScreen() {
                     {...register('email')}
                     onChange={(e) => {
                       register('email').onChange(e);
-                      setIsVerified(false);
+                      setIsVerified((prev) => ({ ...prev, email: false }));
                     }}
                     helperText={lastVerificationId ? '인증번호를 전송하였습니다.' : errors.code?.message}
                   />
                   <RequestButton
                     loading={isEmailVerificationLoading}
-                    disabled={!!errors.email || !dirtyFields.email || isVerified}
+                    disabled={!!errors.email || !dirtyFields.email || isVerified.email}
                     onClick={async () =>
                       await emailVerification({
                         email: getValues('email'),
@@ -376,11 +390,11 @@ function SignUpScreen() {
                     css={{ width: '288px' }}
                     {...register('code')}
                     error={errors.code}
-                    disabled={isVerified}
+                    disabled={isVerified.email}
                     helperText={errors.code?.message}
                   />
                   <RequestButton
-                    disabled={!!errors.code || !dirtyFields.code || isVerified}
+                    disabled={!!errors.code || !dirtyFields.code || isVerified.email}
                     loading={isVerifyLoading}
                     onClick={async () => {
                       await verify({ id: lastVerificationId, code: getValues('code') });
@@ -501,13 +515,27 @@ function SignUpScreen() {
               </MuiStack>
               <MuiStack direction='row' width='324px' spacing='8px'>
                 <Input
-                  helperText='8자이내, 한글, 영문 숫자 혼용 가능'
+                  helperText={
+                    errors.nickname?.message ||
+                    (isVerified.nickname ? '사용할 수 있는 닉네임입니다.' : '8자이내, 한글, 영문 숫자 혼용 가능')
+                  }
                   defaultValue={getValues('nickname')}
                   error={errors.nickname}
                   placeholder='닉네임 입력'
                   {...register('nickname')}
+                  onChange={(e) => {
+                    register('nickname').onChange(e);
+                    setIsVerified((prev) => ({ ...prev, nickname: false }));
+                  }}
                 />
-                <RequestButton disabled={!isValid} css={{ width: '93px' }}>
+                <RequestButton
+                  loading={isCheckDuplicateNicknameLoading}
+                  disabled={!isValid}
+                  css={{ width: '93px' }}
+                  onClick={async () => {
+                    await checkDuplicateNickname({ nickname: getValues('nickname') });
+                  }}
+                >
                   중복확인
                 </RequestButton>
               </MuiStack>
@@ -672,7 +700,7 @@ function SignUpScreen() {
         {/* Action */}
         <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
           <SignupButton
-            disabled={!isValid || !isVerified}
+            disabled={!isValid || !isVerified.email || !isVerified.nickname}
             onClick={() => {
               step === 2 //TODO: 회원가입 api 연결
                 ? handleSubmit(() => {})

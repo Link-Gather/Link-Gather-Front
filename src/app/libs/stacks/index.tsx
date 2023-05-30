@@ -4,7 +4,7 @@ import { httpClient } from '@libs/http-client';
 
 const stackRepository = {
   async list() {
-    return httpClient.get<{ data: Stack[] }>('/stacks');
+    return httpClient.get<Stack[]>('/stacks');
   },
 };
 
@@ -44,7 +44,8 @@ function StackProvider(props: { children?: ReactNode }) {
 
     stackRepository
       .list()
-      .then(({ data }) => {
+      .then((data) => {
+        console.log(data);
         setStacks(data);
       })
       .catch((err) => {

@@ -10,63 +10,69 @@ export default {
   title: 'elements/ProfileImage',
   component: ProfileImage,
   args: {
-    src: `${S3_IMAGE_BUCKET}/lizard.svg`,
+    src: `${S3_IMAGE_BUCKET}/arthur.svg`,
   },
 } as Meta<ArgTypes>;
 
-export const Lizard: StoryObj<ArgTypes> = {
+export const Arthur: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/lizard.svg`,
+    src: `${S3_IMAGE_BUCKET}/arthur.svg`,
   },
 };
 
-export const Grey: StoryObj<ArgTypes> = {
+export const Anjob: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/grey.svg`,
+    src: `${S3_IMAGE_BUCKET}/anjob.svg`,
   },
 };
 
-export const Pink: StoryObj<ArgTypes> = {
+export const Bocha: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/pink.svg`,
+    src: `${S3_IMAGE_BUCKET}/bocha.svg`,
   },
 };
 
-export const Flower: StoryObj<ArgTypes> = {
+export const Bunso: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/flower.svg`,
+    src: `${S3_IMAGE_BUCKET}/bunso.svg`,
   },
 };
 
-export const Pigtail: StoryObj<ArgTypes> = {
+export const Dangdangdi: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/pigtail.svg`,
+    src: `${S3_IMAGE_BUCKET}/dangdangdi.svg`,
   },
 };
 
-export const Yellow: StoryObj<ArgTypes> = {
+export const Dororong: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/yellow.svg`,
+    src: `${S3_IMAGE_BUCKET}/dororong.svg`,
   },
 };
 
-export const Peanut: StoryObj<ArgTypes> = {
+export const Duhong: StoryObj<ArgTypes> = {
   args: {
-    src: `${S3_IMAGE_BUCKET}/peanut.svg`,
+    src: `${S3_IMAGE_BUCKET}/duhong.svg`,
+  },
+};
+
+export const Umshe: StoryObj<ArgTypes> = {
+  args: {
+    src: `${S3_IMAGE_BUCKET}/umshe.svg`,
   },
 };
 
 export const All: StoryObj<ArgTypes> = {
   render: () => (
     <Stack direction='row' spacing='16px'>
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/lizard.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/grey.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/pink.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/flower.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/pigtail.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/orange.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/yellow.svg`} />
-      <ProfileImage src={`${S3_IMAGE_BUCKET}/peanut.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/arthur.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/anjob.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/bocha.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/bunso.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/dangdangdi.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/dororong.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/duhong.svg`} />
+      <ProfileImage src={`${S3_IMAGE_BUCKET}/umshe.svg`} />
     </Stack>
   ),
 };

@@ -10,7 +10,7 @@ function ProjectRole(props: { user: User; role: Role; className?: string }) {
   // state, ref hooks
   // query hooks
   // calculated values
-  const backgroundColor = Role.getBackgroundColor(role.job);
+  const { backgroundColor, formattedJob } = Role.getInfo(role.job);
   // effects
   // handlers
   return (
@@ -47,7 +47,7 @@ function ProjectRole(props: { user: User; role: Role; className?: string }) {
             backgroundColor,
           }}
         >
-          {Role.getFormattedJob(role.job)}
+          {formattedJob}
         </Stack>
       </Stack>
     </Stack>

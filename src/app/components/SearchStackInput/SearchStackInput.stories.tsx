@@ -20,7 +20,6 @@ export default {
   },
   argTypes: {
     onAdd: { action: 'onAdd' },
-    onDelete: { action: 'onDelete' },
     onChange: { action: 'onChange' },
   },
 } as Meta<ArgTypes>;

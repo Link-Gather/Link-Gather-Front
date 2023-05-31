@@ -31,15 +31,15 @@ export const httpClient = (() => {
       config?: { params?: Record<string, any>; paramsSerializer?: (param: Record<string, any>) => any }
     ): Promise<T> {
       const res = await axios.get(url, config);
-      return res?.data.data;
+      return res?.data?.data;
     },
     async post<T>(url: string, data: Record<string, any>): Promise<T> {
       const res = await axios.post(url, data);
-      return res?.data.data;
+      return res?.data?.data;
     },
     async patch<T>(url: string, data: Record<string, any>): Promise<T> {
       const res = await axios.patch(url, data);
-      return res?.data.data;
+      return res?.data?.data;
     },
     async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
       return axios.delete(url, config);

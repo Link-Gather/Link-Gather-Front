@@ -11,6 +11,7 @@ export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Label';
 export * from './Layout';
+export * from './ProfileImage';
 export * from './Section';
 export * from './ShadowBox';
 export * from './SingleSelect';

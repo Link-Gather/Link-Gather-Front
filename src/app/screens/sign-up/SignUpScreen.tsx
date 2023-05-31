@@ -19,6 +19,7 @@ import {
   SingleSelect,
   ClickAway,
   Timer,
+  ProfileImage,
 } from '@elements';
 import { SCHEMA_PASSWORD, SCHEMA_NICKNAME, SCHEMA_CONFIRM_PASSWORD, SCHEMA_EMAIL } from '@libs/schema';
 import styled from '@emotion/styled';
@@ -26,85 +27,11 @@ import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import Character1 from '@assets/images/icons/character/character1.svg';
-import Character2 from '@assets/images/icons/character/character2.svg';
-import Character3 from '@assets/images/icons/character/character3.svg';
-import Character4 from '@assets/images/icons/character/character4.svg';
-import Character5 from '@assets/images/icons/character/character5.svg';
-import Character6 from '@assets/images/icons/character/character6.svg';
-import Character7 from '@assets/images/icons/character/character7.svg';
-import Character8 from '@assets/images/icons/character/character8.svg';
 import { Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 import { useMutation } from '@libs/query';
 import { authRepository, userRepository } from '@repositories';
-
-export const characters = [
-  {
-    id: 1,
-    src: Character1,
-    backgroundColor: '#F4F75F',
-    width: '50%',
-    height: '100%',
-    marginTop: '0',
-  },
-  {
-    id: 2,
-    src: Character2,
-    backgroundColor: '#F75F5F',
-    width: '60%',
-    height: '100%',
-    marginTop: '15px',
-  },
-  {
-    id: 3,
-    src: Character3,
-    backgroundColor: '#74F75F',
-    width: '80%',
-    height: '100%',
-    marginTop: '15px',
-  },
-  {
-    id: 4,
-    src: Character4,
-    backgroundColor: '#F7D65F',
-    width: '75%',
-    height: '100%',
-    marginTop: '15px',
-  },
-  {
-    id: 5,
-    src: Character5,
-    backgroundColor: '#5FA5F7',
-    width: '90%',
-    height: '100%',
-    marginTop: '15px',
-  },
-  {
-    id: 6,
-    src: Character6,
-    backgroundColor: '#BD5FF7',
-    width: '50%',
-    height: '100%',
-    marginTop: '10px',
-  },
-  {
-    id: 7,
-    src: Character7,
-    backgroundColor: '#F75FA8',
-    width: '50%',
-    height: '100%',
-    marginTop: '10px',
-  },
-  {
-    id: 8,
-    src: Character8,
-    backgroundColor: '#5555FF',
-    width: '50%',
-    height: '100%',
-    marginTop: '5px',
-  },
-];
+import { S3_IMAGE_BUCKET } from '../../configs';
 
 type ValidationType = {
   email: string;
@@ -120,14 +47,7 @@ type ValidationType = {
   profileImage: string;
 };
 
-type CharacterType = {
-  id: number;
-  src: string;
-  backgroundColor: string;
-  width: string;
-  height: string;
-  marginTop: string;
-};
+const characters = ['arthur', 'dangdangdi', 'bocha', 'anjob', 'dororong', 'bunso', 'umshe', 'duhong'];
 
 const RequestButton = styled(Button)(
   {
@@ -208,7 +128,6 @@ function SignUpScreen() {
   const [step, setStep] = useState(0);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
-  const [characterState, setCharacterState] = useState<CharacterType>(characters[0]);
   const [isExpand, setIsExpand] = useState(false);
   const [url, setUrl] = useState('');
   const [lastVerificationId, setLastVerificationId] = useState('');
@@ -240,7 +159,7 @@ function SignUpScreen() {
       stacks: [],
       urls: [],
       introduction: '',
-      profileImage: '/e2142093cc89c41037a7.svg',
+      profileImage: `${S3_IMAGE_BUCKET}/duhong.svg`,
     },
     resolver: yupResolver(schema[step]),
   });
@@ -283,12 +202,6 @@ function SignUpScreen() {
   // calculated values
   // effects
   // handlers
-
-  const handleSelectProfileImage = (character: CharacterType) => {
-    setValue('profileImage', character.src);
-    setCharacterState(character);
-  };
-
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
     if (stepChangeNumber === -1) {
@@ -446,73 +359,38 @@ function SignUpScreen() {
           )}
 
           {step === 1 && (
-            <MuiStack direction='column' spacing={12} css={{ padding: '40px 86px' }}>
-              {/* FIXME: 컴포넌트 교체 필요 */}
-              <MuiStack direction='row' justifyContent='center'>
-                <MuiStack
-                  width='100px'
-                  direction='row'
-                  css={{
-                    backgroundColor: characterState.backgroundColor,
-                    borderRadius: '50%',
-                    border: '2px solid black',
-                    overflow: 'hidden',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Character1
-                    css={{
-                      height: characterState.height,
-                      width: characterState.width,
-                      marginTop: characterState.marginTop,
-                    }}
-                  />
-                </MuiStack>
-                <MuiStack
-                  direction='row'
-                  alignContent='space-between'
-                  justifyContent='space-between'
-                  css={{ flexWrap: 'wrap', marginLeft: '16px' }}
-                >
-                  {characters.map((character, index) => {
-                    const CharacterComponent = [
-                      Character1,
-                      Character2,
-                      Character3,
-                      Character4,
-                      Character5,
-                      Character6,
-                      Character7,
-                      Character8,
-                    ][index];
-                    return (
-                      <MuiStack
-                        key={character.id}
-                        direction='row'
-                        width='48px'
-                        height='48px'
-                        justifyContent='center'
-                        alignItems='center'
-                        css={{
-                          border: character.id === characterState.id ? '2px solid #00CA20' : '1px solid black',
-                          borderRadius: '50%',
-                          overflow: 'hidden',
-                          backgroundColor: character.backgroundColor,
-                          cursor: 'pointer',
-                          '&:hover': {
-                            border: '2px solid #00CA20',
-                          },
-                        }}
-                      >
-                        <CharacterComponent
-                          onClick={() => handleSelectProfileImage(character)}
-                          css={{ width: '100%', height: character.height, marginTop: character.marginTop }}
-                        />
-                      </MuiStack>
-                    );
-                  })}
-                </MuiStack>
-              </MuiStack>
+            <MuiStack direction='column' spacing='40px' css={{ padding: '40px 86px' }}>
+              <Controller
+                control={control}
+                name='profileImage'
+                render={({ field: { value, onChange } }) => (
+                  <MuiStack direction='row' spacing='16px'>
+                    <ProfileImage src={getValues('profileImage')} css={{ width: '100px', height: '100px' }} />
+                    <input hidden value={value} onChange={onChange} />
+                    <Grid container flex={1}>
+                      {characters.map((character) => (
+                        <Grid item xs={3} key={character}>
+                          <ProfileImage
+                            src={`${S3_IMAGE_BUCKET}/${character}.svg`}
+                            css={(theme: Theme) => [
+                              {
+                                '&:hover': { border: `2px solid ${theme.palette.secondary.green}` },
+                                cursor: 'pointer',
+                              },
+                              value === `${S3_IMAGE_BUCKET}/${character}.svg` && {
+                                border: `2px solid ${theme.palette.secondary.green}`,
+                              },
+                            ]}
+                            onClick={() => {
+                              setValue('profileImage', `${S3_IMAGE_BUCKET}/${character}.svg`);
+                            }}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </MuiStack>
+                )}
+              />
               <MuiStack direction='row' width='324px' spacing='8px'>
                 <Input
                   helperText={

@@ -4,7 +4,7 @@ name: 'Chromatic'
 on:
   push:
     branches-ignore:
-      - "develop"
+      - 'develop'
 
 # List of jobs
 jobs:
@@ -22,6 +22,8 @@ jobs:
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          env:
+            API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
       - name: Publish to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/main'
         uses: chromaui/action@v1

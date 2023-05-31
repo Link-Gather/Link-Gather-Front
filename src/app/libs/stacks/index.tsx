@@ -45,7 +45,6 @@ function StackProvider(props: { children?: ReactNode }) {
     stackRepository
       .list()
       .then((data) => {
-        console.log(data);
         setStacks(data);
       })
       .catch((err) => {

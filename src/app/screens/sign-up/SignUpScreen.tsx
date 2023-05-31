@@ -85,17 +85,9 @@ const SignupButton = styled(Button)(
     cursor: disabled ? 'default' : 'pointer',
   })
 );
+const jobOptions = User.getJobOptions();
 
-//TODO: 수정 필요
-const jobs = [
-  { label: '프론트엔드', value: 'Frontend Developer' },
-  { label: '백엔드', value: 'Backend Developer' },
-  { label: '디자이너', value: 'Designer' },
-  { label: '기획자', value: 'Product Manager' },
-  { label: '기타', value: 'Other' },
-];
-
-const careerOptions = User.getJobOptions();
+const careerOptions = User.getCareerOptions();
 
 const schema = [
   // step 1
@@ -144,7 +136,6 @@ function SignUpScreen() {
     formState: { errors, isValid, dirtyFields },
     setValue,
     handleSubmit,
-    //TODO: api연결 후 에러 시 사용할 수 있다.
     setError,
   } = useForm<ValidationType>({
     mode: 'onChange',
@@ -170,9 +161,7 @@ function SignUpScreen() {
     authRepository.emailVerification,
     {
       onCompleted: (data) => {
-        //@ts-expect-error
-        setLastVerificationId(data.data.id);
-        // setLastVerificationId(data.id);
+        setLastVerificationId(data.id);
         setTime(180);
       },
       onError: (err) => {
@@ -429,7 +418,7 @@ function SignUpScreen() {
                     <SingleSelect
                       css={{ flex: 1 }}
                       label='직무'
-                      options={jobs}
+                      options={jobOptions}
                       required
                       value={value}
                       onChange={onChange}

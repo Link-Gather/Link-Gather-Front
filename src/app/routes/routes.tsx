@@ -84,7 +84,7 @@ function AppRouter() {
           }
         />
 
-        {/* 프로젝트 찾기 */}
+        {/* 프로젝트 등록 */}
         <Route
           path={PATH_PROJECTS_ADD}
           element={

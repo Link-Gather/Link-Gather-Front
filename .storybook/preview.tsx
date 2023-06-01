@@ -24,6 +24,7 @@ const queryClient = new QueryClient({
 });
 
 export const decorators: DecoratorFn[] = [
+  mswDecorator,
   (storyFn, context) => (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={['/']}>
@@ -36,7 +37,6 @@ export const decorators: DecoratorFn[] = [
       </MemoryRouter>
     </QueryClientProvider>
   ),
-  mswDecorator,
 ];
 
 export const parameters = {

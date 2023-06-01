@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0\
+          fetch-depth: 0
       - name: Install dependencies
         run: npm ci
       - name: Publish to Chromatic
@@ -22,11 +22,9 @@ jobs:
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          env:
-            API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
       - name: Publish to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/main'
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          autoAcceptChanges: true\
+          autoAcceptChanges: true

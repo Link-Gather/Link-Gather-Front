@@ -39,7 +39,7 @@ type ValidationType = {
   password: string;
   confirmPassword: string;
   nickname: string;
-  job: string;
+  job: JobType;
   career: number;
   stacks: Stack[];
   urls: { value: string }[];
@@ -104,7 +104,7 @@ const schema = [
   }),
   // step 3
   yup.object().shape({
-    job: yup.string().required(),
+    job: yup.mixed<JobType>().required(),
     career: yup.string().required(),
     stacks: yup.array().of(yup.mixed<Stack>().required()).min(0),
     urls: yup.array().of(yup.string().url()),
@@ -145,7 +145,7 @@ function SignUpScreen() {
       password: '',
       confirmPassword: '',
       nickname: '',
-      job: 'Frontend Developer',
+      job: 'frontendDeveloper',
       career: 100,
       stacks: [],
       urls: [],
@@ -188,6 +188,7 @@ function SignUpScreen() {
       },
     }
   );
+  const { mutateAsync: signup, isLoading: isSignupLoading } = useMutation(userRepository.signup);
   // calculated values
   // effects
   // handlers
@@ -569,8 +570,22 @@ function SignUpScreen() {
           <SignupButton
             disabled={!isValid || !isVerified.email || !isVerified.nickname}
             onClick={() => {
-              step === 2 //TODO: 회원가입 api 연결
-                ? handleSubmit(() => {})
+              step === 2
+                ? handleSubmit(
+                    async ({ email, password, profileImage, stacks, urls, career, introduction, job, nickname }) => {
+                      await signup({
+                        email,
+                        password,
+                        profileImage,
+                        stacks: stacks.map((stack) => stack.id),
+                        urls: urls.map((url) => url.value),
+                        career,
+                        introduction,
+                        job,
+                        nickname,
+                      });
+                    }
+                  )
                 : handleMoveStep(1);
             }}
           >

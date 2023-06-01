@@ -53,7 +53,7 @@ function ForgotPasswordEmailForm() {
           css={{ width: '100%', marginBottom: '16px' }}
           error={errors.email}
           helperText={errors.email?.message}
-          IconProps={{ Icon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
+          IconProps={{ EndIcon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
           {...register('email')}
         />
         <Button

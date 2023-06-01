@@ -1,13 +1,13 @@
-import { Input, TextArea, Typography, Slider, Section, Label, Button, SingleSelect } from '@elements';
-import { Radio } from '@components';
-import { IconButton, Stack } from '@mui/material';
+import { Input, TextArea, Typography, Slider, Section, Label, Button, SingleSelect, StackChip } from '@elements';
+import { Radio, SearchStackInput } from '@components';
+import { Grid, IconButton, Stack as MuiStack } from '@mui/material';
 import * as yup from 'yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '../../../libs/query';
 import { projectRepository } from '../../../repositories/project-repository';
 import MinusIcon from '@assets/images/icons/icon-minus.svg';
-import { Project } from '../../../models';
+import { Project, Stack } from '../../../models';
 
 const schema = yup.object({
   purpose: yup.mixed<PurposeType>().required(),
@@ -21,15 +21,15 @@ const schema = yup.object({
     })
   ),
   leaderJob: yup.mixed<JobType>().required(),
-  stacks: yup.array().of(yup.string().required()).min(0),
+  stacks: yup.array().of(yup.mixed<Stack>().required()).min(0),
 });
 
 const maxCompositionLength = 4;
-const compositionOptions = [
-  { label: '프론트엔드', value: 'FrontendDeveloper' },
-  { label: '백엔드', value: 'BackendDeveloper' },
-  { label: '디자인', value: 'Designer' },
-  { label: '기획', value: 'ProductManager' },
+const compositionOptions: { label: string; value: JobType }[] = [
+  { label: '프론트엔드', value: 'frontendDeveloper' },
+  { label: '백엔드', value: 'backendDeveloper' },
+  { label: '디자인', value: 'designer' },
+  { label: '기획', value: 'productManager' },
 ];
 
 const purposeOptions = Project.getPurposeOptions();
@@ -50,7 +50,7 @@ function ProjectAddScreen() {
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      purpose: 'Improvement',
+      purpose: 'improvement',
       title: '',
       description: '',
       period: 1,
@@ -60,12 +60,21 @@ function ProjectAddScreen() {
   });
 
   const {
-    fields: recruitMember,
+    fields: recruitMembers,
     remove: removeRecruitMember,
     append: appendRecruitMember,
   } = useFieldArray({
     control,
     name: 'recruitMember',
+  });
+
+  const {
+    fields: stacks,
+    remove: removeStack,
+    append: appendStack,
+  } = useFieldArray({
+    control,
+    name: 'stacks',
   });
   // query hooks
   const { mutateAsync: createProject, isLoading } = useMutation(projectRepository.create);
@@ -74,9 +83,9 @@ function ProjectAddScreen() {
   // handlers
   return (
     <Section css={{ maxWidth: '896px', width: '100%' }}>
-      <Stack direction='column' spacing={10}>
+      <MuiStack direction='column' spacing={10}>
         <Typography variant='h3'>프로젝트 생성</Typography>
-        <Stack direction='column' spacing={9}>
+        <MuiStack direction='column' spacing={9}>
           <Controller
             control={control}
             name='purpose'
@@ -144,8 +153,8 @@ function ProjectAddScreen() {
               />
             )}
           />
-          <Stack direction='column' spacing={4}>
-            <Stack direction='row' justifyContent='space-between' alignItems='center'>
+          <MuiStack direction='column' spacing={4}>
+            <MuiStack direction='row' justifyContent='space-between' alignItems='center'>
               <Label css={{ marginBottom: 0 }} id='RecruitMember' label='멤버 구성' required />
               <Button
                 css={{
@@ -153,11 +162,11 @@ function ProjectAddScreen() {
                   fontSize: '16px',
                 }}
                 onClick={() => appendRecruitMember({ job: '', number: 0 })}
-                disabled={maxCompositionLength <= recruitMember.length}
+                disabled={maxCompositionLength <= recruitMembers.length}
               >
                 추가
               </Button>
-            </Stack>
+            </MuiStack>
             <hr css={{ border: '1px solid #000' }} />
             <Controller
               control={control}
@@ -173,9 +182,9 @@ function ProjectAddScreen() {
               )}
             />
 
-            {recruitMember.map((member, idx) => (
-              <Stack key={member.id} direction='row' justifyContent='space-between'>
-                <Stack direction='row' spacing={4}>
+            {recruitMembers.map((member, idx) => (
+              <MuiStack key={member.id} direction='row' justifyContent='space-between'>
+                <MuiStack direction='row' spacing={4}>
                   <Controller
                     control={control}
                     name={`recruitMember.${idx}.job`}
@@ -219,20 +228,48 @@ function ProjectAddScreen() {
                       />
                     )}
                   />
-                </Stack>
-                {recruitMember.length !== 1 && (
+                </MuiStack>
+                {recruitMembers.length !== 1 && (
                   <IconButton onClick={() => removeRecruitMember(idx)}>
                     <MinusIcon css={{ width: '20px' }} />
                   </IconButton>
                 )}
-              </Stack>
+              </MuiStack>
             ))}
-          </Stack>
-          {/* TODO: 기술스택 검색 컴포넌트 따로 만들어야될 것 같음. */}
-          <Input variant='underline' placeholder='기술 스택 검색' />
-        </Stack>
-      </Stack>
-      <Stack direction='row' spacing='16px' justifyContent='flex-end' css={{ marginTop: '60px' }}>
+          </MuiStack>
+          {/* HACK: spacing을 주지 않으면 그 아래 grid container의 rowSpacing이 안먹고 주면 먹어서 이렇게했다.. */}
+          <MuiStack direction='column' spacing='0px'>
+            <Controller
+              control={control}
+              name='stacks'
+              render={({ field: { value, onChange } }) => (
+                <SearchStackInput
+                  type='project'
+                  label='기술 스택'
+                  required
+                  value={value}
+                  onAdd={appendStack}
+                  onChange={onChange}
+                />
+              )}
+            />
+            <Grid container columnSpacing='4px' rowSpacing='8px'>
+              {stacks.map((stack, idx) => (
+                <Grid item>
+                  <StackChip
+                    key={stack.id}
+                    selected
+                    name={stack.name}
+                    length={Stack.getLength(stack.name)}
+                    onClick={() => removeStack(idx)}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </MuiStack>
+        </MuiStack>
+      </MuiStack>
+      <MuiStack direction='row' spacing='16px' justifyContent='flex-end' css={{ marginTop: '60px' }}>
         <Button css={{ width: '98px', height: '48px' }}>임시 저장</Button>
         <Button
           variant='filled'
@@ -243,13 +280,13 @@ function ProjectAddScreen() {
               description,
               period,
               purpose,
-              stacks: stacks ?? [],
+              stacks: stacks?.map(({ id }) => id) ?? [],
               leaderJob,
               recruitMember: {
-                frontendDeveloper: recruitMember?.find((member) => member.job === 'FrontendDeveloper')?.number ?? 0,
-                backendDeveloper: recruitMember?.find((member) => member.job === 'BackendDeveloper')?.number ?? 0,
-                designer: recruitMember?.find((member) => member.job === 'Designer')?.number ?? 0,
-                productManager: recruitMember?.find((member) => member.job === 'ProductManager')?.number ?? 0,
+                frontendDeveloper: recruitMember?.find((member) => member.job === 'frontendDeveloper')?.number ?? 0,
+                backendDeveloper: recruitMember?.find((member) => member.job === 'backendDeveloper')?.number ?? 0,
+                designer: recruitMember?.find((member) => member.job === 'designer')?.number ?? 0,
+                productManager: recruitMember?.find((member) => member.job === 'productManager')?.number ?? 0,
               },
             });
           })}
@@ -258,7 +295,7 @@ function ProjectAddScreen() {
         >
           등록
         </Button>
-      </Stack>
+      </MuiStack>
     </Section>
   );
 }

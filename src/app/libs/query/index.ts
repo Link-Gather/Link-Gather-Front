@@ -21,12 +21,12 @@ export const useQuery = <Variables, Result>(
     skip?: boolean;
     staleTime?: number;
     cacheTime?: number;
-    onSuccess?: (result: Result) => void;
+    onCompleted?: (result: Result) => void;
     onError?: (err: Error) => void;
     onSettled?: () => void;
   }
 ) => {
-  const { variables, skip, ...otherOPtions } = options || {};
+  const { variables, skip, onCompleted, ...otherOPtions } = options || {};
   const queryKey = useMemo(() => {
     const queryKey = queryKeyMap.get(queryFn);
     if (!queryKey) {
@@ -40,6 +40,9 @@ export const useQuery = <Variables, Result>(
     () => (variables ? queryFn(variables) : queryFn()),
     {
       enabled: skip,
+      onSuccess: (result) => {
+        options?.onCompleted?.(result);
+      },
       ...otherOPtions,
     }
   );
@@ -49,6 +52,8 @@ export const useMutation = <Variables, Result>(
   mutateFn: (variables: Variables) => Promise<Result>,
   options?: {
     disableRefetch?: boolean;
+    onCompleted?: (data: Result) => void;
+    onError?: (err: Error) => void;
   }
 ) => {
   const queryClient = useQueryClient();
@@ -61,8 +66,10 @@ export const useMutation = <Variables, Result>(
   }, [mutateFn]);
 
   return reactUseMutation(queryKey, mutateFn, {
-    onSuccess: () => {
+    onSuccess: (result) => {
       !options?.disableRefetch && queryClient.refetchQueries(queryKey, { exact: false });
+      options?.onCompleted?.(result);
     },
+    onError: options?.onError,
   });
 };

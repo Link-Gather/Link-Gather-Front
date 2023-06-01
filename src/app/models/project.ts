@@ -1,13 +1,13 @@
 import palette from '../libs/theme/palettes';
 
 enum PurposeEnum {
-  Improvement = '역량 강화/포트폴리오',
-  Business = '수입 창출/사업',
-  Fun = '재미',
-  Study = '공부',
+  improvement = '역량 강화/포트폴리오',
+  business = '수입 창출/사업',
+  fun = '재미',
+  study = '공부',
 }
 
-const purposes = ['Improvement', 'Business', 'Fun', 'Study'] as const;
+const purposes = ['improvement', 'business', 'fun', 'study'] as PurposeType[];
 
 export class Project {
   id!: string;

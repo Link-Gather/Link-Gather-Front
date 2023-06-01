@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import LogoLinkGather from '@assets/logos/logo-link-gather.svg';
 import MemberProfileIcon from '@assets/images/icons/icon-member-profile.svg';
 import NoMemberProfileIcon from '@assets/images/icons/icon-no-member-profile.svg';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
@@ -7,6 +6,7 @@ import { Navigation } from '../Navigation';
 import { useState } from 'react';
 import { PATH_HOME, PATH_LOGIN, PATH_SIGNUP } from '@routes';
 import { isToken } from '@libs/util';
+import { S3_IMAGE_BUCKET } from '@configs';
 
 function Header() {
   // prop destruction
@@ -36,7 +36,7 @@ function Header() {
       {/* Link Gather Logo*/}
       <div css={{ paddingTop: '8px' }}>
         <Link to={PATH_HOME}>
-          <LogoLinkGather css={{ height: '44px' }} />
+          <img src={`${S3_IMAGE_BUCKET}/Link+gather_logo-01+1.png`} alt='logo' css={{ width: '99px' }} />
         </Link>
       </div>
 

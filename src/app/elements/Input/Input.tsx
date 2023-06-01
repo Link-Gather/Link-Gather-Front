@@ -55,6 +55,7 @@ const Input = forwardRef(
       // value, defaultValue 둘 다 prop 으로 전달하지 않으면 uncontrolled 로 가정 한다.
       values.defaultValue = '' as string | number;
     }
+    const hasValue = Object.values(values).some(Boolean);
     // effects
     // handlers
 
@@ -88,7 +89,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'outlined' &&
-                  Object.values(values).some(Boolean) && {
+                  hasValue && {
                     border: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       border: `2px solid ${theme.palette.primary.main}`,
@@ -115,7 +116,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'underline' &&
-                  Object.values(values).some(Boolean) && {
+                  hasValue && {
                     borderBottom: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       borderBottom: `2px solid ${theme.palette.primary.main}`,
@@ -197,7 +198,7 @@ const Input = forwardRef(
                 lineHeight: '20px',
                 color: theme.palette.secondary.n60,
               },
-              Object.values(values).some(Boolean) && {
+              hasValue && {
                 color: theme.palette.secondary.n300,
               },
               error && {

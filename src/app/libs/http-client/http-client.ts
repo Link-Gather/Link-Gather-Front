@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_ENDPOINT } from '../../configs';
-import { getToken } from '../util/getToken';
+import { API_ENDPOINT } from '@configs';
+import { getToken } from '@libs/util';
 
 export const httpClient = (() => {
   const axios = Axios.create({ baseURL: API_ENDPOINT, withCredentials: true });
@@ -14,6 +14,15 @@ export const httpClient = (() => {
     config.headers.Authorization = `Bearer ${getToken()}`;
     return config;
   });
+
+  axios.interceptors.response.use(
+    (res) => res,
+    (config) => {
+      config.message = config.response.data.errorMessage;
+      return Promise.reject(config);
+    }
+  );
+
   return {
     async get<T>(url: string, config?: { params?: Record<string, any> }): Promise<T> {
       const res = await axios.get(url, config);

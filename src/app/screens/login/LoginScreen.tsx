@@ -128,7 +128,7 @@ function LoginScreen() {
                 fontSize: '14px',
               }}
             >
-              <Link to={`${PATH_FORGOT_PASSWORD}?step=1`}>비밀번호 찾기</Link>
+              <Link to={`${PATH_FORGOT_PASSWORD}?step=email`}>비밀번호 찾기</Link>
             </Typography>
           </Stack>
         </Stack>

@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
 import { Button, UnderlineTitle } from '@elements';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -23,6 +23,7 @@ const schema = yup
 function ForgotPasswordForm() {
   // prop destruction
   // lib hooks
+  const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [isShowingConfirmPassword, setIsShowingConfirmPassword] = useState(false);
@@ -44,7 +45,9 @@ function ForgotPasswordForm() {
   });
 
   // query hooks
-  const { mutateAsync } = useMutation(authRepository.changePassword, {});
+  const { mutateAsync } = useMutation(authRepository.changePassword, {
+    onCompleted: () => navigator(PATH_LOGIN),
+  });
 
   // calculated values
   const verificationId = searchParams.get('verificationId') || '';

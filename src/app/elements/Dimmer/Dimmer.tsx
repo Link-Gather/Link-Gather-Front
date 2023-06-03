@@ -1,5 +1,5 @@
 import { keyframes } from '@emotion/react';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 const spin = keyframes({
   '0%': {
@@ -12,7 +12,8 @@ const spin = keyframes({
 
 function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
   // prop destruction
-  const { size, color } = props;
+  const { size, color = '#FFF' } = props;
+
   // lib hooks
   // state, ref hooks
   // form hook

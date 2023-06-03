@@ -1,13 +1,13 @@
 import palette from '../libs/theme/palettes';
 
-enum PurposeEnum {
-  improvement = '역량 강화/포트폴리오',
-  business = '수입 창출/사업',
-  fun = '재미',
-  study = '공부',
+export enum ProjectPurpose {
+  'improvement' = '역량 강화/포트폴리오',
+  'business' = '수입 창출/사업',
+  'fun' = '재미',
+  'study' = '공부',
 }
 
-const purposes = ['improvement', 'business', 'fun', 'study'] as PurposeType[];
+const purposes = ['improvement', 'business', 'fun', 'study'] as const;
 
 export class Project {
   id!: string;
@@ -15,7 +15,7 @@ export class Project {
   description!: string;
   period!: number;
   purpose!: PurposeType;
-  stacks!: string[];
+  stacks!: number[];
   status!: ProjectStatus;
   leaderJob!: JobType;
   recruitMember!: {
@@ -24,22 +24,35 @@ export class Project {
     designer: number;
     productManager: number;
   };
+  bookMarkCount!: number;
 
-  static getPurposeOptions(): { label: PurposeEnum; value: PurposeType }[] {
-    return purposes.map((purpose) => ({ label: PurposeEnum[purpose], value: purpose }));
+  static getPurposeOptions(): { label: ProjectPurpose; value: PurposeType }[] {
+    return purposes.map((purpose) => ({ label: ProjectPurpose[purpose], value: purpose }));
   }
 
-  static getStatusColor(status: ProjectStatus) {
+  static getStatusOptions(): { label: string; value: ProjectStatus }[] {
+    return [
+      { label: '모집 중', value: 'Recruiting' },
+      { label: '진행 중', value: 'Progressing' },
+      // TODO: 추가필요
+      // { label: '추가 모집중', value: 'Recruiting' },
+      { label: '완료', value: 'Finish' },
+    ];
+  }
+
+  /**
+   * 상태 포맷팅, 그에따른 스타일을 반환한다.
+   */
+  static getInfo(status: ProjectStatus): [string, { color: string; backgroundColor: string }] {
     switch (status) {
       case 'Progressing':
-        return palette.primary.p20;
+        return ['진행 중', { color: '#000', backgroundColor: palette.primary.p20 }];
       case 'Recruiting':
-        return palette.primary.main;
+        return ['모집 중', { color: '#fff', backgroundColor: palette.primary.main }];
       case 'Finish':
-        return palette.secondary.n60;
-      //TODO: 재모집으로 변경 필요
-      case 'Close':
-        return palette.primary.main;
+        return ['완료', { color: '#000', backgroundColor: palette.secondary.n60 }];
+      default:
+        return undefined as never;
     }
   }
 }

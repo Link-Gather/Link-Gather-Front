@@ -2,248 +2,103 @@ import { Grid, Stack } from '@mui/material';
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard';
 import { SingleSelect, Pagination } from '@elements';
 import { CSSProperties, useState } from 'react';
-import { Project } from '@models';
+import { Project, Role } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
 import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
 import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
 import { Theme } from '@libs/theme';
 
-// TODO: 실데이터로 교체필요 - 목데이터 일단 여따 둡니다
-export type ProjectListType = {
-  title: string;
-  purpose: string;
-  status: string;
-  likes: number;
-  expectedPeriod: string;
-  members: { label: string; target: number; capacity: number }[];
-  technology: string[];
-};
-
-const projectList = [
+const projectList: Project[] = [
   {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 4, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: [
-      'Javascript',
-      'Typescript',
-      'React',
-      'Next',
-      'Nest',
-      'Redux',
-      'Ethan',
-      'Auther',
-      'Sarah',
-      'Windy',
-      'Lui',
-      'Liz',
-      'Javascript',
-      'Typescript',
-      'React',
-      'Next',
-      'Nest',
-      'Redux',
-      'Ethan',
-      'Auther',
-      'Sarah',
-      'Windy',
-      'Lui',
-      'Liz',
-    ],
+    id: '123',
+    title: '제목',
+    description: 'asdfasdf',
+    period: 3,
+    stacks: [1, 2, 3, 4],
+    purpose: 'improvement',
+    status: 'Recruiting',
+    leaderJob: 'backendDeveloper',
+    recruitMember: {
+      frontendDeveloper: 5,
+      backendDeveloper: 5,
+      designer: 5,
+      productManager: 5,
+    },
+    bookMarkCount: 1,
   },
   {
-    title: '인적, 기술적 자원의 공유 커뮤니티 입니다아아아ㅏㅏ',
-    purpose: '스터디',
-    status: '진행 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 5, capacity: 5 },
-      { label: '백엔드', target: 4, capacity: 5 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript'],
+    id: '123',
+    title: '제목',
+    description: 'asdfasdf',
+    period: 3,
+    stacks: [1, 2, 3, 4],
+    purpose: 'fun',
+    status: 'Recruiting',
+    leaderJob: 'backendDeveloper',
+    recruitMember: {
+      frontendDeveloper: 5,
+      backendDeveloper: 5,
+      designer: 5,
+      productManager: 5,
+    },
+    bookMarkCount: 5,
   },
   {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '역량강화/포트폴리오',
-    status: '추가 모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 2, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next'],
+    id: '123',
+    title: '제목',
+    description: 'asdfasdf',
+    period: 3,
+    stacks: [1, 2, 3, 4],
+    purpose: 'study',
+    status: 'Recruiting',
+    leaderJob: 'backendDeveloper',
+    recruitMember: {
+      frontendDeveloper: 5,
+      backendDeveloper: 5,
+      designer: 5,
+      productManager: 5,
+    },
+    bookMarkCount: 6,
   },
   {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '완료',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 1, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
+    id: '123',
+    title: '제목',
+    description: 'asdfasdf',
+    period: 3,
+    stacks: [1, 2, 3, 4],
+    purpose: 'business',
+    status: 'Finish',
+    leaderJob: 'backendDeveloper',
+    recruitMember: {
+      frontendDeveloper: 5,
+      backendDeveloper: 5,
+      designer: 5,
+      productManager: 5,
+    },
+    bookMarkCount: 1,
   },
   {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '재미',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 0, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
-  },
-  {
-    title: '인적, 기술적 자원의 공유 커뮤니티',
-    purpose: '수익 창출/창업',
-    status: '모집 중',
-    likes: 3,
-    expectedPeriod: '3개월',
-    members: [
-      { label: '프론트엔드', target: 3, capacity: 5 },
-      { label: '백엔드', target: 2, capacity: 2 },
-      { label: '기획', target: 1, capacity: 2 },
-      { label: '디자인', target: 1, capacity: 2 },
-    ],
-    technology: ['Javascript', 'Typescript', 'React', 'Next', 'Nest', 'Redux'],
+    id: '123',
+    title: '제목',
+    description: 'asdfasdf',
+    period: 3,
+    stacks: [1, 2, 3, 4],
+    purpose: 'business',
+    status: 'Progressing',
+    leaderJob: 'backendDeveloper',
+    recruitMember: {
+      frontendDeveloper: 5,
+      backendDeveloper: 5,
+      designer: 5,
+      productManager: 5,
+    },
+    bookMarkCount: 1,
   },
 ];
 
-const purposeOptions = Project.getPurposeOptions();
+const purposeOptions = [{ label: '전체', value: '' }, ...Project.getPurposeOptions()];
+const jobOptions = [{ label: '전체', value: '' }, ...Role.getJobOptions()];
+const statusOptions = [{ label: '전체', value: '' }, ...Project.getStatusOptions()];
 
 function ProjectScreen(props: {}) {
   // prop destruction
@@ -289,33 +144,21 @@ function ProjectScreen(props: {}) {
             <SingleSelect
               css={{ width: '166px', backgroundColor: '#fff' }}
               placeholder='프로젝트 목적'
-              options={[
-                { label: '전체', value: '' },
-                { label: '역량 강화/포트폴리오', value: 'Improvement' },
-                { label: '수익 창출/사업', value: 'Business' },
-                { label: '재미', value: 'Fun' },
-                { label: '스터디', value: 'Study' },
-              ]}
+              options={purposeOptions}
               value={filterModel.purpose}
               onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
             />
             <SingleSelect
               css={{ width: '166px', backgroundColor: '#fff' }}
               placeholder='직무'
-              options={[{ label: '전체', value: '' }, ...purposeOptions]}
+              options={jobOptions}
               value={filterModel.purpose}
               onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
             />
             <SingleSelect
               css={{ width: '166px', backgroundColor: '#fff' }}
               placeholder='진행상태'
-              options={[
-                { label: '전체', value: '' },
-                { label: '프론트엔드 개발', value: 'Back' },
-                { label: '백엔드 개발', value: 'Business' },
-                { label: '디자인', value: 'Fun' },
-                { label: '기획', value: 'Study' },
-              ]}
+              options={statusOptions}
               value={filterModel.purpose}
               onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
             />
@@ -366,10 +209,10 @@ function ProjectScreen(props: {}) {
           </Stack>
         </Stack>
         <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
-          {projectList.map((projectInfo, projectIdx) => {
+          {projectList.map((project) => {
             return (
               <Grid item xs={12} sm={6} lg={4} xl={3}>
-                <ProjectCard projectInfo={projectInfo} projectIdx={projectIdx} />
+                <ProjectCard project={project} />
               </Grid>
             );
           })}

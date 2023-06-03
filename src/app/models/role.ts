@@ -9,6 +9,15 @@ export class Role {
 
   job!: JobType;
 
+  static getJobOptions(): { label: string; value: JobType }[] {
+    return [
+      { label: '프론트엔드 개발', value: 'frontendDeveloper' },
+      { label: '백엔드 개발', value: 'backendDeveloper' },
+      { label: '디자인', value: 'designer' },
+      { label: '기획', value: 'productManager' },
+    ];
+  }
+
   /**
    * formattedJob, backgroundColor를 반환한다.
    */

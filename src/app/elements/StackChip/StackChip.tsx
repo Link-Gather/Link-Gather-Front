@@ -2,9 +2,9 @@ import { Theme } from '@libs/theme';
 import DeleteIcon from '@assets/images/icons/icon-close.svg';
 
 function StackChip(props: {
-  name: string;
+  name: React.ReactNode;
   length: 1 | 2 | 3;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   selected?: boolean;
 }) {
@@ -36,7 +36,9 @@ function StackChip(props: {
           '&>:not(:first-of-type)': {
             marginLeft: '4px',
           },
-          cursor: 'pointer',
+          cursor: onClick ? 'pointer' : undefined,
+        },
+        onClick && {
           '&:hover': {
             backgroundColor: theme.palette.secondary.n60,
           },

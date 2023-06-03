@@ -1,437 +1,152 @@
-import { Typography } from '@elements';
+import { Grid, Stack, Tooltip, Typography } from '@mui/material';
+import { Chip, StackChip } from '@elements';
+import { Project, ProjectPurpose } from '@models';
+import HeartIcon from '@assets/images/icons/icon-heart.svg';
+import { useStacks } from '../../libs/stacks';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Stack } from '@mui/material';
-import type { Theme } from '@libs/theme';
-import LikeIcon from '@assets/images/icons/icon-like.svg';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
-import ArrowUpIcon from '@assets/images/icons/icon-arrow-up.svg';
-import { ProjectListType } from '../../screens/projects/ProjectScreen';
-import { Project } from '../../models';
+import { Theme } from '../../libs/theme';
 
-const MemberProfile = ({
-  member,
-}: {
-  member: {
-    label: string;
-    target: number;
-    capacity: number;
-  };
-}) => {
-  switch (member.target) {
-    case 0:
-      return <></>;
-    case 1:
-      return (
-        <Stack
-          direction={'row'}
-          width={'24px'}
-          height={'24px'}
-          css={(theme: Theme) => ({
-            border: `1px solid ${theme.palette.black.main}`,
-            borderRadius: '50%',
-            backgroundColor: 'white',
-          })}
-        />
-      );
-    case 2:
-      return (
-        <Stack direction={'row'} position='relative'>
-          <Stack
-            direction={'row'}
-            width={'24px'}
-            height={'24px'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            })}
-          />
-          <Stack
-            direction={'row'}
-            width={'24px'}
-            height={'24px'}
-            position='absolute'
-            left={'12px'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            })}
-          />
-        </Stack>
-      );
-    default:
-      return (
-        <Stack direction={'row'} position='relative'>
-          <Stack
-            direction={'row'}
-            width={'24px'}
-            height={'24px'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            })}
-          />
-          <Stack
-            direction={'row'}
-            width={'24px'}
-            height={'24px'}
-            position='absolute'
-            left={'12px'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            })}
-          />
-          <Stack
-            direction={'row'}
-            width={'24px'}
-            height={'24px'}
-            position='absolute'
-            left={'24px'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '50%',
-              backgroundColor: 'white',
-            })}
-          >
-            <Typography
-              variant='span'
-              css={(theme: Theme) => ({ fontWeight: '400', color: `${theme.palette.black.main}` })}
-            >
-              {member.target > 3 ? `+${member.target - 2}` : ''}
-            </Typography>
-          </Stack>
-        </Stack>
-      );
-  }
-};
-
-const TechStacksModal = ({ techStacks }: { techStacks: string[] }) => {
+function ProjectCard(props: { project: Project }) {
+  // prop destruction
+  const { project } = props;
+  // lib hooks
+  const stacks = useStacks(project.stacks);
+  // state, ref hooks
+  const [isExpand, setIsExpand] = useState(false);
+  // query hooks
+  // calculated values
+  const [formattedStatus, statusStyle] = Project.getInfo(project.status);
+  // effects
+  // handlers
   return (
     <Stack
-      direction={'row'}
-      position={'absolute'}
-      top={'250px'}
-      right={'10px'}
-      left={'10px'}
-      width={'300px'}
-      zIndex={20}
+      css={{
+        maxWidth: '326px',
+        border: '2px solid #000',
+        borderRadius: '16px',
+        padding: '20px',
+        backgroundColor: '#fff',
+      }}
+      spacing='28px'
     >
-      <Box
-        display={'grid'}
-        maxHeight={'98px'}
-        gridTemplateColumns={'repeat(4, 1fr)'}
-        columnGap={'4px'}
-        rowGap={'8px'}
-        zIndex={30}
-        css={(theme: Theme) => ({
-          border: `1px solid ${theme.palette.black.main}`,
-          borderRadius: '4px',
-          padding: '8px 12px',
-          background: theme.palette.contrastText,
-          overflow: 'scroll',
-        })}
-      >
-        {techStacks.map((techStack) => {
-          return (
-            <Stack
-              direction={'row'}
-              width={'67px'}
-              height={'22px'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              css={(theme: Theme) => ({
-                border: `1px solid ${theme.palette.black.main}`,
-                borderRadius: '20px',
-                padding: '0 8px',
-                backgroundColor: `${theme.palette.secondary.n30}`,
-              })}
-            >
-              <Typography
-                variant='h6'
-                css={{
-                  fontWeight: '500',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  cursor: 'pointer',
-                }}
-              >
-                {techStack}
+      <Stack direction='row' justifyContent='space-between'>
+        <Stack direction='row' spacing='8px'>
+          <Chip css={{ fontSize: '12px', fontWeight: 400 }} label={ProjectPurpose[project.purpose]} />
+          <Chip label={formattedStatus} css={{ fontSize: '12px', fontWeight: 400, ...statusStyle }} />
+        </Stack>
+        <Stack direction='row' spacing='4px' alignItems='center'>
+          <HeartIcon
+            css={{ width: '20px', cursor: 'pointer' }}
+            onClick={() => {
+              // TODO: 북마크 기능 구현
+            }}
+          />
+          <span css={{ fontFamily: 'Montserrat', fontWeight: 500 }}>{project.bookMarkCount}</span>
+        </Stack>
+      </Stack>
+      <Stack direction='column' spacing='10px'>
+        <Typography
+          variant='h5'
+          css={{
+            fontWeight: 700,
+            lineHeight: '120%',
+            fontFamily: 'Noto Sans',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
+          }}
+        >
+          {project.title}
+        </Typography>
+        <Typography variant='body2' css={{ fontWeight: 400, color: '#979797' }}>
+          {/* TODO: 포멧팅해야함. */}
+          예상기간: {project.period}
+        </Typography>
+      </Stack>
+      <Stack direction='column' spacing='10px'>
+        <Typography variant='body1' css={{ fontFamily: 'Noto Sans', fontWeight: 700, lineHeight: '120%' }}>
+          참여현황
+        </Typography>
+        <Stack direction='row' spacing='20px'>
+          <Stack direction='column' spacing='8px'>
+            <Stack direction='row' css={{ width: '150px' }}>
+              <Typography variant='body2' css={{}}>
+                프론트엔드: /{project.recruitMember.frontendDeveloper}
               </Typography>
             </Stack>
-          );
-        })}
-      </Box>
-      <Box
-        display={'grid'}
-        position={'absolute'}
-        width={'100%'}
-        height={'100%'}
-        left={'4px'}
-        top={'4px'}
-        css={(theme: Theme) => ({
-          borderRadius: '4px',
-          padding: '8px 12px',
-          background: theme.palette.black.main,
-        })}
-      />
-    </Stack>
-  );
-};
 
-const TechStack = ({
-  techStacks,
-  techStacksModal,
-  setTechStacksModal,
-}: {
-  techStacks: string[];
-  techStacksModal: boolean;
-  setTechStacksModal: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  return (
-    <Box display={'grid'} gridTemplateColumns={'repeat(4, 1fr)'} columnGap={'4px'}>
-      {techStacks.length <= 4 ? (
-        <>
-          {techStacks.map((techStack) => {
-            return (
-              <Stack
-                direction={'row'}
-                width={'67px'}
-                height={'22px'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                css={(theme: Theme) => ({
-                  border: `1px solid ${theme.palette.black.main}`,
-                  borderRadius: '20px',
-                  padding: '0 8px',
-                  backgroundColor: `${theme.palette.secondary.n30}`,
-                })}
-              >
-                <Typography
-                  variant='h6'
-                  css={{
-                    fontWeight: '500',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {techStack}
-                </Typography>
-              </Stack>
-            );
-          })}
-        </>
-      ) : (
-        <>
-          {techStacks.map((techStack, idx) => {
-            if (idx > 2) return;
-            return (
-              <Stack
-                direction={'row'}
-                width={'67px'}
-                height={'22px'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                css={(theme: Theme) => ({
-                  border: `1px solid ${theme.palette.black.main}`,
-                  borderRadius: '20px',
-                  padding: '0 8px',
-                  backgroundColor: `${theme.palette.secondary.n30}`,
-                })}
-              >
-                <Typography
-                  variant='h6'
-                  css={{
-                    fontWeight: '500',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {techStack}
-                </Typography>
-              </Stack>
-            );
-          })}
-          <Stack
-            direction={'row'}
-            width={'67px'}
-            height={'22px'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '20px',
-              padding: '0 8px',
-              backgroundColor: `${theme.palette.secondary.n30}`,
-              cursor: 'pointer',
-            })}
-            onClick={() => setTechStacksModal(techStacksModal ? false : true)}
-          >
-            <Typography
-              variant='h6'
-              css={{
-                fontWeight: '500',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                cursor: 'pointer',
-              }}
-            >
-              +{techStacks.length - 3}
-            </Typography>
-            {techStacksModal ? <ArrowUpIcon width={'16px'} /> : <ArrowDownIcon width={'16px'} />}
+            <Stack direction='row' css={{ width: '150px' }}>
+              <Typography variant='body2' css={{}}>
+                백엔드: /{project.recruitMember.backendDeveloper}
+              </Typography>
+            </Stack>
           </Stack>
-        </>
-      )}
-    </Box>
-  );
-};
-
-function ProjectCard(props: { projectInfo: ProjectListType; projectIdx: number }) {
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const [techStacksModal, setTechStacksModal] = useState<boolean>(false);
-
-  return (
-    <Stack
-      direction={'column'}
-      width={'326px'}
-      spacing={'24px'}
-      position={'relative'}
-      css={{ border: '2px solid #000', borderRadius: '16px', padding: '20px' }}
-    >
-      <Stack direction={'row'} width={'100%'} justifyContent={'space-between'}>
-        <Stack direction={'row'} spacing={'8px'}>
-          <Typography
-            variant='h6'
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '16px',
-              padding: '4px 16px',
-            })}
-          >
-            {props.projectInfo.purpose}
-          </Typography>
-          <Typography
-            variant='h6'
-            css={(theme: Theme) => ({
-              border: `1px solid ${theme.palette.black.main}`,
-              borderRadius: '16px',
-              padding: '4px 16px',
-              //@ts-expect-error TODO:
-              backgroundColor: `${Project.getStatusColor(props.projectInfo.status)}`,
-              color: `${
-                props.projectInfo.status === '모집 중' ? theme.palette.contrastText : theme.palette.black.main
-              }`,
-            })}
-          >
-            {props.projectInfo.status}
-          </Typography>
-        </Stack>
-        <Stack
-          direction={'row'}
-          alignItems={'center'}
-          css={{ cursor: 'pointer' }}
-          onClick={() => setIsLike(isLike ? false : true)}
-        >
-          <LikeIcon
-            css={(theme: Theme) => ({
-              width: '20px',
-              marginRight: '4px',
-              fill: isLike ? theme.palette.secondary.red : 'none',
-            })}
-          />
-          <Typography
-            variant='h5'
-            css={{
-              fontWeight: '600',
-            }}
-          >
-            {props.projectInfo.likes}
-          </Typography>
+          <Stack direction='column' spacing='8px'>
+            <Stack direction='row' css={{ width: '150px' }}>
+              <Typography variant='body2' css={{}}>
+                기획: /{project.recruitMember.productManager}
+              </Typography>
+            </Stack>
+            <Stack direction='row' css={{ width: '150px' }}>
+              <Typography variant='body2' css={{}}>
+                디자인: /{project.recruitMember.designer}
+              </Typography>
+            </Stack>
+          </Stack>
         </Stack>
       </Stack>
-      <Stack direction={'column'}>
-        <Link to={`/project/${props.projectIdx}`}>
-          <Typography
-            variant='h4'
-            css={{
-              height: '24px',
-              fontWeight: '700',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              cursor: 'pointer',
-            }}
-          >
-            {props.projectInfo.title}
-          </Typography>
-        </Link>
-        <Typography
-          variant='h6'
-          css={{
-            color: '#979797',
-            fontWeight: '600',
-          }}
-        >
-          {props.projectInfo.expectedPeriod}
-        </Typography>
-      </Stack>
-      <Stack direction={'column'}>
-        <Typography
-          variant='h6'
-          css={{
-            fontWeight: '700',
-          }}
-        >
-          참여 현황
-        </Typography>
-        <Box display={'grid'} gridTemplateColumns={'repeat(2, 1fr)'} columnGap={'30px'} rowGap={'8px'}>
-          {props.projectInfo.members.map((member) => {
-            return (
-              <Stack direction={'row'} spacing={'8px'}>
-                <Typography
-                  variant='span'
-                  css={(theme: Theme) => ({ fontWeight: '400', color: `${theme.palette.black.main}` })}
-                >
-                  {member.label}: {member.target}/{member.capacity}
-                </Typography>
-                <MemberProfile member={member} />
+      <Stack direction='row' spacing='4px' css={{ position: 'relative' }}>
+        {stacks.slice(undefined, 3).map((stack) => (
+          <StackChip name={stack.name} length={1} />
+        ))}
+        {stacks.length > 3 && (
+          <StackChip
+            name={
+              <Stack direction='row'>
+                <span>+{stacks.length - 3}</span>
+                <ArrowDownIcon css={{ width: '16px' }} />
               </Stack>
-            );
-          })}
-        </Box>
-      </Stack>
-      <TechStack
-        techStacks={props.projectInfo.technology}
-        techStacksModal={techStacksModal}
-        setTechStacksModal={setTechStacksModal}
-      />
-      {techStacksModal && (
-        <>
-          <TechStacksModal techStacks={props.projectInfo.technology} />
-          <Stack
-            direction={'row'}
-            position={'fixed'}
-            top={'0'}
-            right={'0'}
-            left={'0'}
-            bottom={'0'}
-            zIndex={10}
-            onClick={() => setTechStacksModal(false)}
+            }
+            length={1}
+            onClick={() => setIsExpand((prev) => !prev)}
           />
-        </>
-      )}
+        )}
+        {isExpand && (
+          <>
+            {/* <ClickAway onClick={() => setIsExpand(false)} /> */}
+            <Grid
+              container
+              css={(theme: Theme) => ({
+                border: `1px solid ${theme.palette.black.main}`,
+                borderRadius: '8px',
+                boxShadow: '4px 4px 0px #000',
+                position: 'absolute',
+                top: 'calc(100% + 6px)',
+                marginLeft: '0 !important',
+                padding: '0 4px 8px',
+                left: '-3%',
+                zIndex: 2,
+                backgroundColor: theme.palette.paper,
+                width: '106%',
+              })}
+              rowSpacing='8px'
+              columnSpacing='4px'
+            >
+              {stacks.map((stack) => (
+                <Grid item key={stack.id}>
+                  <Tooltip title={stack.name}>
+                    <div>
+                      <StackChip name={stack.name} length={1} />
+                    </div>
+                  </Tooltip>
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
+      </Stack>
     </Stack>
   );
 }

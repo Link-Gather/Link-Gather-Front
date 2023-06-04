@@ -32,8 +32,14 @@ function ProjectCard(props: { project: Project }) {
     >
       <Stack direction='row' justifyContent='space-between'>
         <Stack direction='row' spacing='8px'>
-          <Chip css={{ fontSize: '12px', fontWeight: 400 }} label={ProjectPurpose[project.purpose]} />
-          <Chip label={formattedStatus} css={{ fontSize: '12px', fontWeight: 400, ...statusStyle }} />
+          <Chip
+            css={{ fontSize: '12px', fontWeight: 400, padding: '5px 16px' }}
+            label={ProjectPurpose[project.purpose]}
+          />
+          <Chip
+            label={formattedStatus}
+            css={{ fontSize: '12px', fontWeight: 400, padding: '5px 12px', ...statusStyle }}
+          />
         </Stack>
         <Stack direction='row' spacing='4px' alignItems='center'>
           <HeartIcon

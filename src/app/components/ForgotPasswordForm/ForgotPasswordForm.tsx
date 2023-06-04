@@ -62,7 +62,6 @@ function ForgotPasswordForm() {
       </Stack>
       <Stack css={{ marginTop: '40px' }}>
         <TextField
-          label='비밀번호'
           {...register('password')}
           type={isShowingPassword ? 'text' : 'password'}
           placeholder='비밀번호'

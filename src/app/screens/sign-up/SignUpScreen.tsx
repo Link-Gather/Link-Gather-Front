@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackgroundAstronaut1 from '@assets/images/backgrounds/signup/background-astronaut1.svg';
 import BackgroundPlanet1 from '@assets/images/backgrounds/signup/background-planet1.svg';
@@ -92,23 +92,23 @@ const careerOptions = User.getCareerOptions();
 const schema = [
   // step 1
   yup.object().shape({
-    email: SCHEMA_EMAIL.required(),
-    code: yup.string().required(),
-    password: SCHEMA_PASSWORD.required(),
-    confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(),
+    email: SCHEMA_EMAIL.required(' '),
+    code: yup.string().required(' '),
+    password: SCHEMA_PASSWORD.required(' '),
+    confirmPassword: SCHEMA_CONFIRM_PASSWORD.required(' '),
   }),
   // step 2
   yup.object().shape({
-    profileImage: yup.string().required(),
-    nickname: SCHEMA_NICKNAME.required(),
+    profileImage: yup.string().required(' '),
+    nickname: SCHEMA_NICKNAME.required(' '),
   }),
   // step 3
   yup.object().shape({
-    job: yup.mixed<JobType>().required(),
-    career: yup.string().required(),
-    stacks: yup.array().of(yup.mixed<Stack>().required()).min(0),
+    job: yup.mixed<JobType>().required(' '),
+    career: yup.string().required(' '),
+    stacks: yup.array().of(yup.mixed<Stack>().required(' ')).min(0),
     urls: yup.array().of(yup.string().url()),
-    introduction: yup.string().required(),
+    introduction: yup.string().required(' '),
   }),
 ];
 
@@ -191,6 +191,11 @@ function SignUpScreen() {
   const { mutateAsync: signup, isLoading: isSignupLoading } = useMutation(userRepository.signup);
   // calculated values
   // effects
+  useEffect(() => {
+    if (time === 0 && !isVerified.email) {
+      setError('code', { message: '인증코드를 재요청 해주세요.' });
+    }
+  }, [time, isVerified.email]);
   // handlers
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
@@ -269,8 +274,11 @@ function SignUpScreen() {
                     onChange={(e) => {
                       register('email').onChange(e);
                       setIsVerified((prev) => ({ ...prev, email: false }));
+                      setTime(undefined);
                     }}
-                    helperText={lastVerificationId ? '인증번호를 전송하였습니다.' : errors.code?.message}
+                    helperText={
+                      errors.email?.message ? errors.email?.message : lastVerificationId && '인증번호를 전송하였습니다.'
+                    }
                   />
                   <RequestButton
                     loading={isEmailVerificationLoading}
@@ -286,18 +294,30 @@ function SignUpScreen() {
                   </RequestButton>
                 </MuiStack>
                 <MuiStack direction='row' spacing='8px'>
-                  <Input
-                    type='text'
-                    placeholder='코드입력'
-                    defaultValue={getValues('code')}
-                    css={{ width: '288px' }}
-                    {...register('code')}
-                    error={errors.code}
-                    disabled={isVerified.email}
-                    helperText={errors.code?.message}
-                  />
+                  <div css={{ position: 'relative' }}>
+                    <Input
+                      type='text'
+                      placeholder='코드입력'
+                      defaultValue={getValues('code')}
+                      css={{ width: '288px' }}
+                      {...register('code')}
+                      error={errors.code}
+                      disabled={isVerified.email}
+                      helperText={
+                        errors.code?.message ? errors.code?.message : isVerified.email && '인증이 완료되었습니다.'
+                      }
+                    />
+                    {time !== undefined && !isVerified.email && (
+                      <Timer
+                        seconds={time}
+                        onChange={setTime}
+                        css={{ position: 'absolute', right: '12px', top: '15px' }}
+                      />
+                    )}
+                  </div>
+
                   <RequestButton
-                    disabled={!!errors.code || !dirtyFields.code || isVerified.email}
+                    disabled={!dirtyFields.code || isVerified.email}
                     loading={isVerifyLoading}
                     onClick={async () => {
                       await verify({ id: lastVerificationId, code: getValues('code') });
@@ -306,8 +326,6 @@ function SignUpScreen() {
                     확인
                   </RequestButton>
                 </MuiStack>
-                {/* TODO: 위치 수정 필요 */}
-                {time && <Timer seconds={time} onChange={setTime} />}
                 <MuiStack direction='row'>
                   <Input
                     type={isShowPassword ? 'text' : 'password'}

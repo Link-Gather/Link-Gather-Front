@@ -8,7 +8,7 @@ const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      helperText?: string;
+      helperText?: React.ReactNode;
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };
@@ -104,7 +104,7 @@ const Input = forwardRef(
                   },
                 variant === 'outlined' &&
                   disabled && {
-                    borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                    border: `2px solid ${theme.palette.secondary.n60}`,
                     color: theme.palette.secondary.n60,
                   },
                 variant === 'underline' && {

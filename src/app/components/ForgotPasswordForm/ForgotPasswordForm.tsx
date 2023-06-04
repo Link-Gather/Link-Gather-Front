@@ -1,5 +1,5 @@
-import { IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
-import { Button, UnderlineTitle } from '@elements';
+import { InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import { Button, UnderlineTitle, VisibilityIconButton } from '@elements';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,8 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SCHEMA_PASSWORD } from '@libs/schema';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
-import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
-import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
@@ -72,13 +70,10 @@ function ForgotPasswordForm() {
           InputProps={{
             endAdornment: (
               <InputAdornment position='start'>
-                <IconButton onClick={() => setIsShowingPassword(!isShowingPassword)}>
-                  {isShowingPassword ? (
-                    <IconPasswordShow css={{ width: '24px', height: '24px' }} />
-                  ) : (
-                    <IconPasswordHide css={{ width: '24px', height: '24px' }} />
-                  )}
-                </IconButton>
+                <VisibilityIconButton
+                  isShow={isShowingPassword}
+                  onClick={() => setIsShowingPassword(!isShowingPassword)}
+                />
               </InputAdornment>
             ),
           }}
@@ -94,13 +89,10 @@ function ForgotPasswordForm() {
           InputProps={{
             endAdornment: (
               <InputAdornment position='start'>
-                <IconButton onClick={() => setIsShowingConfirmPassword(!isShowingConfirmPassword)}>
-                  {isShowingConfirmPassword ? (
-                    <IconPasswordShow css={{ width: '24px', height: '24px' }} />
-                  ) : (
-                    <IconPasswordHide css={{ width: '24px', height: '24px' }} />
-                  )}
-                </IconButton>
+                <VisibilityIconButton
+                  isShow={isShowingConfirmPassword}
+                  onClick={() => setIsShowingConfirmPassword(!isShowingConfirmPassword)}
+                />
               </InputAdornment>
             ),
           }}

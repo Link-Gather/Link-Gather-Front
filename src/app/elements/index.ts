@@ -20,3 +20,4 @@ export * from './StackChip';
 export * from './TextArea';
 export * from './Typography';
 export * from './UnderlineTitle';
+export * from './VisibilityIconButton';

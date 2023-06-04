@@ -588,6 +588,7 @@ function SignUpScreen() {
         <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
           <SignupButton
             disabled={!isValid || !isVerified.email || !isVerified.nickname}
+            loading={isSignupLoading}
             onClick={() => {
               step === 2
                 ? handleSubmit(

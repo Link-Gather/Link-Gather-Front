@@ -2,8 +2,7 @@ import { httpClient } from '@libs/http-client';
 import { queryKeyMap } from '@libs/query';
 
 export const authRepository = {
-  // TODO: 타입 바꿔줄꺼임.
-  async verifyEmail({ email, type }: { email: string; type: string }) {
+  async verifyEmail({ email, type }: { email: string; type: 'signup' | 'password' }) {
     return httpClient.post('/auth/email-verification', { email, type });
   },
 

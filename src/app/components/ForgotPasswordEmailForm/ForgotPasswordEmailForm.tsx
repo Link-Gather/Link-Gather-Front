@@ -16,7 +16,6 @@ import { authRepository } from '@repositories';
 const schema = yup
   .object({
     email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
-    type: yup.string().required(),
   })
   .required();
 
@@ -36,7 +35,6 @@ function ForgotPasswordEmailForm() {
     resolver: yupResolver(schema),
     defaultValues: {
       email: '',
-      type: 'password',
     },
   });
 
@@ -85,9 +83,9 @@ function ForgotPasswordEmailForm() {
             marginTop: '24px',
           }}
           disabled={!isValid}
-          onClick={handleSubmit(async ({ email, type }) => {
+          onClick={handleSubmit(async ({ email }) => {
             setErrorMessage('');
-            await mutateAsync({ email, type });
+            await mutateAsync({ email, type: 'password' });
           })}
         >
           <Stack direction='row' css={{ alignItems: 'center' }}>

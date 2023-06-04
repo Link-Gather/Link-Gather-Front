@@ -586,31 +586,36 @@ function SignUpScreen() {
 
         {/* Action */}
         <MuiStack direction='row' css={{ justifyContent: 'center', alignItems: 'center' }}>
-          <SignupButton
-            disabled={!isValid || !isVerified.email || !isVerified.nickname}
-            loading={isSignupLoading}
-            onClick={() => {
-              step === 2
-                ? handleSubmit(
-                    async ({ email, password, profileImage, stacks, urls, career, introduction, job, nickname }) => {
-                      await signup({
-                        email,
-                        password,
-                        profileImage,
-                        stacks: stacks.map((stack) => stack.id),
-                        urls: urls.map((url) => url.value),
-                        career,
-                        introduction,
-                        job,
-                        nickname,
-                      });
-                    }
-                  )
-                : handleMoveStep(1);
-            }}
-          >
-            {step === 2 ? '회원가입' : '다음'}
-          </SignupButton>
+          {step === 2 ? (
+            <SignupButton
+              disabled={!isValid}
+              loading={isSignupLoading}
+              onClick={handleSubmit(
+                async ({ email, password, profileImage, stacks, urls, career, introduction, job, nickname }) => {
+                  await signup({
+                    email,
+                    password,
+                    profileImage,
+                    stacks: stacks.map((stack) => stack.id),
+                    urls: urls.map((url) => url.value),
+                    career: Number(career),
+                    introduction,
+                    job,
+                    nickname,
+                  });
+                }
+              )}
+            >
+              회원가입
+            </SignupButton>
+          ) : (
+            <SignupButton
+              disabled={!isValid || (step === 0 && !isVerified.email) || (step === 1 && !isVerified.nickname)}
+              onClick={() => handleMoveStep(1)}
+            >
+              {step === 2 ? '회원가입' : '다음'}
+            </SignupButton>
+          )}
         </MuiStack>
       </ShadowBox>
     </MuiStack>

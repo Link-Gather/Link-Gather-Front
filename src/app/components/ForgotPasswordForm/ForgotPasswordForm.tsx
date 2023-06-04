@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SCHEMA_PASSWORD } from '@libs/schema';
+import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { useMutation } from '@libs/query';
 import { authRepository } from '@repositories';
 import { PATH_LOGIN } from '@routes';
@@ -14,7 +14,7 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 const schema = yup
   .object({
     password: SCHEMA_PASSWORD.required(),
-    passwordConfirm: SCHEMA_PASSWORD.required(),
+    passwordConfirm: SCHEMA_CONFIRM_PASSWORD.required(),
   })
   .required();
 
@@ -43,7 +43,7 @@ function ForgotPasswordForm() {
   });
 
   // query hooks
-  const { mutateAsync } = useMutation(authRepository.changePassword, {
+  const { mutateAsync: changePassword } = useMutation(authRepository.changePassword, {
     onCompleted: () => navigator(PATH_LOGIN),
   });
 
@@ -107,7 +107,7 @@ function ForgotPasswordForm() {
             return;
           }
 
-          await mutateAsync({ password, passwordConfirm, verificationId });
+          await changePassword({ password, passwordConfirm, verificationId });
         })}
         css={{ width: '100%', padding: '10px 0', marginTop: '48px', borderRadius: '32px' }}
       >

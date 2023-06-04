@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import { UnderlineTitle, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconSendEmail from '@assets/images/icons/icon-send-email.svg';
 import { Stack, TextField, Typography } from '@mui/material';
@@ -39,7 +38,12 @@ function ForgotPasswordEmailForm() {
   });
 
   // query hooks
-  const { mutateAsync, isLoading, isSuccess, isError } = useMutation(authRepository.verifyEmail, {
+  const {
+    mutateAsync: verifyEmail,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useMutation(authRepository.verifyEmail, {
     onError: (error) => setErrorMessage(error.message),
   });
 
@@ -85,14 +89,13 @@ function ForgotPasswordEmailForm() {
           disabled={!isValid}
           onClick={handleSubmit(async ({ email }) => {
             setErrorMessage('');
-            await mutateAsync({ email, type: 'password' });
+            await verifyEmail({ email, type: 'password' });
           })}
         >
           <Stack direction='row' css={{ alignItems: 'center' }}>
             <Typography css={{ fontSize: '20px', fontWeight: 800, linetHeight: 1.4, color: '#FFF' }}>
               인증하기
             </Typography>
-            <IconArrowRight css={{ width: '24px', height: '24px', marginLeft: '8px' }} />
           </Stack>
         </Button>
       </Stack>

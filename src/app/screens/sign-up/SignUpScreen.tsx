@@ -330,7 +330,7 @@ function SignUpScreen() {
                   <Input
                     type={isShowPassword ? 'text' : 'password'}
                     placeholder='비밀번호 입력'
-                    helperText='영문, 숫자, 특수문자 조합 8~16자리로 입력해주세요.'
+                    helperText='8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
                     autoComplete='off'
                     defaultValue={getValues('password')}
                     error={errors.password}
@@ -349,6 +349,7 @@ function SignUpScreen() {
                     autoComplete='off'
                     defaultValue={getValues('confirmPassword')}
                     error={errors.confirmPassword}
+                    helperText={errors.confirmPassword?.message}
                     IconProps={{
                       onClick: () => setIsShowPasswordConfirm(!isShowPasswordConfirm),
                       EndIcon:

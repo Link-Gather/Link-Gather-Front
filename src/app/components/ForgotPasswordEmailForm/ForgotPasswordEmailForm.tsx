@@ -29,7 +29,7 @@ function ForgotPasswordEmailForm() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {

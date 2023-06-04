@@ -33,7 +33,7 @@ function ForgotPasswordForm() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm({
+  } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
     defaultValues: {
       password: '',
@@ -62,6 +62,7 @@ function ForgotPasswordForm() {
       </Stack>
       <Stack css={{ marginTop: '40px' }}>
         <TextField
+          label='비밀번호'
           {...register('password')}
           type={isShowingPassword ? 'text' : 'password'}
           placeholder='비밀번호'

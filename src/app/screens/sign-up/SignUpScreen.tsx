@@ -32,6 +32,7 @@ import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 import { useMutation } from '@libs/query';
 import { authRepository, userRepository } from '@repositories';
 import { S3_IMAGE_BUCKET } from '../../configs';
+import { PATH_LOGIN, PATH_SIGNUP_SUCCESS } from '@routes';
 
 type ValidationType = {
   email: string;
@@ -188,7 +189,11 @@ function SignUpScreen() {
       },
     }
   );
-  const { mutateAsync: signup, isLoading: isSignupLoading } = useMutation(userRepository.signup);
+  const { mutateAsync: signup, isLoading: isSignupLoading } = useMutation(userRepository.signup, {
+    onCompleted: () => {
+      navigate(PATH_SIGNUP_SUCCESS);
+    },
+  });
   // calculated values
   // effects
   useEffect(() => {
@@ -200,7 +205,7 @@ function SignUpScreen() {
   const handleMoveStep = (stepChangeNumber: number) => {
     if (stepChangeNumber === 1 && step < 2) setStep((prevStep) => prevStep + stepChangeNumber);
     if (stepChangeNumber === -1) {
-      step === 0 ? navigate('/login') : setStep((prevStep) => prevStep + stepChangeNumber);
+      step === 0 ? navigate(PATH_LOGIN) : setStep((prevStep) => prevStep + stepChangeNumber);
     }
   };
 

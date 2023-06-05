@@ -30,6 +30,7 @@ function ForgotPasswordScreen() {
       justifyContent='left'
       alignItems='flex-start'
       css={{
+        backgroundColor: '#2E558E',
         [mq[2]]: {
           alignItems: 'flex-start',
           paddingTop: '40px',

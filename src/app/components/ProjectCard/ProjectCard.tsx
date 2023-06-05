@@ -1,11 +1,15 @@
 import { Grid, Stack, Tooltip, Typography } from '@mui/material';
-import { Chip, StackChip } from '@elements';
+import { Chip, ProfileImage, StackChip } from '@elements';
 import { Project, ProjectPurpose } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
 import { useStacks } from '../../libs/stacks';
 import { useState } from 'react';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
 import { Theme } from '../../libs/theme';
+
+function filterMemberJob(members: Project['members'], job: JobType) {
+  return members.filter((member) => member.job === job);
+}
 
 function ProjectCard(props: { project: Project }) {
   // prop destruction
@@ -67,8 +71,7 @@ function ProjectCard(props: { project: Project }) {
           {project.title}
         </Typography>
         <Typography variant='body2' css={{ fontWeight: 400, color: '#979797' }}>
-          {/* TODO: 포멧팅해야함. */}
-          예상기간: {project.period}
+          예상기간: {Project.formattedPeriod(project.period)}
         </Typography>
       </Stack>
       <Stack direction='column' spacing='10px'>
@@ -77,28 +80,62 @@ function ProjectCard(props: { project: Project }) {
         </Typography>
         <Stack direction='row' spacing='20px'>
           <Stack direction='column' spacing='8px'>
-            <Stack direction='row' css={{ width: '150px' }}>
+            <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                프론트엔드: /{project.recruitMember.frontendDeveloper}
+                프론트엔드: {filterMemberJob(project.members, 'frontendDeveloper').length}/
+                {project.recruitMember.frontendDeveloper}
               </Typography>
+              <Stack direction='row'>
+                {filterMemberJob(project.members, 'frontendDeveloper').map((member, i) => (
+                  <ProfileImage
+                    src={member.profileImage}
+                    css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
+                  />
+                ))}
+              </Stack>
             </Stack>
 
-            <Stack direction='row' css={{ width: '150px' }}>
+            <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                백엔드: /{project.recruitMember.backendDeveloper}
+                백엔드: {filterMemberJob(project.members, 'backendDeveloper').length}/
+                {project.recruitMember.backendDeveloper}
               </Typography>
+              <Stack direction='row'>
+                {filterMemberJob(project.members, 'backendDeveloper').map((member, i) => (
+                  <ProfileImage
+                    src={member.profileImage}
+                    css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
+                  />
+                ))}
+              </Stack>
             </Stack>
           </Stack>
           <Stack direction='column' spacing='8px'>
-            <Stack direction='row' css={{ width: '150px' }}>
+            <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                기획: /{project.recruitMember.productManager}
+                기획: {filterMemberJob(project.members, 'productManager').length}/{project.recruitMember.productManager}
               </Typography>
+              <Stack direction='row'>
+                {filterMemberJob(project.members, 'productManager').map((member, i) => (
+                  <ProfileImage
+                    src={member.profileImage}
+                    css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
+                  />
+                ))}
+              </Stack>
             </Stack>
-            <Stack direction='row' css={{ width: '150px' }}>
+            <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                디자인: /{project.recruitMember.designer}
+                디자인: {filterMemberJob(project.members, 'designer').length}/{project.recruitMember.designer}
               </Typography>
+              <Stack direction='row'>
+                {filterMemberJob(project.members, 'designer').map((member, i) => (
+                  <ProfileImage
+                    src={member.profileImage}
+                    css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
+                  />
+                ))}
+              </Stack>
             </Stack>
           </Stack>
         </Stack>

@@ -25,9 +25,49 @@ export class Project {
     productManager: number;
   };
   bookMarkCount!: number;
+  members!: {
+    id: string;
+    email: string;
+    nickname: string;
+    profileImage: string;
+    provider: Provider;
+    job: JobType;
+    type: RoleType;
+  }[];
 
   static getPurposeOptions(): { label: ProjectPurpose; value: PurposeType }[] {
     return purposes.map((purpose) => ({ label: ProjectPurpose[purpose], value: purpose }));
+  }
+
+  static formattedPeriod(period: number) {
+    switch (period) {
+      case 1:
+        return '1개월 이하';
+      case 2:
+        return '2개월';
+      case 3:
+        return '3개월';
+      case 4:
+        return '4개월';
+      case 5:
+        return '5개월';
+      case 6:
+        return '6개월';
+      case 7:
+        return '7개월';
+      case 8:
+        return '8개월';
+      case 9:
+        return '9개월';
+      case 10:
+        return '10개월';
+      case 11:
+        return '11개월';
+      case 12:
+        return '1년';
+      default:
+        return undefined as never;
+    }
   }
 
   static getStatusOptions(): { label: string; value: ProjectStatus }[] {

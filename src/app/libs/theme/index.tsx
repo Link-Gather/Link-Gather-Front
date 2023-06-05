@@ -28,6 +28,13 @@ function ThemeProvider(props: { children: ReactNode }) {
     });
     return {
       ...muiTheme,
+      components: {
+        MuiMenuItem: {
+          defaultProps: {
+            disableRipple: true,
+          },
+        },
+      },
       palette: {
         ...muiTheme.palette,
         ...palettes[palette],

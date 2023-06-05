@@ -1,8 +1,19 @@
 import { httpClient } from '../libs/http-client';
 import { queryKeyMap } from '../libs/query';
+import { Project } from '../models';
 
 export const projectRepository = {
-  create(params: {
+  async list(params: {
+    stacks?: number[];
+    purpose?: PurposeType;
+    job?: JobType;
+    order: 'latest' | 'popularity' | 'oldest';
+    page: number;
+    limit: number;
+  }) {
+    return httpClient.get<Project[]>('/projects', { params });
+  },
+  async create(params: {
     title: string;
     description: string;
     period: number;
@@ -20,4 +31,5 @@ export const projectRepository = {
   },
 };
 
+queryKeyMap.set(projectRepository.list, ['Project']);
 queryKeyMap.set(projectRepository.create, ['Project']);

@@ -480,7 +480,7 @@ function ProjectsScreen(props: {}) {
           <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
             {projectList.map((project) => {
               return (
-                <Grid key={project.id} item xs={12} sm={6} lg={4} xl={3}>
+                <Grid key={project.id} item xs={12} sm={6} lg={3}>
                   <ProjectCard project={project} />
                 </Grid>
               );

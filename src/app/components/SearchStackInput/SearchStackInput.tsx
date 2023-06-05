@@ -4,7 +4,7 @@ import { Grid, Stack as MuiStack } from '@mui/material';
 import { Theme } from '@libs/theme';
 import { InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react';
 import { Stack } from '@models';
-import SearchIcon from '@assets/images/icons/icon-Search.svg';
+import SearchIcon from '@assets/images/icons/icon-search.svg';
 
 /**
  * TODO: 최적화해야한다.

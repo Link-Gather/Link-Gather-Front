@@ -338,7 +338,7 @@ const purposeOptions = [{ label: '전체', value: '' }, ...Project.getPurposeOpt
 const jobOptions = [{ label: '전체', value: '' }, ...Role.getJobOptions()];
 const statusOptions = [{ label: '전체', value: '' }, ...Project.getStatusOptions()];
 
-function ProjectScreen(props: {}) {
+function ProjectsScreen(props: {}) {
   // prop destruction
   // lib hooks
   // state, ref hooks
@@ -498,4 +498,4 @@ function ProjectScreen(props: {}) {
   );
 }
 
-export { ProjectScreen };
+export { ProjectsScreen };

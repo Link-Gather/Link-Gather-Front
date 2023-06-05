@@ -8,12 +8,14 @@ import { projects } from './data.mock';
 type ArgTypes = ComponentProps<typeof ProjectsScreen>;
 
 export default {
-  title: 'screens/Project',
+  title: 'screens/ProjectsScreen',
   component: ProjectsScreen,
   args: {},
-  msw: {
-    handlers: {
-      getProjects: rest.get(`${API_ENDPOINT}/projects`, (req, res, ctx) => res(ctx.json({ data: projects }))),
+  parameters: {
+    msw: {
+      handlers: {
+        getProjects: rest.get(`${API_ENDPOINT}/projects`, (req, res, ctx) => res(ctx.json({ data: projects }))),
+      },
     },
   },
 } as Meta<ArgTypes>;

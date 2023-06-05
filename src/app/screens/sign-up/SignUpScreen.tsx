@@ -618,7 +618,7 @@ function SignUpScreen() {
               disabled={!isValid || (step === 0 && !isVerified.email) || (step === 1 && !isVerified.nickname)}
               onClick={() => handleMoveStep(1)}
             >
-              {step === 2 ? '회원가입' : '다음'}
+              다음
             </SignupButton>
           )}
         </MuiStack>

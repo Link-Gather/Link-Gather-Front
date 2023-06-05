@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['react-app', 'plugin:import/typescript', 'plugin:prettier/recommended', 'plugin:storybook/recommended'],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'react', '@typescript-eslint'],
   settings: {
     'import/resolver': {
       node: {
@@ -10,6 +10,7 @@ module.exports = {
     },
   },
   rules: {
+    'react/jsx-key': ['error', { checkFragmentShorthand: true }],
     'import/extensions': [
       'error',
       'ignorePackages',

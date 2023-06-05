@@ -2,7 +2,7 @@ import { useStacks } from '@libs/stacks';
 import { Input, StackChip } from '@elements';
 import { Grid, Stack as MuiStack } from '@mui/material';
 import { Theme } from '@libs/theme';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react';
 import { Stack } from '@models';
 import SearchIcon from '@assets/images/icons/icon-Search.svg';
 
@@ -49,17 +49,19 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
   return sortedStacks.flat();
 }
 
-function SearchStackInput(props: {
-  label?: string;
-  required?: boolean;
-  type: 'project' | 'signup';
-  value?: Stack[];
-  onAdd: (stack: Stack) => void;
-  onChange: () => void;
-  className?: string;
-}) {
+function SearchStackInput(
+  props: {
+    label?: string;
+    required?: boolean;
+    type: 'project' | 'signup';
+    value?: Stack[];
+    onAdd: (stack: Stack) => void;
+    onChange?: () => void;
+    className?: string;
+  } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'label' | 'required' | 'onAdd' | 'onChange' | 'className'>
+) {
   // prop destruction
-  const { label, required, type, onAdd, value, onChange, className } = props;
+  const { label, required, type, onAdd, value, onChange, className, ...rest } = props;
   // lib hooks
   const stacks = useStacks();
   // state, ref hooks
@@ -97,12 +99,13 @@ function SearchStackInput(props: {
     <MuiStack spacing={2}>
       <MuiStack css={{ position: 'relative', maxWidth: '896px' }} className={className}>
         <Input
+          {...rest}
           variant='underline'
           required={required}
           label={label}
           type='text'
-          placeholder='기술 스택 검색'
-          css={{ fontSize: '14px', height: '40px' }}
+          placeholder={rest.placeholder || '기술 스택 검색'}
+          css={{ fontSize: '14px', height: '40px', background: 'inherit' }}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={() => setIsHide(false)}

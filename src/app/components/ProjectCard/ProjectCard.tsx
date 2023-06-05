@@ -88,6 +88,7 @@ function ProjectCard(props: { project: Project }) {
               <Stack direction='row'>
                 {filterMemberJob(project.members, 'frontendDeveloper').map((member, i) => (
                   <ProfileImage
+                    key={member.id}
                     src={member.profileImage}
                     css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
                   />
@@ -103,6 +104,7 @@ function ProjectCard(props: { project: Project }) {
               <Stack direction='row'>
                 {filterMemberJob(project.members, 'backendDeveloper').map((member, i) => (
                   <ProfileImage
+                    key={member.id}
                     src={member.profileImage}
                     css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
                   />
@@ -118,6 +120,7 @@ function ProjectCard(props: { project: Project }) {
               <Stack direction='row'>
                 {filterMemberJob(project.members, 'productManager').map((member, i) => (
                   <ProfileImage
+                    key={member.id}
                     src={member.profileImage}
                     css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
                   />
@@ -131,6 +134,7 @@ function ProjectCard(props: { project: Project }) {
               <Stack direction='row'>
                 {filterMemberJob(project.members, 'designer').map((member, i) => (
                   <ProfileImage
+                    key={member.id}
                     src={member.profileImage}
                     css={[{ width: '24px', height: '24px' }, i !== 0 && { marginLeft: '-12px' }]}
                   />
@@ -142,7 +146,7 @@ function ProjectCard(props: { project: Project }) {
       </Stack>
       <Stack direction='row' spacing='4px' css={{ position: 'relative' }}>
         {stacks.slice(undefined, 3).map((stack) => (
-          <StackChip name={stack.name} length={1} />
+          <StackChip key={stack.id} name={stack.name} length={1} />
         ))}
         {stacks.length > 3 && (
           <StackChip

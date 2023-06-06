@@ -8,6 +8,7 @@ import {
   ForgotPasswordScreen,
   ProjectAddScreen,
   SignUpSuccessScreen,
+  ProjectsScreen,
 } from '@screens';
 import {
   PATH_HOME,
@@ -56,12 +57,12 @@ function AppRouter() {
           }
         />
 
-        {/* TODO: 프로젝트 찾기 */}
+        {/* 프로젝트 찾기 */}
         <Route
           path={PATH_PROJECTS}
           element={
             <Layout componentStyle='contents'>
-              <div>프로젝트 찾기</div>
+              <ProjectsScreen />
             </Layout>
           }
         />

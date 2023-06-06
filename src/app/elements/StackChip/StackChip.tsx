@@ -3,9 +3,9 @@ import DeleteIcon from '@assets/images/icons/icon-close.svg';
 import { Stack } from '@mui/material';
 
 function StackChip(props: {
-  name: string;
+  name: React.ReactNode;
   length: 1 | 2 | 3;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   selected?: boolean;
   EndIcon?: JSX.Element;
@@ -37,7 +37,9 @@ function StackChip(props: {
           '&>:not(:first-of-type)': {
             marginLeft: '4px',
           },
-          cursor: 'pointer',
+          cursor: onClick ? 'pointer' : undefined,
+        },
+        onClick && {
           '&:hover': {
             backgroundColor: theme.palette.secondary.n60,
           },

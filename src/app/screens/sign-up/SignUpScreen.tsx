@@ -159,18 +159,15 @@ function SignUpScreen() {
   const { fields: stacks, append: appendStack, remove: removeStack } = useFieldArray({ control, name: 'stacks' });
   const { fields: urls, append: appendUrl, remove: removeUrl } = useFieldArray({ control, name: 'urls' });
   // query hooks
-  const { mutateAsync: emailVerification, isLoading: isEmailVerificationLoading } = useMutation(
-    authRepository.emailVerification,
-    {
-      onCompleted: (data) => {
-        setLastVerificationId(data.id);
-        setTime(180);
-      },
-      onError: (err) => {
-        setError('email', { message: err.message });
-      },
-    }
-  );
+  const { mutateAsync: verifyEmail, isLoading: isEmailVerificationLoading } = useMutation(authRepository.verifyEmail, {
+    onCompleted: (data) => {
+      setLastVerificationId(data.id);
+      setTime(180);
+    },
+    onError: (err) => {
+      setError('email', { message: err.message });
+    },
+  });
   const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verify, {
     onCompleted: () => {
       setIsVerified((prev) => ({ ...prev, email: true }));
@@ -299,7 +296,7 @@ function SignUpScreen() {
                     loading={isEmailVerificationLoading}
                     disabled={!!errors.email || !dirtyFields.email || isVerified.email}
                     onClick={async () =>
-                      await emailVerification({
+                      await verifyEmail({
                         email: getValues('email'),
                         type: 'signup',
                       })

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProjectsScreen } from './ProjectsScreen';
 import { rest } from 'msw';
 import { API_ENDPOINT } from '../../configs';
-import { projects } from './data.mock';
+import { projectList } from './data.mock';
 
 type ArgTypes = ComponentProps<typeof ProjectsScreen>;
 
@@ -14,7 +14,7 @@ export default {
   parameters: {
     msw: {
       handlers: {
-        getProjects: rest.get(`${API_ENDPOINT}/projects`, (req, res, ctx) => res(ctx.json({ data: projects }))),
+        getProjects: rest.get(`${API_ENDPOINT}/projects`, (req, res, ctx) => res(ctx.json({ data: projectList }))),
       },
     },
   },

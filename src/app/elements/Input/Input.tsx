@@ -1,14 +1,14 @@
 import { useId, forwardRef, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
-import { FieldError } from 'react-hook-form';
+import type { FieldError } from 'react-hook-form';
 import { Stack } from '@mui/material';
 import { Label } from '../Label';
 
 const Input = forwardRef(
   (
     props: {
-      error?: FieldError;
       helperText?: React.ReactNode;
+      error?: FieldError | boolean;
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };
@@ -186,7 +186,7 @@ const Input = forwardRef(
             </button>
           )}
         </div>
-        {variant !== 'underline' && (
+        {variant !== 'underline' && helperText && (
           <span
             css={(theme: Theme) => [
               {
@@ -196,7 +196,7 @@ const Input = forwardRef(
                 fontSize: '12px',
                 fontWeight: '400',
                 lineHeight: '20px',
-                color: theme.palette.secondary.n60,
+                color: '#5E6C83',
               },
               hasValue && {
                 color: theme.palette.secondary.n300,

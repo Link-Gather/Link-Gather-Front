@@ -24,6 +24,54 @@ function ThemeProvider(props: { children: ReactNode }) {
   const paletteSetter = useMemo(() => ({ setPalette }), []);
   const theme = useMemo(() => {
     const muiTheme = createTheme({
+      components: {
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: {
+              height: '50px',
+              padding: '10px 16px',
+              border: '2px solid #B3BAC5',
+              borderRadius: '8px',
+              '&.Mui-focused': {
+                borderColor: '#5555FF',
+              },
+              '&.Mui-error': {
+                borderColor: '#FF2626',
+              },
+            },
+            input: {
+              padding: '0',
+            },
+            notchedOutline: {
+              border: 'none',
+            },
+          },
+        },
+        MuiInputAdornment: {
+          styleOverrides: {
+            root: {
+              marginRight: '0',
+            },
+          },
+        },
+        MuiFormHelperText: {
+          styleOverrides: {
+            root: {
+              margin: '0',
+            },
+          },
+        },
+        MuiIconButton: {
+          defaultProps: {
+            disableRipple: true,
+          },
+          styleOverrides: {
+            root: {
+              padding: '0',
+            },
+          },
+        },
+      },
       spacing: 4,
     });
     return {

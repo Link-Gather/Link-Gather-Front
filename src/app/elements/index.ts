@@ -22,3 +22,4 @@ export * from './TextArea';
 export * from './Timer';
 export * from './Typography';
 export * from './UnderlineTitle';
+export * from './VisibilityIconButton';

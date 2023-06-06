@@ -31,8 +31,9 @@ import { Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 import { useMutation } from '@libs/query';
 import { authRepository, userRepository } from '@repositories';
-import { S3_IMAGE_BUCKET } from '../../configs';
+import { S3_IMAGE_BUCKET } from '@configs';
 import { PATH_LOGIN, PATH_SIGNUP_SUCCESS } from '@routes';
+import BackgroundStar from '@assets/images/backgrounds/signup/signup-background-star.svg';
 
 type ValidationType = {
   email: string;
@@ -223,6 +224,15 @@ function SignUpScreen() {
         },
       }}
     >
+      <BackgroundStar
+        css={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          zIndex: 0,
+        }}
+      />
       <BackgroundAstronaut1
         css={{ position: 'fixed', top: '28%', left: '27%', width: '100px', height: '150px', zIndex: '1' }}
       />

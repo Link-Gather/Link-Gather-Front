@@ -11,5 +11,5 @@ export const authRepository = {
   },
 };
 
-queryKeyMap.set(authRepository.verifyEmail, ['Verification']);
-queryKeyMap.set(authRepository.verify, ['Verification']);
+queryKeyMap.set(authRepository.verifyEmail, ['Auth']);
+queryKeyMap.set(authRepository.verify, ['Auth']);

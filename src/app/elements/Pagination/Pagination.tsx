@@ -1,8 +1,8 @@
 import { Pagination as MuiPagination } from '@mui/material';
 
-function Pagination(props: { className?: string; page: number; count: number; onChange: (page: number) => void }) {
+function Pagination(props: { className?: string; page: number; count?: number; onChange: (page: number) => void }) {
   // prop destruction
-  const { className, page, count, onChange } = props;
+  const { className, page, count = 0, onChange } = props;
   // lib hooks
   // state, ref hooks
   // query hooks

@@ -1,3 +1,5 @@
+type Paginated<T> = { data: T[]; count: number };
+
 type Provider = 'kakao' | 'github' | 'google' | 'link-gather';
 
 type OauthProvider = Exclude<Provider, 'link-gather'>;

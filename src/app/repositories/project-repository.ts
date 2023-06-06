@@ -11,7 +11,7 @@ export const projectRepository = {
     page: number;
     limit: number;
   }) {
-    return httpClient.get<Project[]>('/projects', { params });
+    return httpClient.get<Paginated<Project>>('/projects', { params });
   },
   async create(params: {
     title: string;

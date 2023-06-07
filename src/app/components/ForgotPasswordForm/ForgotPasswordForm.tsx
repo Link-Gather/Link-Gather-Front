@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,6 +28,7 @@ function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, dirtyFields, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -50,11 +51,12 @@ function ForgotPasswordForm() {
         </Link>
         <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
-      <Stack direction='column'>
+      <Stack direction='column' spacing={7}>
         <Input
-          type={!isShowPassword ? 'password' : 'text'}
-          placeholder='비밀번호'
-          css={{ width: '100%', height: '88px', marginBottom: '16px' }}
+          type='password'
+          placeholder='비밀번호 입력'
+          autoComplete='off'
+          defaultValue={getValues('password')}
           error={errors.password}
           helperText={
             errors.password?.message ?? '8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
@@ -71,9 +73,9 @@ function ForgotPasswordForm() {
           {...register('password')}
         />
         <Input
-          type={!isShowConfirmPassword ? 'password' : 'text'}
+          type='password'
           placeholder='비밀번호 확인'
-          css={{ width: '100%', marginBottom: '16px' }}
+          defaultValue={getValues('confirmPassword')}
           error={errors.confirmPassword}
           helperText={errors.confirmPassword?.message}
           IconProps={{

@@ -4,6 +4,9 @@ import { Theme } from '../../libs/theme';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
 import { Label } from '../Label';
 
+/**
+ * uncontrolled는 수정이 필요하다.
+ */
 const SingleSelect = forwardRef(function SingleSelect(
   props: {
     onChange?: (value: any) => void;
@@ -124,25 +127,22 @@ const SingleSelect = forwardRef(function SingleSelect(
                 {placeholder}
               </span>
             )}
-            {
-              //@ts-ignore
-              (value || defaultValue) && (
-                <span
-                  css={(theme: Theme) => [
-                    {
-                      fontFamily: 'Noto Sans',
-                      fontWeight: 600,
-                      color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
-                    },
-                    variant === 'text' && {
-                      color: open ? theme.palette.primary.main : theme.palette.black.main,
-                    },
-                  ]}
-                >
-                  {options.find((option) => option.value === value || option.value === defaultValue)?.label}
-                </span>
-              )
-            }
+            {(value || defaultValue) && (
+              <span
+                css={(theme: Theme) => [
+                  {
+                    fontFamily: 'Noto Sans',
+                    fontWeight: 600,
+                    color: open ? theme.palette.primary.main : theme.palette.secondary.n300,
+                  },
+                  variant === 'text' && {
+                    color: open ? theme.palette.primary.main : theme.palette.black.main,
+                  },
+                ]}
+              >
+                {options.find((option) => option.value === value || option.value === defaultValue)?.label}
+              </span>
+            )}
             <ArrowDownIcon
               css={(theme: Theme) => ({
                 width: '24px',
@@ -150,7 +150,7 @@ const SingleSelect = forwardRef(function SingleSelect(
                 '& path': { fill: open ? theme.palette.primary.main : theme.palette.secondary.n300 },
               })}
             />
-            <input hidden id={id} ref={ref} value={value} defaultValue={defaultValue} onChange={onChange} />
+            <input hidden id={id} ref={ref} {...values} onChange={onChange} />
           </Stack>
           {open && (
             <Stack

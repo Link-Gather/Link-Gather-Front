@@ -40,6 +40,7 @@ const TextArea = forwardRef(function TextArea(
               border: `2px solid ${theme.palette.secondary.n60}`,
               padding: '11px 16px 11px 16px',
               outline: 'none',
+              resize: 'none',
               '&::placeholder': {
                 color: theme.palette.secondary.n60,
               },

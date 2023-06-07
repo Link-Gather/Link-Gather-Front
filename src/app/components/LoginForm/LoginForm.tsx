@@ -27,6 +27,7 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, dirtyFields, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -43,13 +44,12 @@ function LoginForm() {
   // calculated values
   // effects
   // handlers
-
   return (
-    <Stack direction='column' css={{ marginBottom: '40px' }}>
+    <Stack direction='column' css={{ marginBottom: '40px' }} spacing={4}>
       <Input
         type='email'
         placeholder='이메일'
-        css={{ width: '100%', marginBottom: '16px' }}
+        defaultValue={getValues('email')}
         error={errors.email}
         helperText={errors.email?.message}
         IconProps={{
@@ -60,9 +60,9 @@ function LoginForm() {
         {...register('email')}
       />
       <Input
-        type={!isShowPassword ? 'password' : 'text'}
+        type='password'
         placeholder='비밀번호'
-        css={{ width: '100%', marginBottom: '16px' }}
+        defaultValue={getValues('password')}
         error={errors.password}
         helperText={errors.password?.message}
         IconProps={{

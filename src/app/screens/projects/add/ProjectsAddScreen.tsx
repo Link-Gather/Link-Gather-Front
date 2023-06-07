@@ -4,10 +4,10 @@ import { Grid, IconButton, Stack as MuiStack } from '@mui/material';
 import * as yup from 'yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from '../../../libs/query';
-import { projectRepository } from '../../../repositories/project-repository';
+import { useMutation } from '@libs/query';
+import { projectRepository } from '@repositories';
 import MinusIcon from '@assets/images/icons/icon-minus.svg';
-import { Project, Stack } from '../../../models';
+import { Project, Stack } from '@models';
 
 const schema = yup.object({
   purpose: yup.mixed<PurposeType>().required(),

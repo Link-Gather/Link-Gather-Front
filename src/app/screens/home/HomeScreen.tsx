@@ -9,18 +9,15 @@ function HomeScreen() {
   const { isOpenDialog, openDialog, closeDialog } = useDialog();
 
   // state, ref hooks
-
   // form hook
   // query hooks
   // calculated values
   // effects
-
   // handlers
 
   return (
     <div>
       <span>홈페이지</span>
-
       <Button onClick={openDialog}>Dialog</Button>
       {isOpenDialog && (
         <Dialog width='300px' height='200px'>

@@ -1,4 +1,4 @@
-import { useId, forwardRef, useState, type InputHTMLAttributes, type ForwardedRef } from 'react';
+import { useId, forwardRef, type InputHTMLAttributes, type ForwardedRef } from 'react';
 import type { Theme } from '@libs/theme';
 import { FieldError } from 'react-hook-form';
 import { Stack } from '@mui/material';
@@ -8,12 +8,14 @@ const Input = forwardRef(
   (
     props: {
       error?: FieldError;
-      helperText?: string;
+      helperText?: React.ReactNode;
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };
+      value?: string | number;
+      defaultValue?: string | number;
       variant?: 'outlined' | 'underline';
-    } & InputHTMLAttributes<HTMLInputElement>,
+    } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue'>,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     // prop destruction
@@ -26,6 +28,9 @@ const Input = forwardRef(
       IconProps,
       required = false,
       variant = 'outlined',
+      value,
+      defaultValue,
+      disabled,
       ...rest
     } = props;
 
@@ -33,11 +38,24 @@ const Input = forwardRef(
     const inputId = useId();
 
     // state, ref hooks
-    const [isFocused, setIsFocused] = useState(false);
-
     // form hook
     // query hooks
     // calculated values
+    const values: { value?: string | number; defaultValue?: string | number } = {};
+    if (Object.prototype.hasOwnProperty.call(props, 'value')) {
+      values.value = value ?? ('' as string | number);
+    }
+    if (Object.prototype.hasOwnProperty.call(props, 'defaultValue')) {
+      values.defaultValue = defaultValue ?? ('' as string | number);
+    }
+    if (
+      !Object.prototype.hasOwnProperty.call(props, 'value') &&
+      !Object.prototype.hasOwnProperty.call(props, 'defaultValue')
+    ) {
+      // value, defaultValue 둘 다 prop 으로 전달하지 않으면 uncontrolled 로 가정 한다.
+      values.defaultValue = '' as string | number;
+    }
+    const hasValue = Object.values(values).some(Boolean);
     // effects
     // handlers
 
@@ -46,6 +64,7 @@ const Input = forwardRef(
         {label && <Label id={inputId} label={label} required={required} />}
         <div css={{ position: 'relative' }}>
           <input
+            disabled={disabled}
             className={className}
             id={inputId}
             type={type}
@@ -53,7 +72,6 @@ const Input = forwardRef(
               return [
                 {
                   width: '100%',
-                  height: '50px',
                   fontSize: '20px',
                   borderRadius: '8px',
                   border: `2px solid ${theme.palette.secondary.n60}`,
@@ -71,7 +89,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'outlined' &&
-                  isFocused && {
+                  hasValue && {
                     border: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       border: `2px solid ${theme.palette.primary.main}`,
@@ -84,6 +102,11 @@ const Input = forwardRef(
                       border: `2px solid ${theme.palette.secondary.red}`,
                     },
                   },
+                variant === 'outlined' &&
+                  disabled && {
+                    border: `2px solid ${theme.palette.secondary.n60}`,
+                    color: theme.palette.secondary.n60,
+                  },
                 variant === 'underline' && {
                   border: 'none',
                   borderRadius: 0,
@@ -93,7 +116,7 @@ const Input = forwardRef(
                   },
                 },
                 variant === 'underline' &&
-                  isFocused && {
+                  hasValue && {
                     borderBottom: `2px solid ${theme.palette.secondary.n300}`,
                     '&:focus': {
                       borderBottom: `2px solid ${theme.palette.primary.main}`,
@@ -106,11 +129,15 @@ const Input = forwardRef(
                       borderBottom: `2px solid ${theme.palette.secondary.red}`,
                     },
                   },
+                variant === 'underline' &&
+                  disabled && {
+                    borderBottom: `2px solid ${theme.palette.secondary.n60}`,
+                    color: theme.palette.secondary.n60,
+                  },
               ];
             }}
+            {...values}
             ref={ref}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             {...rest}
           />
           {IconProps?.StartIcon && (
@@ -119,7 +146,7 @@ const Input = forwardRef(
               tabIndex={-1}
               css={{
                 position: 'absolute',
-                top: type === 'outlined' ? '11px' : '8px',
+                top: variant === 'outlined' ? '11px' : '8px',
                 left: '8px',
                 display: 'flex',
                 alignItems: 'center',
@@ -171,7 +198,7 @@ const Input = forwardRef(
                 lineHeight: '20px',
                 color: theme.palette.secondary.n60,
               },
-              isFocused && {
+              hasValue && {
                 color: theme.palette.secondary.n300,
               },
               error && {

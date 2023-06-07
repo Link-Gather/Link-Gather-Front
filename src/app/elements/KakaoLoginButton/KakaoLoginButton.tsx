@@ -1,4 +1,3 @@
-import React from 'react';
 import { KAKAO_CLIENT_ID, REDIRECT_URI } from '@configs';
 import IconKakao from '@assets/images/icons/icon-kakao.svg';
 import type { Theme } from '@libs/theme';

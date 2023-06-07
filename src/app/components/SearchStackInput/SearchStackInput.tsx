@@ -1,8 +1,8 @@
 import { useStacks } from '@libs/stacks';
-import { Input, StackChip } from '@elements';
+import { ClickAway, Input, StackChip } from '@elements';
 import { Grid, Stack as MuiStack } from '@mui/material';
 import { Theme } from '@libs/theme';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Stack } from '@models';
 import SearchIcon from '@assets/images/icons/icon-Search.svg';
 
@@ -36,7 +36,12 @@ function sortSearchStack(stacks: Stack[], search: string, type: 'project' | 'sig
     if (queueLength + Stack.getLength(stack!.name) <= max) {
       queue.push(stack!);
     } else if (!hasOne && queueLength === max - 1) {
-      filteredStacks.unshift(stack!, queue.pop()!);
+      filteredStacks.unshift(queue.pop()!);
+      if (queue.reduce((acc, cur) => acc + Stack.getLength(cur.name), 0) + Stack.getLength(stack!.name) === max) {
+        queue.push(stack!);
+      } else {
+        filteredStacks.unshift(stack!);
+      }
     } else if (queueLength + Stack.getLength(stack!.name) > max) {
       filteredStacks.unshift(stack!);
     }
@@ -66,9 +71,9 @@ function SearchStackInput(props: {
   const [search, setSearch] = useState('');
   const [isHide, setIsHide] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
-  const [selectedStackIds] = useState<Set<number>>(new Set(value?.map((stack) => stack.id)));
   // query hooks
   // calculated values
+  const selectedStackIds = useMemo(() => new Set(value?.map((stack) => stack.id)), [value]);
   const searchedStacks = useMemo(
     () =>
       sortSearchStack(
@@ -79,19 +84,6 @@ function SearchStackInput(props: {
     [stacks, search, type, selectedStackIds]
   );
   // effects
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsHide(true);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
   // handlers
   return (
     <MuiStack spacing={2}>
@@ -111,45 +103,48 @@ function SearchStackInput(props: {
           }}
         />
         {search && !isHide && (
-          <MuiStack
-            ref={ref}
-            css={(theme: Theme) => ({
-              width: '100%',
-              minHeight: '68px',
-              maxHeight: '98px',
-              border: `1px solid ${theme.palette.black.main}`,
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              backgroundColor: theme.palette.paper,
-              borderRadius: '8px',
-              boxShadow: `4px 4px 0px ${theme.palette.black.main}`,
-              zIndex: '2',
-              display: 'flex',
-              padding: '4px',
-              overflow: 'auto',
-            })}
-          >
-            {!searchedStacks.length ? (
-              <p>해당하는 스킬이 없습니다.</p>
-            ) : (
-              <Grid container rowSpacing='8px'>
-                {searchedStacks.map((stack) => (
-                  <Grid key={stack.id} item md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 12 : 5)}>
-                    <StackChip
-                      name={stack.name}
-                      length={Stack.getLength(stack.name)}
-                      onClick={() => {
-                        onAdd(stack);
-                        setSearch('');
-                        setIsHide(true);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </MuiStack>
+          <>
+            <ClickAway onClick={() => setIsHide(true)} />
+            <MuiStack
+              ref={ref}
+              css={(theme: Theme) => ({
+                width: '100%',
+                minHeight: '68px',
+                maxHeight: '98px',
+                border: `1px solid ${theme.palette.black.main}`,
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                backgroundColor: theme.palette.paper,
+                borderRadius: '8px',
+                boxShadow: `4px 4px 0px ${theme.palette.black.main}`,
+                zIndex: 2,
+                display: 'flex',
+                padding: '4px',
+                overflow: 'auto',
+              })}
+            >
+              {!searchedStacks.length ? (
+                <p>해당하는 스킬이 없습니다.</p>
+              ) : (
+                <Grid container rowSpacing='8px'>
+                  {searchedStacks.map((stack) => (
+                    <Grid key={stack.id} item md={(Stack.getLength(stack.name) * 12) / (type === 'project' ? 12 : 5)}>
+                      <StackChip
+                        name={stack.name}
+                        length={Stack.getLength(stack.name)}
+                        onClick={() => {
+                          onAdd(stack);
+                          setSearch('');
+                          setIsHide(true);
+                        }}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </MuiStack>
+          </>
         )}
       </MuiStack>
       {/* NOTE: select value는 number배열을 받지 못한다. */}

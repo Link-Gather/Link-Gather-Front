@@ -7,6 +7,7 @@ import {
   OauthCallbackScreen,
   ForgotPasswordScreen,
   ProjectAddScreen,
+  SignUpSuccessScreen,
 } from '@screens';
 import {
   PATH_HOME,
@@ -18,6 +19,7 @@ import {
   PATH_PROJECTS,
   PATH_PROJECTS_MANAGE,
   PATH_PARTNERS,
+  PATH_SIGNUP_SUCCESS,
 } from '@routes';
 import { Header } from '@components';
 import { Outlet } from 'react-router';
@@ -108,6 +110,14 @@ function AppRouter() {
         element={
           <Layout componentStyle='full'>
             <SignUpScreen />
+          </Layout>
+        }
+      />
+      <Route
+        path={PATH_SIGNUP_SUCCESS}
+        element={
+          <Layout componentStyle='full'>
+            <SignUpSuccessScreen />
           </Layout>
         }
       />

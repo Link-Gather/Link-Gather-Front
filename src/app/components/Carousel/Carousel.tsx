@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import styled from '@emotion/styled';
 
 const ArrowButton = styled('button')({
@@ -44,7 +44,7 @@ export function Carousel(props: { images: { id: number; src: string; alt?: strin
     direction === 'prev' ? setNum((num) => num - 1) : setNum((num) => num + 1);
     setCarouselTransition('transform 500ms ease-in-out');
   }
-  function handleOriginSlide(index: number): void {
+  function handleOriginSlide(index: number) {
     setTimeout(() => {
       setNum(index);
       setCarouselTransition('');

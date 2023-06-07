@@ -1,5 +1,6 @@
 import { Theme } from '@libs/theme';
 import DeleteIcon from '@assets/images/icons/icon-close.svg';
+import { Stack } from '@mui/material';
 
 function StackChip(props: {
   name: string;
@@ -7,9 +8,10 @@ function StackChip(props: {
   onClick: () => void;
   className?: string;
   selected?: boolean;
+  EndIcon?: JSX.Element;
 }) {
   // prop destruction
-  const { name, length, onClick, className, selected = false } = props;
+  const { name, length, onClick, className, selected = false, EndIcon } = props;
   // lib hooks
   // state, ref hooks
   // query hooks
@@ -17,7 +19,8 @@ function StackChip(props: {
   // effects
   // handlers
   return (
-    <div
+    <Stack
+      direction='row'
       className={className}
       css={(theme: Theme) => [
         {
@@ -26,8 +29,6 @@ function StackChip(props: {
           border: '1px solid #000',
           height: '22px',
           padding: theme.spacing(1, 2),
-          display: 'flex',
-          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
@@ -47,9 +48,18 @@ function StackChip(props: {
       ]}
       onClick={onClick}
     >
-      <span>{name}</span>
+      <span
+        css={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {name}
+      </span>
       {selected && <DeleteIcon css={{ width: '12px', position: 'absolute', top: '-5px', right: '-5px' }} />}
-    </div>
+      {EndIcon}
+    </Stack>
   );
 }
 

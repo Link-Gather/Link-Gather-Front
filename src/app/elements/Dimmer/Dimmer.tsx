@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import { CSSProperties } from 'react';
+import type { Theme } from '@libs/theme';
 
 const spin = keyframes({
   '0%': {
@@ -23,20 +24,20 @@ function Dimmer(props: { size: number; color?: CSSProperties['color'] }) {
 
   return (
     <svg
-      css={{
+      css={(theme: Theme) => ({
         display: 'block',
         width: `${size}px`,
         height: `${size}px`,
-        animation: `${spin} 2000ms linear`,
+        animation: `${spin} 1000ms linear`,
         animationDirection: 'normal',
         animationIterationCount: 'infinite',
         strokeWidth: '3px',
         strokeDasharray: `${((size * 0.54) / 4) * Math.PI}px ${size * 0.75}px`,
         strokeDashoffset: `${(size / 4) * Math.PI}px`,
         fill: 'none',
-        transition: 'stroke linear 2000ms',
-        stroke: color,
-      }}
+        transition: 'stroke linear 1000ms',
+        stroke: color || theme.palette.primary.main,
+      })}
     >
       <circle cx={size / 2} cy={size / 2} r={size / 4} />
     </svg>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import IconGithub from '@assets/images/icons/icon-github.svg';
 import type { Theme } from '@libs/theme';
 

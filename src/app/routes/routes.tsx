@@ -7,8 +7,8 @@ import {
   OauthCallbackScreen,
   ForgotPasswordScreen,
   ProjectAddScreen,
-  SignUpSuccessScreen,
   ProjectsScreen,
+  SignUpSuccessScreen,
 } from '@screens';
 import {
   PATH_HOME,

@@ -28,8 +28,7 @@ function ThemeProvider(props: { children: ReactNode }) {
         MuiOutlinedInput: {
           styleOverrides: {
             root: {
-              height: '50px',
-              padding: '10px 16px',
+              padding: '11px 16px',
               border: '2px solid #B3BAC5',
               borderRadius: '8px',
               '&.Mui-focused': {
@@ -40,6 +39,7 @@ function ThemeProvider(props: { children: ReactNode }) {
               },
             },
             input: {
+              height: '24px',
               padding: '0',
             },
             notchedOutline: {

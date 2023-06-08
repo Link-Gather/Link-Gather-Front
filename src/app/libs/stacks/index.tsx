@@ -71,7 +71,7 @@ const useStacks: (ids?: number[]) => Stack[] = (ids?: number[]) => {
     throw new Error('Not initialized');
   }
 
-  return ids ? stacks.filter((stack) => ids.includes(stack.id)) : stacks;
+  return ids ? stacks.filter((stack) => new Set(ids).has(stack.id)) : stacks;
 };
 
 export { StackProvider, useStacks };

@@ -28,7 +28,7 @@ function ThemeProvider(props: { children: ReactNode }) {
         MuiOutlinedInput: {
           styleOverrides: {
             root: {
-              padding: '10px 16px',
+              padding: '11px 16px',
               border: '2px solid #B3BAC5',
               borderRadius: '8px',
               '&.Mui-focused': {
@@ -39,6 +39,8 @@ function ThemeProvider(props: { children: ReactNode }) {
               },
             },
             input: {
+              fontSize: '20px',
+              fontWeight: 500,
               height: '24px',
               padding: '0',
             },
@@ -58,6 +60,7 @@ function ThemeProvider(props: { children: ReactNode }) {
           styleOverrides: {
             root: {
               margin: '0',
+              color: '#5E6C83',
             },
           },
         },
@@ -71,18 +74,16 @@ function ThemeProvider(props: { children: ReactNode }) {
             },
           },
         },
-      },
-      spacing: 4,
-    });
-    return {
-      ...muiTheme,
-      components: {
         MuiMenuItem: {
           defaultProps: {
             disableRipple: true,
           },
         },
       },
+      spacing: 4,
+    });
+    return {
+      ...muiTheme,
       palette: {
         ...muiTheme.palette,
         ...palettes[palette],

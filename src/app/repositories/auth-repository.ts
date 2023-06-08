@@ -12,6 +12,23 @@ export const authRepository = {
   },
 
   /**
+   * 이메일 인증 코드 확인 (코드 입력)
+   * @param id
+   * @param code
+   */
+  async verifyCode({ id, code }: { id: string; code: string }) {
+    return httpClient.post(`/auth/email-verification/${id}`, { code });
+  },
+
+  /**
+   * 이메일 인증 코드 확인 (화면 접근)
+   * @param id
+   */
+  async verifyVerificationId({ id }: { id: string }) {
+    return httpClient.get(`/auth/email-verification/${id}`);
+  },
+
+  /**
    * 비밀번호 변경
    * @param password
    * @param passwordConfirm
@@ -27,15 +44,6 @@ export const authRepository = {
     verificationId: string;
   }) {
     return httpClient.patch(`/auth/password-change/${verificationId}`, { password, passwordConfirm });
-  },
-
-  /**
-   * 이메일 인증 코드 확인
-   * @param id
-   * @param code
-   */
-  async verifyCode({ id, code }: { id: string; code: string }) {
-    return httpClient.post(`/auth/email-verification/${id}`, { code });
   },
 };
 

@@ -28,7 +28,6 @@ function Layout(props: { children: React.ReactNode; componentStyle: 'contents' |
           css={{
             width: '100%',
             minHeight: '100vh',
-            backgroundColor: '#2E558E',
           }}
         >
           <div

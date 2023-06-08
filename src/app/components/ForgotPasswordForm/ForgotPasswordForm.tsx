@@ -32,6 +32,7 @@ function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid, isDirty },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',

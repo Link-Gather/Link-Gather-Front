@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme } from '@libs/theme';
+import type { Theme } from '@libs/theme';
 import { Stack } from '@mui/material';
 
 function ShadowBox(props: { children: React.ReactNode; className?: string }) {

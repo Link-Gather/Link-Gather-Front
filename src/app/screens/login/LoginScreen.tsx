@@ -34,6 +34,7 @@ function LoginScreen() {
       justifyContent='left'
       alignItems='center'
       css={{
+        backgroundColor: '#2E558E',
         [mq[2]]: {
           alignItems: 'flex-start',
         },

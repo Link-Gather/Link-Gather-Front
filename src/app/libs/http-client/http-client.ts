@@ -17,14 +17,19 @@ export const httpClient = (() => {
 
   axios.interceptors.response.use(
     (res) => res,
-    (config) => {
-      config.message = config.response.data.errorMessage;
-      return Promise.reject(config);
+    (err) => {
+      if (err?.response?.data?.errorMessage) {
+        err.message = err?.response?.data?.errorMessage || err.message;
+      }
+      return Promise.reject(err);
     }
   );
 
   return {
-    async get<T>(url: string, config?: { params?: Record<string, any> }): Promise<T> {
+    async get<T>(
+      url: string,
+      config?: { params?: Record<string, any>; paramsSerializer?: (param: Record<string, any>) => any }
+    ): Promise<T> {
       const res = await axios.get(url, config);
       return res?.data?.data;
     },

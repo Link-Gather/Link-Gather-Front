@@ -72,11 +72,11 @@ export class Project {
 
   static getStatusOptions(): { label: string; value: ProjectStatus }[] {
     return [
-      { label: '모집 중', value: 'Recruiting' },
-      { label: '진행 중', value: 'Progressing' },
+      { label: '모집 중', value: 'recruiting' },
+      { label: '진행 중', value: 'progressing' },
       // TODO: 추가필요
       // { label: '추가 모집중', value: 'Recruiting' },
-      { label: '완료', value: 'Finish' },
+      { label: '완료', value: 'finish' },
     ];
   }
 
@@ -85,11 +85,11 @@ export class Project {
    */
   static getInfo(status: ProjectStatus): [string, { color: string; backgroundColor: string }] {
     switch (status) {
-      case 'Progressing':
+      case 'progressing':
         return ['진행 중', { color: '#000', backgroundColor: palette.primary.p20 }];
-      case 'Recruiting':
+      case 'recruiting':
         return ['모집 중', { color: '#fff', backgroundColor: palette.primary.main }];
-      case 'Finish':
+      case 'finish':
         return ['완료', { color: '#000', backgroundColor: palette.secondary.n60 }];
       default:
         return undefined as never;

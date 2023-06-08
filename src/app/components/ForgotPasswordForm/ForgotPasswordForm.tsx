@@ -64,6 +64,7 @@ function ForgotPasswordForm() {
       <Stack css={{ marginTop: '40px' }}>
         <TextField
           {...register('password')}
+          defaultValue={getValues('password')}
           type={isShowingPassword ? 'text' : 'password'}
           placeholder='비밀번호'
           error={!!errors.password}
@@ -82,6 +83,7 @@ function ForgotPasswordForm() {
 
         <TextField
           {...register('passwordConfirm')}
+          defaultValue={getValues('passwordConfirm')}
           type={isShowingConfirmPassword ? 'text' : 'password'}
           placeholder='비밀번호 재확인'
           error={!!errors.passwordConfirm || !isSamePassword}

@@ -160,7 +160,7 @@ function SignUpScreen() {
   const { fields: urls, append: appendUrl, remove: removeUrl } = useFieldArray({ control, name: 'urls' });
   // query hooks
   const { mutateAsync: emailVerification, isLoading: isEmailVerificationLoading } = useMutation(
-    authRepository.emailVerification,
+    authRepository.verifyEmail,
     {
       onCompleted: (data) => {
         setLastVerificationId(data.id);
@@ -171,7 +171,7 @@ function SignUpScreen() {
       },
     }
   );
-  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verify, {
+  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verifyCode, {
     onCompleted: () => {
       setIsVerified((prev) => ({ ...prev, email: true }));
     },

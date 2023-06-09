@@ -9,7 +9,7 @@ export const projects: Project[] = [
     period: 3,
     stacks: [1, 2, 3, 4],
     purpose: 'improvement',
-    status: 'Recruiting',
+    status: 'recruiting',
     leaderJob: 'backendDeveloper',
     recruitMember: {
       frontendDeveloper: 5,
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     period: 3,
     stacks: [1, 2, 3, 4],
     purpose: 'fun',
-    status: 'Recruiting',
+    status: 'recruiting',
     leaderJob: 'backendDeveloper',
     recruitMember: {
       frontendDeveloper: 5,
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     period: 3,
     stacks: [1, 2, 3, 4],
     purpose: 'study',
-    status: 'Recruiting',
+    status: 'recruiting',
     leaderJob: 'backendDeveloper',
     recruitMember: {
       frontendDeveloper: 5,
@@ -201,7 +201,7 @@ export const projects: Project[] = [
     period: 3,
     stacks: [1, 2, 3, 4],
     purpose: 'business',
-    status: 'Finish',
+    status: 'finish',
     leaderJob: 'backendDeveloper',
     recruitMember: {
       frontendDeveloper: 5,
@@ -265,7 +265,7 @@ export const projects: Project[] = [
     period: 3,
     stacks: [1, 2, 3, 4],
     purpose: 'business',
-    status: 'Progressing',
+    status: 'progressing',
     leaderJob: 'backendDeveloper',
     recruitMember: {
       frontendDeveloper: 5,

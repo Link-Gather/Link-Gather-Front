@@ -35,6 +35,7 @@ function ProjectsScreen(props: {}) {
     variables: {
       ...Object.fromEntries(Object.entries(filterModel).filter(([_, value]) => value !== '')),
       order,
+      stacks: selectedStacks.map(({ id }) => id),
       page,
       limit: 8,
     },
@@ -63,8 +64,8 @@ function ProjectsScreen(props: {}) {
             maxWidth: '1352px',
           }}
         >
-          <MuiStack spacing='80px'>
-            <MuiStack spacing='8px' css={{ marginBottom: selectedStacks.length ? '18px' : '40px' }}>
+          <MuiStack direction='column'>
+            <MuiStack direction='column' spacing='8px' css={{ marginBottom: selectedStacks.length ? '18px' : '40px' }}>
               <MuiStack width='100%' direction='row' justifyContent='space-between' alignItems='center'>
                 <MuiStack direction='row' spacing='16px'>
                   {/* TODO: 회원가입 머지 후 확인 필요 */}
@@ -163,7 +164,7 @@ function ProjectsScreen(props: {}) {
                 );
               })}
             </Grid>
-            <Pagination page={page} count={data?.count} onChange={setPage} />
+            <Pagination css={{ marginTop: '80px' }} page={page} count={data?.count} onChange={setPage} />
           </MuiStack>
         </MuiStack>
       )}

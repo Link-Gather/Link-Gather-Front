@@ -35,6 +35,7 @@ function ProjectsScreen(props: {}) {
     variables: {
       ...Object.fromEntries(Object.entries(filterModel).filter(([_, value]) => value !== '')),
       order,
+      stacks: selectedStacks.map(({ id }) => id),
       page,
       limit: 8,
     },

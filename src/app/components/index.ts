@@ -5,6 +5,8 @@ export * from './ForgotPasswordForm';
 export * from './Header';
 export * from './LoginForm';
 export * from './Navigation';
+export * from './ProfileCard';
+export * from './ProfileDetailDialog';
 export * from './ProjectCard';
 export * from './ProjectRole';
 export * from './Radio';

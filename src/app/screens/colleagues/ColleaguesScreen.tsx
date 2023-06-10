@@ -1,22 +1,23 @@
 import { CircularProgress, Grid, Stack as MuiStack } from '@mui/material';
-import { SingleSelect, Pagination, StackChip } from '@elements';
+import { SingleSelect, Pagination, StackChip, Button } from '@elements';
 import { CSSProperties, useState } from 'react';
-import { Profile, Project, Stack } from '@models';
+import { Profile, Stack } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
 import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
 import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
 import { Theme } from '@libs/theme';
-import { SearchStackInput, ProjectCard } from '@components';
-import { projectRepository } from '../../repositories/project-repository';
+import { SearchStackInput, ProfileCard } from '@components';
 import { useQuery } from '../../libs/query';
+import { profileRepository } from '../../repositories';
+import { useDialog } from '../../hooks';
 
-const purposeOptions = [{ label: '전체', value: '' }, ...Project.getPurposeOptions()];
+const careerOptions = [{ label: '전체', value: '' }, ...Profile.getCareerOptions()];
 const jobOptions = [{ label: '전체', value: '' }, ...Profile.getJobOptions()];
-const statusOptions = [{ label: '전체', value: '' }, ...Project.getStatusOptions()];
 
-function ProjectsScreen(props: {}) {
+function ColleaguesScreen(props: {}) {
   // prop destruction
   // lib hooks
+  const { isOpenDialog, openDialog, closeDialog } = useDialog();
   // state, ref hooks
   const [page, setPage] = useState(1);
   const [filterModel, setFilterModel] = useState<{
@@ -31,10 +32,10 @@ function ProjectsScreen(props: {}) {
   const [order, setOrder] = useState<'latest' | 'popularity' | 'oldest'>('latest');
   const [selectedStacks, setSelectedStacks] = useState<Stack[]>([]);
   // query hooks
-  const { data, isLoading } = useQuery(projectRepository.list, {
+  const { data, isLoading } = useQuery(profileRepository.list, {
     variables: {
       ...Object.fromEntries(Object.entries(filterModel).filter(([_, value]) => value !== '')),
-      order,
+      // order,
       stacks: selectedStacks.map(({ id }) => id),
       page,
       limit: 8,
@@ -68,7 +69,6 @@ function ProjectsScreen(props: {}) {
             <MuiStack direction='column' spacing='8px' css={{ marginBottom: selectedStacks.length ? '18px' : '40px' }}>
               <MuiStack width='100%' direction='row' justifyContent='space-between' alignItems='center'>
                 <MuiStack direction='row' spacing='16px'>
-                  {/* TODO: 회원가입 머지 후 확인 필요 */}
                   <SearchStackInput
                     disabled={selectedStacks.length >= 6}
                     placeholder={selectedStacks.length >= 6 ? '기술 스택은 최대 6개까지 가능합니다.' : undefined}
@@ -78,8 +78,8 @@ function ProjectsScreen(props: {}) {
                   />
                   <SingleSelect
                     css={{ width: '166px', backgroundColor: '#fff' }}
-                    placeholder='프로젝트 목적'
-                    options={purposeOptions}
+                    placeholder='경력'
+                    options={careerOptions}
                     value={filterModel.purpose}
                     onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
                   />
@@ -90,15 +90,15 @@ function ProjectsScreen(props: {}) {
                     value={filterModel.purpose}
                     onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
                   />
-                  <SingleSelect
-                    css={{ width: '166px', backgroundColor: '#fff' }}
-                    placeholder='진행상태'
-                    options={statusOptions}
-                    value={filterModel.purpose}
-                    onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
-                  />
                 </MuiStack>
-                <MuiStack direction={'row'} alignItems={'center'}>
+                <MuiStack direction='row' alignItems='center' spacing='44px'>
+                  <Button
+                    variant='outlined'
+                    css={{ backgroundColor: '#fff', height: '40px', width: '212px' }}
+                    onClick={openDialog}
+                  >
+                    프로필 등록
+                  </Button>
                   <SingleSelect
                     variant='text'
                     css={{ width: '90px' }}
@@ -156,10 +156,10 @@ function ProjectsScreen(props: {}) {
               </MuiStack>
             </MuiStack>
             <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
-              {data?.data.map((project) => {
+              {data?.data.map((profile) => {
                 return (
-                  <Grid key={project.id} item xs={12} sm={6} lg={3}>
-                    <ProjectCard project={project} />
+                  <Grid key={profile.id} item xs={12} sm={6} lg={3}>
+                    <ProfileCard profile={profile} />
                   </Grid>
                 );
               })}
@@ -168,8 +168,10 @@ function ProjectsScreen(props: {}) {
           </MuiStack>
         </MuiStack>
       )}
+      {/* Profile add Dialog */}
+      {isOpenDialog && <div />}
     </MuiStack>
   );
 }
 
-export { ProjectsScreen };
+export { ColleaguesScreen };

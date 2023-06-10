@@ -27,7 +27,7 @@ import DeleteUrl from '@assets/images/icons/delete-url.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
-import { Stack, User } from '@models';
+import { Profile, Stack, User } from '@models';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
 import { useMutation } from '@libs/query';
 import { authRepository, userRepository } from '@repositories';
@@ -87,9 +87,9 @@ const SignupButton = styled(Button)(
     cursor: disabled ? 'default' : 'pointer',
   })
 );
-const jobOptions = User.getJobOptions();
+const jobOptions = Profile.getJobOptions();
 
-const careerOptions = User.getCareerOptions();
+const careerOptions = Profile.getCareerOptions();
 
 const schema = [
   // step 1

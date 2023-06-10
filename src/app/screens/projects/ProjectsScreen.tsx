@@ -164,7 +164,7 @@ function ProjectsScreen(props: {}) {
                 );
               })}
             </Grid>
-            <Pagination css={{ marginTop: '80px' }} page={page} count={data?.count} onChange={setPage} />
+            <Pagination css={{ marginTop: '80px' }} page={page} count={data?.count} limit={8} onChange={setPage} />
           </MuiStack>
         </MuiStack>
       )}

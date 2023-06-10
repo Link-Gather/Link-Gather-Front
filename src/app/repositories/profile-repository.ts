@@ -1,3 +1,4 @@
+import { stringify } from 'qs';
 import { httpClient } from '../libs/http-client';
 import { queryKeyMap } from '../libs/query';
 import { Profile } from '../models';
@@ -10,7 +11,7 @@ export const profileRepository = {
     page: number;
     limit: number;
   }) {
-    return httpClient.get<Paginated<Profile>>('/profiles', { params });
+    return httpClient.get<Paginated<Profile>>('/profiles', { params, paramsSerializer: (params) => stringify(params) });
   },
 };
 

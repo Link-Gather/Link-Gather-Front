@@ -46,9 +46,9 @@ function ColleaguesScreen(props: {}) {
   // handlers
   return (
     <MuiStack
-      width={'100%'}
-      direction={'row'}
-      justifyContent={'center'}
+      width='100%'
+      direction='row'
+      justifyContent='center'
       css={(theme: Theme) => ({
         backgroundColor: theme.palette.secondary.n20,
         padding: '80px 0',
@@ -59,8 +59,8 @@ function ColleaguesScreen(props: {}) {
         <CircularProgress />
       ) : (
         <MuiStack
-          width={'100%'}
-          direction={'column'}
+          width='100%'
+          direction='column'
           css={{
             maxWidth: '1352px',
           }}

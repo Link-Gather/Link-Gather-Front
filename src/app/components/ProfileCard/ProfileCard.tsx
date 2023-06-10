@@ -60,7 +60,9 @@ function ProfileCard(props: { profile: Profile }) {
           </Stack>
         </Stack>
       </Stack>
-      <Typography variant='body2'>{profile.introduction}</Typography>
+      <Typography variant='body2' css={{ fontSize: '12px', fontWeight: 500 }}>
+        {profile.introduction}
+      </Typography>
       <Stack direction='row' spacing='4px' css={{ position: 'relative' }}>
         {stacks.slice(undefined, 3).map((stack) => (
           <StackChip key={stack.id} name={stack.name} length={1} />
@@ -111,7 +113,24 @@ function ProfileCard(props: { profile: Profile }) {
           </>
         )}
       </Stack>
-      <Button>프로젝트 제안</Button>
+      <Button
+        css={(theme: Theme) => ({
+          border: `1px solid ${theme.palette.primary.main}`,
+          color: theme.palette.primary.main,
+          fontWeight: 500,
+          fontFamily: 'Noto Sans',
+          fontSize: '14px',
+          '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: '#fff',
+          },
+        })}
+        onClick={() => {
+          // TODO: 프로젝트 제안 api 연결
+        }}
+      >
+        프로젝트 제안
+      </Button>
       {/* Detail Dialog */}
       {isOpenDialog && <ProfileDetailDialog onClose={closeDialog} profile={profile} />}
     </Stack>

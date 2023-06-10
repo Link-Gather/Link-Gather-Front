@@ -43,22 +43,32 @@ function ProfileDetailDialog(props: { profile: Profile; onClose: () => void }) {
               </MuiStack>
             </MuiStack>
           </MuiStack>
-          <MuiStack direction='column' spacing='8px'>
-            <Typography variant='h5'>자기소개</Typography>
-            <Typography variant='body2'>{profile.introduction}</Typography>
+          <MuiStack direction='column' spacing='8px' css={{ marginTop: '40px !important' }}>
+            <Typography variant='h6' css={{ fontSize: '16px', fontWeight: 600, fontFamily: 'Inter' }}>
+              자기소개
+            </Typography>
+            <Typography variant='body2' css={{ fontSize: '12px' }}>
+              {profile.introduction}
+            </Typography>
           </MuiStack>
 
           <MuiStack direction='column' spacing='8px'>
-            <Typography variant='h5'>보유기술</Typography>
-            {stacks.map((stack) => (
-              <StackChip key={stack.id} name={stack.name} length={Stack.getLength(stack.name)} />
-            ))}
+            <Typography variant='h6' css={{ fontSize: '16px', fontWeight: 600, fontFamily: 'Inter' }}>
+              보유기술
+            </Typography>
+            <MuiStack direction='row' spacing='8px'>
+              {stacks.map((stack) => (
+                <StackChip key={stack.id} name={stack.name} length={Stack.getLength(stack.name)} />
+              ))}
+            </MuiStack>
           </MuiStack>
           <MuiStack direction='column' spacing='8px'>
-            <Typography variant='h5'>참고 링크</Typography>
+            <Typography variant='h6' css={{ fontSize: '16px', fontWeight: 600, fontFamily: 'Inter' }}>
+              참고 링크
+            </Typography>
             <MuiStack direction='column' spacing='4px'>
               {profile.urls.map((url) => (
-                <MuiStack key={url} direction='row' spacing='8px'>
+                <MuiStack component='a' key={url} direction='row' spacing='8px' href={url} target='_blank'>
                   <UrlLinkIcon css={{ width: '20px' }} />
                   {url}
                 </MuiStack>
@@ -68,7 +78,7 @@ function ProfileDetailDialog(props: { profile: Profile; onClose: () => void }) {
         </MuiStack>
       </DialogContent>
       <DialogActions>
-        <Button css={{ width: '100%' }} variant='filled'>
+        <Button css={{ width: '100%', height: '48px', borderRadius: 999 }} variant='filled'>
           제안하기
         </Button>
       </DialogActions>

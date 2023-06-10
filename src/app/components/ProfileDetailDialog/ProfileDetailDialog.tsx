@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Stack as MuiStack, Typography } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Grid, Stack as MuiStack, Typography } from '@mui/material';
 import UserDetailIcon from '@assets/images/icons/icon-user-detail.svg';
 import CloseIcon from '@assets/images/icons/icon-close.svg';
 import UrlLinkIcon from '@assets/images/icons/icon-url-link.svg';
@@ -56,11 +56,18 @@ function ProfileDetailDialog(props: { profile: Profile; onClose: () => void }) {
             <Typography variant='h6' css={{ fontSize: '16px', fontWeight: 600, fontFamily: 'Inter' }}>
               보유기술
             </Typography>
-            <MuiStack direction='row' spacing='8px'>
+            <Grid
+              container
+              direction='row'
+              spacing='8px'
+              css={{ marginLeft: '-8px !important', marginTop: '-8px !important' }}
+            >
               {stacks.map((stack) => (
-                <StackChip key={stack.id} name={stack.name} length={Stack.getLength(stack.name)} />
+                <Grid item key={stack.id}>
+                  <StackChip name={stack.name} length={Stack.getLength(stack.name)} />
+                </Grid>
               ))}
-            </MuiStack>
+            </Grid>
           </MuiStack>
           <MuiStack direction='column' spacing='8px'>
             <Typography variant='h6' css={{ fontSize: '16px', fontWeight: 600, fontFamily: 'Inter' }}>

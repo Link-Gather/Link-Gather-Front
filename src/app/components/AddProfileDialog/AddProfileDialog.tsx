@@ -10,12 +10,17 @@ import { useState } from 'react';
 import { Theme } from '../../libs/theme';
 import { SearchStackInput } from '../SearchStackInput';
 import IconArrowDown from '@assets/images/icons/icon-arrow-down.svg';
+import { useMutation } from '../../libs/query';
+import { profileRepository } from '../../repositories';
 
 const schema = yup.object({
-  job: yup.mixed<JobType | ''>().required(),
+  job: yup.mixed<JobType>().required(),
   career: yup.number().required(),
-  stacks: yup.array().of(yup.mixed<Stack>().required(' ')).min(0),
-  urls: yup.array().of(yup.object({ value: yup.string().url() })),
+  stacks: yup.array().of(yup.mixed<Stack>().required(' ')).min(0).required(),
+  urls: yup
+    .array()
+    .of(yup.object({ value: yup.string().url().required() }))
+    .min(0),
   introduction: yup.string().required(' '),
 });
 
@@ -54,6 +59,7 @@ function AddProfileDialog(props: { onClose: () => void }) {
   const [url, setUrl] = useState('');
   const [isExpand, setIsExpand] = useState(false);
   // query hooks
+  const { mutateAsync: createProfile, isLoading } = useMutation(profileRepository.create);
   // calculated values
   // effects
   // handlers
@@ -224,8 +230,17 @@ function AddProfileDialog(props: { onClose: () => void }) {
         <Button
           disabled={!isValid}
           variant='filled'
+          loading={isLoading}
           css={{ margin: '0 64px', width: '100%', height: '48px', borderRadius: '32px' }}
-          onClick={handleSubmit(({ job, career, stacks, introduction, urls }) => {})}
+          onClick={handleSubmit(async ({ job, career, stacks, introduction, urls }) => {
+            await createProfile({
+              job,
+              career,
+              stacks: stacks.map((stack) => stack.id),
+              introduction,
+              urls: urls?.map((url) => url.value),
+            });
+          })}
         >
           프로필 등록
         </Button>

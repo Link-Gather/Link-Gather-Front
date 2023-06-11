@@ -1,4 +1,4 @@
-type Paginated<T> = { data: T[]; count: number };
+type Paginated<T> = { items: T[]; count: number };
 
 type Provider = 'kakao' | 'github' | 'google' | 'link-gather';
 

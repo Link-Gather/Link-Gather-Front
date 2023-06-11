@@ -1,6 +1,11 @@
 import React, { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { Theme } from '@emotion/react';
-import { createTheme, ThemeProvider as MuiThemeProvider, useTheme as useEmotionTheme } from '@mui/material';
+import {
+  createTheme,
+  dialogContentClasses,
+  ThemeProvider as MuiThemeProvider,
+  useTheme as useEmotionTheme,
+} from '@mui/material';
 import * as palettes from './palettes';
 import './index.css';
 
@@ -77,6 +82,39 @@ function ThemeProvider(props: { children: ReactNode }) {
         MuiMenuItem: {
           defaultProps: {
             disableRipple: true,
+          },
+        },
+        MuiDialog: {
+          styleOverrides: {
+            paper: {
+              borderRadius: '16px',
+              boxShadow: '20px 16px 0px #000000',
+            },
+          },
+        },
+        MuiDialogTitle: {
+          styleOverrides: {
+            root: {
+              padding: '24px',
+            },
+          },
+        },
+        MuiDialogContent: {
+          styleOverrides: {
+            root: {
+              padding: '40px 60px',
+            },
+          },
+        },
+        MuiDialogActions: {
+          styleOverrides: {
+            root: {
+              padding: '40px 60px',
+              // https://github.com/mui/material-ui/blob/b265431f9a32ea726c5227821126fbc6424117d5/packages/mui-material/src/DialogContent/DialogContent.js#L41
+              [`.${dialogContentClasses.root} + &`]: {
+                paddingTop: '0px',
+              },
+            },
           },
         },
       },

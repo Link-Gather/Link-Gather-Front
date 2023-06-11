@@ -11,6 +11,7 @@ function filterMemberJob(members: Project['members'], job: JobType) {
   return members.filter((member) => member.job === job);
 }
 
+//TODO: 프로젝트 상세로 가는 기능 추가
 function ProjectCard(props: { project: Project }) {
   // prop destruction
   const { project } = props;
@@ -31,6 +32,11 @@ function ProjectCard(props: { project: Project }) {
         borderRadius: '16px',
         padding: '20px',
         backgroundColor: '#fff',
+        '&:hover': {
+          boxShadow: '8px 8px 0px #000000;',
+          marginTop: '-8px',
+          marginLeft: '-8px',
+        },
       }}
       spacing='28px'
     >

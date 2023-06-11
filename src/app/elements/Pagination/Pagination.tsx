@@ -1,12 +1,26 @@
 import { Pagination as MuiPagination } from '@mui/material';
+import { useMemo } from 'react';
 
-function Pagination(props: { className?: string; page: number; count?: number; onChange: (page: number) => void }) {
+function Pagination(props: {
+  className?: string;
+  page: number;
+  count?: number;
+  limit: number;
+  onChange: (page: number) => void;
+}) {
   // prop destruction
-  const { className, page, count = 0, onChange } = props;
+  const { className, page, count = 0, onChange, limit } = props;
   // lib hooks
   // state, ref hooks
   // query hooks
   // calculated values
+  const totalCount = useMemo(() => {
+    if (count !== undefined) {
+      return Math.ceil(count / limit);
+    }
+
+    return 1;
+  }, [count, limit]);
   // effects
   // handlers
   return (
@@ -17,7 +31,7 @@ function Pagination(props: { className?: string; page: number; count?: number; o
       <MuiPagination
         size='small'
         page={page}
-        count={count}
+        count={totalCount}
         boundaryCount={1}
         siblingCount={2}
         onChange={(_, page) => onChange(page)}

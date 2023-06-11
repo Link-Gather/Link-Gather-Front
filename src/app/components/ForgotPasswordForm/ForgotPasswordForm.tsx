@@ -14,7 +14,7 @@ import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 const schema = yup
   .object({
     password: SCHEMA_PASSWORD.required(),
-    passwordConfirm: SCHEMA_CONFIRM_PASSWORD.required(),
+    passwordConfirm: SCHEMA_CONFIRM_PASSWORD.required('비밀번호를 입력해주세요.'),
   })
   .required();
 
@@ -58,52 +58,54 @@ function ForgotPasswordForm() {
   // effects
   // handlers
   return (
-    <Stack css={{ width: '320px', height: '324px' }}>
-      <Stack direction='row'>
-        <Link to={PATH_LOGIN}>
-          <IconArrowLeft css={{ width: '32px', height: '32px' }} />
-        </Link>
-        <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)' }} />
-      </Stack>
-      <Stack css={{ marginTop: '40px' }}>
-        <TextField
-          {...register('password')}
-          defaultValue={getValues('password')}
-          type={isShowingPassword ? 'text' : 'password'}
-          placeholder='비밀번호'
-          error={!!errors.password}
-          helperText='8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position='start'>
-                <VisibilityIconButton
-                  isShow={isShowingPassword}
-                  onClick={() => setIsShowingPassword(!isShowingPassword)}
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
+    <Stack css={{ width: '320px', height: '324px', justifyContent: 'space-between' }}>
+      <Stack>
+        <Stack direction='row'>
+          <Link to={PATH_LOGIN}>
+            <IconArrowLeft css={{ width: '32px', height: '32px' }} />
+          </Link>
+          <UnderlineTitle title='비밀번호 재설정' css={{ width: 'calc(100% - 64px)' }} />
+        </Stack>
+        <Stack css={{ marginTop: '40px' }}>
+          <TextField
+            {...register('password')}
+            defaultValue={getValues('password')}
+            type={isShowingPassword ? 'text' : 'password'}
+            placeholder='비밀번호'
+            error={!!errors.password}
+            helperText='8~16자 영문 대소문자, 숫자, 특수문자 (!@#$%^&*-_+.,?)만 사용 가능합니다.'
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='start'>
+                  <VisibilityIconButton
+                    isShow={isShowingPassword}
+                    onClick={() => setIsShowingPassword(!isShowingPassword)}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
 
-        <TextField
-          {...register('passwordConfirm')}
-          defaultValue={getValues('passwordConfirm')}
-          type={isShowingConfirmPassword ? 'text' : 'password'}
-          placeholder='비밀번호 재확인'
-          error={!!errors.passwordConfirm}
-          helperText={errors.passwordConfirm?.message}
-          css={{ marginTop: '14px' }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position='start'>
-                <VisibilityIconButton
-                  isShow={isShowingConfirmPassword}
-                  onClick={() => setIsShowingConfirmPassword(!isShowingConfirmPassword)}
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
+          <TextField
+            {...register('passwordConfirm')}
+            defaultValue={getValues('passwordConfirm')}
+            type={isShowingConfirmPassword ? 'text' : 'password'}
+            placeholder='비밀번호 재확인'
+            error={!!errors.passwordConfirm}
+            helperText={errors.passwordConfirm?.message}
+            css={{ marginTop: '14px' }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='start'>
+                  <VisibilityIconButton
+                    isShow={isShowingConfirmPassword}
+                    onClick={() => setIsShowingConfirmPassword(!isShowingConfirmPassword)}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Stack>
       </Stack>
       <Button
         variant='filled'
@@ -111,7 +113,7 @@ function ForgotPasswordForm() {
         onClick={handleSubmit(async ({ password, passwordConfirm }) => {
           await changePassword({ password, passwordConfirm, verificationId });
         })}
-        css={{ width: '100%', padding: '10px 0', marginTop: '48px', borderRadius: '32px' }}
+        css={{ width: '100%', padding: '10px 0', borderRadius: '32px' }}
       >
         <Typography css={{ fontSize: '20px', fontWeight: 800, lineHeight: 1.4, color: '#FFF' }}>
           비밀번호 변경

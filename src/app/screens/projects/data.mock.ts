@@ -1,6 +1,6 @@
 import { projects } from '../../repositories/project-repository.mock';
 
 export const projectList = {
-  data: projects,
+  items: projects,
   count: projects.length,
 };

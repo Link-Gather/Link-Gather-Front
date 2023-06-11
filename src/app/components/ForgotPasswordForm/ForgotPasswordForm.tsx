@@ -25,7 +25,6 @@ function ForgotPasswordForm() {
   const [searchParams] = useSearchParams();
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [isShowingConfirmPassword, setIsShowingConfirmPassword] = useState(false);
-  const [isSamePassword, setIsSamePassword] = useState(true);
 
   // state, ref, querystring hooks
   // form hooks
@@ -33,6 +32,7 @@ function ForgotPasswordForm() {
     register,
     handleSubmit,
     getValues,
+    setError,
     formState: { errors, isValid, isDirty },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -46,6 +46,7 @@ function ForgotPasswordForm() {
   // query hooks
   const { mutateAsync: changePassword } = useMutation(authRepository.changePassword, {
     onCompleted: () => navigator(PATH_LOGIN),
+    onError: (err) => setError('passwordConfirm', { message: err.message }),
   });
 
   // calculated values
@@ -86,8 +87,8 @@ function ForgotPasswordForm() {
           defaultValue={getValues('passwordConfirm')}
           type={isShowingConfirmPassword ? 'text' : 'password'}
           placeholder='비밀번호 재확인'
-          error={!!errors.passwordConfirm || !isSamePassword}
-          helperText={!isSamePassword && '비밀번호가 일치하지 않습니다.'}
+          error={!!errors.passwordConfirm}
+          helperText={errors.passwordConfirm?.message}
           css={{ marginTop: '14px' }}
           InputProps={{
             endAdornment: (
@@ -105,11 +106,6 @@ function ForgotPasswordForm() {
         variant='filled'
         disabled={!isValid || !isDirty}
         onClick={handleSubmit(async ({ password, passwordConfirm }) => {
-          if (password !== passwordConfirm) {
-            setIsSamePassword(false);
-            return;
-          }
-
           await changePassword({ password, passwordConfirm, verificationId });
         })}
         css={{ width: '100%', padding: '10px 0', marginTop: '48px', borderRadius: '32px' }}

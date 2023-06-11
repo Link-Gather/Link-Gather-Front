@@ -22,13 +22,12 @@ function ForgotPasswordEmailForm() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [errorMessage, setErrorMessage] = React.useState('');
-
   // form hooks
   const {
     register,
     getValues,
     handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -45,7 +44,7 @@ function ForgotPasswordEmailForm() {
     isSuccess,
     isError,
   } = useMutation(authRepository.verifyEmail, {
-    onError: (error) => setErrorMessage(error.message),
+    onError: (error) => setError('email', { message: error.message }),
   });
 
   // calculated values
@@ -67,7 +66,7 @@ function ForgotPasswordEmailForm() {
             defaultValue={getValues('email')}
             type='email'
             placeholder='이메일'
-            helperText={errorMessage}
+            helperText={errors.email?.message}
             error={!!errors.email || isError}
           />
 
@@ -91,7 +90,6 @@ function ForgotPasswordEmailForm() {
           }}
           disabled={!isValid}
           onClick={handleSubmit(async ({ email }) => {
-            setErrorMessage('');
             await verifyEmail({ email, type: 'password' });
           })}
         >

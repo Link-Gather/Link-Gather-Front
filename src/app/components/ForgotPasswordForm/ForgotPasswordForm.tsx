@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
-import { useMutation } from '@libs/query';
+import { useMutation, useQuery } from '@libs/query';
 import { authRepository } from '@repositories';
 import { PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
@@ -47,6 +47,9 @@ function ForgotPasswordForm() {
   const { mutateAsync: changePassword } = useMutation(authRepository.changePassword, {
     onCompleted: () => navigator(PATH_LOGIN),
     onError: (err) => setError('passwordConfirm', { message: err.message }),
+  });
+  const { data } = useQuery(authRepository.verifyVerificationId, {
+    variables: { id: searchParams.get('verificationId') || '' },
   });
 
   // calculated values

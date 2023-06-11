@@ -50,3 +50,4 @@ export const authRepository = {
 queryKeyMap.set(authRepository.verifyEmail, ['Auth']);
 queryKeyMap.set(authRepository.changePassword, ['Auth']);
 queryKeyMap.set(authRepository.verifyCode, ['Auth']);
+queryKeyMap.set(authRepository.verifyVerificationId, ['Auth']);

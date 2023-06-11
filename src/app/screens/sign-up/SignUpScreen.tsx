@@ -109,7 +109,7 @@ const schema = [
     job: yup.mixed<JobType>().required(' '),
     career: yup.string().required(' '),
     stacks: yup.array().of(yup.mixed<Stack>().required(' ')).min(0),
-    urls: yup.array().of(yup.string().url()),
+    urls: yup.array().of(yup.object({ value: yup.string().url() })),
     introduction: yup.string().required(' '),
   }),
 ];

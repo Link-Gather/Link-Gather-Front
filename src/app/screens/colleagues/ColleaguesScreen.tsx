@@ -1,12 +1,9 @@
 import { CircularProgress, Grid, Stack as MuiStack } from '@mui/material';
 import { SingleSelect, Pagination, StackChip, Button } from '@elements';
-import { CSSProperties, useState } from 'react';
+import { useState } from 'react';
 import { Profile, Stack } from '@models';
-import HeartIcon from '@assets/images/icons/icon-heart.svg';
-import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
-import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
 import { Theme } from '@libs/theme';
-import { SearchStackInput, ProfileCard } from '@components';
+import { SearchStackInput, ProfileCard, AddProfileDialog } from '@components';
 import { useQuery } from '../../libs/query';
 import { profileRepository } from '../../repositories';
 import { useDialog } from '../../hooks';
@@ -21,20 +18,17 @@ function ColleaguesScreen(props: {}) {
   // state, ref hooks
   const [page, setPage] = useState(1);
   const [filterModel, setFilterModel] = useState<{
-    purpose: PurposeType | '';
-    status: ProjectStatus | '';
+    career: number;
     job: JobType | '';
   }>({
-    purpose: '',
-    status: '',
+    career: 0,
     job: '',
   });
-  const [order, setOrder] = useState<'latest' | 'popularity' | 'oldest'>('latest');
   const [selectedStacks, setSelectedStacks] = useState<Stack[]>([]);
   // query hooks
   const { data, isLoading } = useQuery(profileRepository.list, {
     variables: {
-      ...Object.fromEntries(Object.entries(filterModel).filter(([_, value]) => value !== '')),
+      ...Object.fromEntries(Object.entries(filterModel).filter(([_, value]) => !!value)),
       // order,
       stacks: selectedStacks.map(({ id }) => id),
       page,
@@ -80,15 +74,15 @@ function ColleaguesScreen(props: {}) {
                     css={{ width: '166px', backgroundColor: '#fff' }}
                     placeholder='경력'
                     options={careerOptions}
-                    value={filterModel.purpose}
-                    onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
+                    value={filterModel.career}
+                    onChange={(value) => setFilterModel((prev) => ({ ...prev, career: value as number }))}
                   />
                   <SingleSelect
                     css={{ width: '166px', backgroundColor: '#fff' }}
                     placeholder='직무'
                     options={jobOptions}
-                    value={filterModel.purpose}
-                    onChange={(value) => setFilterModel((prev) => ({ ...prev, purpose: value as PurposeType | '' }))}
+                    value={filterModel.job}
+                    onChange={(value) => setFilterModel((prev) => ({ ...prev, job: value as JobType | '' }))}
                   />
                 </MuiStack>
                 <MuiStack direction='row' alignItems='center' spacing='44px'>
@@ -99,48 +93,6 @@ function ColleaguesScreen(props: {}) {
                   >
                     프로필 등록
                   </Button>
-                  <SingleSelect
-                    variant='text'
-                    css={{ width: '90px' }}
-                    options={[
-                      //HACK: hover는 타입에러가 난다. svg 구조가 지멋대로라 일일이 하드코딩해줘야한다...
-                      {
-                        label: '최신순',
-                        value: 'latest',
-                        Icon: <OrderNewIcon css={{ width: '20px' }} />,
-                        style: {
-                          '&:hover': {
-                            color: '#5555FF',
-                            '& > svg > g > path': { fill: '#5555FF' },
-                          },
-                        } as CSSProperties,
-                      },
-                      {
-                        label: '인기순',
-                        value: 'popularity',
-                        style: {
-                          '&:hover': {
-                            color: '#FF2626',
-                            '& > svg > path': { stroke: '#FF2626' },
-                          },
-                        } as CSSProperties,
-                        Icon: <HeartIcon css={{ width: '20px' }} />,
-                      },
-                      {
-                        label: '오래된 순',
-                        value: 'oldest',
-                        style: {
-                          '&:hover': {
-                            color: '#8993A3',
-                            '& > svg > g > path': { fill: '#8993A3' },
-                          },
-                        } as CSSProperties,
-                        Icon: <OrderOldIcon css={{ width: '20px' }} />,
-                      },
-                    ]}
-                    value={order}
-                    onChange={(value) => setOrder(value)}
-                  />
                 </MuiStack>
               </MuiStack>
               <MuiStack direction='row' spacing='4px'>
@@ -156,7 +108,7 @@ function ColleaguesScreen(props: {}) {
               </MuiStack>
             </MuiStack>
             <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
-              {data?.data.map((profile) => {
+              {data?.items.map((profile) => {
                 return (
                   <Grid key={profile.id} item xs={12} sm={6} lg={3}>
                     <ProfileCard profile={profile} />
@@ -169,7 +121,7 @@ function ColleaguesScreen(props: {}) {
         </MuiStack>
       )}
       {/* Profile add Dialog */}
-      {isOpenDialog && <div />}
+      {isOpenDialog && <AddProfileDialog onClose={closeDialog} />}
     </MuiStack>
   );
 }

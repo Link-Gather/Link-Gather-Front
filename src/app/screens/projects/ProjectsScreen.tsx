@@ -156,7 +156,7 @@ function ProjectsScreen(props: {}) {
               </MuiStack>
             </MuiStack>
             <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
-              {data?.data.map((project) => {
+              {data?.items.map((project) => {
                 return (
                   <Grid key={project.id} item xs={12} sm={6} lg={3}>
                     <ProjectCard project={project} />

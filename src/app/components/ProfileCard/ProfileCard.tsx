@@ -47,7 +47,7 @@ function ProfileCard(props: { profile: Profile }) {
         <Stack direction='column' spacing='16px'>
           <Typography
             variant='body1'
-            css={{ fontFamily: 'Noto Sans', fontWeight: 700, cursor: 'pointer' }}
+            css={{ fontFamily: 'Noto Sans', fontWeight: 700, cursor: 'pointer', width: 'min-content' }}
             onClick={openDialog}
           >
             {profile.nickname}

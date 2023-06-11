@@ -22,13 +22,12 @@ function ForgotPasswordEmailForm() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
-  const [errorMessage, setErrorMessage] = React.useState('');
-
   // form hooks
   const {
     register,
-    handleSubmit,
     getValues,
+    handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -45,7 +44,7 @@ function ForgotPasswordEmailForm() {
     isSuccess,
     isError,
   } = useMutation(authRepository.verifyEmail, {
-    onError: (error) => setErrorMessage(error.message),
+    onError: (error) => setError('email', { message: error.message }),
   });
 
   // calculated values
@@ -61,22 +60,25 @@ function ForgotPasswordEmailForm() {
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
       <Stack direction='column' css={{ flex: 1, justifyContent: 'space-between' }}>
-        <TextField
-          {...register('email')}
-          type='email'
-          placeholder='이메일'
-          helperText={errorMessage}
-          error={!!errors.email || isError}
-        />
+        <Stack>
+          <TextField
+            {...register('email')}
+            defaultValue={getValues('email')}
+            type='email'
+            placeholder='이메일'
+            helperText={errors.email?.message}
+            error={!!errors.email || isError}
+          />
 
-        {isSuccess && (
-          <Stack css={{ marginTop: '24px 0 32px' }}>
-            <IconSendEmail css={{ width: '120px', height: '44px', marginLeft: '78px' }} />
-            <Typography css={{ marginTop: '20px', fontSize: '12px', fontWeight: 700, textAlign: 'center' }}>
-              비밀번호 재설정 메일을 발송했어요!
-            </Typography>
-          </Stack>
-        )}
+          {isSuccess && (
+            <Stack css={{ marginTop: '24px' }}>
+              <IconSendEmail css={{ width: '120px', height: '44px', marginLeft: '78px' }} />
+              <Typography css={{ marginTop: '20px', fontSize: '12px', fontWeight: 700, textAlign: 'center' }}>
+                비밀번호 재설정 메일을 발송했어요!
+              </Typography>
+            </Stack>
+          )}
+        </Stack>
 
         <Button
           variant='filled'
@@ -85,11 +87,9 @@ function ForgotPasswordEmailForm() {
             height: '48px',
             fontSize: '20px',
             borderRadius: '32px',
-            marginTop: '24px',
           }}
           disabled={!isValid}
           onClick={handleSubmit(async ({ email }) => {
-            setErrorMessage('');
             await verifyEmail({ email, type: 'password' });
           })}
         >

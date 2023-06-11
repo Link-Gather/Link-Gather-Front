@@ -1,6 +1,6 @@
 import { keyframes } from '@emotion/react';
-import type { Theme } from '@libs/theme';
 import type { CSSProperties } from 'react';
+import type { Theme } from '@libs/theme';
 
 const spin = keyframes({
   '0%': {

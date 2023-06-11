@@ -168,7 +168,7 @@ function SignUpScreen() {
       setError('email', { message: err.message });
     },
   });
-  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verify, {
+  const { mutateAsync: verify, isLoading: isVerifyLoading } = useMutation(authRepository.verifyCode, {
     onCompleted: () => {
       setIsVerified((prev) => ({ ...prev, email: true }));
     },

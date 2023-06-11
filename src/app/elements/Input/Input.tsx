@@ -7,8 +7,8 @@ import { Label } from '../Label';
 const Input = forwardRef(
   (
     props: {
-      helperText?: React.ReactNode;
       error?: FieldError | boolean;
+      helperText?: React.ReactNode;
       label?: string;
       required?: boolean;
       IconProps?: { onClick?: () => void; StartIcon?: JSX.Element; EndIcon?: JSX.Element };

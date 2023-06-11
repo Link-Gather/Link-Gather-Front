@@ -10,4 +10,4 @@ type JobType = 'frontendDeveloper' | 'backendDeveloper' | 'designer' | 'productM
 
 type RoleType = 'leader' | 'member';
 
-type ProjectStatus = 'recruiting' | 'progressing' | 'finish' | 'close';
+type ProjectStatus = 'recruiting' | 'progressing' | 'additionalRecruitment' | 'finish' | 'close';

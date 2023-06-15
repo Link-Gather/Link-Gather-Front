@@ -9,6 +9,7 @@ import {
   ProjectAddScreen,
   ProjectsScreen,
   SignUpSuccessScreen,
+  ColleaguesScreen,
 } from '@screens';
 import {
   PATH_HOME,
@@ -19,7 +20,7 @@ import {
   PATH_PROJECTS_ADD,
   PATH_PROJECTS,
   PATH_PROJECTS_MANAGE,
-  PATH_PARTNERS,
+  PATH_COLLEAGUES,
   PATH_SIGNUP_SUCCESS,
 } from '@routes';
 import { Header } from '@components';
@@ -69,10 +70,10 @@ function AppRouter() {
 
         {/* TODO: 동료 찾기 */}
         <Route
-          path={PATH_PARTNERS}
+          path={PATH_COLLEAGUES}
           element={
             <Layout componentStyle='contents'>
-              <div>동료 찾기</div>
+              <ColleaguesScreen />
             </Layout>
           }
         />

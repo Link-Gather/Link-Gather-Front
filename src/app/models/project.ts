@@ -74,8 +74,7 @@ export class Project {
     return [
       { label: '모집 중', value: 'recruiting' },
       { label: '진행 중', value: 'progressing' },
-      // TODO: 추가필요
-      // { label: '추가 모집중', value: 'Recruiting' },
+      { label: '추가 모집중', value: 'additionalRecruitment' },
       { label: '완료', value: 'finish' },
     ];
   }
@@ -89,6 +88,8 @@ export class Project {
         return ['진행 중', { color: '#000', backgroundColor: palette.primary.p20 }];
       case 'recruiting':
         return ['모집 중', { color: '#fff', backgroundColor: palette.primary.main }];
+      case 'additionalRecruitment':
+        return ['추가 모집중', { color: '#000', backgroundColor: palette.secondary.beige }];
       case 'finish':
         return ['완료', { color: '#000', backgroundColor: palette.secondary.n60 }];
       default:

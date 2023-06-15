@@ -1,3 +1,4 @@
+export * from './colleagues';
 export * from './forgot-password';
 export * from './home';
 export * from './login';

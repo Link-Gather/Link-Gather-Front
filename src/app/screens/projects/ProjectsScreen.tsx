@@ -1,7 +1,7 @@
 import { CircularProgress, Grid, Stack as MuiStack } from '@mui/material';
 import { SingleSelect, Pagination, StackChip } from '@elements';
 import { CSSProperties, useState } from 'react';
-import { Project, Role, Stack } from '@models';
+import { Profile, Project, Stack } from '@models';
 import HeartIcon from '@assets/images/icons/icon-heart.svg';
 import OrderOldIcon from '@assets/images/icons/icon-order-old.svg';
 import OrderNewIcon from '@assets/images/icons/icon-recent.svg';
@@ -11,7 +11,7 @@ import { projectRepository } from '../../repositories/project-repository';
 import { useQuery } from '../../libs/query';
 
 const purposeOptions = [{ label: '전체', value: '' }, ...Project.getPurposeOptions()];
-const jobOptions = [{ label: '전체', value: '' }, ...Role.getJobOptions()];
+const jobOptions = [{ label: '전체', value: '' }, ...Profile.getJobOptions()];
 const statusOptions = [{ label: '전체', value: '' }, ...Project.getStatusOptions()];
 
 function ProjectsScreen(props: {}) {
@@ -156,7 +156,7 @@ function ProjectsScreen(props: {}) {
               </MuiStack>
             </MuiStack>
             <Grid container columnSpacing={'16px'} rowSpacing={'48px'}>
-              {data?.data.map((project) => {
+              {data?.items.map((project) => {
                 return (
                   <Grid key={project.id} item xs={12} sm={6} lg={3}>
                     <ProjectCard project={project} />

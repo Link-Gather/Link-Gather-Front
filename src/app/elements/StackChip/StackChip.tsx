@@ -1,5 +1,5 @@
 import { Theme } from '@libs/theme';
-import DeleteIcon from '@assets/images/icons/icon-close.svg';
+import DeleteIcon from '@assets/images/icons/icon-delete.svg';
 import { Stack } from '@mui/material';
 
 function StackChip(props: {

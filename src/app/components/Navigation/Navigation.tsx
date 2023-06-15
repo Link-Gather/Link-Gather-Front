@@ -1,7 +1,7 @@
 import { MenuItem as MuiMenuItem, menuItemClasses, Stack } from '@mui/material';
 import styled from '@emotion/styled';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { PATH_PARTNERS, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_PROJECTS_MANAGE } from '@routes';
+import { PATH_COLLEAGUES, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_PROJECTS_MANAGE } from '@routes';
 
 const MenuItem = styled(MuiMenuItem)({
   padding: '25px 59px 24px 59px',
@@ -41,7 +41,7 @@ function Navigation(props: { className?: string }) {
         <MenuItem selected={location.pathname === PATH_PROJECTS} onClick={() => navigate(PATH_PROJECTS)}>
           프로젝트 찾기
         </MenuItem>
-        <MenuItem selected={location.pathname === PATH_PARTNERS} onClick={() => navigate(PATH_PARTNERS)}>
+        <MenuItem selected={location.pathname === PATH_COLLEAGUES} onClick={() => navigate(PATH_COLLEAGUES)}>
           동료 찾기
         </MenuItem>
         <MenuItem selected={location.pathname === PATH_PROJECTS_MANAGE} onClick={() => navigate(PATH_PROJECTS_MANAGE)}>

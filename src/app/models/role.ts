@@ -15,7 +15,7 @@ export class Role {
   static getInfo(job: JobType) {
     switch (job) {
       case 'backendDeveloper':
-        return { formattedJob: '백엔드', backgroundColor: '#ACE0FF' };
+        return { formattedJob: '백엔드', backgroundColor: '#AEC0FF' };
       case 'frontendDeveloper':
         return { formattedJob: '프론트엔드', backgroundColor: '#21C982' };
       case 'designer':

@@ -255,7 +255,7 @@ function ProjectAddScreen() {
             />
             <Grid container columnSpacing='4px' rowSpacing='8px'>
               {stacks.map((stack, idx) => (
-                <Grid item>
+                <Grid item key={stack.id}>
                   <StackChip
                     key={stack.id}
                     selected

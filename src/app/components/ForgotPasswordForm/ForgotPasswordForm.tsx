@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SCHEMA_CONFIRM_PASSWORD, SCHEMA_PASSWORD } from '@libs/schema';
 import { useMutation, useQuery } from '@libs/query';
 import { authRepository } from '@repositories';
-import { PATH_LOGIN } from '@routes';
+import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from '@routes';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
 
 const schema = yup
@@ -50,6 +50,11 @@ function ForgotPasswordForm() {
   });
   const { data } = useQuery(authRepository.verifyVerificationId, {
     variables: { id: searchParams.get('verificationId') || '' },
+    onError: (err) => {
+      // TODO: 상단에 스낵바..?
+      alert('유효하지 않은 인증번호입니다.');
+      navigator(`${PATH_FORGOT_PASSWORD}?step=email`);
+    },
   });
 
   // calculated values

@@ -5,6 +5,7 @@ import UrlLinkIcon from '@assets/images/icons/icon-url-link.svg';
 import { Profile, Role, Stack } from '@models';
 import { Button, ProfileImage, StackChip } from '@elements';
 import { useStacks } from '@libs/stacks';
+import { Theme } from '../../libs/theme';
 
 function ProfileDetailDialog(props: { profile: Profile; onClose: () => void }) {
   // prop destruction
@@ -75,10 +76,31 @@ function ProfileDetailDialog(props: { profile: Profile; onClose: () => void }) {
             </Typography>
             <MuiStack direction='column' spacing='4px'>
               {profile.urls.map((url) => (
-                <MuiStack component='a' key={url} direction='row' spacing='8px' href={url} target='_blank'>
-                  <UrlLinkIcon css={{ width: '20px' }} />
-                  {url}
-                </MuiStack>
+                <a
+                  key={url}
+                  href={url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  css={(theme: Theme) => ({
+                    display: 'flex',
+                    '&:hover': {
+                      color: theme.palette.primary.main,
+                      '& > svg > g > path': { fill: theme.palette.primary.main },
+                    },
+                    alignItems: 'center',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  })}
+                >
+                  <UrlLinkIcon css={{ width: '20px', marginRight: '8px' }} />
+                  <Typography
+                    variant='body2'
+                    css={{ color: 'inherit', fontSize: '12px', fontFamily: 'Inter', fontWeight: 500 }}
+                  >
+                    {url}
+                  </Typography>
+                </a>
               ))}
             </MuiStack>
           </MuiStack>

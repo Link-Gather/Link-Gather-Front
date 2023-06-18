@@ -11,6 +11,7 @@ import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
 import IconPasswordShow from '@assets/images/icons/icon-password-show.svg';
 import IconPasswordHide from '@assets/images/icons/icon-password-hide.svg';
 import { Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
@@ -20,6 +21,8 @@ const schema = yup.object({
 function LoginForm() {
   // prop destruction
   // lib hooks
+  const navigate = useNavigate();
+
   // state, ref hooks
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -77,7 +80,14 @@ function LoginForm() {
         {...register('password')}
       />
       <Button
-        onClick={handleSubmit(async ({ email, password }) => await mutateAsync({ email, password }))}
+        onClick={handleSubmit(async ({ email, password }) => {
+          await mutateAsync(
+            { email, password },
+            {
+              onSuccess: () => navigate(-1),
+            }
+          );
+        })}
         color={palette.contrastText}
         css={{
           width: '100%',

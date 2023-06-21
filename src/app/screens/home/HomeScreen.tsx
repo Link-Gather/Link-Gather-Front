@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Divider, Stack, Typography } from '@mui/material';
+import { Divider, Stack, Typography, keyframes } from '@mui/material';
 import type { Theme } from '../../libs/theme';
 import { PATH_PROJECTS_ADD } from '../../routes';
 import { lazy, useEffect, useRef, useState } from 'react';
-const Background = lazy(() => import('@assets/images/backgrounds/background-landing.svg'));
+import { S3_IMAGE_BUCKET } from '../../configs';
 const BackgroundLeftPlanet = lazy(() => import('@assets/images/backgrounds/background-landing-planet.svg'));
 const BackgroundRightPlanet = lazy(() => import('@assets/images/backgrounds/background-landing-planet-right.svg'));
 const BackgroundRightAstronaut = lazy(
@@ -11,6 +11,39 @@ const BackgroundRightAstronaut = lazy(
 );
 const BackgroundLeftAstronaut = lazy(() => import('@assets/images/backgrounds/background-landing-astronaut-left.svg'));
 const PlanetLinkGather = lazy(() => import('@assets/images/backgrounds/planet-link-gather.svg'));
+const Comet = lazy(() => import('@assets/images/backgrounds/background-comet.svg'));
+const YellowComet = lazy(() => import('@assets/images/backgrounds/background-comet-yellow.svg'));
+const BlinkStar = lazy(() => import('@assets/images/backgrounds/background-blink-star.svg'));
+
+const fall = keyframes`
+  0% {
+    transform: translate(100%,-100%);
+    width: 0%;
+  }
+  100% {
+    transform: translate(-100%,100%);
+    width: 10%;
+  }
+`;
+const yellowFall = keyframes`
+0% {
+  transform: translate(100%,-100%);
+  width: 1%;
+}
+100% {
+  transform: translate(-300%,100%);
+  width: 5%;
+}
+`;
+
+const blink = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 function TypingText(props: { text: string[]; className?: string }) {
   // prop destruction
@@ -40,13 +73,6 @@ function TypingText(props: { text: string[]; className?: string }) {
         }
       }
     }, 100);
-
-    if (!isVisible) {
-      setCurrentTyped('');
-      setCompleted(text.map(() => false));
-      setCurrentTextIndex(0);
-      setCount(0);
-    }
 
     return () => {
       clearInterval(interval);
@@ -114,7 +140,6 @@ function TypingText(props: { text: string[]; className?: string }) {
 function HomeScreen() {
   // prop destruction
   // lib hooks
-
   // state, ref hooks
   // form hook
   // query hooks
@@ -124,12 +149,33 @@ function HomeScreen() {
 
   return (
     <Stack direction='column' css={{ position: 'relative' }}>
-      <Background css={{ aspectRatio: '1920/5989' }} />
+      <img src={`${S3_IMAGE_BUCKET}/background-landing.png`} alt='background' css={{ aspectRatio: '1920/5989' }} />
+      <BlinkStar
+        css={{ position: 'absolute', top: '1%', left: '35%', width: '1%', animation: `${blink} 1s infinite` }}
+      />
+      <BlinkStar
+        css={{ position: 'absolute', top: '3%', right: '15%', width: '1%', animation: `${blink} 1s infinite` }}
+      />
+      <YellowComet
+        css={{ position: 'absolute', top: '1%', left: '30%', width: '5%', animation: `${yellowFall} 1s forwards` }}
+      />
+      <Comet
+        css={{ position: 'absolute', top: '4.5%', right: '50%', width: '10%', animation: `${fall} 2s forwards` }}
+      />
       <BackgroundRightPlanet css={{ position: 'absolute', top: '4.5%', right: '5%', width: '40%' }} />
       <BackgroundRightAstronaut css={{ position: 'absolute', top: '4%', right: '15%', width: '20%' }} />
       <TypingText
         text={['또 삽질만 하다가 탈주한 동료들...', '지독히 외롭다...']}
         css={{ position: 'absolute', top: '3.5%', left: '10%' }}
+      />
+      <BlinkStar
+        css={{ position: 'absolute', top: '14%', left: '40%', width: '1%', animation: `${blink} 1s infinite` }}
+      />
+      <BlinkStar
+        css={{ position: 'absolute', top: '23%', left: '46%', width: '1%', animation: `${blink} 1s infinite` }}
+      />
+      <YellowComet
+        css={{ position: 'absolute', top: '23%', right: '7%', width: '5%', animation: `${yellowFall} 1s 2` }}
       />
       <BackgroundLeftPlanet css={{ position: 'absolute', top: '18%', left: 0, width: '35%' }} />
       <BackgroundLeftAstronaut css={{ position: 'absolute', top: '16.5%', left: '1%', width: '18%' }} />
@@ -138,7 +184,7 @@ function HomeScreen() {
         css={{ position: 'absolute', top: '17.5%', left: '65%' }}
       />
       <TypingText text={['어... 저 빛은 뭐지?']} css={{ position: 'absolute', top: '45%', left: '43%' }} />
-      <PlanetLinkGather css={{ position: 'absolute', top: '55%', right: '44%', color: '#fff', width: '15%' }} />
+      <PlanetLinkGather css={{ position: 'absolute', top: '53%', right: '42%', color: '#fff', width: '15%' }} />
       <Stack direction='column' spacing='11%' css={{ margin: '12% 120px 13%' }}>
         <Stack direction='row' spacing='80px'>
           {/* TODO: 사진으로 변경 */}
@@ -177,7 +223,7 @@ function HomeScreen() {
             </Typography>
             <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 500, fontFamily: 'Montserrat' }}>
               다른 프로젝트는 어떻게 진행하는지 구경하기
-              <Typography variant='h4' css={{ fontSize: '32px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+              <Typography component='span' css={{ fontSize: '32px', fontWeight: 500, fontFamily: 'Montserrat' }}>
                 *공개 설정한 프로젝트에 한해
               </Typography>
             </Typography>

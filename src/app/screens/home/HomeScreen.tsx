@@ -14,6 +14,9 @@ const PlanetLinkGather = lazy(() => import('@assets/images/backgrounds/planet-li
 const Comet = lazy(() => import('@assets/images/backgrounds/background-comet.svg'));
 const YellowComet = lazy(() => import('@assets/images/backgrounds/background-comet-yellow.svg'));
 const BlinkStar = lazy(() => import('@assets/images/backgrounds/background-blink-star.svg'));
+const LandingAstronaut = lazy(() => import('@assets/images/backgrounds/background-landing-ast.svg'));
+const SuggestAstronaut = lazy(() => import('@assets/images/backgrounds/background-suggest-ast.svg'));
+const SupermanAstronaut = lazy(() => import('@assets/images/backgrounds/background-superman-ast.svg'));
 
 const fall = keyframes`
   0% {
@@ -198,8 +201,7 @@ function HomeScreen() {
               <br />
               프로젝트 제안하기
             </Typography>
-            {/* TODO:사진으로 변경 */}
-            <div css={{ width: '145px', marginTop: '48px !important' }} />
+            <SuggestAstronaut css={{ width: '145px', marginTop: '48px !important' }} />
           </Stack>
         </Stack>
         <Stack direction='row' spacing='80px'>
@@ -217,18 +219,17 @@ function HomeScreen() {
         <Stack direction='row' spacing='80px'>
           {/* TODO: 사진으로 변경 */}
           <div css={{ border: '1px solid #000', width: '913px', height: '514px', flexShrink: 0 }} />
-          <Stack direction='column' spacing='16px'>
+          <Stack direction='column' spacing='16px' css={{ position: 'relative' }}>
             <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 600, fontFamily: 'Montserrat' }}>
               프로젝트 구경가기
             </Typography>
             <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 500, fontFamily: 'Montserrat' }}>
               다른 프로젝트는 어떻게 진행하는지 구경하기
-              <Typography component='span' css={{ fontSize: '32px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+              <Typography variant='body2' css={{ fontSize: '32px', fontWeight: 500, fontFamily: 'Montserrat' }}>
                 *공개 설정한 프로젝트에 한해
               </Typography>
             </Typography>
-            {/* TODO:사진으로 변경 */}
-            <div css={{ width: '145px', marginTop: '48px !important' }} />
+            <SupermanAstronaut css={{ width: '211px', position: 'absolute', right: '5%', top: '-30%' }} />
           </Stack>
         </Stack>
         <Divider />
@@ -260,16 +261,7 @@ function HomeScreen() {
           </Link>
         </Stack>
       </Stack>
-      <div
-        css={{
-          width: '544px',
-          height: '506px',
-          position: 'absolute',
-          bottom: 0,
-          right: '10%',
-          border: '1px solid #000',
-        }}
-      />
+      <LandingAstronaut css={{ width: '544px', position: 'absolute', bottom: 0, right: '10%' }} />
     </Stack>
   );
 }

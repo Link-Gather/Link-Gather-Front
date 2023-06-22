@@ -3,29 +3,31 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { UnderlineTitle, Input, Button } from '@elements';
+import { UnderlineTitle, Button } from '@elements';
 import { PATH_LOGIN } from '@routes';
-import palette from '@libs/theme/palettes';
 import { SCHEMA_EMAIL } from '@libs/schema';
-import IconArrowRight from '@assets/images/icons/icon-arrow-right-white.svg';
 import IconArrowLeft from '@assets/images/icons/icon-arrow-left.svg';
-import IconCheckGreen from '@assets/images/icons/icon-check-green.svg';
-import { Stack } from '@mui/material';
+import IconSendEmail from '@assets/images/icons/icon-send-email.svg';
+import { Stack, TextField, Typography } from '@mui/material';
+import { useMutation } from '@libs/query';
+import { authRepository } from '@repositories';
 
-const schema = yup.object({
-  email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
-});
+const schema = yup
+  .object({
+    email: SCHEMA_EMAIL.required('이메일을 입력해주세요.'),
+  })
+  .required();
 
 function ForgotPasswordEmailForm() {
   // prop destruction
   // lib hooks
   // state, ref, querystring hooks
   // form hooks
-
   const {
     register,
-    handleSubmit,
     getValues,
+    handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm<yup.InferType<typeof schema>>({
     mode: 'onChange',
@@ -34,43 +36,68 @@ function ForgotPasswordEmailForm() {
       email: '',
     },
   });
+
   // query hooks
+  const {
+    mutateAsync: verifyEmail,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useMutation(authRepository.verifyEmail, {
+    onError: (error) => setError('email', { message: error.message }),
+  });
+
   // calculated values
   // effects
   // handlers
 
   return (
-    <Stack width='320px' height='324px' direction='column'>
-      <Stack direction='row' width='100%'>
+    <Stack direction='column' css={{ width: '320px', height: '324px' }}>
+      <Stack direction='row'>
         <Link to={PATH_LOGIN}>
           <IconArrowLeft css={{ width: '32px', height: '32px' }} />
         </Link>
         <UnderlineTitle title='비밀번호 찾기' css={{ width: 'calc(100% - 64px)', marginBottom: '40px' }} />
       </Stack>
-      <Stack direction='column' justifyContent='space-between' css={{ flex: 1 }}>
-        <Input
-          type='email'
-          placeholder='이메일'
-          defaultValue={getValues('email')}
-          error={errors.email}
-          helperText={errors.email?.message}
-          IconProps={{ EndIcon: (isValid && <IconCheckGreen css={{ width: '24px', height: '24px' }} />) || undefined }}
-          {...register('email')}
-        />
+      <Stack direction='column' css={{ flex: 1, justifyContent: 'space-between' }}>
+        <Stack>
+          <TextField
+            {...register('email')}
+            defaultValue={getValues('email')}
+            type='email'
+            placeholder='이메일'
+            helperText={errors.email?.message}
+            error={!!errors.email || isError}
+          />
+
+          {isSuccess && (
+            <Stack css={{ marginTop: '24px' }}>
+              <IconSendEmail css={{ width: '120px', height: '44px', marginLeft: '78px' }} />
+              <Typography css={{ marginTop: '20px', fontSize: '12px', fontWeight: 700, textAlign: 'center' }}>
+                비밀번호 재설정 메일을 발송했어요!
+              </Typography>
+            </Stack>
+          )}
+        </Stack>
+
         <Button
-          color={palette.contrastText}
+          variant='filled'
+          loading={isLoading}
           css={{
-            width: '100%',
             height: '48px',
             fontSize: '20px',
-            backgroundColor: palette.primary.main,
             borderRadius: '32px',
-            marginTop: '24px',
           }}
           disabled={!isValid}
-          onClick={handleSubmit(async ({ email }) => {})}
+          onClick={handleSubmit(async ({ email }) => {
+            await verifyEmail({ email, type: 'password' });
+          })}
         >
-          인증하기 <IconArrowRight css={{ width: '24px', height: '24px' }} />
+          <Stack direction='row' css={{ alignItems: 'center' }}>
+            <Typography css={{ fontSize: '20px', fontWeight: 800, linetHeight: 1.4, color: '#FFF' }}>
+              인증하기
+            </Typography>
+          </Stack>
         </Button>
       </Stack>
     </Stack>

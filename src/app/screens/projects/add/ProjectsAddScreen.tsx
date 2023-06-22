@@ -8,6 +8,7 @@ import { useMutation } from '@libs/query';
 import { projectRepository } from '@repositories';
 import MinusIcon from '@assets/images/icons/icon-minus.svg';
 import { Project, Stack } from '@models';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   purpose: yup.mixed<PurposeType>().required(),
@@ -37,6 +38,8 @@ const purposeOptions = Project.getPurposeOptions();
 function ProjectAddScreen() {
   // prop destruction
   // lib hooks
+  const navigate = useNavigate();
+
   // state, ref, querystring hooks
   // form hooks
   const {
@@ -275,20 +278,25 @@ function ProjectAddScreen() {
           variant='filled'
           loading={isLoading}
           onClick={handleSubmit(async ({ title, description, period, purpose, recruitMember, stacks, leaderJob }) => {
-            await createProject({
-              title,
-              description,
-              period,
-              purpose,
-              stacks: stacks?.map(({ id }) => id) ?? [],
-              leaderJob,
-              recruitMember: {
-                frontendDeveloper: recruitMember?.find((member) => member.job === 'frontendDeveloper')?.number ?? 0,
-                backendDeveloper: recruitMember?.find((member) => member.job === 'backendDeveloper')?.number ?? 0,
-                designer: recruitMember?.find((member) => member.job === 'designer')?.number ?? 0,
-                productManager: recruitMember?.find((member) => member.job === 'productManager')?.number ?? 0,
+            await createProject(
+              {
+                title,
+                description,
+                period,
+                purpose,
+                stacks: stacks?.map(({ id }) => id) ?? [],
+                leaderJob,
+                recruitMember: {
+                  frontendDeveloper: recruitMember?.find((member) => member.job === 'frontendDeveloper')?.number ?? 0,
+                  backendDeveloper: recruitMember?.find((member) => member.job === 'backendDeveloper')?.number ?? 0,
+                  designer: recruitMember?.find((member) => member.job === 'designer')?.number ?? 0,
+                  productManager: recruitMember?.find((member) => member.job === 'productManager')?.number ?? 0,
+                },
               },
-            });
+              {
+                onSuccess: () => navigate('/projects'),
+              }
+            );
           })}
           css={{ width: '212px', height: '48px' }}
           disabled={!isValid || !isDirty}

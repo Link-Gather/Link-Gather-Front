@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_ENDPOINT } from '../../configs';
-import { getToken } from '../util/getToken';
+import { API_ENDPOINT } from '@configs';
+import { getToken } from '@libs/util';
 
 export const httpClient = (() => {
   const axios = Axios.create({ baseURL: API_ENDPOINT, withCredentials: true });

@@ -63,7 +63,7 @@ function StackProvider(props: { children?: ReactNode }) {
   return <StackContext.Provider value={contextValue}>{children}</StackContext.Provider>;
 }
 
-const useStacks: () => Stack[] = () => {
+const useStacks: (ids?: number[]) => Stack[] = (ids?: number[]) => {
   const { getStacks } = useContext(StackContext);
   const stacks = getStacks();
 
@@ -71,7 +71,7 @@ const useStacks: () => Stack[] = () => {
     throw new Error('Not initialized');
   }
 
-  return stacks;
+  return ids ? stacks.filter((stack) => new Set(ids).has(stack.id)) : stacks;
 };
 
 export { StackProvider, useStacks };

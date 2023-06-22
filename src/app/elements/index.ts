@@ -1,9 +1,6 @@
 export * from './Button';
 export * from './Chip';
 export * from './ClickAway';
-export * from './DialogAction';
-export * from './DialogContent';
-export * from './DialogTitle';
 export * from './Dimmer';
 export * from './GithubLoginButton';
 export * from './GoogleLoginButton';
@@ -11,6 +8,7 @@ export * from './Input';
 export * from './KakaoLoginButton';
 export * from './Label';
 export * from './Layout';
+export * from './Pagination';
 export * from './ProfileImage';
 export * from './Section';
 export * from './ShadowBox';

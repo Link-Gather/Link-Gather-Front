@@ -57,8 +57,11 @@ function Button(
         variant === 'filled' && {
           backgroundColor: theme.palette.primary.main,
           color: '#fff',
-          ':disabled': {
+          '&:disabled': {
             backgroundColor: theme.palette.secondary.n40,
+          },
+          '&:hover': {
+            backgroundColor: '#3333E1',
           },
         },
       ]}

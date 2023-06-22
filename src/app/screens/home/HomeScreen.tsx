@@ -59,21 +59,6 @@ const yellowFall = keyframes`
   }
 `;
 
-const blink = keyframes`
-0% {
-  opacity: 0;
-  width:0
-}
-50% {
-  opacity: 1;
-  width: ${Math.random() * 0.6 + 0.1}%;
-}
-100% {
-  opacity: 0;
-  width:0
-}
-`;
-
 function TypingText(props: { text: string[]; className?: string }) {
   // prop destruction
   const { text, className } = props;
@@ -187,7 +172,20 @@ function HomeScreen() {
             top: `${Math.random() * 30}%`,
             left: `${Math.random() * 101}%`,
             width: '1%',
-            animation: `${blink} ${Math.random() * 7 + 2}s infinite`,
+            animation: `${keyframes`
+            0% {
+              opacity: 0;
+              width:0
+            }
+            50% {
+              opacity: 1;
+              width: ${Math.random() * 0.6 + 0.1}%;
+            }
+            100% {
+              opacity: 0;
+              width:0
+            }
+            `} ${Math.random() * 7 + 2}s infinite`,
           }}
         />
       ))}

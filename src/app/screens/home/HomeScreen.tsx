@@ -23,28 +23,58 @@ const fall = keyframes`
     transform: translate(100%,-100%);
     width: 0%;
   }
-  100% {
+  5% {
     transform: translate(-100%,100%);
     width: 10%;
   }
+  10% {
+
+  
+    transform: translate(-100%,100%);
+    width: 10%;
+    opacity:0;
+  }
+100% {
+
+  
+    transform: translate(-100%,100%);
+    width: 10%;
+  opacity:0;
+}
 `;
 const yellowFall = keyframes`
 0% {
   transform: translate(100%,-100%);
   width: 1%;
 }
+5% {
+  transform: translate(-300%,100%);
+  width: 5%;
+}
+10% {
+  transform: translate(-300%,100%);
+  width: 5%;
+  opacity:0;
+}
 100% {
   transform: translate(-300%,100%);
   width: 5%;
+  opacity:0;
 }
 `;
 
 const blink = keyframes`
-from {
+0% {
   opacity: 0;
+  width:0
 }
-to {
+50% {
   opacity: 1;
+  width: ${Math.random() * 0.6 + 0.1}%;
+}
+100% {
+  opacity: 0;
+  width:0
 }
 `;
 
@@ -153,17 +183,23 @@ function HomeScreen() {
   return (
     <Stack direction='column' css={{ position: 'relative' }}>
       <img src={`${S3_IMAGE_BUCKET}/background-landing.png`} alt='background' css={{ aspectRatio: '1920/5989' }} />
-      <BlinkStar
-        css={{ position: 'absolute', top: '1%', left: '35%', width: '1%', animation: `${blink} 1s infinite` }}
-      />
-      <BlinkStar
-        css={{ position: 'absolute', top: '3%', right: '15%', width: '1%', animation: `${blink} 1s infinite` }}
-      />
+      {Array.from({ length: 150 }).map((_, i) => (
+        <BlinkStar
+          key={i}
+          css={{
+            position: 'absolute',
+            top: `${Math.random() * 30}%`,
+            left: `${Math.random() * 101}%`,
+            width: '1%',
+            animation: `${blink} ${Math.random() * 7 + 2}s infinite`,
+          }}
+        />
+      ))}
       <YellowComet
-        css={{ position: 'absolute', top: '1%', left: '30%', width: '5%', animation: `${yellowFall} 1s forwards` }}
+        css={{ position: 'absolute', top: '1%', left: '30%', width: '5%', animation: `${yellowFall} 5s infinite` }}
       />
       <Comet
-        css={{ position: 'absolute', top: '4.5%', right: '50%', width: '10%', animation: `${fall} 2s forwards` }}
+        css={{ position: 'absolute', top: '4.5%', right: '50%', width: '10%', animation: `${fall} 10s infinite` }}
       />
       <BackgroundRightPlanet css={{ position: 'absolute', top: '4.5%', right: '5%', width: '40%' }} />
       <BackgroundRightAstronaut css={{ position: 'absolute', top: '4%', right: '15%', width: '20%' }} />
@@ -172,19 +208,19 @@ function HomeScreen() {
         css={{ position: 'absolute', top: '3.5%', left: '10%' }}
       />
       <BlinkStar
-        css={{ position: 'absolute', top: '14%', left: '40%', width: '1%', animation: `${blink} 1s infinite` }}
+        css={{ position: 'absolute', top: '14%', left: '40%', width: '1%', animation: `${blink} 5s infinite` }}
       />
       <BlinkStar
-        css={{ position: 'absolute', top: '23%', left: '46%', width: '1%', animation: `${blink} 1s infinite` }}
+        css={{ position: 'absolute', top: '23%', left: '46%', width: '1%', animation: `${blink} 5s infinite` }}
       />
       <YellowComet
-        css={{ position: 'absolute', top: '23%', right: '7%', width: '5%', animation: `${yellowFall} 1s 2` }}
+        css={{ position: 'absolute', top: '23%', right: '7%', width: '5%', animation: `${yellowFall} 7s infinite` }}
       />
-      <BackgroundLeftPlanet css={{ position: 'absolute', top: '18%', left: 0, width: '35%' }} />
-      <BackgroundLeftAstronaut css={{ position: 'absolute', top: '16.5%', left: '1%', width: '18%' }} />
+      <BackgroundLeftPlanet css={{ position: 'absolute', top: '18%', left: '-10%', width: '47%' }} />
+      <BackgroundLeftAstronaut css={{ position: 'absolute', top: '16.5%', left: '5%', width: '18%' }} />
       <TypingText
         text={['나는 동료를 구할 수 없는 걸까..?']}
-        css={{ position: 'absolute', top: '17.5%', left: '65%' }}
+        css={{ position: 'absolute', top: '17.5%', left: '55%' }}
       />
       <TypingText text={['어... 저 빛은 뭐지?']} css={{ position: 'absolute', top: '45%', left: '43%' }} />
       <PlanetLinkGather css={{ position: 'absolute', top: '53%', right: '42%', color: '#fff', width: '15%' }} />

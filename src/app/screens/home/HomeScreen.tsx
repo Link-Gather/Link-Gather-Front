@@ -28,39 +28,35 @@ const fall = keyframes`
     width: 10%;
   }
   10% {
-
-  
     transform: translate(-100%,100%);
     width: 10%;
     opacity:0;
   }
-100% {
-
-  
+  100% {
     transform: translate(-100%,100%);
     width: 10%;
-  opacity:0;
-}
+    opacity:0;
+  }
 `;
 const yellowFall = keyframes`
-0% {
-  transform: translate(100%,-100%);
-  width: 1%;
-}
-5% {
-  transform: translate(-300%,100%);
-  width: 5%;
-}
-10% {
-  transform: translate(-300%,100%);
-  width: 5%;
-  opacity:0;
-}
-100% {
-  transform: translate(-300%,100%);
-  width: 5%;
-  opacity:0;
-}
+  0% {
+    transform: translate(100%,-100%);
+    width: 1%;
+  }
+  5% {
+    transform: translate(-300%,100%);
+    width: 5%;
+  }
+  10% {
+    transform: translate(-300%,100%);
+    width: 5%;
+    opacity:0;
+  }
+  100% {
+    transform: translate(-300%,100%);
+    width: 5%;
+    opacity:0;
+  }
 `;
 
 const blink = keyframes`
@@ -207,14 +203,11 @@ function HomeScreen() {
         text={['또 삽질만 하다가 탈주한 동료들...', '지독히 외롭다...']}
         css={{ position: 'absolute', top: '3.5%', left: '10%' }}
       />
-      <BlinkStar
-        css={{ position: 'absolute', top: '14%', left: '40%', width: '1%', animation: `${blink} 5s infinite` }}
-      />
-      <BlinkStar
-        css={{ position: 'absolute', top: '23%', left: '46%', width: '1%', animation: `${blink} 5s infinite` }}
+      <Comet
+        css={{ position: 'absolute', top: '15%', right: '45%', width: '10%', animation: `${fall} 10s infinite` }}
       />
       <YellowComet
-        css={{ position: 'absolute', top: '23%', right: '7%', width: '5%', animation: `${yellowFall} 7s infinite` }}
+        css={{ position: 'absolute', top: '23%', left: '80%', width: '5%', animation: `${yellowFall} 7s infinite` }}
       />
       <BackgroundLeftPlanet css={{ position: 'absolute', top: '18%', left: '-10%', width: '47%' }} />
       <BackgroundLeftAstronaut css={{ position: 'absolute', top: '16.5%', left: '5%', width: '18%' }} />

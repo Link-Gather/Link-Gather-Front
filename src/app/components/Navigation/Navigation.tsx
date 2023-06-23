@@ -4,8 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { PATH_COLLEAGUES, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_PROJECTS_MANAGE } from '@routes';
 
 const MenuItem = styled(MuiMenuItem)({
-  padding: '25px 59px 24px 59px',
-  fontSize: '16px',
+  padding: '1.3vw 3.07vw 1.25vw 3.07vw',
+  fontSize: '0.83vw',
   fontWeight: 700,
   lineHeight: 1.2,
   '&:hover': {
@@ -51,7 +51,7 @@ function Navigation(props: { className?: string }) {
       <MenuItem
         css={(theme) => ({
           backgroundColor: theme.palette.primary.main,
-          marginLeft: '130px',
+          marginLeft: '6.77vw',
           color: '#FFFFFF',
           borderRight: '2px solid #000',
           borderLeft: '2px solid #000',

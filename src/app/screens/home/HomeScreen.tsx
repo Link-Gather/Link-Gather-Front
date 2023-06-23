@@ -112,14 +112,14 @@ function TypingText(props: { text: string[]; className?: string }) {
 
   // handlers
   return (
-    <Stack direction='column' spacing='48px' className={className} ref={ref}>
+    <Stack direction='column' spacing='2.5vw' className={className} ref={ref}>
       {text.map((t, i) => {
         return completed[i] ? (
           <Typography
             key={t}
             variant='h3'
             css={{
-              fontSize: '40px',
+              fontSize: '2.83vw',
               fontWeight: 500,
               fontFamily: 'Montserrat',
               color: '#fff',
@@ -133,7 +133,7 @@ function TypingText(props: { text: string[]; className?: string }) {
         <Typography
           variant='h3'
           css={{
-            fontSize: '40px',
+            fontSize: '2.83vw',
             fontWeight: 500,
             fontFamily: 'Montserrat',
             color: '#fff',
@@ -215,70 +215,70 @@ function HomeScreen() {
       />
       <TypingText text={['어... 저 빛은 뭐지?']} css={{ position: 'absolute', top: '45%', left: '43%' }} />
       <PlanetLinkGather css={{ position: 'absolute', top: '53%', right: '42%', color: '#fff', width: '15%' }} />
-      <Stack direction='column' spacing='11%' css={{ margin: '12% 120px 13%' }}>
-        <Stack direction='row' spacing='80px'>
+      <Stack direction='column' spacing='11%' css={{ margin: '12% 6.25vw 13%' }}>
+        <Stack direction='row' spacing='4.17vw'>
           {/* TODO: 사진으로 변경 */}
-          <div css={{ border: '1px solid #000', width: '913px', height: '514px', flexShrink: 0 }} />
+          <div css={{ border: '1px solid #000', width: '47.55vw', height: '26.77vw', flexShrink: 0 }} />
           <Stack direction='column' spacing='16px'>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 600, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 600, fontFamily: 'Montserrat' }}>
               동료 찾기
             </Typography>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 500, fontFamily: 'Montserrat' }}>
               나에게 딱맞는 동료를 찾고,
               <br />
               프로젝트 제안하기
             </Typography>
-            <SuggestAstronaut css={{ width: '145px', marginTop: '48px !important' }} />
+            <SuggestAstronaut css={{ width: '7.55vw', marginTop: '2.5vw !important' }} />
           </Stack>
         </Stack>
-        <Stack direction='row' spacing='80px'>
+        <Stack direction='row' spacing='4.17vw'>
           {/* TODO: 사진으로 변경 */}
-          <div css={{ border: '1px solid #000', width: '913px', height: '514px', flexShrink: 0 }} />
+          <div css={{ border: '1px solid #000', width: '47.55vw', height: '26.77vw', flexShrink: 0 }} />
           <Stack direction='column' spacing='16px'>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 600, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 600, fontFamily: 'Montserrat' }}>
               프로젝트 관리
             </Typography>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 500, fontFamily: 'Montserrat' }}>
               목표를 공유하며 함께 관리하는 프로젝트
             </Typography>
           </Stack>
         </Stack>
-        <Stack direction='row' spacing='80px'>
+        <Stack direction='row' spacing='4.17vw'>
           {/* TODO: 사진으로 변경 */}
-          <div css={{ border: '1px solid #000', width: '913px', height: '514px', flexShrink: 0 }} />
+          <div css={{ border: '1px solid #000', width: '47.55vw', height: '26.77vw', flexShrink: 0 }} />
           <Stack direction='column' spacing='16px' css={{ position: 'relative' }}>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 600, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 600, fontFamily: 'Montserrat' }}>
               프로젝트 구경가기
             </Typography>
-            <Typography variant='h3' css={{ fontSize: '40px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+            <Typography variant='h3' css={{ fontSize: '2.83vw', fontWeight: 500, fontFamily: 'Montserrat' }}>
               다른 프로젝트는 어떻게 진행하는지 구경하기
-              <Typography variant='body2' css={{ fontSize: '32px', fontWeight: 500, fontFamily: 'Montserrat' }}>
+              <Typography variant='body2' css={{ fontSize: '1.67vw', fontWeight: 500, fontFamily: 'Montserrat' }}>
                 *공개 설정한 프로젝트에 한해
               </Typography>
             </Typography>
-            <SupermanAstronaut css={{ width: '211px', position: 'absolute', right: '5%', top: '-30%' }} />
+            <SupermanAstronaut css={{ width: '11vw', position: 'absolute', right: '5%', top: '-30%' }} />
           </Stack>
         </Stack>
         <Divider />
-        <Stack direction='column' css={{ marginLeft: '160px !important' }}>
-          <Typography variant='h2' css={{ fontSize: '64px', fontWeight: 600 }}>
+        <Stack direction='column' css={{ marginLeft: '6.25vw !important' }}>
+          <Typography variant='h2' css={{ fontSize: '3.33vw', fontWeight: 600 }}>
             링크게더와 함께 하고 싶다면?
           </Typography>
-          <Typography variant='h5' css={{ fontWeight: 400, margin: '24px 0 40px 0' }}>
+          <Typography variant='h5' css={{ fontWeight: 400, margin: '1.25vw 0 2.83vw 0' }}>
             아직도 혼자 프로젝트 하세요?
             <br />
             마음이 맞는 동료와 함께 하세요!
           </Typography>
           <Link
             css={(theme: Theme) => ({
-              width: '282px',
+              width: '14.7vw',
               height: '64px',
               backgroundColor: theme.palette.primary.main,
               borderRadius: '6px',
               color: '#fff',
               padding: '20px 0',
               textAlign: 'center',
-              fontSize: '20px',
+              fontSize: '1.25rem',
               fontWeight: 700,
               fontFamily: 'Noto Sans',
             })}
@@ -288,7 +288,7 @@ function HomeScreen() {
           </Link>
         </Stack>
       </Stack>
-      <LandingAstronaut css={{ width: '544px', position: 'absolute', bottom: 0, right: '10%' }} />
+      <LandingAstronaut css={{ width: '28.33vw', position: 'absolute', bottom: 0, right: '10%' }} />
     </Stack>
   );
 }

@@ -36,23 +36,23 @@ function Header() {
       {/* Link Gather Logo*/}
       <div css={{ paddingTop: '8px' }}>
         <Link to={PATH_HOME}>
-          <img src={`${S3_IMAGE_BUCKET}/Link+gather_logo-01+1.png`} alt='logo' css={{ width: '99px' }} />
+          <img src={`${S3_IMAGE_BUCKET}/Link+gather_logo-01+1.png`} alt='logo' css={{ width: '5.16vw' }} />
         </Link>
       </div>
 
       {/* Navigation */}
-      <Navigation css={{ marginLeft: '114px', height: '68px' }} />
+      <Navigation css={{ marginLeft: '5.94vw', height: '3.54vw' }} />
 
       {/* Profile */}
       <div
-        css={{ padding: '10px 33px 8px 31px', borderRight: '2px solid' }}
+        css={{ padding: '0.5vw 1.72vw 0.4vw 1.61vw', borderRight: '2px solid' }}
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
-        <IconButton disableRipple css={{ padding: '0', height: '50px', width: '50px' }}>
+        <IconButton disableRipple css={{ padding: '0', height: '2.6vw', width: '2.6vw' }}>
           {isToken() ? (
-            <MemberProfileIcon css={{ height: '50px', width: '50px' }} />
+            <MemberProfileIcon css={{ height: '2.6vw', width: '2.6vw' }} />
           ) : (
-            <NoMemberProfileIcon css={{ height: '50px', width: '50px' }} />
+            <NoMemberProfileIcon css={{ height: '2.6vw', width: '2.6vw' }} />
           )}
         </IconButton>
       </div>
@@ -76,12 +76,12 @@ function Header() {
           },
         }}
       >
-        <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_LOGIN)}>
+        <MenuItem css={{ padding: '0.83vw', width: '8.44vw' }} onClick={() => navigate(PATH_LOGIN)}>
           <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
             로그인
           </Typography>
         </MenuItem>
-        <MenuItem css={{ padding: '16px', width: '162px' }} onClick={() => navigate(PATH_SIGNUP)}>
+        <MenuItem css={{ padding: '0.83vw', width: '8.44vw' }} onClick={() => navigate(PATH_SIGNUP)}>
           <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
             회원가입
           </Typography>

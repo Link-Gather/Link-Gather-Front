@@ -2,21 +2,19 @@ import { Link } from 'react-router-dom';
 import { Divider, Stack, Typography, keyframes } from '@mui/material';
 import type { Theme } from '../../libs/theme';
 import { PATH_PROJECTS_ADD } from '../../routes';
-import { lazy, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { S3_IMAGE_BUCKET } from '../../configs';
-const BackgroundLeftPlanet = lazy(() => import('@assets/images/backgrounds/background-landing-planet.svg'));
-const BackgroundRightPlanet = lazy(() => import('@assets/images/backgrounds/background-landing-planet-right.svg'));
-const BackgroundRightAstronaut = lazy(
-  () => import('@assets/images/backgrounds/background-landing-astronaut-right.svg')
-);
-const BackgroundLeftAstronaut = lazy(() => import('@assets/images/backgrounds/background-landing-astronaut-left.svg'));
-const PlanetLinkGather = lazy(() => import('@assets/images/backgrounds/planet-link-gather.svg'));
-const Comet = lazy(() => import('@assets/images/backgrounds/background-comet.svg'));
-const YellowComet = lazy(() => import('@assets/images/backgrounds/background-comet-yellow.svg'));
-const BlinkStar = lazy(() => import('@assets/images/backgrounds/background-blink-star.svg'));
-const LandingAstronaut = lazy(() => import('@assets/images/backgrounds/background-landing-ast.svg'));
-const SuggestAstronaut = lazy(() => import('@assets/images/backgrounds/background-suggest-ast.svg'));
-const SupermanAstronaut = lazy(() => import('@assets/images/backgrounds/background-superman-ast.svg'));
+import BackgroundLeftPlanet from '@assets/images/backgrounds/background-landing-planet.svg';
+import BackgroundRightPlanet from '@assets/images/backgrounds/background-landing-planet-right.svg';
+import BackgroundRightAstronaut from '@assets/images/backgrounds/background-landing-astronaut-right.svg';
+import BackgroundLeftAstronaut from '@assets/images/backgrounds/background-landing-astronaut-left.svg';
+import PlanetLinkGather from '@assets/images/backgrounds/planet-link-gather.svg';
+import Comet from '@assets/images/backgrounds/background-comet.svg';
+import YellowComet from '@assets/images/backgrounds/background-comet-yellow.svg';
+import BlinkStar from '@assets/images/backgrounds/background-blink-star.svg';
+import LandingAstronaut from '@assets/images/backgrounds/background-landing-ast.svg';
+import SuggestAstronaut from '@assets/images/backgrounds/background-suggest-ast.svg';
+import SupermanAstronaut from '@assets/images/backgrounds/background-superman-ast.svg';
 
 const fall = keyframes`
   0% {
@@ -272,13 +270,13 @@ function HomeScreen() {
           <Link
             css={(theme: Theme) => ({
               width: '14.7vw',
-              height: '64px',
+              height: '3.33vw',
               backgroundColor: theme.palette.primary.main,
               borderRadius: '6px',
               color: '#fff',
-              padding: '20px 0',
+              padding: '1.04vw 0',
               textAlign: 'center',
-              fontSize: '1.25rem',
+              fontSize: '1.04vw',
               fontWeight: 700,
               fontFamily: 'Noto Sans',
             })}

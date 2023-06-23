@@ -34,14 +34,14 @@ function Header() {
       }}
     >
       {/* Link Gather Logo*/}
-      <div css={{ paddingTop: '8px' }}>
+      <div>
         <Link to={PATH_HOME}>
           <img src={`${S3_IMAGE_BUCKET}/Link+gather_logo-01+1.png`} alt='logo' css={{ width: '5.16vw' }} />
         </Link>
       </div>
 
       {/* Navigation */}
-      <Navigation css={{ marginLeft: '5.94vw', height: '3.54vw' }} />
+      <Navigation css={{ marginLeft: '5.94vw' }} />
 
       {/* Profile */}
       <div
@@ -77,14 +77,10 @@ function Header() {
         }}
       >
         <MenuItem css={{ padding: '0.83vw', width: '8.44vw' }} onClick={() => navigate(PATH_LOGIN)}>
-          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
-            로그인
-          </Typography>
+          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '0.73vw' }}>로그인</Typography>
         </MenuItem>
         <MenuItem css={{ padding: '0.83vw', width: '8.44vw' }} onClick={() => navigate(PATH_SIGNUP)}>
-          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '14px', lineHeight: '20px' }}>
-            회원가입
-          </Typography>
+          <Typography css={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '0.73vw' }}>회원가입</Typography>
         </MenuItem>
       </Menu>
     </header>

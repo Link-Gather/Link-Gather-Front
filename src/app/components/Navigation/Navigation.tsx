@@ -5,6 +5,9 @@ import { PATH_COLLEAGUES, PATH_PROJECTS, PATH_PROJECTS_ADD, PATH_PROJECTS_MANAGE
 
 const MenuItem = styled(MuiMenuItem)({
   padding: '1.3vw 3.07vw 1.25vw 3.07vw',
+  minHeight: 0,
+  height: '100%',
+  maxHeight: '3.54vw',
   fontSize: '0.83vw',
   fontWeight: 700,
   lineHeight: 1.2,
@@ -51,6 +54,7 @@ function Navigation(props: { className?: string }) {
       <MenuItem
         css={(theme) => ({
           backgroundColor: theme.palette.primary.main,
+          height: '3.65vw',
           marginLeft: '6.77vw',
           color: '#FFFFFF',
           borderRight: '2px solid #000',

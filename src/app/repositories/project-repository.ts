@@ -29,7 +29,12 @@ export const projectRepository = {
   }) {
     return httpClient.post('/projects', params);
   },
+
+  async retrieve({ id }: { id: string }) {
+    return httpClient.get<Project>(`/projects/${id}`);
+  },
 };
 
 queryKeyMap.set(projectRepository.list, ['Project']);
 queryKeyMap.set(projectRepository.create, ['Project']);
+queryKeyMap.set(projectRepository.retrieve, ['Project']);

@@ -9,6 +9,7 @@ export const PATH_FORGOT_PASSWORD = '/forgot-password';
 
 // Projects
 export const PATH_PROJECTS = '/projects';
+export const PATH_PROJECTS_DETAIL = '/projects/:id';
 export const PATH_PROJECTS_ADD = `${PATH_PROJECTS}/add`;
 export const PATH_PROJECTS_MANAGE = `${PATH_PROJECTS}/manage`;
 

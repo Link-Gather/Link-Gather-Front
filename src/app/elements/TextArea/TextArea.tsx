@@ -26,7 +26,7 @@ const TextArea = forwardRef(function TextArea(
   // handlers
 
   return (
-    <Stack direction='column'>
+    <Stack direction='column' className={className}>
       {label && <Label id={id} label={label} required={required} />}
       <textarea
         id={id}
@@ -67,7 +67,6 @@ const TextArea = forwardRef(function TextArea(
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={className}
         ref={ref}
         {...rest}
       />

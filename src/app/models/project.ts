@@ -9,6 +9,16 @@ export enum ProjectPurpose {
 
 const purposes = ['improvement', 'business', 'fun', 'study'] as const;
 
+export type MemberType = {
+  id: string;
+  email: string;
+  nickname: string;
+  profileImage: string;
+  provider: Provider;
+  job: JobType;
+  type: RoleType;
+};
+
 export class Project {
   id!: string;
   title!: string;
@@ -25,15 +35,7 @@ export class Project {
     productManager: number;
   };
   bookMarkCount!: number;
-  members!: {
-    id: string;
-    email: string;
-    nickname: string;
-    profileImage: string;
-    provider: Provider;
-    job: JobType;
-    type: RoleType;
-  }[];
+  members!: MemberType[];
 
   static getPurposeOptions(): { label: ProjectPurpose; value: PurposeType }[] {
     return purposes.map((purpose) => ({ label: ProjectPurpose[purpose], value: purpose }));
@@ -95,5 +97,9 @@ export class Project {
       default:
         return undefined as never;
     }
+  }
+
+  static filterMemberJob(members: Project['members'], job: JobType) {
+    return members.filter((member) => member.job === job);
   }
 }

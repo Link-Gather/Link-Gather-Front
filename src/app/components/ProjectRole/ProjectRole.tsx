@@ -1,16 +1,16 @@
 import { Stack } from '@mui/material';
-import { Role, User } from '@models';
+import { MemberType, Role } from '@models';
 import CrownIcon from '@assets/images/icons/icon-crown.svg';
 import { ProfileImage } from '@elements';
 
-function ProjectRole(props: { user: User; role: Role; className?: string }) {
+function ProjectRole(props: { user: MemberType; className?: string }) {
   // prop destruction
-  const { role, user, className } = props;
+  const { user, className } = props;
   // lib hooks
   // state, ref hooks
   // query hooks
   // calculated values
-  const { backgroundColor, formattedJob } = Role.getInfo(role.job);
+  const { backgroundColor, formattedJob } = Role.getInfo(user.job);
   // effects
   // handlers
   return (
@@ -23,7 +23,7 @@ function ProjectRole(props: { user: User; role: Role; className?: string }) {
       {/* TODO: 링크 수정 */}
       <Stack component='a' href={`/user/${user.id}`} css={{ position: 'relative' }}>
         <ProfileImage src={user.profileImage} />
-        {role.type === 'leader' && (
+        {user.type === 'leader' && (
           <CrownIcon css={{ position: 'absolute', bottom: '100%', left: 'calc(50% - 6px)', width: '12px' }} />
         )}
       </Stack>

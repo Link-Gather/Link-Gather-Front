@@ -10,6 +10,7 @@ import {
   ProjectsScreen,
   SignUpSuccessScreen,
   ColleaguesScreen,
+  ProjectDetailScreen,
 } from '@screens';
 import {
   PATH_HOME,
@@ -22,6 +23,7 @@ import {
   PATH_PROJECTS_MANAGE,
   PATH_COLLEAGUES,
   PATH_SIGNUP_SUCCESS,
+  PATH_PROJECTS_DETAIL,
 } from '@routes';
 import { Header } from '@components';
 import { Outlet } from 'react-router';
@@ -64,6 +66,16 @@ function AppRouter() {
           element={
             <Layout componentStyle='contents'>
               <ProjectsScreen />
+            </Layout>
+          }
+        />
+
+        {/* 프로젝트 상세 */}
+        <Route
+          path={PATH_PROJECTS_DETAIL}
+          element={
+            <Layout componentStyle='contents'>
+              <ProjectDetailScreen />
             </Layout>
           }
         />

@@ -27,6 +27,7 @@ function Chip(props: {
           display: 'inline-flex',
           flexDirection: 'row',
           alignItems: 'center',
+          justifyContent: 'center',
           borderRadius: '16px',
           border: '1px solid #000',
         },
@@ -34,7 +35,7 @@ function Chip(props: {
       className={className}
     >
       {startIcon}
-      <span css={{ cursor: onClick ? 'pointer' : undefined }} onClick={onClick}>
+      <span css={{ cursor: onClick ? 'pointer' : undefined, color: 'inherit' }} onClick={onClick}>
         {label}
       </span>
       {endIcon}

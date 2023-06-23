@@ -6,10 +6,8 @@ import { useStacks } from '../../libs/stacks';
 import { useState } from 'react';
 import ArrowDownIcon from '@assets/images/icons/icon-arrow-down.svg';
 import { Theme } from '../../libs/theme';
-
-function filterMemberJob(members: Project['members'], job: JobType) {
-  return members.filter((member) => member.job === job);
-}
+import { useNavigate } from 'react-router-dom';
+import { PATH_PROJECTS } from '../../routes';
 
 //TODO: 프로젝트 상세로 가는 기능 추가
 function ProjectCard(props: { project: Project }) {
@@ -17,6 +15,7 @@ function ProjectCard(props: { project: Project }) {
   const { project } = props;
   // lib hooks
   const stacks = useStacks(project.stacks);
+  const navigate = useNavigate();
   // state, ref hooks
   const [isExpand, setIsExpand] = useState(false);
   // query hooks
@@ -36,8 +35,10 @@ function ProjectCard(props: { project: Project }) {
           boxShadow: '8px 8px 0px #000000;',
           marginTop: '-8px',
           marginLeft: '-8px',
+          cursor: 'pointer',
         },
       }}
+      onClick={() => navigate(`${PATH_PROJECTS}/${project.id}`)}
       spacing='28px'
     >
       <Stack direction='row' justifyContent='space-between'>
@@ -51,7 +52,7 @@ function ProjectCard(props: { project: Project }) {
             css={{ fontSize: '12px', fontWeight: 400, padding: '5px 12px', ...statusStyle }}
           />
         </Stack>
-        <Stack direction='row' spacing='4px' alignItems='center'>
+        <Stack direction='row' spacing='4px' alignItems='center' onClick={(e) => e.stopPropagation()}>
           <HeartIcon
             css={{ width: '20px', cursor: 'pointer' }}
             onClick={() => {
@@ -88,11 +89,11 @@ function ProjectCard(props: { project: Project }) {
           <Stack direction='column' spacing='8px'>
             <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                프론트엔드: {filterMemberJob(project.members, 'frontendDeveloper').length}/
+                프론트엔드: {Project.filterMemberJob(project.members, 'frontendDeveloper').length}/
                 {project.recruitMember.frontendDeveloper}
               </Typography>
               <Stack direction='row'>
-                {filterMemberJob(project.members, 'frontendDeveloper').map((member, i) => (
+                {Project.filterMemberJob(project.members, 'frontendDeveloper').map((member, i) => (
                   <ProfileImage
                     key={member.id}
                     src={member.profileImage}
@@ -104,11 +105,11 @@ function ProjectCard(props: { project: Project }) {
 
             <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                백엔드: {filterMemberJob(project.members, 'backendDeveloper').length}/
+                백엔드: {Project.filterMemberJob(project.members, 'backendDeveloper').length}/
                 {project.recruitMember.backendDeveloper}
               </Typography>
               <Stack direction='row'>
-                {filterMemberJob(project.members, 'backendDeveloper').map((member, i) => (
+                {Project.filterMemberJob(project.members, 'backendDeveloper').map((member, i) => (
                   <ProfileImage
                     key={member.id}
                     src={member.profileImage}
@@ -121,10 +122,11 @@ function ProjectCard(props: { project: Project }) {
           <Stack direction='column' spacing='8px'>
             <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                기획: {filterMemberJob(project.members, 'productManager').length}/{project.recruitMember.productManager}
+                기획: {Project.filterMemberJob(project.members, 'productManager').length}/
+                {project.recruitMember.productManager}
               </Typography>
               <Stack direction='row'>
-                {filterMemberJob(project.members, 'productManager').map((member, i) => (
+                {Project.filterMemberJob(project.members, 'productManager').map((member, i) => (
                   <ProfileImage
                     key={member.id}
                     src={member.profileImage}
@@ -135,10 +137,10 @@ function ProjectCard(props: { project: Project }) {
             </Stack>
             <Stack direction='row' css={{ width: '150px', alignItems: 'center' }} spacing='8px'>
               <Typography variant='body2' css={{}}>
-                디자인: {filterMemberJob(project.members, 'designer').length}/{project.recruitMember.designer}
+                디자인: {Project.filterMemberJob(project.members, 'designer').length}/{project.recruitMember.designer}
               </Typography>
               <Stack direction='row'>
-                {filterMemberJob(project.members, 'designer').map((member, i) => (
+                {Project.filterMemberJob(project.members, 'designer').map((member, i) => (
                   <ProfileImage
                     key={member.id}
                     src={member.profileImage}

@@ -1,12 +1,13 @@
 import type { User } from '@models';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Divider, IconButton, Menu, MenuItem as MuiMenuItem, Stack, Typography as MuiTypography } from '@mui/material';
+import { IconButton, Menu, MenuItem as MuiMenuItem, Stack, Typography as MuiTypography } from '@mui/material';
 import MemberProfileIcon from '@assets/images/icons/icon-member-profile.svg';
 import NoMemberProfileIcon from '@assets/images/icons/icon-no-member-profile.svg';
 import LogoutIcon from '@assets/images/icons/icon-logout.svg';
 import { PATH_LOGIN, PATH_SIGNUP } from '@routes';
 import styled from '@emotion/styled';
+import { useSignOut } from '@libs/auth';
 
 const MenuItem = styled(MuiMenuItem)({
   padding: '0.83vw',
@@ -26,6 +27,7 @@ function ProfileMenu(props: { user?: User }) {
 
   // lib hooks
   const navigate = useNavigate();
+  const signOut = useSignOut();
 
   // state, ref, querystring hooks
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -95,7 +97,7 @@ function ProfileMenu(props: { user?: User }) {
             <MenuItem onClick={() => navigate(PATH_SIGNUP)}>
               <Typography>참여 현황</Typography>
             </MenuItem>
-            <MenuItem onClick={() => navigate(PATH_SIGNUP)}>
+            <MenuItem onClick={signOut}>
               <Stack direction='row' spacing='8px'>
                 <LogoutIcon css={{ width: '20px', height: '20px' }} />
                 <Typography>로그아웃</Typography>

@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { User } from '@models';
-import { getToken } from '../util';
+import { getToken, removeToken } from '../util';
 import { httpClient } from '../http-client';
 
 const loadToken = (token: string) => {
@@ -120,6 +120,14 @@ export const useOauth = (): [
   );
 
   return [handleOauth];
+};
+
+export const useSignOut = () => {
+  const { setUser } = useContext(AuthContext);
+
+  return useCallback(() => {
+    removeToken().then(() => setUser(undefined));
+  }, [setUser]);
 };
 
 export { AuthProvider };

@@ -1,8 +1,10 @@
+import { load } from 'react-cookies';
+
 export const getToken = () => {
-  return localStorage.getItem('token') || '';
+  return load('accessToken') ? load('accessToken').split(' ')[1] : '';
 };
 
 export const isToken = () => {
-  const token = localStorage.getItem('token');
+  const token = load('accessToken');
   return !!token;
 };

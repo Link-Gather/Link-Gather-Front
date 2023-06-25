@@ -21,14 +21,12 @@ const AuthContext = createContext<{ getUser(): User | undefined; setUser(user?: 
   setUser() {},
 });
 
-function AuthProvider(props: { children?: ReactNode }) {
+function AuthProvider({ user: initialUser, children }: { user?: User; children?: ReactNode }) {
   // prop destruction
-  const { children } = props;
-
   // lib hooks
   // state, ref, querystring hooks
-  const [user, setUser] = useState<User>();
-  const [initialized, setInitialized] = useState(false);
+  const [user, setUser] = useState<User | undefined>(initialUser);
+  const [initialized, setInitialized] = useState(!!initialUser);
 
   // form hooks
   // query hooks
@@ -38,9 +36,11 @@ function AuthProvider(props: { children?: ReactNode }) {
       getUser() {
         return user;
       },
-      setUser,
+      setUser(user?: User) {
+        setUser(user);
+      },
     };
-  }, [user]);
+  }, [user, setUser]);
 
   // effects
   useEffect(() => {
@@ -87,11 +87,6 @@ export const useUser = <T extends boolean = false>(options?: {
 }): T extends false ? [User, (user: User) => void] : [User | undefined, (user: User) => void] => {
   const { getUser, setUser } = useContext(AuthContext);
   const user = getUser();
-  const canBeUnauthenticated = options?.canBeUnauthenticated ?? false;
-
-  if (!user && !canBeUnauthenticated) {
-    throw new Error('Not authenticated');
-  }
 
   return [user!, setUser];
 };

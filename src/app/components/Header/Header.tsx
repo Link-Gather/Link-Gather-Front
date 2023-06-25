@@ -5,13 +5,14 @@ import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { Navigation } from '../Navigation';
 import { useState } from 'react';
 import { PATH_HOME, PATH_LOGIN, PATH_SIGNUP } from '@routes';
-import { isToken } from '@libs/util';
 import { S3_IMAGE_BUCKET } from '@configs';
+import { useUser } from '@libs/auth';
 
 function Header() {
   // prop destruction
   // lib hooks
   const navigate = useNavigate();
+  const [user] = useUser();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   // state, ref, querystring hooks
@@ -49,7 +50,7 @@ function Header() {
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
         <IconButton disableRipple css={{ padding: '0', height: '2.6vw', width: '2.6vw' }}>
-          {isToken() ? (
+          {user ? (
             <MemberProfileIcon css={{ height: '2.6vw', width: '2.6vw' }} />
           ) : (
             <NoMemberProfileIcon css={{ height: '2.6vw', width: '2.6vw' }} />
